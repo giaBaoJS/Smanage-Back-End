@@ -44,10 +44,7 @@
 								Chúng tôi sẽ trở lại trong thời gian sớm nhất
 							</h5> --}}
 							<div class="mt-5">
-								<a
-									class="btn waves-effect waves-light bg-second-cl main-cl font-weight-bold"
-									href="/admin"
-									>Trở về trang đăng nhập</a
+								<a onclick="backHome()" class="btn waves-effect waves-light bg-second-cl main-cl font-weight-bold">Trở về trang đăng nhập</a
 								>
 							</div>
 						</div>
@@ -67,6 +64,7 @@
 
 		<script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
 
-		<script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
+        <script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
+        <script src="{{asset('BackEnd/assets/js')}}/login-cms.js"></script>
 	</body>
 </html>

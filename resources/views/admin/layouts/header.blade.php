@@ -135,8 +135,9 @@
                         src="{{asset('BackEnd/assets/images')}}/users/avatar-1.jpg"
                         alt="Header Avatar"
                     />
+                    <img src="{{asset('BackEnd/assets/images')}}/checked.png" alt="" width="20px">
                     <span class="d-none d-sm-inline-block ml-1"
-            >{{session('account')->name}}</span
+                    >{{session('account')->name}}</span
                     >
                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                 </button>

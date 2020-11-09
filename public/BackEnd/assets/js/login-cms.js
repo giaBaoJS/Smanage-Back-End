@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    $.ajax({
+        url: 'http://127.0.0.1:8000/api/admin/setpremium',
+        type: 'get',
+    }).done(function(ketqua) {
+        console.log(ketqua,'ưewe');
+    });
+})
 $("#buttonLogin").click(function () {
     email = $("#email").val();
     password = $("#password").val();
@@ -266,7 +274,6 @@ function addUser() {
         type: 'get',
         data: form,
     }).done(function(ketqua) {
-        console.log(ketqua);
         if (ketqua == 1) {
             alertify.error('Email đã đăng ký. Vui lòng chọn lại Email');
         } else {
@@ -276,5 +283,13 @@ function addUser() {
               };
               setTimeout (loadpage, 800);
         }
+    });
+}
+function backHome() {
+    $.ajax({
+        url: 'http://127.0.0.1:8000/api/admin/rtlogin',
+        type: 'get',
+    }).done(function(ketqua) {
+        window.location.href = "/admin";
     });
 }

@@ -5,7 +5,9 @@ use App\UserTable;
 use App\contact;
 use App\couponTable;
 use App\doitacTable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Mail;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +92,30 @@ class apiDashboard extends Controller
             ];
             UserTable::create($data);
             return 0;
+        }
+    }
+    public function returnLogin(Request $request)
+    {
+        Auth::logout();
+        $request->session('account')->flush();
+        $email = Cookie::forget('email');
+        $password = Cookie::forget('password');
+        return response()->json([
+            "message"=>"logout"
+        ],201)->withCookie($email)->withCookie($password);
+    }
+    public function setPremium()
+    {
+        if (session('account')) {
+            $dayEnd = strtotime( Carbon::now());
+            $dayStart =strtotime(session('account')->created_at);
+            $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
+            if ($dayDiff>=7) {
+                $user=UserTable::find(session('account')->id_user);
+                $user->active=0;
+                $user->created_at=session('account')->created_at;
+                $user->save();
+            }
         }
     }
 }

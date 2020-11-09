@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Session;
+use Carbon\Carbon;
 class CheckAdmins
 {
     /**
@@ -15,16 +16,22 @@ class CheckAdmins
      */
     public function handle($request, Closure $next)
     {
+        $dayEnd = strtotime( Carbon::now());
+        $dayStart =strtotime(session('account')->created_at);
+        $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
         if(session('account')){
-            if (session('account')->active==0) {
-                return redirect('/admin/loiactive');
+            if (session('account')->role==0) {
+                return redirect('/');
             }else{
-                if (session('account')->role==0) {
-                    return redirect('/');
-                }else{
+                if (session('account')->active==2) {
                     return $next($request);
+                }else if (session('account')->active==1 && $dayDiff<7) {
+                    return $next($request);
+                }else{
+                    return redirect('/admin/loiactive');
                 }
             }
+
         }else{
             return redirect('/admin');
         }

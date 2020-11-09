@@ -105,11 +105,8 @@ class dashboardController extends Controller
     }
     public function errorActive(Request $request)
     {
-        Auth::logout();
-        $request->session('account')->flush();
-        $emailLock = Cookie::forget('emailLock');
-        $nameLock = Cookie::forget('nameLock');
-        return view('admin/page/error-noactive')->withCookie($emailLock)->withCookie($nameLock);
+
+        return view('admin/page/error-noactive');
     }
 
     // Page404 ---------------------------------->

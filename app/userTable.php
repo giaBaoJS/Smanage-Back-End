@@ -18,9 +18,9 @@ class UserTable extends Authenticatable
     protected $table='user';
     protected $primaryKey = 'id_user';
     protected $fillable = [
-        'name', 'email', 'password','phone','address','url_avatar','gender','role','id_doitac','active'
+        'name', 'email', 'password','phone','address','url_avatar','gender','role','id_doitac','active','created_at','updated_at'
     ];
-    // public $timestamps=false;
+    public $timestamps = FALSE;
     /**
      * The attributes that should be hidden for arrays.
      *
