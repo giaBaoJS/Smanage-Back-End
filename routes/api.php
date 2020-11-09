@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::GET('admin/add-account','apiDashboard@addAccount');
+Route::GET('admin/loginlock','apiDashboard@loginLock');
+Route::GET('admin/delcontact/{id}','apiDashboard@deleteContact');
+Route::GET('admin/onecounpon/{id}','apiDashboard@oneCounpon');
+
+Route::GET('admin/doitac','apiDashboard@doiTac');
+
+Route::GET('admin/adduser','apiDashboard@addUser');

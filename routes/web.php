@@ -16,67 +16,67 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
-
-
-
 // trang admin --------------------
-
 Route::get('admin','dashboardController@login');
-Route::get('admin/dashboard','dashboardController@index');
-
+Route::get('admin/loginCms','dashboardController@loginCms');
+Route::get('admin/register','dashboardController@register');
+Route::get('admin/logout','dashboardController@logout');
+Route::get('admin/dashboard','dashboardController@index')->middleware('CheckAdmins');
+Route::get('admin/loitruycap','dashboardController@errorTruycap');
+Route::get('admin/loiactive','dashboardController@errorActive');
+Route::get('admin/recoverpw','dashboardController@recoverpw');
+Route::get('admin/lockscreen','dashboardController@lockScreen');
 // Trang contact --------------------
 
-Route::get('admin/contact','dashboardController@contactTable');
+Route::get('admin/contact','dashboardController@contactTable')->middleware('CheckRole');
 
 // Trang contact --------------------
-
+// ---------------------------------><---------------------------------
 // Trang coupon --------------------
 
-Route::get('admin/coupon','dashboardController@couponTable');
-Route::get('admin/coupon/add','dashboardController@couponAdd');
+Route::get('admin/coupon','dashboardController@couponTable')->middleware('CheckAdmins');
+Route::get('admin/coupon/add','dashboardController@couponAdd')->middleware('CheckAdmins');
 
 // Trang coupon --------------------
-
+// ---------------------------------><---------------------------------
 // Trang user --------------------
 
-Route::get('admin/user','dashboardController@userTable');
+Route::get('admin/user','dashboardController@userTable')->middleware('CheckRole');
+Route::get('admin/add-user','dashboardController@addUser')->middleware('CheckRole');
 
 // Trang user --------------------
-
+// ---------------------------------><---------------------------------
 // Trang mien --------------------
 
-Route::get('admin/mien','dashboardController@mienTable');
-Route::get('admin/mien/add','dashboardController@mienAdd');
+Route::get('admin/mien','dashboardController@mienTable')->middleware('CheckRole');
+Route::get('admin/mien/add','dashboardController@mienAdd')->middleware('CheckRole');
 
 // Trang mien --------------------
-
+// ---------------------------------><---------------------------------
 // Trang tinhthanh --------------------
 
-Route::get('admin/tinhthanh','dashboardController@tinhthanhTable');
-Route::get('admin/tinhthanh/add','dashboardController@tinhthanhAdd');
+Route::get('admin/tinhthanh','dashboardController@tinhthanhTable')->middleware('CheckRole');
+Route::get('admin/tinhthanh/add','dashboardController@tinhthanhAdd')->middleware('CheckRole');
 
 // Trang tinhthanh --------------------
-
+// ---------------------------------><---------------------------------
 // Trang tours --------------------
 
-Route::get('admin/tours','dashboardController@toursTable');
-Route::get('admin/tours/add','dashboardController@toursAdd');
+Route::get('admin/tours','dashboardController@toursTable')->middleware('CheckAdmins');
+Route::get('admin/tours/add','dashboardController@toursAdd')->middleware('CheckAdmins');
 
 // Trang tours --------------------
-
+// ---------------------------------><---------------------------------
 // Trang bill --------------------
 
-Route::get('admin/bill','dashboardController@billTable');
+Route::get('admin/bill','dashboardController@billTable')->middleware('CheckRole');
 
 // Trang bill --------------------
-
+// ---------------------------------><---------------------------------
 // Trang news --------------------
 
-Route::get('admin/news','dashboardController@newsTable');
-Route::get('admin/news/add','dashboardController@newsAdd');
+Route::get('admin/news','dashboardController@newsTable')->middleware('CheckRole');
+Route::get('admin/news/add','dashboardController@newsAdd')->middleware('CheckRole');
 
 // Trang news --------------------
 

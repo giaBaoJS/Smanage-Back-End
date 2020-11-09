@@ -30,25 +30,53 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Tên</th>
-                                        <th scope="col">Tài khoản</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Số điện thoại</th>
                                         <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Chức năng</th>
+                                        <th scope="col">Tên Đối Tác</th>
+                                        <th scope="col">Hoạt động</th>
                                         <th scope="col">Avatar</th>
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($showUser as $t)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#"># XO1345</a>
+                                        <a href="#">#{{$t->id_user}}</a>
                                         </th>
-                                        <td>Kim Bảo đẹp trai</td>
-                                        <td>kimbao2020</td>
-                                        <td>kimbao@yahoo.com</td>
-                                        <td>0909123123</td>
-                                        <td>Kim bảo đẹp trai</td>
-                                        <td>URL avatar</td>
+                                        <td>{{$t->name}}</td>
+                                        <td>{{$t->email}}</td>
+                                        <td>{{$t->phone}}</td>
+                                        <td>{{$t->address}}</td>
+                                        <td>
+                                            <?php
+                                                if ($t->role==2) {
+                                                    echo 'admin';
+                                                } elseif ($t->role==1) {
+                                                    echo 'Đối tác';
+                                                }else {
+                                                    echo 'Người dùng';
+                                                }
+                                            ?>
+                                        </td>
+                                        <td>
+                                          <?php
+                                                if ($t->role==1) {
+                                                    $showName=DB::table('doitac')->where('id_doitac','=',$t->id_doitac)->first();
+                                                    echo $showName->name;
+                                                }else {
+                                                    echo '';
+                                                }
+                                          ?>
+                                        </td>
+                                        <td>@if ($t->active==1)
+                                            <span class="badge badge-success">Đã kích hoạt</span>
+                                        @else
+                                            <button class="badge badge-danger" style="border: none">Chưa kích hoạt</button>
+                                        @endif</td>
+                                        <td>{{$t->url_avatar}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button
@@ -70,6 +98,7 @@
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
                                                 <button
+                                                onclick="deleteUser({{$t->id_user}},{{session('account')->id_user}},{{$t->role}})"
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
@@ -81,6 +110,8 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

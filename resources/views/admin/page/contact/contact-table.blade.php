@@ -31,30 +31,29 @@
                                         <th scope="col">Ngày</th>
                                         <th scope="col">Tên</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Số điện thoại</th>
                                         <th scope="col">Nội dung</th>
-                                        <th scope="col">Trạng thái</th>
+                                        {{-- <th scope="col">Trạng thái</th> --}}
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($ShowContact as $t)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#"># XO1345</a>
+                                        <a href="#"># {{$t->id_contact}}</a>
                                         </th>
-                                        <td>20/02/2020</td>
-                                        <td>Kim Bảo đẹp trai</td>
-                                        <td>kimbao@yahoo.com</td>
-                                        <td>0909123123</td>
-                                        <td>Kim bảo đẹp trai</td>
-                                        <td>
+                                        <td>{{$t->created_at}}</td>
+                                        <td>{{$t->name}}</td>
+                                        <td>{{$t->email}}</td>
+                                        <td>{{$t->content}}</td>
+                                        {{-- <td>
                                             <div class="badge badge-soft-primary">
                                                 Đã xác nhận
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button
+                                                {{-- <button
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
@@ -71,19 +70,22 @@
                                                     title="Edit"
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
-                                                </button>
+                                                </button> --}}
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Delete"
+                                                    onclick="deleteContact({{$t->id_contact}})"
                                                 >
                                                     <i class="mdi mdi-trash-can"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

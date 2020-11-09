@@ -11,6 +11,7 @@
 </div>
 @endsection
 @section('content')
+@if (session('account')->role==1)
 <div class="page-content-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -1460,5 +1461,35 @@
     </div>
     <!-- end container-fluid -->
 </div>
+
+@else
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Content bên trái -->
+            <div class="col-xl-4">
+
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <div class="float-right ml-2">
+                            <a href="#">Xem tất cả</a>
+                        </div> -->
+                        <h4>Chào mừng bạn đến với trang quản trị Đối tác</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container-fluid -->
+</div>
+@endif
+
 
 @endsection

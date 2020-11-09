@@ -136,7 +136,7 @@
                         alt="Header Avatar"
                     />
                     <span class="d-none d-sm-inline-block ml-1"
-                        >Kim Bảo Đẹp Trai</span
+            >{{session('account')->name}}</span
                     >
                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                 </button>
@@ -160,12 +160,12 @@
                         ></i>
                         Cài đặt</a
                     >
-                    <a class="dropdown-item" href="#"
+                    <a class="dropdown-item" href="/admin/lockscreen"
                         ><i class="mdi mdi-lock font-size-16 align-middle mr-1"></i>
                         Khóa màn hình</a
                     >
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"
+                    <a class="dropdown-item" href="/admin/logout"
                         ><i class="mdi mdi-logout font-size-16 align-middle mr-1"></i>
                         Đăng xuất</a
                     >

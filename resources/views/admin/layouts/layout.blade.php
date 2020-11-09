@@ -91,6 +91,9 @@
 		<script src="{{asset('BackEnd/assets/libs/jquery-knob')}}/jquery.knob.min.js"></script>
         <script src="{{asset('BackEnd/assets/libs/tinymce')}}/tinymce.min.js"></script>
 		<!-- MAIN JS -->
-		<script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
+        <script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
+        <script src="{{asset('BackEnd/assets/libs/sweetalert2')}}/sweetalert2.min.js"></script>
+        <script src="{{asset('BackEnd/assets/js')}}/login-cms.js"></script>
+        <script src="{{asset('BackEnd/assets/libs/alertifyjs/build')}}/alertify.min.js"></script>
 	</body>
 </html>
