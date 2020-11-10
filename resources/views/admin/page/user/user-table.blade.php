@@ -36,7 +36,7 @@
                                         <th scope="col">Chức năng</th>
                                         <th scope="col">Tên Đối Tác</th>
                                         <th scope="col">Hoạt động</th>
-                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Ngày kích hoạt</th>
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
@@ -71,12 +71,19 @@
                                                 }
                                           ?>
                                         </td>
-                                        <td>@if ($t->active==1)
+                                        <td>
+                                            @if ($t->active==2)
                                             <span class="badge badge-success">Đã kích hoạt</span>
-                                        @else
+                                            @endif
+                                            @if ($t->active==1)
+                                            <span class="badge badge-warning">Đang dùng thử</span>
+                                            @endif
+                                            @if ($t->active==0)
                                             <button class="badge badge-danger" style="border: none">Chưa kích hoạt</button>
-                                        @endif</td>
-                                        <td>{{$t->url_avatar}}</td>
+                                            @endif
+
+                                        </td>
+                                        <td>{{date($t->created_at)}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button

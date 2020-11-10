@@ -22,13 +22,16 @@
                             Tạo coupon tạo ưu đãi cho người dùng
                         </p>
 
-                        <form class="custom-validation" action="#">
+                        <form class="custom-validation" action="/admin/addcoupon" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label>Mã Coupon</label>
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="D20"
+                                    placeholder="Mã Coupon"
+                                    id="code_coupon"
+                                    name="code_coupon"
                                     required
                                 />
                             </div>
@@ -40,9 +43,10 @@
                                         type="text"
                                         id="coupon-value"
                                         class="form-control"
+                                        name="price"
                                         required
                                         parsley-type="email"
-                                        placeholder="20%"
+                                        placeholder="1% - 50%"
                                     />
                                 </div>
                             </div>
@@ -52,29 +56,32 @@
                                 <div>
                                     <input
                                         class="form-control datepicker-here"
-                                        placeholder="01/10/2020 - 10/10/2020"
+                                        placeholder="Ngày bắt đầu - Ngày kết thúc"
                                         id="coupon-time"
                                         data-range="true"
+                                        name="date_start"
                                         data-multiple-dates-separator=" - "
                                         data-language="vi"
                                         required
                                     />
                                 </div>
                             </div>
-
+                        <input type="hidden" name="id_user" id="id_user" value="{{session('account')->id_user}}">
+                        <input type="hidden" name="id_doitac" id="id_doitac" value="{{session('account')->id_doitac}}">
                             <div class="form-group">
                                 <label>Số lượng</label>
                                 <div>
                                     <input
                                         data-parsley-type="number"
-                                        type="text"
+                                        type="number"
                                         class="form-control"
                                         required
+                                        name="quantity"
                                         placeholder="Nhấp số lượng của coupon"
                                     />
                                 </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Nhà cung cấp</label>
                                 <select class="custom-select" required>
                                     <option value="">Open this select State</option>
@@ -82,7 +89,7 @@
                                     <option value="2">Nevada</option>
                                     <option value="3">Montana</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="form-group mb-0">
                                 <div>
                                     <button

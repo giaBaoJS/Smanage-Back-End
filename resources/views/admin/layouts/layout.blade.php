@@ -7,7 +7,7 @@
 		<meta content="Golden Tours CMS" name="description" />
 		<meta content="Golden Tours Team" name="author" />
 		<!-- App favicon -->
-		<link rel="shortcut icon" href="{{asset('BackEnd/assets/images')}}/logo-den.png" />
+		<link rel="shortcut icon" href="{{asset('BackEnd/assets/images')}}/user.png" />
 
 		<!-- chartist chart css -->
 		<link href="{{asset('BackEnd/assets/libs/chartist')}}/chartist.min.css" rel="stylesheet" />

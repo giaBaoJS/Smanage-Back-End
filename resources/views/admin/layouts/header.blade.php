@@ -132,13 +132,15 @@
                 >
                     <img
                         class="rounded-circle header-profile-user"
-                        src="{{asset('BackEnd/assets/images')}}/users/avatar-1.jpg"
+            src="{{asset('BackEnd/assets/images')}}/{{session('account')->url_avatar}}"
                         alt="Header Avatar"
                     />
-                    <img src="{{asset('BackEnd/assets/images')}}/checked.png" alt="" width="20px">
                     <span class="d-none d-sm-inline-block ml-1"
                     >{{session('account')->name}}</span
                     >
+                    @if (session('account')->active==2)
+                    <img src="{{asset('BackEnd/assets/images')}}/checked.png" alt="" width="20px">
+                    @endif
                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">

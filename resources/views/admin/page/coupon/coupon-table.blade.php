@@ -36,6 +36,7 @@
                                     <th scope="col">Giá trị</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Trạng thái</th>
+                                    <th scope="col">Action</th>
                                     <th scope="col">Hành vi</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,17 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($t->status==1)
+                                        <button class="btn btn-danger btn-sm waves-effect waves-light" style="padding: 2px">
+                                            Hủy
+                                        </button>
+                                        @else
+                                        <button class="btn btn-success btn-sm waves-effect waves-light" style="padding: 2px">
+                                            Kích hoạt
+                                        </button>
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div class="btn-group" role="group">
                                             <button
                                             onclick="oneCoupon({{$t->id_coupon}})"
@@ -84,7 +96,7 @@
                                             >
                                                 <i class="mdi mdi-pencil"></i>
                                             </button>
-                                            @if (session('account')->role!=2)
+                                            @if (session('account')->role!=1)
                                             <button
                                             type="button"
                                             class="btn btn-outline-secondary btn-sm active-delete"
@@ -146,7 +158,6 @@
                                     <th scope="col">Giá trị</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Trạng thái</th>
-                                    <th scope="col">Action</th>
                                     <th scope="col">Hành vi</th>
                                 </tr>
                             </thead>
@@ -174,17 +185,6 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($t->status==1)
-                                        <button class="btn btn-danger btn-sm waves-effect waves-light" style="padding: 2px">
-                                            Hủy
-                                        </button>
-                                        @else
-                                        <button class="btn btn-success btn-sm waves-effect waves-light" style="padding: 2px">
-                                            Kích hoạt
-                                        </button>
-                                        @endif
-                                    </td>
-                                    <td>
                                         <div class="btn-group" role="group">
                                             <button
                                             onclick="oneCoupon({{$t->id_coupon}})"
@@ -197,38 +197,6 @@
                                             >
                                             <i class="mdi mdi-eye"></i>
                                             </button>
-                                            <button
-                                                type="button"
-                                                class="btn btn-outline-secondary btn-sm"
-                                                data-toggle="tooltip"
-                                                data-placement="top"
-                                                title="Edit"
-                                            >
-                                                <i class="mdi mdi-pencil"></i>
-                                            </button>
-                                            @if (session('account')->role!=2)
-                                            <button
-                                            type="button"
-                                            class="btn btn-outline-secondary btn-sm active-delete"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Delete"
-                                            onclick="deleteCoupon({{$t->id_coupon}},{{session('account')->role}})"
-                                        >
-                                            <i class="mdi mdi-trash-can"></i>
-                                        </button>
-                                            @else
-                                            <button
-                                            type="button"
-                                            class="btn btn-outline-secondary btn-sm"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Delete"
-                                            onclick="deleteCoupon({{$t->id_coupon}},{{session('account')->role}})"
-                                        >
-                                            <i class="mdi mdi-trash-can"></i>
-                                            @endif
-
                                         </div>
                                     </td>
                                 </tr>

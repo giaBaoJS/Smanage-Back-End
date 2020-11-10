@@ -9,6 +9,6 @@ class couponTable extends Model
     protected $table='coupon';
     protected $primaryKey = 'id_coupon';
     protected $fillable = [
-        'code_coupon', 'status', 'id_user','price','quantity','date_start','date_end'
+        'code_coupon', 'status', 'id_user','id_doitac','price','quantity','date_start',
     ];
 }

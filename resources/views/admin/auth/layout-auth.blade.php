@@ -35,7 +35,7 @@
 					<div class="col-lg-12">
 						<div class="text-center mb-5">
 							<a href="index.html" class="logo"
-								><img src="{{asset('BackEnd/assets/images')}}/logo-trang.png" height="60" alt="logo"
+								><img src="{{asset('BackEnd/assets/images')}}/logo-chu-den.png" height="90" alt="logo"
 							/></a>
 							<h5 class="font-size-16 text-white-50 mb-4">
 								Quản lý tours với hệ thống thông minh

@@ -141,6 +141,20 @@ class dashboardController extends Controller
     {
         return view('admin/page/coupon/coupon-add');
     }
+    public function addCoupon(Request $request)
+    {
+        $data = array(
+            'id_user' => $request->id_user,
+            'id_doitac' => $request->id_doitac,
+            'code_coupon' => $request->code_coupon,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'date_start' => $request->date_start,
+
+        );
+        couponTable::create($data);
+        return redirect('/admin/coupon');
+    }
 
     // coupon table ---------------------------------->
 
