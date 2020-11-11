@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $.ajax({
         url: 'http://127.0.0.1:8000/api/admin/setpremium',
@@ -149,7 +150,7 @@ function oneCoupon(id) {
 
             }
             $('.modal-body').html(
-                '<div><p><span>ID: </span># '+params.id_coupon+'</p></div><div><p><span>Nhà cung cấp: </span> '+params.name+'</p></div><div><p><span>Mã Coupon: </span> '+params.code_coupon+'</p></div><div><p><span>Ngày bắt đầu: </span> '+params.date_start+'</p></div><div><p><span>Ngày kết thúc: </span> '+params.date_end+'</p></div><div><p><span>Giá trị: </span> '+params.price+'%</p></div><div><p><span>Số lượng: </span> '+params.quantity+'</p></div><div><p><span>Trạng thái: </span>'+button+'</p></div>'
+                '<div><p><span>ID: </span># '+params.id_coupon+'</p></div><div><p><span>Nhà cung cấp: </span> '+params.name+'</p></div><div><p><span>Mã Coupon: </span> '+params.code_coupon+'</p></div><div><p><span>Ngày bắt đầu - Kết thúc: </span> '+params.date_start+'</p></div><div><p><span>Giá trị: </span> '+params.price+'%</p></div><div><p><span>Số lượng: </span> '+params.quantity+'</p></div><div><p><span>Trạng thái: </span>'+button+'</p></div>'
                 )
         }
    })
@@ -285,6 +286,7 @@ function addUser() {
         }
     });
 }
+
 function backHome() {
     $.ajax({
         url: 'http://127.0.0.1:8000/api/admin/rtlogin',
@@ -293,3 +295,29 @@ function backHome() {
         window.location.href = "/admin";
     });
 }
+// delete coupon--------------------------
+
+function deleteCoupon(id){
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn xóa Coupon này không?',
+        text: "Nhấp OK để xóa!",
+        icon: 'warning',
+        showCancelButton: !0,
+        confirmButtonColor: '#3ddc97',
+        cancelButtonColor: '#f46a6a',
+        confirmButtonText: 'OK !',
+    }).then(function (t) {
+        t.value &&
+           $.ajax({
+                url: 'http://127.0.0.1:8000/api/admin/delcoupon/'+id,
+                success:function (params) {
+                    if (params==1) {
+                        alertify.success('Xóa coupon thành công !');
+                        window.location.href = "/admin/coupon";
+                    }
+                }
+           })
+    });
+}
+
+// delete coupon--------------------------

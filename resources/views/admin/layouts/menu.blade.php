@@ -187,14 +187,6 @@
                                 <span>Danh sách coupon</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/coupon/add" class="waves-effect">
-                                <div class="d-inline-block icons-sm mr-1">
-                                    <i class="uim uim-airplay"></i>
-                                </div>
-                                <span>Thêm coupon</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 

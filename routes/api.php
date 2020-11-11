@@ -27,3 +27,9 @@ Route::GET('admin/doitac','apiDashboard@doiTac');
 Route::GET('admin/adduser','apiDashboard@addUser');
 Route::GET('admin/rtlogin','apiDashboard@returnLogin');
 Route::GET('admin/setpremium','apiDashboard@setPremium');
+
+// -----------------coupon---------------
+
+Route::GET('admin/activecoupon','apiDashboard@activeCoupon');
+Route::GET('admin/delcoupon/{id}','apiDashboard@delCoupon');
+// -----------------coupon---------------

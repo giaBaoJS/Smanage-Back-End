@@ -131,16 +131,45 @@ class dashboardController extends Controller
     public function couponTable()
     {
 
-        $showCouponDoiTac=couponTable::join('doitac', 'coupon.id_doitac', '=', 'doitac.id_doitac')->get();
+        $showCouponDoiTac=couponTable::join('doitac', 'coupon.id_doitac', '=', 'doitac.id_doitac')->where('coupon.id_doitac','=',session('account')->id_doitac)->get();
         $showCoupon=couponTable::join('user', 'coupon.id_user', '=', 'user.id_user')->get();
         return view('admin/page/coupon/coupon-table',['showCoupon'=>$showCoupon,'showCouponDoiTac'=>$showCouponDoiTac]);
     }
-
+    public function editFormCoupon($id)
+    {
+        $showCouponOne=couponTable::find($id);
+        return view('admin/page/coupon/coupon-edit',['showCouponOne'=>$showCouponOne]);
+    }
+    public function activeCoupon(Request $request,$id)
+    {
+        $coupon=couponTable::find($id);
+        $coupon->status=1;
+        $coupon->save();
+        return redirect('/admin/coupon');
+    }
+    public function editCoupon(Request $request,$id)
+    {
+        $coupon=couponTable::find($id);
+        $coupon->code_coupon=$request->code_coupon;
+        $coupon->price=$request->price;
+        $coupon->date_start=$request->date_start;
+        $coupon->quantity=$request->quantity;
+        $coupon->save();
+        return redirect('/admin/coupon');
+    }
+    public function delCoupon(Request $request,$id)
+    {
+        $coupon=couponTable::find($id);
+        $coupon->status=0;
+        $coupon->save();
+        return redirect('/admin/coupon');
+    }
 
     public function couponAdd()
     {
         return view('admin/page/coupon/coupon-add');
     }
+
     public function addCoupon(Request $request)
     {
         $data = array(

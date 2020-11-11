@@ -118,6 +118,15 @@ class apiDashboard extends Controller
             }
         }
     }
+    // coupon -----------------
+
+    public function delCoupon($id)
+    {
+        couponTable::find($id)->delete();
+        return 1;
+    }
+
+    // coupon -----------------
 }
 
 

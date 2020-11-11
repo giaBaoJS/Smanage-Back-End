@@ -37,6 +37,10 @@ Route::get('admin/contact','dashboardController@contactTable')->middleware('Chec
 Route::get('admin/coupon','dashboardController@couponTable')->middleware('CheckAdmins');
 Route::get('admin/coupon/add','dashboardController@couponAdd')->middleware('CheckAdmins');
 Route::post('admin/addcoupon','dashboardController@addCoupon')->middleware('CheckAdmins');
+Route::get('admin/activecoupon/{id}','dashboardController@activeCoupon')->middleware('CheckAdmins');
+Route::get('admin/delcoupon/{id}','dashboardController@delCoupon')->middleware('CheckAdmins');
+Route::get('admin/formeditcoupon/{id}','dashboardController@editFormCoupon')->middleware('CheckAdmins');
+Route::post('admin/editcoupon/{id}','dashboardController@editCoupon')->middleware('CheckAdmins');
 
 // Trang coupon --------------------
 // ---------------------------------><---------------------------------

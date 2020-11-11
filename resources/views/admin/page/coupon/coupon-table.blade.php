@@ -32,7 +32,6 @@
                                     <th scope="col">Nhà cung cấp</th>
                                     <th scope="col">Mã Coupon</th>
                                     <th scope="col">Ngày bắt đầu</th>
-                                    <th scope="col">Ngày kết thúc</th>
                                     <th scope="col">Giá trị</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Trạng thái</th>
@@ -40,16 +39,18 @@
                                     <th scope="col">Hành vi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="trCoupon">
+                                @php
+                                    $i=1;
+                                @endphp
                                 @foreach ($showCouponDoiTac as $t)
                                 <tr>
                                     <th scope="row">
-                                    <a href="#"># {{$t->id_coupon}}</a>
+                                    <a href="#"># {{$i++}}</a>
                                     </th>
                                     <td>{{$t->name}}</td>
                                     <td>{{$t->code_coupon}}</td>
                                     <td>{{$t->date_start}}</td>
-                                    <td>{{$t->date_end}}</td>
                                     <td>{{$t->price}}%</td>
                                     <td>{{$t->quantity}}</td>
                                     <td>
@@ -65,13 +66,13 @@
                                     </td>
                                     <td>
                                         @if ($t->status==1)
-                                        <button class="btn btn-danger btn-sm waves-effect waves-light" style="padding: 2px">
+                                        <a href="/admin/delcoupon/{{$t->id_coupon}}" class="btn btn-danger btn-sm waves-effect waves-light" style="padding: 2px">
                                             Hủy
-                                        </button>
+                                        </a>
                                         @else
-                                        <button class="btn btn-success btn-sm waves-effect waves-light" style="padding: 2px">
+                                    <a href="/admin/activecoupon/{{$t->id_coupon}}" class="btn btn-success btn-sm waves-effect waves-light" style="padding: 2px">
                                             Kích hoạt
-                                        </button>
+                                        </a>
                                         @endif
                                     </td>
                                     <td>
@@ -87,7 +88,8 @@
                                             >
                                             <i class="mdi mdi-eye"></i>
                                             </button>
-                                            <button
+                                            <a
+                                        href="/admin/formeditcoupon/{{$t->id_coupon}}"
                                                 type="button"
                                                 class="btn btn-outline-secondary btn-sm"
                                                 data-toggle="tooltip"
@@ -95,30 +97,18 @@
                                                 title="Edit"
                                             >
                                                 <i class="mdi mdi-pencil"></i>
-                                            </button>
-                                            @if (session('account')->role!=1)
-                                            <button
-                                            type="button"
-                                            class="btn btn-outline-secondary btn-sm active-delete"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Delete"
-                                            onclick="deleteCoupon({{$t->id_coupon}},{{session('account')->role}})"
-                                        >
-                                            <i class="mdi mdi-trash-can"></i>
-                                        </button>
-                                            @else
+                                            </a>
                                             <button
                                             type="button"
                                             class="btn btn-outline-secondary btn-sm"
                                             data-toggle="tooltip"
                                             data-placement="top"
+                                            onclick="deleteCoupon({{$t->id_coupon}})"
                                             title="Delete"
-                                            onclick="deleteCoupon({{$t->id_coupon}},{{session('account')->role}})"
+                                            onclick=""
                                         >
                                             <i class="mdi mdi-trash-can"></i>
-                                            @endif
-
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -162,10 +152,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $i=1;
+                            @endphp
                                 @foreach ($showCoupon as $t)
                                 <tr>
                                     <th scope="row">
-                                    <a href="#"># {{$t->id_coupon}}</a>
+                                    <a href="#"># {{$i++}}</a>
                                     </th>
                                     <td>{{$t->name}}</td>
                                     <td>{{$t->code_coupon}}</td>

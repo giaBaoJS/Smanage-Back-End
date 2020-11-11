@@ -1480,7 +1480,7 @@
                         <!-- <div class="float-right ml-2">
                             <a href="#">Xem tất cả</a>
                         </div> -->
-                        <h4>Chào mừng bạn đến với trang quản trị Đối tác</h4>
+                        <h4>Chào mừng bạn đến với trang quản trị Admin</h4>
                     </div>
                 </div>
             </div>

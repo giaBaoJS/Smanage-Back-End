@@ -1,12 +1,12 @@
 @extends('admin/layouts/layout')
 @section('Page-Title')
 <div class="col-md-12">
-    <h4 class="page-title mb-1">Thêm Coupon</h4>
+    <h4 class="page-title mb-1">Chỉnh sửa Coupon</h4>
     <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
             <a href="/admin/dashboard">Trang chủ</a>
         </li>
-        <li class="breadcrumb-item active">Thêm Coupon</li>
+        <li class="breadcrumb-item active">Chỉnh sửa Coupon</li>
     </ol>
 </div>
 @endsection
@@ -17,12 +17,12 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Thêm coupon</h4>
+                        <h4 class="header-title">Chỉnh sửa coupon</h4>
                         <p class="card-title-desc">
-                            Tạo coupon tạo ưu đãi cho người dùng
+                            Chỉnh sửa coupon tạo ưu đãi cho người dùng
                         </p>
 
-                        <form class="custom-validation" action="/admin/addcoupon" method="POST">
+                    <form class="custom-validation" action="/admin/editcoupon/{{$showCouponOne->id_coupon}}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label>Mã Coupon</label>
@@ -32,6 +32,7 @@
                                     placeholder="Mã Coupon"
                                     id="code_coupon"
                                     name="code_coupon"
+                                    value="{{$showCouponOne->code_coupon}}"
                                     required
                                 />
                             </div>
@@ -47,6 +48,7 @@
                                         required
                                         parsley-type="email"
                                         placeholder="1% - 50%"
+                                        value="{{$showCouponOne->price}}"
                                     />
                                 </div>
                             </div>
@@ -62,6 +64,7 @@
                                         name="date_start"
                                         data-multiple-dates-separator=" - "
                                         data-language="vi"
+                                        value="{{$showCouponOne->date_start}}"
                                         required
                                     />
                                 </div>
@@ -78,6 +81,7 @@
                                         required
                                         name="quantity"
                                         placeholder="Nhấp số lượng của coupon"
+                                        value="{{$showCouponOne->quantity}}"
                                     />
                                 </div>
                             </div>
