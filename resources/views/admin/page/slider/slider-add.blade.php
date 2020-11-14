@@ -1,12 +1,12 @@
 @extends('admin/layouts/layout')
 @section('Page-Title')
 <div class="col-md-12">
-    <h4 class="page-title mb-1">Thêm Tỉnh Thành</h4>
+    <h4 class="page-title mb-1">Thêm Slider</h4>
     <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
             <a href="/admin/dashboard">Trang chủ</a>
         </li>
-        <li class="breadcrumb-item active">Thêm Tỉnh Thành</li>
+        <li class="breadcrumb-item active">Thêm Slider</li>
     </ol>
 </div>
 @endsection
@@ -17,29 +17,42 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Thêm tỉnh thành</h4>
-                        <p class="card-title-desc">Thêm tỉnh thành</p>
+                        <h4 class="header-title">Thêm Sliser</h4>
+                        <p class="card-title-desc">Thêm Sliser</p>
 
-                        <form class="custom-validation" action="/admin/addTinh" method="post">
+                        <form class="custom-validation" action="/admin/addSlider" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="form-group">
-                                <label>Tên tình thành</label>
+                                <label>Tên Sliser</label>
                                 <input
                                     type="text"
                                     class="form-control"
-                                    name="tentinh"
-                                    placeholder="Sài gòn"
+                                    placeholder="Banner mẫu"
+                                    name="title"
                                     required
                                 />
                             </div>
                             <div class="form-group">
-                                <label>Miền</label>
-                                <select class="custom-select" name="id_mien" required>
-                                    <option value="">Chọn miền</option>
-                                    @foreach($mien as $m)
-                                    <option value="{{ $m->id_mien}}" >{{$m->name_mien}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="exampleFormControlTextarea1">Nội dung</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Hình ảnh</label>
+
+                                <div class="custom-file">
+                                    <input
+                                        type="file"
+                                        class="custom-file-input"
+                                        required
+                                        name="url_img_slider"
+
+                                    />
+                                    <label class="custom-file-label"
+                                        >Chọn ảnh...</label
+                                    >
+                                </div>
                             </div>
                             <div class="form-group mb-0">
                                 <div>
@@ -50,7 +63,7 @@
                                         Thêm
                                     </button>
                                     <a
-                                        href="/admin/tinhthanh"
+                                        href="/admin/slider"
                                         class="btn btn-secondary waves-effect"
                                     >
                                         Hủy

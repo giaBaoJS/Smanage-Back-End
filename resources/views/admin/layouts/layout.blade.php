@@ -21,6 +21,7 @@
     <link href="{{asset('BackEnd/assets/css')}}/icons.min.css" rel="stylesheet" type="text/css" />
 		<!-- App Css-->
     <link href="{{asset('BackEnd/assets/css')}}/app.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
 	</head>
 
 	<body data-topbar="colored">
@@ -95,5 +96,6 @@
         <script src="{{asset('BackEnd/assets/libs/sweetalert2')}}/sweetalert2.min.js"></script>
         <script src="{{asset('BackEnd/assets/js')}}/login-cms.js"></script>
         <script src="{{asset('BackEnd/assets/libs/alertifyjs/build')}}/alertify.min.js"></script>
+        <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
 	</body>
 </html>

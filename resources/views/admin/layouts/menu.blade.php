@@ -47,6 +47,25 @@
                 <!-- Khu vực -->
                 <li class="menu-title">Dịch vụ</li>
                 <!-- Multiple Dropdown -->
+                <!-- Slider -->
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <div class="d-inline-block icons-sm mr-1">
+                            <i class="uim uim-layers-alt"></i>
+                        </div>
+                        <span>Slider</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="/admin/slider">Danh sách các slider</a>
+                        </li>
+                        <li>
+                            <a href="/admin/slider/add">Thêm slider</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Tours -->
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -220,6 +239,24 @@
                 <!-- Khu vực -->
                 <li class="menu-title">Dịch vụ</li>
                 <!-- Multiple Dropdown -->
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <div class="d-inline-block icons-sm mr-1">
+                            <i class="uim uim-layers-alt"></i>
+                        </div>
+                        <span>Slider</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="/admin/slider">Danh sách các slider</a>
+                        </li>
+                        <li>
+                            <a href="/admin/slider/add">Thêm slider</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <div class="d-inline-block icons-sm mr-1">

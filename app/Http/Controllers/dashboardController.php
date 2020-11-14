@@ -10,6 +10,8 @@ use App\couponTable;
 use App\mien;
 use App\contact;
 use App\gallerytable;
+use App\slider;
+use App\tinh;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,11 +21,9 @@ class dashboardController extends Controller
     {
         if (session('account')) {
             return redirect('admin/dashboard');
-
-        }else{
+        } else {
             return view('admin/auth/login');
         }
-
     }
 
     public function loginCms(Request $request)
@@ -67,9 +67,9 @@ class dashboardController extends Controller
     public function lockScreen(Request $request)
     {
         if (session('account')) {
-            $email=session('account')->email;
-            $name=session('account')->name;
-            Cookie::queue('emailLock',$email , 10);
+            $email = session('account')->email;
+            $name = session('account')->name;
+            Cookie::queue('emailLock', $email, 10);
             Cookie::queue('nameLock', $name, 10);
             Auth::logout();
             $request->session('account')->flush();
@@ -119,8 +119,8 @@ class dashboardController extends Controller
 
     public function contactTable()
     {
-        $showContact=contact::all();
-        return view('admin/page/contact/contact-table',['ShowContact'=>$showContact]);
+        $showContact = contact::all();
+        return view('admin/page/contact/contact-table', ['ShowContact' => $showContact]);
     }
 
     // contact table ---------------------------------->
@@ -133,36 +133,36 @@ class dashboardController extends Controller
     public function couponTable()
     {
 
-        $showCouponDoiTac=couponTable::join('doitac', 'coupon.id_doitac', '=', 'doitac.id_doitac')->where('coupon.id_doitac','=',session('account')->id_doitac)->get();
-        $showCoupon=couponTable::join('user', 'coupon.id_user', '=', 'user.id_user')->get();
-        return view('admin/page/coupon/coupon-table',['showCoupon'=>$showCoupon,'showCouponDoiTac'=>$showCouponDoiTac]);
+        $showCouponDoiTac = couponTable::join('doitac', 'coupon.id_doitac', '=', 'doitac.id_doitac')->where('coupon.id_doitac', '=', session('account')->id_doitac)->get();
+        $showCoupon = couponTable::join('user', 'coupon.id_user', '=', 'user.id_user')->get();
+        return view('admin/page/coupon/coupon-table', ['showCoupon' => $showCoupon, 'showCouponDoiTac' => $showCouponDoiTac]);
     }
     public function editFormCoupon($id)
     {
-        $showCouponOne=couponTable::find($id);
-        return view('admin/page/coupon/coupon-edit',['showCouponOne'=>$showCouponOne]);
+        $showCouponOne = couponTable::find($id);
+        return view('admin/page/coupon/coupon-edit', ['showCouponOne' => $showCouponOne]);
     }
-    public function activeCoupon(Request $request,$id)
+    public function activeCoupon(Request $request, $id)
     {
-        $coupon=couponTable::find($id);
-        $coupon->status=1;
+        $coupon = couponTable::find($id);
+        $coupon->status = 1;
         $coupon->save();
         return redirect('/admin/coupon');
     }
-    public function editCoupon(Request $request,$id)
+    public function editCoupon(Request $request, $id)
     {
-        $coupon=couponTable::find($id);
-        $coupon->code_coupon=$request->code_coupon;
-        $coupon->price=$request->price;
-        $coupon->date_start=$request->date_start;
-        $coupon->quantity=$request->quantity;
+        $coupon = couponTable::find($id);
+        $coupon->code_coupon = $request->code_coupon;
+        $coupon->price = $request->price;
+        $coupon->date_start = $request->date_start;
+        $coupon->quantity = $request->quantity;
         $coupon->save();
         return redirect('/admin/coupon');
     }
-    public function delCoupon(Request $request,$id)
+    public function delCoupon(Request $request, $id)
     {
-        $coupon=couponTable::find($id);
-        $coupon->status=0;
+        $coupon = couponTable::find($id);
+        $coupon->status = 0;
         $coupon->save();
         return redirect('/admin/coupon');
     }
@@ -193,8 +193,8 @@ class dashboardController extends Controller
 
     public function userTable()
     {
-        $showUser=userTable::all();
-        return view('admin/page/user/user-table',['showUser'=>$showUser]);
+        $showUser = userTable::all();
+        return view('admin/page/user/user-table', ['showUser' => $showUser]);
     }
     public function addUser()
     {
@@ -206,30 +206,156 @@ class dashboardController extends Controller
 
     // coupon table ---------------------------------->
 
+    public function sliderTable()
+    {
+        $showSlider = slider::all();
+        return view('admin/page/slider/slider-table', ['showSlider' => $showSlider]);
+    }
+
+    public function sliderAdd()
+    {
+        return view('admin/page/slider/slider-add');
+    }
+
+    public function addSlider(Request $request)
+    {
+        $path = '';
+        $file = $request->url_img_slider;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/slider/', $path);
+        }
+        $data = array(
+            'title' => $request->title,
+            'content' => $request->content,
+            'url_img_slider' => $path
+        );
+        slider::create($data);
+        return redirect('admin/slider');
+    }
+
+    public function delSlider(Request $request, $id)
+    {
+        $slider = slider::find($id);
+        $slider->delete();
+        return redirect('admin/slider');
+    }
+
+    public function editformSlider(Request $request, $id)
+    {
+        $slider = slider::find($id);
+        return view('admin/page/slider/slider-edit', ['slider' => $slider]);
+    }
+
+    public function editSlider(Request $request, $id)
+    {
+        $slider = slider::find($id);
+
+        $slider->title = $request->title;
+        $slider->content = $request->content;
+        $path = '';
+        $file = $request->url_img_slider;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/uploads/slider/', $path);
+        }
+
+        $slider->url_img_slider = $path;
+        $slider->save();
+        return redirect('admin/slider');
+    }
+    // Slider table ------------------------------
+
+    // miền table ------------------------------
     public function mienTable()
     {
-        return view('admin/page/mien/mien-table');
+        $showMien = mien::all();
+        return view('admin/page/mien/mien-table', ['showMien' => $showMien]);
     }
 
     public function mienAdd()
     {
         return view('admin/page/mien/mien-add');
     }
+    public function addMien(Request $request)
+    {
+        $data = array(
+            'name_mien' => $request->tenmien
+        );
+        mien::create($data);
 
-    // coupon table ---------------------------------->
+        return redirect('admin/mien');
+    }
+    public function delMien(Request $request, $id)
+    {
+        $mien = mien::find($id);
+        $mien->delete();
+        return redirect('admin/mien');
+    }
+    public function editFormMien(Request $request, $id)
+    {
+        $mien = mien::find($id);
+
+        return view('admin/page/mien/mien-edit', ['showMien' => $mien]);
+    }
+    public function editMien(Request $request, $id)
+    {
+        $mien = mien::find($id);
+        $mien->name_mien = $request->tenmien;
+        $mien->save();
+        return redirect('admin/mien');
+    }
+    // miền table ------------------------------
+
 
     // tinhthanh table ---------------------------------->
 
     public function tinhthanhTable()
     {
-        return view('admin/page/tinhthanh/tinhthanh-table');
+        $showCouponDoiTac = couponTable::join('doitac', 'coupon.id_doitac', '=', 'doitac.id_doitac')
+            ->where('coupon.id_doitac', '=', session('account')->id_doitac)->get();
+
+        $showTinh = tinh::all();
+        $mien = tinh::join('mien', 'tinh.id_mien', '=', 'mien.id_mien')->first();
+        return view('admin/page/tinhthanh/tinhthanh-table', ['showTinh' => $showTinh, 'mien' => $mien]);
     }
 
     public function tinhthanhAdd()
     {
-        return view('admin/page/tinhthanh/tinhthanh-add');
+        $mien = mien::all();
+        return view('admin/page/tinhthanh/tinhthanh-add', ['mien' => $mien]);
     }
 
+    public function addTinh(Request $request)
+    {
+        $data = array(
+            'id_mien' => $request->id_mien,
+            'name_tinh' => $request->tentinh,
+        );
+        tinh::create($data);
+        return redirect('admin/tinh');
+    }
+
+    public function delTinh(Request $request, $id)
+    {
+        $tinh = tinh::find($id);
+        $tinh->delete();
+        return redirect('admin/tinhthanh');
+    }
+    public function editformTinh(Request $request, $id)
+    {
+        $tinh = tinh::find($id);
+        $mien = mien::all();
+        return view('admin/page/tinhthanh/tinhthanh-edit', ['tinh' => $tinh, 'mien' => $mien]);
+    }
+    public function editTinh(Request $request, $id)
+    {
+        $tinh = tinh::find($id);
+        $tinh->name_tinh = $request->tentinh;
+        $tinh->id_mien = $request->id_mien;
+        $tinh->save();
+        return redirect('admin/tinhthanh');
+    }
     // tinhthanh table ---------------------------------->
 
     // tour table ---------------------------------->
@@ -276,9 +402,9 @@ class dashboardController extends Controller
 
     public function galleryTable()
     {
-        $showMien=mien::all();
-        $showGallery=gallerytable::join('mien','gallery.id_mien','=','mien.id_mien')->get();
-        return view('admin/page/gallery/gallery-table',['showmien'=>$showMien,'showGallery'=>$showGallery]);
+        $showMien = mien::all();
+        $showGallery = gallerytable::join('mien', 'gallery.id_mien', '=', 'mien.id_mien')->get();
+        return view('admin/page/gallery/gallery-table', ['showmien' => $showMien, 'showGallery' => $showGallery]);
     }
 
     // gallery--------------

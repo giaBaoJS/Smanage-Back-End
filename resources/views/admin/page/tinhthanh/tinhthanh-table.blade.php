@@ -29,15 +29,18 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Tên tỉnh thành</th>
+                                        <th scope="col">Thuộc miền</th>
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($showTinh as $tinh)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#"># XO1345</a>
+                                            <a href="#"># {{$tinh->id_tinh}}</a>
                                         </th>
-                                        <td>Sài gòn</td>
+                                        <td>{{$tinh->name_tinh}}</td>
+                                        <td>{{$mien->name_mien}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button
@@ -49,7 +52,8 @@
                                                 >
                                                     <i class="mdi mdi-eye"></i>
                                                 </button>
-                                                <button
+                                                <a
+                                                    href="/admin/formedittinh/{{$tinh->id_tinh}}"
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
@@ -57,19 +61,20 @@
                                                     title="Edit"
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
+                                                </a>
+                                                <a
+                                                    href="/admin/delTinh/{{$tinh->id_tinh}}"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Delete"
                                                 >
                                                     <i class="mdi mdi-trash-can"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
