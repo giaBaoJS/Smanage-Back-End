@@ -9,6 +9,6 @@ class mien extends Model
     protected $table='mien';
     protected $primaryKey = 'id_mien';
     protected $fillable = [
-        'name'
+        'name_mien'
     ];
 }
