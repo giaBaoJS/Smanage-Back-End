@@ -85,4 +85,12 @@ Route::get('admin/news/add','dashboardController@newsAdd')->middleware('CheckRol
 
 // Trang news --------------------
 
+//Trang gallery--------------------------------------
+
+Route::get('admin/gallery','dashboardController@galleryTable');
+
+//Trang gallery--------------------------------------
+
 Route::any('{catchall}', 'dashboardController@notfound')->where('catchall', '.*');
+
+

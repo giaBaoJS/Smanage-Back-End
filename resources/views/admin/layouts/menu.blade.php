@@ -325,6 +325,34 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- Thư viện -->
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <div class="d-inline-block icons-sm mr-1">
+                            <i class="uim uim-layers-alt"></i>
+                        </div>
+                        <span>Thư viện</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="/admin/gallery" class="waves-effect">
+                                <div class="d-inline-block icons-sm mr-1">
+                                    <i class="uim uim-airplay"></i>
+                                </div>
+                                <span>Danh sách thư viện</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="waves-effect">
+                                <div class="d-inline-block icons-sm mr-1">
+                                    <i class="uim uim-airplay"></i>
+                                </div>
+                                <span>Thêm thư viện</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             @endif
 

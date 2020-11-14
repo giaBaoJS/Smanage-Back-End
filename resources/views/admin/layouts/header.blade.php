@@ -88,7 +88,7 @@
                 </div>
             </div>
             <!-- Flag -->
-            <div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button
                     type="button"
                     class="btn header-item waves-effect"
@@ -119,7 +119,7 @@
                         /><span class="align-middle">English</span>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <!-- Information -->
             <div class="dropdown d-inline-block">
                 <button
@@ -157,12 +157,12 @@
                         ></i>
                         Hóa đơn</a
                     >
-                    <a class="dropdown-item" href="#"
+                    {{-- <a class="dropdown-item" href="#"
                         ><i
                             class="mdi mdi-account-settings font-size-16 align-middle mr-1"
                         ></i>
                         Cài đặt</a
-                    >
+                    > --}}
                     <a class="dropdown-item" href="/admin/lockscreen"
                         ><i class="mdi mdi-lock font-size-16 align-middle mr-1"></i>
                         Khóa màn hình</a

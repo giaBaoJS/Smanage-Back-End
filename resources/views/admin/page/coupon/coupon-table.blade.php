@@ -143,8 +143,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Nhà cung cấp</th>
                                     <th scope="col">Mã Coupon</th>
-                                    <th scope="col">Ngày bắt đầu</th>
-                                    <th scope="col">Ngày kết thúc</th>
+                                    <th scope="col">Ngày bắt đầu - Kết thúc</th>
                                     <th scope="col">Giá trị</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Trạng thái</th>
@@ -163,7 +162,6 @@
                                     <td>{{$t->name}}</td>
                                     <td>{{$t->code_coupon}}</td>
                                     <td>{{$t->date_start}}</td>
-                                    <td>{{$t->date_end}}</td>
                                     <td>{{$t->price}}%</td>
                                     <td>{{$t->quantity}}</td>
                                     <td>

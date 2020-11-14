@@ -7,6 +7,7 @@ use Session;
 use Illuminate\Support\Facades\Cookie;
 use App\userTable;
 use App\couponTable;
+use App\mien;
 use App\contact;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -270,4 +271,13 @@ class dashboardController extends Controller
     {
         return view('admin/page/error');
     }
+    // gallery--------------
+
+    public function galleryTable()
+    {
+        $showMien=mien::all();
+        return view('admin/page/gallery/gallery-table',['showmien'=>$showMien]);
+    }
+
+    // gallery--------------
 }
