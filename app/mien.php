@@ -11,4 +11,5 @@ class mien extends Model
     protected $fillable = [
         'name_mien'
     ];
+    public $timestamps=false;
 }

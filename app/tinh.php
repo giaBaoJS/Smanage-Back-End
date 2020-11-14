@@ -11,4 +11,5 @@ class tinh extends Model
     protected $fillable = [
         'name_tinh'
     ];
+    public $timestamps=false;
 }

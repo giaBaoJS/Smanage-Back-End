@@ -9,6 +9,7 @@ use App\userTable;
 use App\couponTable;
 use App\mien;
 use App\contact;
+use App\gallerytable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -276,7 +277,8 @@ class dashboardController extends Controller
     public function galleryTable()
     {
         $showMien=mien::all();
-        return view('admin/page/gallery/gallery-table',['showmien'=>$showMien]);
+        $showGallery=gallerytable::join('mien','gallery.id_mien','=','mien.id_mien')->get();
+        return view('admin/page/gallery/gallery-table',['showmien'=>$showMien,'showGallery'=>$showGallery]);
     }
 
     // gallery--------------

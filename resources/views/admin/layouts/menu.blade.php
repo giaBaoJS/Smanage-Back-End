@@ -344,7 +344,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="waves-effect">
+                            <a href="/admin/addgallery" class="waves-effect">
                                 <div class="d-inline-block icons-sm mr-1">
                                     <i class="uim uim-airplay"></i>
                                 </div>
