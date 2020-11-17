@@ -9,6 +9,7 @@ class gallerytable extends Model
     protected $table='gallery';
     protected $primaryKey = 'id_gallery';
     protected $fillable = [
-        'title', 'url_img_gallery'
+        'title', 'url_img_gallery','id_mien'
     ];
+    public $timestamps=false;
 }

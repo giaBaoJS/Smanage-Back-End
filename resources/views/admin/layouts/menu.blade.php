@@ -343,14 +343,6 @@
                                 <span>Danh sách thư viện</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/addgallery" class="waves-effect">
-                                <div class="d-inline-block icons-sm mr-1">
-                                    <i class="uim uim-airplay"></i>
-                                </div>
-                                <span>Thêm thư viện</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </ul>

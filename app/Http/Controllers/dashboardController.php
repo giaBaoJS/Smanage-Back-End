@@ -277,9 +277,24 @@ class dashboardController extends Controller
     public function galleryTable()
     {
         $showMien=mien::all();
-        $showGallery=gallerytable::join('mien','gallery.id_mien','=','mien.id_mien')->get();
+        $showGallery=gallerytable::join('mien','gallery.id_mien','=','mien.id_mien')->orderby('id_gallery','desc')->get();
         return view('admin/page/gallery/gallery-table',['showmien'=>$showMien,'showGallery'=>$showGallery]);
     }
-
+    public function addGallery(Request $request)
+    {
+        $path = '';
+        $file = $request->url_img_gallery;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/gallery', $path);
+        }
+        $data = array(
+            'title' => $request->title,
+            'id_mien' => $request->id_mien,
+            'url_img_gallery'=>$path,
+        );
+        gallerytable::create($data);
+        return redirect('/admin/gallery');
+    }
     // gallery--------------
 }

@@ -88,6 +88,7 @@ Route::get('admin/news/add','dashboardController@newsAdd')->middleware('CheckRol
 //Trang gallery--------------------------------------
 
 Route::get('admin/gallery','dashboardController@galleryTable');
+Route::post('admin/addgallery','dashboardController@addGallery');
 
 //Trang gallery--------------------------------------
 
