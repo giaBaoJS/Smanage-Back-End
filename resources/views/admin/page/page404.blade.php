@@ -46,7 +46,7 @@
 							<div class="mt-5">
 								<a
 									class="btn waves-effect waves-light bg-second-cl main-cl font-weight-bold"
-									href="index.html"
+									href="/admin/dashboard"
 									>Trở về trang chủ</a
 								>
 							</div>

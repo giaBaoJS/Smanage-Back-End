@@ -1,12 +1,12 @@
 @extends('admin/layouts/layout')
 @section('Page-Title')
 <div class="col-md-12">
-    <h4 class="page-title mb-1">Thêm Miền</h4>
+    <h4 class="page-title mb-1">Chỉnh sửa Coupon</h4>
     <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
             <a href="/admin/dashboard">Trang chủ</a>
         </li>
-        <li class="breadcrumb-item active">Thêm Miền</li>
+        <li class="breadcrumb-item active">Chỉnh sửa Coupon</li>
     </ol>
 </div>
 @endsection
@@ -17,36 +17,48 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Thêm miền</h4>
-                        <p class="card-title-desc">Thêm miền</p>
-
-                        <form class="custom-validation" action="/admin/addMien" method="POST" enctype="multipart/form-data">
+                        <h4 class="header-title">Chỉnh sửa {{$showMien->name_mien}}</h4>
+                    <form class="custom-validation" action="/admin/editMien/{{$showMien->id_mien}}" method="POST">
                             @csrf
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input
+                                    type="text" disabled="disabled"
+                                    class="form-control"
+                                    placeholder="Mã miền"
+                                    name="id_mien"
+                                    value="{{$showMien->id_mien}}"
+                                    required
+
+                                />
+                            </div>
+
                             <div class="form-group">
                                 <label>Tên miền</label>
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="Miền Nam"
+                                    placeholder="Tên miền"
                                     name="tenmien"
+                                    value="{{$showMien->name_mien}}"
                                     required
+
                                 />
                             </div>
 
                             <div class="form-group mb-0">
                                 <div>
-                                    <button
-                                        type="submit"
+                                    <button type="submit"
                                         class="btn waves-effect waves-light mr-1 white-cl bg-main-cl"
                                     >
-                                        Thêm
+                                        Cập nhật
                                     </button>
-                                    <button
-                                        type="reset"
+                                    <a
+                                        href="/admin/mien"
                                         class="btn btn-secondary waves-effect"
                                     >
                                         Hủy
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>

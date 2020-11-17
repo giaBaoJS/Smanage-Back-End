@@ -125,8 +125,15 @@
                                 </p>
                             </div>
                             </div>
-                            <a href="#">1</a>
                         </a>
+                        </div>
+                        <div>
+                            <a href="#" type="button" class="" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i class="mdi mdi-pencil"></i>
+                            </a>
+                            <a href="#" class="" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <i class="mdi mdi-trash-can"></i>
+                            </a>
                         </div>
                     </div>
                 @endforeach

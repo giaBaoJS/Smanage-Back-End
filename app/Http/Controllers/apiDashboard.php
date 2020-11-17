@@ -110,7 +110,7 @@ class apiDashboard extends Controller
             $dayEnd = strtotime( Carbon::now());
             $dayStart =strtotime(session('account')->created_at);
             $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
-            if ($dayDiff>=7) {
+            if ($dayDiff>=7 && session('account')->active==1) {
                 $user=UserTable::find(session('account')->id_user);
                 $user->active=0;
                 $user->created_at=session('account')->created_at;
