@@ -191,57 +191,26 @@
           data-wow-duration="1s"
           data-wow-delay="0.5s"
         >
-          <div class="col-md-4">
+        @foreach ($showMien as $m)
+        <div class="col-md-4">
             <div class="wrapper-image">
               <a href="#"
                 ><img
                   class="img-fluid w-100"
-                  src="{{asset('FrontEnd/assets/images/defaults/tours')}}/mienbac.jpg"
+            src="{{asset('BackEnd/assets/images')}}/{{$m->url_img_mien}}"
                   alt="mien"
               /></a>
             </div>
             <div class="content">
-              <a class="features" href="#">Miền Bắc</a>
+            <a class="features" href="#">{{$m->name_mien}}</a>
               <hr />
               <div class="detail">
                 <a href="#">Khám phá</a>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="wrapper-image">
-              <a href="#"
-                ><img
-                  class="img-fluid w-100"
-                  src="{{asset('FrontEnd/assets/images/defaults/tours')}}/mientrung.jpg"
-                  alt="mien"
-              /></a>
-            </div>
-            <div class="content">
-              <a class="features" href="#">Miền Bắc</a>
-              <hr />
-              <div class="detail">
-                <a href="#">Khám phá</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="wrapper-image">
-              <a href="#"
-                ><img
-                  class="img-fluid w-100"
-                  src="{{asset('FrontEnd/assets/images/defaults/tours')}}/miennam.jpg"
-                  alt="mien"
-              /></a>
-            </div>
-            <div class="content">
-              <a class="features" href="#">Miền Bắc</a>
-              <hr />
-              <div class="detail">
-                <a href="#">Khám phá</a>
-              </div>
-            </div>
-          </div>
+        @endforeach
+
         </div>
         <div class="more text-center">
           <a href="#">XEM THÊM</a>
@@ -710,68 +679,34 @@
           data-wow-duration="1s"
         >
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col-md-6">
-                  <img
-                    src="{{asset('FrontEnd/assets/images/defaults/news')}}/mang-den_1.jpg"
-                    class="w-100 img-fluid"
-                    alt="images"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <div class="content">
-                    <a class="title" href="#"
-                      >Khám phá Măng Đen - 'Đà Lạt thứ 2' ở Tây Nguyên</a
-                    >
-                    <ul>
-                      <li><a href="#">Jul 24, 2020</a></li>
-                      <li><a href="#">Bao Dep Trai</a></li>
-                    </ul>
-                    <p>
-                      Tây Nguyên - vùng đất đầy nắng và gió với thảo nguyên
-                      bạt ngàn, dãy đồi trập trùng vô tận, vườn trà, cà phê…
-                      kéo dài hun hút tầm mắt. Sự bao la bát ngát của nơi này
-                      chắc chắn sẽ làm say lòng biết bao lữ khách. Có rất
-                      nhiều điểm dừng chân để bạn lựa chọn khi đến với vùng
-                      đất này, Măng Đen là một trong số đó.
-                    </p>
+              @foreach ($showOneNews as $tintuc)
+              <div class="swiper-slide">
+                <div class="row">
+                  <div class="col-md-6">
+                    <img
+                  src="{{asset('BackEnd/assets/images/news')}}/{{ $tintuc->url_img_news}}"
+                      class="w-100 img-fluid"
+                      alt="images"
+                    />
                   </div>
-                  <a class="btn btn-main" href="#">Xem Thêm</a>
+                  <div class="col-md-6">
+                    <div class="content">
+                      <a class="title" href="#"
+                        >{{ $tintuc->title}}</a
+                      >
+                      <ul>
+                      <li><a href="#">{{date('M-d-Y',strtotime($tintuc->updated_at))}}</a></li>
+                        <li><a href="#">Bao Dep Trai</a></li>
+                      </ul>
+                      <p>
+                        {{ $tintuc->short_content}}
+                      </p>
+                    </div>
+                    <a class="btn btn-main" href="#">Xem Thêm</a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col-md-6">
-                  <img
-                    src="{{asset('FrontEnd/assets/images/defaults/news')}}/3-mat-than.jpg"
-                    class="w-100 img-fluid"
-                    alt="images"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <div class="content">
-                    <a class="title" href="#"
-                      >Khám phá Tam Giác Quỷ Gia Bảo</a
-                    >
-                    <ul>
-                      <li><a href="#">Jul 24, 2020</a></li>
-                      <li><a href="#">Bao Dep Trai</a></li>
-                    </ul>
-                    <p>
-                      Tây Nguyên - vùng đất đầy nắng và gió với thảo nguyên
-                      bạt ngàn, dãy đồi trập trùng vô tận, vườn trà, cà phê…
-                      kéo dài hun hút tầm mắt. Sự bao la bát ngát của nơi này
-                      chắc chắn sẽ làm say lòng biết bao lữ khách. Có rất
-                      nhiều điểm dừng chân để bạn lựa chọn khi đến với vùng
-                      đất này, Măng Đen là một trong số đó.
-                    </p>
-                  </div>
-                  <a class="btn btn-main" href="#">Xem Thêm</a>
-                </div>
-              </div>
-            </div>
+              @endforeach
           </div>
           <div class="swiper-pagination3"></div>
         </div>

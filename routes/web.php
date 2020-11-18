@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front-end/home');
-});
+Route::get('/','homeController@index');
 // trang admin --------------------
 Route::get('admin', 'dashboardController@login');
 Route::get('admin/loginCms', 'dashboardController@loginCms');
@@ -58,6 +56,7 @@ Route::get('admin/slider/add', 'dashboardController@sliderAdd')->middleware('Che
 Route::post('admin/addSlider', 'dashboardController@addSlider')->middleware('CheckRole');
 Route::get('admin/editformslider/{id}', 'dashboardController@editformSlider')->middleware('CheckAdmins');
 Route::post('admin/editSlider/{id}', 'dashboardController@editSlider')->middleware('CheckAdmins');
+Route::get('admin/delslider/{id}', 'dashboardController@delSlider')->middleware('CheckAdmins');
 // Trang mien --------------------
 Route::get('admin/mien', 'dashboardController@mienTable')->middleware('CheckRole');
 Route::get('admin/mien/add', 'dashboardController@mienAdd')->middleware('CheckRole');

@@ -18,12 +18,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Chỉnh sửa {{$showMien->name_mien}}</h4>
-                    <form class="custom-validation" action="/admin/editMien/{{$showMien->id_mien}}" method="POST">
+                    <form class="custom-validation" action="/admin/editMien/{{$showMien->id_mien}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <label>ID</label>
                                 <input
-                                    type="text" disabled="disabled"
+                                    type="hidden" disabled="disabled"
                                     class="form-control"
                                     placeholder="Mã miền"
                                     name="id_mien"
@@ -31,9 +29,8 @@
                                     required
 
                                 />
-                            </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-xl-12">
                                 <label>Tên miền</label>
                                 <input
                                     type="text"
@@ -45,7 +42,23 @@
 
                                 />
                             </div>
-
+                            <div class="form-group col-xl-12" style="text-align:center">
+                                <img src="{{asset('BackEnd/assets/images')}}/{{$showMien->url_img_mien}}" alt="" width="80%">
+                            </div>
+                            <div class="form-group col-xl-12">
+                                <label>Đổi hình ảnh đại diện</label>
+                                <div class="custom-file">
+                                    <input
+                                        type="file"
+                                        class="custom-file-input"
+                                        required
+                                        name="url_img_mien"
+                                    />
+                                    <label class="custom-file-label"
+                                        >Chọn ảnh...</label
+                                    >
+                                </div>
+                            </div>
                             <div class="form-group mb-0">
                                 <div>
                                     <button type="submit"

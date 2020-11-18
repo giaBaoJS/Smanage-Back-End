@@ -29,16 +29,21 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Tên miền</th>
+                                        <th scope="col">Hình</th>
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i=1;
+                                    @endphp
                                     @foreach ($showMien as $mien)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#">{{$mien->id_mien}}</a>
+                                            <a href="#">{{$i++}}</a>
                                         </th>
                                     <td>{{$mien->name_mien}}</td>
+                                    <td><img src="{{asset('BackEnd/assets/images')}}/{{$mien->url_img_mien}}" width="200px" alt=""></td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button

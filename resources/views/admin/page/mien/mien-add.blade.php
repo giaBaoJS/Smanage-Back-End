@@ -22,7 +22,7 @@
 
                         <form class="custom-validation" action="/admin/addMien" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group col-xl-12">
                                 <label>Tên miền</label>
                                 <input
                                     type="text"
@@ -32,7 +32,20 @@
                                     required
                                 />
                             </div>
-
+                            <div class="form-group col-xl-12">
+                                <label>Hình ảnh đại diện</label>
+                                <div class="custom-file">
+                                    <input
+                                        type="file"
+                                        class="custom-file-input"
+                                        required
+                                        name="url_img_mien"
+                                    />
+                                    <label class="custom-file-label"
+                                        >Chọn ảnh...</label
+                                    >
+                                </div>
+                            </div>
                             <div class="form-group mb-0">
                                 <div>
                                     <button

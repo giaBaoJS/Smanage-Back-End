@@ -9,7 +9,7 @@ class mien extends Model
     protected $table='mien';
     protected $primaryKey = 'id_mien';
     protected $fillable = [
-        'name_mien'
+        'name_mien','url_img_mien'
     ];
     public $timestamps=false;
 }

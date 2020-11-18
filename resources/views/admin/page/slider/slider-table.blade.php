@@ -43,7 +43,7 @@
                                         <td data-role="imagemagnifier"
                                         data-magnifier-mode="glass"
                                         data-lens-type="circle"
-                                    data-lens-size="20"><img src="{{asset('BackEnd/assets/images/slider')}}/{{$sl->url_img_slider}}" alt="banner1" style="width: 85px;height: 40px;"></td>
+                                        data-lens-size="20"><img src="{{asset('BackEnd/assets/images/slider')}}/{{$sl->url_img_slider}}" alt="banner1" style="width: 100px"></td>
                                         <td>{{$sl->title}}</td>
                                         <td>{{$sl->content}}</td>
                                         <td>
@@ -66,7 +66,7 @@
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
-                                                <button
+                                                <a href="/admin/delslider/{{$sl->id_slider}}"
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
@@ -74,7 +74,7 @@
                                                     title="Delete"
                                                 >
                                                     <i class="mdi mdi-trash-can"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

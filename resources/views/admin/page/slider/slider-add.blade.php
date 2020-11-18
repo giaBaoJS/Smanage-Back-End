@@ -27,7 +27,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="Banner mẫu"
+                                    placeholder="Tiêu đề"
                                     name="title"
                                     required
                                 />

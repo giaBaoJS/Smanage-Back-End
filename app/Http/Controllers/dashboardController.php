@@ -235,7 +235,7 @@ class dashboardController extends Controller
         return redirect('admin/slider');
     }
 
-    public function delSlider(Request $request, $id)
+    public function delSlider($id)
     {
         $slider = slider::find($id);
         $slider->delete();
@@ -258,10 +258,9 @@ class dashboardController extends Controller
         $file = $request->url_img_slider;
         if ($file) {
             $path = $file->getClientOriginalName();
-            $file->move('BackEnd/assets/images/uploads/slider/', $path);
+            $file->move('BackEnd/assets/images/slider/', $path);
+            $slider->url_img_slider = $path;
         }
-
-        $slider->url_img_slider = $path;
         $slider->save();
         return redirect('admin/slider');
     }
@@ -280,8 +279,15 @@ class dashboardController extends Controller
     }
     public function addMien(Request $request)
     {
+        $path = '';
+        $file = $request->url_img_mien;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images', $path);
+        }
         $data = array(
-            'name_mien' => $request->tenmien
+            'name_mien' => $request->tenmien,
+            'url_img_mien'=>$path
         );
         mien::create($data);
 
@@ -303,6 +309,13 @@ class dashboardController extends Controller
     {
         $mien = mien::find($id);
         $mien->name_mien = $request->tenmien;
+        $path = '';
+        $file = $request->url_img_mien;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images', $path);
+            $mien->url_img_mien = $path;
+        }
         $mien->save();
         return redirect('admin/mien');
     }

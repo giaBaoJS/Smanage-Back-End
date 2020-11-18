@@ -17,13 +17,12 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Chỉnh sửa {{$slider->title}}</h4>
+                        <h4 class="header-title">Chỉnh sửa slider</h4>
                     <form class="custom-validation" action="/admin/editSlider/{{$slider->id_slider}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <label>ID</label>
+
                                 <input
-                                    type="text" disabled="disabled"
+                                    type="hidden" disabled="disabled"
                                     class="form-control"
                                     placeholder="Mã slider"
                                     name="id_slider"
@@ -31,8 +30,6 @@
                                     required
 
                                 />
-                            </div>
-
                             <div class="form-group">
                                 <label>Tên slider</label>
                                 <input
@@ -50,16 +47,16 @@
                                 <label for="exampleFormControlTextarea1">Nội dung</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3">{{$slider->content}}</textarea>
                             </div>
-
+                            <div class="form-group" style="text-align: center">
+                                <img src="{{asset('BackEnd/assets/images/slider')}}/{{$slider->url_img_slider}}" alt="">
+                             </div>
                             <div class="form-group">
-                                <label>Hình ảnh</label>
+                                <label>Thay đổi hình ảnh</label>
 
                                 <div class="custom-file">
                                     <input
                                         type="file"
                                         class="custom-file-input"
-                                        value="{{$slider->url_img_slider}}"
-                                        required
                                         name="url_img_slider"
                                     />
                                     <label class="custom-file-label"
@@ -67,7 +64,6 @@
                                     >
                                 </div>
                             </div>
-
                             <div class="form-group mb-0">
                                 <div>
                                     <button type="submit"
