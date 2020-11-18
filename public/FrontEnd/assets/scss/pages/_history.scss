@@ -1,0 +1,52 @@
+.history__wrap {
+	padding: 80px 0;
+
+	h2 {
+		font-size: 35px;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 35px;
+	}
+	.table-responsive {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+	}
+	.table {
+		min-width: 800px;
+		margin-bottom: 30px;
+		border-bottom: 1px solid #dddddd;
+	}
+	th {
+		border-top: 0px;
+		font-size: 14px;
+		font-weight: 500;
+		font-family: 'Tahoma', sans-serif;
+		color: #797979;
+		border-bottom: 0px !important;
+		vertical-align: bottom;
+	}
+	td {
+		padding-top: 30px;
+		padding-bottom: 30px;
+		vertical-align: middle;
+		align-self: center;
+	}
+}
+
+#modal-bill {
+	.modal-body > div {
+		display: flex;
+		flex-wrap: wrap;
+		p {
+			width: 50%;
+			margin-bottom: 16px;
+		}
+		span {
+			font-weight: bold;
+		}
+	}
+	tfoot span {
+		font-weight: bold;
+	}
+}

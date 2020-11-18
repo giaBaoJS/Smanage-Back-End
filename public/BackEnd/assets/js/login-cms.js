@@ -320,4 +320,60 @@ function deleteCoupon(id){
     });
 }
 
-// delete coupon--------------------------
+// delete gallery--------------------------
+function deleteGallery(id) {
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn xóa hình ảnh này không?',
+        text: "Nhấp OK để xóa!",
+        icon: 'warning',
+        showCancelButton: !0,
+        confirmButtonColor: '#3ddc97',
+        cancelButtonColor: '#f46a6a',
+        confirmButtonText: 'OK !',
+    }).then(function (t) {
+        t.value &&
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/admin/delgallery/'+id,
+            success:function (params) {
+                if (params==1) {
+                    alertify.success('Xóa hình ảnh thành công !');
+                    function loadpage(){
+                        window.location.href = "/admin/gallery";
+                      };
+                    setTimeout (loadpage, 800);
+
+                }
+            }
+        })
+    });
+
+    return false;
+}
+// delete gallery--------------------------
+function editGallery(id) {
+    $.ajax({
+        url: 'http://127.0.0.1:8000/api/admin/editgallery/'+id,
+        success:function (params) {
+            title=params.title;
+            id_mien_edit=params.id_mien
+            $('#edittitle').attr('value',title);
+            $('#editmien').attr('value',id_mien_edit);
+        }
+    })
+}
+////News---------------------------------------------
+function deleteNews(id) {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/admin/delnews/'+id,
+            success:function (params) {
+                if (params==1) {
+                    alertify.success('Xóa tin tức thành công !');
+                    function loadpage(){
+                        window.location.href = "/admin/news";
+                      };
+                    setTimeout (loadpage, 800);
+
+                }
+            }
+        })
+}

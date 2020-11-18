@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front-end/home');
 });
 // trang admin --------------------
 Route::get('admin', 'dashboardController@login');
@@ -93,6 +93,10 @@ Route::get('admin/bill', 'dashboardController@billTable')->middleware('CheckRole
 
 Route::get('admin/news', 'dashboardController@newsTable')->middleware('CheckRole');
 Route::get('admin/news/add', 'dashboardController@newsAdd')->middleware('CheckRole');
+Route::post('admin/addnews', 'dashboardController@addNews')->middleware('CheckRole');
+Route::get('admin/formeditnew/{id}', 'dashboardController@formEditNew')->middleware('CheckRole');
+Route::get('admin/viewsnews/{id}', 'dashboardController@viewsNews')->middleware('CheckRole');
+Route::post('admin/editnews', 'dashboardController@editNews')->middleware('CheckRole');
 
 // Trang news --------------------
 
@@ -103,3 +107,4 @@ Route::get('admin/gallery', 'dashboardController@galleryTable');
 //Trang gallery--------------------------------------
 
 Route::any('{catchall}', 'dashboardController@notfound')->where('catchall', '.*');
+

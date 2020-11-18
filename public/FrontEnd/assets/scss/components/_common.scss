@@ -1,0 +1,165 @@
+.hero-banner {
+  padding: 100px 0;
+  background-image: url("./../images/defaults/tour.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, right top, left top, from(transparent), color-stop(90%, rgba(0, 0, 0, 1)));
+    background: -o-linear-gradient(right, transparent 0%, rgba(0, 0, 0, 1) 90%);
+    background: linear-gradient(to left, transparent 0%, rgba(0, 0, 0, 1) 90%);
+    opacity: 0.5;
+  }
+  h2 {
+    color: #ffffff;
+    font-size: 50px;
+    position: relative;
+  }
+  @include media(768px) {
+    padding: 50px 0;
+    h2{
+      font-size: 36px;
+    }
+  }
+}
+
+.list-tag {
+  a {
+    font-size: 10px;
+    color: #1a2b48;
+    font-weight: 600;
+    background: #f7f6f6;
+    border-radius: 3px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    &:hover {
+      background: $primary;
+      color: #fff;
+    }
+  }
+}
+
+.wrapper-items-form {
+  .item {
+    padding: 20px 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-bottom: 1px solid #dfdfdf;
+    .content {
+      margin-left: 20px;
+      label {
+        font-size: 15px;
+        margin-bottom: 3px;
+        color: #5e6d77;
+      }
+      input {
+        border: none;
+        &:focus {
+          outline: none;
+        }
+        &::-webkit-input-placeholder {
+          color: #5191fa;
+          font-size: 14px;
+        }
+        &::-moz-placeholder {
+          color: #5191fa;
+          font-size: 14px;
+        }
+        &:-ms-input-placeholder {
+          color: #5191fa;
+          font-size: 14px;
+        }
+        &::-ms-input-placeholder {
+          color: #5191fa;
+          font-size: 14px;
+        }
+        &::placeholder {
+          color: #5191fa;
+          font-size: 14px;
+        }
+      }
+      #checkin,
+      #checkout {
+        margin-top: 5px;
+        color: #5191fa;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+    .arrow-date {
+      cursor: pointer;
+      position: absolute;
+      right: 40px;
+      color: #5e6d77;
+      font-size: 20px;
+    }
+    button {
+      width: 100%;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      padding: 15px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #5191fa;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .dropdown-place {
+    overflow: hidden scroll;
+    padding: 10px 0 20px 0;
+    border-radius: 3px;
+    border: 2px solid #c6c6c6;
+    max-height: 332px;
+    outline: none;
+    display: block;
+    li {
+      padding: 10px 0;
+      cursor: pointer;
+      span {
+        font-size: 14px;
+        padding-left: 60px;
+      }
+      &:hover {
+        background: #f5f4f7;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: #c4c7ca;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+.reset-apperance {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

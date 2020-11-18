@@ -26,7 +26,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">ID Người đăng</th>
+                                        <th scope="col">Người đăng</th>
                                         <th scope="col">Tiêu đề</th>
                                         <th scope="col">Ảnh đại diện</th>
                                         <th scope="col">Mô tả ngắn</th>
@@ -37,29 +37,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i=1;
+                                    @endphp
+                                    @foreach ($showNew as $n)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#"># XO1345</a>
+                                        <a href="#"># {{$i++}}</a>
                                         </th>
-                                        <td>KBDTVL</td>
-                                        <td>Kim bảo đẹp trai</td>
-                                        <td>URL ảnh đại diện</td>
-                                        <td>Kim bảo đẹp trai</td>
-                                        <td>1.000</td>
-                                        <td>999</td>
-                                        <td>20/02/2020</td>
+                                    <td>{{$n->name}}</td>
+                                        <td>{{$n->title}}</td>
+                                    <td><img src="{{asset('BackEnd/assets/images/news')}}/{{$n->url_img_news}}" alt="" width="100px"></td>
+                                        <td>{{$n->short_content}}</td>
+                                        <td>{{$n->views}}</td>
+                                        <td>{{$n->likes}}</td>
+                                        <td>{{date('d/m/Y',strtotime($n->created_at))}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button
-                                                    type="button"
+                                                <a
+                                            href="/admin/viewsnews/{{$n->id_news}}"
+                                                type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="View"
                                                 >
                                                     <i class="mdi mdi-eye"></i>
-                                                </button>
-                                                <button
+                                                </a>
+                                                <a
+                                            href="/admin/formeditnew/{{$n->id_news}}"
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
@@ -67,19 +73,21 @@
                                                     title="Edit"
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
-                                                </button>
+                                                </a>
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Delete"
+                                                    onclick="deleteNews({{$n->id_news}})"
                                                 >
                                                     <i class="mdi mdi-trash-can"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

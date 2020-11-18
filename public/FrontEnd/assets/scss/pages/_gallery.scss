@@ -1,0 +1,98 @@
+.wrapper-gallery {
+  .list__gallery {
+    padding-top: 100px;
+    padding-bottom: 35px;
+    background-color: $primary2;
+    color: $white;
+    @include media(768px) {
+      padding-top: 50px;
+    }
+    .list-cato {
+      display: flex;
+      justify-content: center;
+      li {
+        transition: 0.3s all;
+        color: #9de2fd;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0 30px;
+        @include media(540px) {
+          padding: 0 10px;
+          font-size: 16px;
+        }
+        &.active,
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+  .list__album {
+    background-color: #f8f8f8;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    .tablist {
+      display: none;
+      .row {
+        .col-md-3 {
+          margin-bottom: 30px;
+        }
+      }
+      animation: fadeEffect 1s;
+      @keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .paginate {
+        margin-top: 15px;
+      }
+      &.active {
+        display: block;
+      }
+      .items-gl {
+        cursor: pointer;
+        position: relative;
+        -webkit-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        img {
+          height: 100%;
+        }
+        .gl-overlay {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          line-height: 1.7;
+          background: $primary;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          -webkit-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+          transition: 0.3s all;
+          i {
+            font-size: 20px;
+            color: $white;
+          }
+        }
+        &:hover {
+          img {
+            filter: brightness(0.5);
+          }
+          .gl-overlay {
+            -webkit-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+      }
+    }
+  }
+}

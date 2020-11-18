@@ -1,0 +1,12 @@
+.wrapper-news {
+  font-size: 15px;
+  @include media(768px) {
+    font-size: 13px;
+  }
+  .hero-banner {
+    background-image: url("./../images/defaults/banner_news.jpg");
+  }
+  .news {
+    padding-top: 60px;
+  }
+}

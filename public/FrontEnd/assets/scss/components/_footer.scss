@@ -1,0 +1,118 @@
+footer {
+  .footer-main {
+    padding: 100px 0;
+    font-size: 12px;
+    color: #8e8e8e;
+    background-color: #121212;
+    background-image: url('../images/defaults/background/bg-footer.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    img {
+      max-width: 150px;
+      max-height: 65px;
+      margin: 0 auto;
+      display: block;
+      margin-bottom: 90px;
+    }
+    ul {
+      li {
+        padding: 0 0 25px;
+        line-height: 24px;
+      }
+    }
+    h3 {
+      font-size: 17px;
+      margin-bottom: 30px;
+      text-transform: capitalize;
+      color: #fff;
+    }
+    p {
+      line-height: 24px;
+    }
+    .list-mien {
+      li {
+        a {
+          text-decoration: none;
+          position: relative;
+          display: block;
+          padding: 0 0 0px 20px;
+          -webkit-transition: all 0.6s ease;
+          -o-transition: all 0.6s ease;
+          transition: all 0.6s ease;
+          color: #8e8e8e;
+          &:hover {
+            color: #ffdd00;
+          }
+          &:before {
+            width: 5px;
+            height: 5px;
+            border-radius: 100%;
+            font-size: 7px;
+            position: absolute;
+            left: 0;
+            content: '';
+            background: $primary;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+    .list-icon-social {
+      margin-left: -30px;
+      li {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+        a {
+          font-size: 18px;
+          padding: 0 8px;
+          color: #ffdd00;
+          &:hover {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+  .copyright {
+    background-color: #121212;
+    padding: 25px 0;
+    text-align: center;
+    p {
+      color: #ffdd00;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  footer {
+    .footer-main {
+      text-align: center;
+      .list-mien {
+        li {
+          a {
+            padding-left: 0;
+            &:before {
+              content: unset;
+            }
+          }
+          &:hover {
+            a {
+              &::before {
+                content: unset;
+              }
+            }
+          }
+        }
+      }
+      .list-icon-social {
+        margin-left: 0;
+      }
+    }
+  }
+}

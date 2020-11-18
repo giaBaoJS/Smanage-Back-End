@@ -12,6 +12,7 @@ use App\contact;
 use App\gallerytable;
 use App\slider;
 use App\tinh;
+use App\tintucTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -385,14 +386,62 @@ class dashboardController extends Controller
 
     public function newsTable()
     {
-        return view('admin/page/news/news-table');
+        $showNew=tintucTable::join('user','news.id_user','=','user.id_user')->get();
+        return view('admin/page/news/news-table',['showNew'=>$showNew]);
     }
 
     public function newsAdd()
     {
         return view('admin/page/news/news-add');
     }
+    public function addNews(Request $request)
+    {
+        $path = '';
+        $file = $request->url_img_news;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/news', $path);
+        }
+        $data=array(
+            'title' => $request->title,
+            'short_content' => $request->short_content,
+            'content' => $request->content,
+            'url_img_news'=>$path,
+            'id_user'=>$request->id_user
+        );
+        tintucTable::create($data);
+        return redirect('/admin/news');
+    }
+    public function formEditNew(Request $request,$id)
+    {
+        $showNewOne=tintucTable::find($id);
+        return view('admin/page/news/news-update',['showOneNews'=>$showNewOne]);
+    }
+    public function editNews(Request $request)
+    {
+        $showNews=tintucTable::find($request->id_news);
+        $showNews->title=$request->title;
+        $showNews->short_content=$request->short_content;
+        $showNews->content=$request->content;
+        $showNews->id_user=$request->id_user;
+        $path = '';
+        $file = $request->url_img_news;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/news', $path);
+            $showNews->url_img_news=$path;
+        }
+        $showNews->save();
+        return redirect('/admin/news');
+    }
+    public function viewsNews($id)
+    {
+        $showNewOne=tintucTable::find($id);
+        return view('admin/page/news/news-details',['showOneNews'=>$showNewOne]);
+    }
 
+
+    // tin tức table ---------------------------------->
     // tour table ---------------------------------->
     public function errorTruycap()
     {
@@ -403,7 +452,7 @@ class dashboardController extends Controller
     public function galleryTable()
     {
         $showMien = mien::all();
-        $showGallery = gallerytable::join('mien', 'gallery.id_mien', '=', 'mien.id_mien')->get();
+        $showGallery = gallerytable::join('mien', 'gallery.id_mien', '=', 'mien.id_mien')->orderby('id_gallery','desc')->get();
         return view('admin/page/gallery/gallery-table', ['showmien' => $showMien, 'showGallery' => $showGallery]);
     }
     public function addGallery(Request $request)

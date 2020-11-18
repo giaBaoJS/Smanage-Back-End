@@ -1,0 +1,30 @@
+//Core
+@import "./core/_reset.scss";
+@import "./core/_variables.scss";
+@import "./core/_minxin.scss";
+//Components
+@import "./components/_common.scss";
+@import "./components/_header.scss";
+@import "./components/_button.scss";
+@import "./components/_footer.scss";
+@import "./components/_listTour.scss";
+@import "./components/_filterNews.scss";
+@import "./components/_newsList.scss";
+@import "./components/_comment";
+@import "./components/_login";
+@import "./components/_text-mail";
+@import "./components/_breadcrumb";
+//Page
+@import "./pages/_home.scss";
+@import "./pages/_tour.scss";
+@import "./pages/_contact.scss";
+@import "./pages/_about-us.scss";
+@import "./pages/_partner.scss";
+@import "./pages/_news.scss";
+@import "./pages/_newsDetail.scss";
+@import "./pages/_partnerDetail.scss";
+@import "./pages/_tourDetail.scss";
+@import "./pages/_checkout.scss";
+@import "./pages/_404.scss";
+@import "./pages/_history.scss";
+@import "./pages/_gallery.scss";

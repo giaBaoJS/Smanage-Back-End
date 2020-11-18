@@ -5,6 +5,8 @@ use App\UserTable;
 use App\contact;
 use App\couponTable;
 use App\doitacTable;
+use App\tintucTable;
+use App\gallerytable;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -127,6 +129,29 @@ class apiDashboard extends Controller
     }
 
     // coupon -----------------
+    // coupon -----------------
+
+    public function delgallery($id)
+    {
+        gallerytable::find($id)->delete();
+        return 1;
+    }
+    public function editgallery($id)
+    {
+       $showGallery= gallerytable::find($id);
+        return $showGallery;
+    }
+
+    // coupon -----------------
+    // tin tức -----------------
+
+    public function delNews($id)
+    {
+        tintucTable::find($id)->delete();
+        return 1;
+    }
+
+    // tin tức -----------------
 }
 
 

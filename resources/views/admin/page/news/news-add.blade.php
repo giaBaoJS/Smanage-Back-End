@@ -18,16 +18,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Thêm tin tức</h4>
-                        <p class="card-title-desc">
-                            Tạo coupon tạo ưu đãi cho người dùng
-                        </p>
-
-                        <form class="custom-validation" action="#">
+                        <form class="custom-validation" action="/admin/addnews" method="post" enctype="multipart/form-data">
+                        @csrf
                             <div class="form-group">
                                 <label>Tiêu đề</label>
                                 <input
                                     type="text"
                                     class="form-control"
+                                    name="title"
                                     placeholder="Trải nghiệm Mù Cang Chải 5 ngày 4 đêm"
                                     required
                                 />
@@ -36,10 +34,12 @@
                                 <label>Mô tả ngắn</label>
                                 <input
                                     type="text"
+                                    name="short_content"
                                     class="form-control"
                                     placeholder="Trải nghiệm Mù Cang Chải 5 ngày 4 đêm"
                                     required
                                 />
+                            <input type="hidden" name="id_user" value="{{session('account')->id_user}}">
                             </div>
                             <div class="form-group">
                                 <label>Ảnh đại diện tin tức</label>
@@ -49,6 +49,7 @@
                                         type="file"
                                         class="custom-file-input"
                                         required
+                                        name="url_img_news"
                                     />
                                     <label class="custom-file-label"
                                         >Chọn ảnh đại diện...</label
@@ -59,7 +60,7 @@
                                 <label>Nội dung tin tức</label>
                                 <textarea
                                     id="elm1"
-                                    name="area"
+                                    name="content"
                                     placeholder="Nhập mô tả"
                                 ></textarea>
                             </div>

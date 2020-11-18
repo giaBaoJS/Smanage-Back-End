@@ -128,10 +128,10 @@
                         </a>
                         </div>
                         <div>
-                            <a href="#" type="button" class="" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <a href="#" title="Edit">
                                 <i class="mdi mdi-pencil"></i>
                             </a>
-                            <a href="#" class="" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <a href="#" onclick="deleteGallery({{$g->id_gallery}})">
                                 <i class="mdi mdi-trash-can"></i>
                             </a>
                         </div>
