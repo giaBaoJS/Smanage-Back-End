@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ</title>
+    <title>@yield('title')</title>
     <link
       rel="icon"
       type="image/png"
-      href="./assets/images/default/favicon.ico"
+      href="{{asset('favicon.ico')}}"
     />
   <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/bootstrap.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/swiper-bundle.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/magnific.css" />
+    <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/light-gallery')}}/lightgallery.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/wow.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/flatpickr.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/font.css" />
@@ -38,8 +39,8 @@
               <li class="header-mail">goldentour@gmail.com</li>
             </ul>
             <ul class="topbar-right">
-              <li><a href="#">Đăng nhập</a></li>
-              <li><a href="#">Đăng ký</a></li>
+              <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
+              <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li>
               <!-- <li>VIE</li> -->
             </ul>
           </div>
@@ -50,7 +51,7 @@
           <div class="main-header">
             <div class="container isner">
               <div class="main-logo">
-                <a href="#"
+                <a href="{{ url('/') }}"
                   ><img
                     src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
                     width="100px"
@@ -63,12 +64,12 @@
               <div class="right">
                 <div class="main-menu">
                   <ul class="main-menu-nav">
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Đối tác</a></li>
-                    <li><a href="#">Tours </a></li>
-                    <li><a href="#">Tin tức</a></li>
-                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="{{ url('/') }}">Trang chủ</a></li>
+                    <li><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
+                    <li><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
+                    <li><a href="{{ url('/tours') }}">Tours </a></li>
+                    <li><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
+                    <li><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
                   </ul>
                   <div class="main-menu-overlay"></div>
                 </div>
@@ -78,7 +79,7 @@
         </div>
       </div>
     </header>
-    @section('wrapper__home')
+    @section('wrapper')
 
     @show
 
@@ -160,6 +161,7 @@
     <script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/magnific.js"></script>
+    <script src="{{asset('FrontEnd/assets/libs/light-gallery')}}/lightgallery-all.min.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/wow.min.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/flatpickr.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>

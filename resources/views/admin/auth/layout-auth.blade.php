@@ -7,7 +7,7 @@
 		<meta content="Golden Tours CMS" name="description" />
 		<meta content="Golden Tours Team" name="author" />
 		<!-- App favicon -->
-		<link rel="shortcut icon" href="{{asset('BackEnd/assets/images')}}/favicon.ico" />
+		<link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
 
 		<!-- Bootstrap Css -->
 		<link
