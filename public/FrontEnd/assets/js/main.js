@@ -233,15 +233,17 @@ jQuery(document).ready(function ($) {
             500
         );
     });
-    $(".hamburger-btn").click(function (e) {
-        e.stopPropagation();
-        $(this).addClass("active");
-        $(".main-menu").addClass("active");
-    });
-    $("html").click(function () {
-        $(".hamburger-btn").removeClass("active");
-        $(".main-menu").removeClass("active");
-    });
+    $('.main-menu-btn').on('click', function () {
+        $(this).addClass('active');
+        $('.main-menu').addClass('active');
+        $('body').css('overflow', 'hidden');
+      });
+      
+      $('.main-menu-overlay').on('click', function () {
+        $('.main-menu-btn').removeClass('active');
+        $('.main-menu').removeClass('active');
+        $('body').css('overflow', '');
+      });
 
     //Slider Banner Home
     var mySwiper = new Swiper(".swiper-container", {

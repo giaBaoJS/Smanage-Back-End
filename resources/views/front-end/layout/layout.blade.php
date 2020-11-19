@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/font.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
   </head>
+
   <body>
     <header class="header">
       <div class="header__topbar">
@@ -36,7 +37,7 @@
                   <i class="fab fa-google"></i>
                 </a>
               </li>
-              <li class="header-mail">goldentour@gmail.com</li>
+              <li class="header-mail"> <a href="mailto:goldentour@gmail.com">goldentour@gmail.com</a></li>
             </ul>
             <ul class="topbar-right">
               <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
@@ -47,32 +48,39 @@
         </div>
       </div>
       <div class="header__menu">
-        <div class="container">
-          <div class="main-header">
-            <div class="container isner">
-              <div class="main-logo">
-                <a href="{{ url('/') }}"
-                  ><img
-                    src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
+        <div class="main-header">
+          <div class="container isner">
+            <div class="main-logo">
+              <a href="#"><img   
+                      src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
                     width="100px"
-                    alt="logo"
-                /></a>
-              </div>
-              <div class="hamburger-btn main-menu-btn">
-                <div class="bar"></div>
-              </div>
-              <div class="right">
-                <div class="main-menu">
-                  <ul class="main-menu-nav">
-                    <li><a href="{{ url('/') }}">Trang chủ</a></li>
-                    <li><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
-                    <li><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
-                    <li><a href="{{ url('/tours') }}">Tours </a></li>
-                    <li><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
-                    <li><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
-                  </ul>
-                  <div class="main-menu-overlay"></div>
+                    alt="logo" />
+              </a>
+            </div>
+            <div class="hamburger-btn main-menu-btn">
+              <div class="bar"></div>
+            </div>
+            <div class="right">
+              <div class="main-menu">
+                <div class="logo-mobile">
+                  <a href="#" >
+                  <img   
+                  src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
+                    width="100px"
+                    alt="logo"/>
+                  </a>
                 </div>
+                <ul class="main-menu-nav">
+                  <li class="current-menu-item"><a href="{{ url('/') }}">Trang chủ</a></li>
+                  <li><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
+                  <li>
+                    <a href="{{ url('/tours') }}">Tours</a>
+                  </li>
+                  <li><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
+                  <li><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
+                  <li><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
+                </ul>
+                <div class="main-menu-overlay"></div>
               </div>
             </div>
           </div>
