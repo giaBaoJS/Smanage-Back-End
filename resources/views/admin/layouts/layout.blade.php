@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta content="Golden Tours CMS" name="description" />
 		<meta content="Golden Tours Team" name="author" />
-		<!-- App favicon -->
-		<link rel="shortcut icon" href="{{asset('BackEnd/assets/images')}}/user.png" />
+		<!-- App favicon 123-->
+		<link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
 
 		<!-- chartist chart css -->
 		<link href="{{asset('BackEnd/assets/libs/chartist')}}/chartist.min.css" rel="stylesheet" />

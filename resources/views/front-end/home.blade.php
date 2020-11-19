@@ -1,5 +1,6 @@
 @extends('front-end/layout/layout')
-@section('wrapper__home')
+@section('title', 'Trang Chủ')
+@section('wrapper')
 <div class="wrapper-home">
     <section class="banner-home">
       <div class="swiper-container">
