@@ -34,17 +34,17 @@ Route::get('/gioi-thieu','homeController@about');
 Route::get('/lien-he','homeController@contact');
 Route::get('/thu-vien','homeController@gallery');
 // COMMON - END
-// PARTNERS 
+// PARTNERS
 Route::get('/doi-tac','homeController@partners');
-Route::get('/doi-tac/dt','homeController@partnersDetail');
+Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
 Route::get('/tours/dt','homeController@toursDetail');
 // TOURS - END
-// NEWS 
+// NEWS
 Route::get('/tin-tuc','homeController@news');
-Route::get('/tin-tuc/dt','homeController@newsDetail');
+Route::get('/tin-tuc/dt/{id}','homeController@newsDetail');
 // NEWS - END
 // CHECKOUT
 Route::get('/thanh-toan-1','homeController@checkoutOne');
@@ -53,11 +53,15 @@ Route::get('/thanh-toan-3','homeController@checkoutThree');
 Route::get('/thanh-toan-4','homeController@checkoutFour');
 // CHECKOUT - END
 
+
+
+
+
+
 /** TRANG ADMIN */
 // COMMON
 Route::get('admin', 'dashboardController@login');
 Route::get('admin/loginCms', 'dashboardController@loginCms');
-Route::get('admin/register', 'dashboardController@register');
 Route::get('admin/logout', 'dashboardController@logout');
 Route::get('admin/dashboard', 'dashboardController@index')->middleware('CheckAdmins');
 Route::get('admin/loitruycap', 'dashboardController@errorTruycap');

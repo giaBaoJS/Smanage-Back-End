@@ -4,7 +4,7 @@
 <div class="wrapper-detail-news">
       <section class="hero-banner">
         <div class="container">
-          <h2>Blog Detail</h2>
+        <h2>{{$showOneNew->title}}</h2>
         </div>
       </section>
       <section class="detail-news">
@@ -15,41 +15,15 @@
                 <div class="items">
                   <a href="#">
                     <img
-                      src="{{asset('FrontEnd/assets/images/defaults/news')}}/3-mat-than.jpg"
+                      src="{{asset('BackEnd/assets/images/news')}}/{{$showOneNew->url_img_news}}"
                       alt="news"
                   /></a>
-                  <h3 class="title">Những Hang Động Đẹp</h3>
+                  <h3 class="title">{{ucwords($showOneNew->title)}}</h3>
                   <div class="list-info">
-                    <span>21/10/2020</span>
+                    <span>{{date('d/m/Y',strtotime($showOneNew->created_at))}}</span>
                     <a>4 Nhận xét</a>
                   </div>
-                  <p>
-                    On the Insert tab, the galleries include items that are
-                    designed to coordinate with the overall look of your
-                    document. You can use these galleries to insert tables,
-                    headers, footers, lists, cover pages, and other document
-                    building blocks. When you create pictures, charts, or
-                    diagrams, they also coordinate with your current document
-                    look.
-                  </p>
-                  <p>
-                    On the Insert tab, the galleries include items that are
-                    designed to coordinate with the overall look of your
-                    document. You can use these galleries to insert tables,
-                    headers, footers, lists, cover pages, and other document
-                    building blocks. When you create pictures, charts, or
-                    diagrams, they also coordinate with your current document
-                    look.
-                  </p>
-                  <p>
-                    On the Insert tab, the galleries include items that are
-                    designed to coordinate with the overall look of your
-                    document. You can use these galleries to insert tables,
-                    headers, footers, lists, cover pages, and other document
-                    building blocks. When you create pictures, charts, or
-                    diagrams, they also coordinate with your current document
-                    look.
-                  </p>
+                  {!!$showOneNew->content!!}
                   <div class="shared">
                     <div class="row">
                       <div class="col-md-6">
@@ -70,11 +44,11 @@
                   <div class="poster">
                     <div class="info">
                       <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
+                        src="{{asset('BackEnd/assets/images')}}/{{$showOneNew->url_avatar}}"
                         alt="avatar"
                       />
                       <div>
-                        <h4>Phước Nguyễn</h4>
+                        <h4>{{$showOneNew->name}}</h4>
                         <p>Quản trị viên</p>
                       </div>
                     </div>
@@ -180,86 +154,59 @@
               </div>
             </div>
             <div class="col-lg-3 col-md-4">
-              <div class="filter-news">
-                <form action="#">
-                  <input type="text" placeholder="Tìm kiếm ..." />
-                  <button type="submit">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </form>
-                <div class="abouts">
-                  <h3>Về chúng tôi</h3>
-                  <img
-                    src="{{asset('FrontEnd/assets/images/defaults')}}/travelers.jpg"
-                    alt="travels"
-                  />
-                  <p>
-                    Nam dapibus nisl vitae elit fringilla rutrum. Aenean
-                    sollicitudin, erat a elementum rutrum, neque sem pretium
-                    metus, quis mollis nisl nunc et massa
-                  </p>
-                </div>
-                <div class="lasted-news">
-                  <h3>Tin mới nhất</h3>
-                  <div class="row no-gutters">
-                    <div class="col-md-4 mb-3">
-                    <a href="#">  
+                <div class="filter-news">
+                  <form action="#">
+                    <input type="text" placeholder="Tìm kiếm ..." />
+                    <button type="submit">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </form>
+                  <div class="abouts">
+                    <h3>Về chúng tôi</h3>
                     <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/background/homepage-02-banner.jpg"
-                        alt="news"
-                      />
-                      </a>
-                    </div>
-                    <div class="col-md-8 mb-3">
-                      <div class="content">
-                        <h3><a href="#">Visit Thailand, Bali And China</a></h3>
-                        <span>21 Tháng 12 Năm 2020</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                    <a href="#">  
-                    <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/background/homepage-02-banner.jpg"
-                        alt="news"
-                      />
-                      </a>
-                    </div>
-                    <div class="col-md-8 mb-3">
-                      <div class="content">
-                        <h3><a href="#">Visit Thailand, Bali And China</a></h3>
-                        <span>21 Tháng 12 Năm 2020</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                    <a href="#">  
-                    <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/background/homepage-02-banner.jpg"
-                        alt="news"
-                      />
-                      </a>
-                    </div>
-                    <div class="col-md-8 mb-3">
-                      <div class="content">
-                        <h3><a href="#">Visit Thailand, Bali And China</a></h3>
-                        <span>21 Tháng 12 Năm 2020</span>
-                      </div>
+                      src="{{asset('FrontEnd/assets/images/defaults')}}/travelers.jpg"
+                      alt="travels"
+                    />
+                    <p>
+                      Nam dapibus nisl vitae elit fringilla rutrum. Aenean
+                      sollicitudin, erat a elementum rutrum, neque sem pretium
+                      metus, quis mollis nisl nunc et massa
+                    </p>
+                  </div>
+                  <div class="lasted-news">
+                    <h3>Tin mới nhất</h3>
+                    <div class="row no-gutters">
+                        @foreach ($showNewsHighlights as $hl)
+                          <div class="col-md-4 mb-3">
+                              <a href="/tin-tuc/dt/{{$hl->id_news}}">
+                              <img
+                                  src="{{asset('BackEnd/assets/images/news')}}/{{$hl->url_img_news}}"
+                                  alt="news"
+                              />
+                              </a>
+                          </div>
+                          <div class="col-md-8 mb-3">
+                              <div class="content">
+                              <h3><a href="/tin-tuc/dt/{{$hl->id_news}}">{{$hl->title}}</a></h3>
+                              <span>{{date('d',strtotime($hl->created_at))}} Tháng {{date('m',strtotime($hl->created_at))}} Năm {{date('Y',strtotime($hl->created_at))}}</span>
+                              </div>
+                          </div>
+                        @endforeach
                     </div>
                   </div>
-                </div>
-                <div class="tag-news">
-                  <h3>Tags</h3>
-                  <div class="list-tag">
-                    <a href="#">Miền Bắc</a>
-                    <a href="#">Miền Trung</a>
-                    <a href="#">Miền nam</a>
-                    <a href="#">Biển</a>
-                    <a href="#">Núi rừng</a>
-                    <a href="#">Cao bằng</a>
-                    <a href="#">Sa pa</a>
+                  <div class="tag-news">
+                    <h3>Tags</h3>
+                    <div class="list-tag">
+                        @foreach ($showMien as $m)
+                          <a href="#">{{$m->name_mien}}</a>
+                        @endforeach
+                        @foreach ($showTinh as $t)
+                        <a href="#">{{$t->name_tinh}}</a>
+                        @endforeach
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </section>

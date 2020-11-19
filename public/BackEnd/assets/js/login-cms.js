@@ -49,69 +49,6 @@ $("#buttonLoginLock").click(function () {
         },
     });
 });
-$("#button_register").click(function () {
-    name = $("#name").val();
-    email = $("#email").val();
-    password = $("#password").val();
-    repassword = $("#repassword").val();
-    phone = $("#phone").val();
-    address = $("#address").val();
-    checkbox = $("#term-conditionCheck").prop("checked");
-    if (name == "") {
-        alertify.error('Họ tên không được để trống');
-        return false;
-    }
-    if (email == "") {
-        alertify.error('Email không được để trống');
-        return false;
-    }
-    if (password == "") {
-        alertify.error('Mật khẩu không được để trống');
-        return false;
-    } else {
-        $("#errorName").html("");
-    }
-    if (repassword != password) {
-        alertify.error('Mật khẩu nhập lại không đúng');
-        return false;
-    }
-    if (phone == "") {
-        alertify.error('Số điện thoại không được để trống');
-        return false;
-    }
-    if (address == "") {
-        alertify.error('Địa chỉ không được để trống');
-        return false;
-    }
-    if (checkbox == false) {
-        alertify.warning('Vui lòng chấp nhận các điều khoản của chúng tôi');
-        return false;
-    } else {
-        $("#errorCheckbox").html("");
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/admin/add-account',
-            type: 'get',
-            data: {
-                name:name,
-                email:email,
-                password:password,
-                phone:phone,
-                address:address
-            }
-        }).done(function(ketqua) {
-           if (ketqua==1) {
-            alertify.error('Email đã đăng ký');
-           }else{
-            alertify.success('Đăng ký thành công');
-            function loadpage(){
-                window.location.href = "/admin/dashboard";
-              };
-              setTimeout (loadpage, 1000);
-           }
-        });
-    }
-});
-
 
 // delete Contact
 

@@ -5,50 +5,26 @@
     <section class="banner-home">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="content">
-              <div class="image">
-                <img
-                  class="img-fluid w-100"
-                  src="{{asset('FrontEnd/assets/images/defaults')}}/banner-home.jpg"
-                  alt="home"
-                />
+            @foreach ($showSlider as $sl)
+            <div class="swiper-slide">
+                <div class="content">
+                  <div class="image">
+                    <img
+                      class="img-fluid w-100"
+                      src="{{asset('BackEnd/assets/images/slider')}}/{{$sl->url_img_slider}}"
+                      alt="home"
+                    />
+                  </div>
+                  <div class="describe">
+                    <h2 class="title">Đi thôi nào</h2>
+                  <h3 class="sub-title">{{$sl->title}}</h3>
+                    <p>
+                        {{$sl->content}}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="describe">
-                <h2 class="title">Đi thôi nào</h2>
-                <h3 class="sub-title">Trải nghiệm hà nội</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ratione blanditiis quia impedit? Quae ipsa, facilis
-                  consequuntur quas minus molestias consectetur possimus,
-                  nesciunt adipisci cumque dolores. Corrupti nesciunt magni
-                  deserunt ab
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="content">
-              <div class="image">
-                <img
-                  class="img-fluid w-100"
-                  src="{{asset('FrontEnd/assets/images/defaults')}}/banner-home2.jpg"
-                  alt="home"
-                />
-              </div>
-              <div class="describe">
-                <h2 class="title">Đi thôi nào 2</h2>
-                <h3 class="sub-title">Trải nghiệm hà nội</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ratione blanditiis quia impedit? Quae ipsa, facilis
-                  consequuntur quas minus molestias consectetur possimus,
-                  nesciunt adipisci cumque dolores. Corrupti nesciunt magni
-                  deserunt ab
-                </p>
-              </div>
-            </div>
-          </div>
+            @endforeach
         </div>
         <div class="slide-button-prev">
           <i class="fa fa-angle-left"></i>

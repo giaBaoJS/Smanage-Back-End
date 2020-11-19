@@ -93,12 +93,6 @@
                                         Đăng nhập
                                     </button>
                                 </div>
-                                <div class="mt-4 text-center">
-                                    <a href="/admin/register" class="text-muted"
-                                        ><i class="mdi mdi-account-circle mr-1"></i> Tạo tài
-                                        khoản mới</a
-                                    >
-                                </div>
                             </div>
                         </div>
                     </form>

@@ -56,11 +56,6 @@ class dashboardController extends Controller
 
     // register ---------------------------------->
 
-    public function register()
-    {
-        return view('admin/auth/register');
-    }
-
     // register ---------------------------------->
 
     // lockScreen ---------------------------------->

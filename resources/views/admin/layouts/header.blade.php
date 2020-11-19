@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.html" class="logo logo-dark">
+                <a href="/admin" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{{asset('BackEnd/assets/images')}}/logo-den.png" alt="" height="40" />
                     </span>

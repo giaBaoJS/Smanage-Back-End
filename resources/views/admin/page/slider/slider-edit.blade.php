@@ -48,7 +48,7 @@
                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3">{{$slider->content}}</textarea>
                             </div>
                             <div class="form-group" style="text-align: center">
-                                <img src="{{asset('BackEnd/assets/images/slider')}}/{{$slider->url_img_slider}}" alt="">
+                                <img src="{{asset('BackEnd/assets/images/slider')}}/{{$slider->url_img_slider}}" alt="" width="80%">
                              </div>
                             <div class="form-group">
                                 <label>Thay đổi hình ảnh</label>
