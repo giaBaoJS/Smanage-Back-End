@@ -15,14 +15,14 @@ jQuery(document).ready(function ($) {
             });
     });
     /** SHOW PASSWORD */
-    $(document).on("click", ".eyes-psw", function () {
-        $(this).find("i").toggleClass("fa-eye fa-eye-slash");
+    // $(document).on("click", ".eyes-psw", function () {
+    //     $(this).find("i").toggleClass("fa-eye fa-eye-slash");
 
-        const input = $(this).prev();
-        input.attr("type") === "password"
-            ? input.attr("type", "text")
-            : input.attr("type", "password");
-    });
+    //     const input = $(this).prev();
+    //     input.attr("type") === "password"
+    //         ? input.attr("type", "text")
+    //         : input.attr("type", "password");
+    // });
     /** SHOW PASSWORD - END */
     /** SHOW MODAL WITH AJAX */
     $(".bill-detail").on("click", function () {
@@ -233,17 +233,17 @@ jQuery(document).ready(function ($) {
             500
         );
     });
-    $('.main-menu-btn').on('click', function () {
-        $(this).addClass('active');
-        $('.main-menu').addClass('active');
-        $('body').css('overflow', 'hidden');
-      });
-      
-      $('.main-menu-overlay').on('click', function () {
-        $('.main-menu-btn').removeClass('active');
-        $('.main-menu').removeClass('active');
-        $('body').css('overflow', '');
-      });
+    $(".main-menu-btn").on("click", function () {
+        $(this).addClass("active");
+        $(".main-menu").addClass("active");
+        $("body").css("overflow", "hidden");
+    });
+
+    $(".main-menu-overlay").on("click", function () {
+        $(".main-menu-btn").removeClass("active");
+        $(".main-menu").removeClass("active");
+        $("body").css("overflow", "");
+    });
 
     //Slider Banner Home
     var mySwiper = new Swiper(".swiper-container", {

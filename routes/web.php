@@ -21,12 +21,18 @@ Route::get('/','homeController@index');
 // HOME - END
 
 // AUTH
-Route::get('/dang-nhap','homeController@login');
+Route::get('/dang-nhap', 'homeController@login')->name('dang-nhap');
+Route::post('/dang-nhap','homeApi@loginPost');
 Route::get('/dang-ky','homeController@register');
-Route::get('/cap-nhat-tai-khoan','homeController@updateAccount');
-Route::get('/doi-mat-khau','homeController@changePsw');
+Route::post('/dang-ky','homeApi@registerPost');
 Route::get('/quen-mat-khau','homeController@forgotPsw');
-Route::get('/lich-su','homeController@history');
+Route::post('/quen-mat-khau','homeApi@forgotPswPost');
+Route::get('/cap-nhat-tai-khoan','homeController@updateAccount')->middleware('auth');
+Route::post('/cap-nhat-tai-khoan','homeApi@updateAccountPost')->middleware('auth');
+Route::get('/doi-mat-khau','homeController@changePsw')->middleware('auth');
+Route::post('/doi-mat-khau','homeApi@changePswPost')->middleware('auth');
+Route::get('/lich-su','homeController@history')->middleware('auth');
+Route::post('/lich-su','homeApi@historyPost')->middleware('auth');
 // AUTH
 
 // COMMON

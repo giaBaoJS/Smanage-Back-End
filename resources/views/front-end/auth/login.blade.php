@@ -1,8 +1,12 @@
+@if(Session::has('account'))
+  <script>window.location = "/";</script>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Đăng nhập</title>
 		<link
 			rel="icon"
@@ -19,6 +23,7 @@
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
 	</head>
 	<body>
+  <div class="loading"></div>
 		<div class="auth">
 			<!-- Design belong to: https://dribbble.com/chouaibblgn45 -->
 			<div class="container">
@@ -38,32 +43,31 @@
 					</div>
 
 					<form
-						action="javscript:voi(0);"
-						class="signin-form"
-						autocomplete="off"
-					>
-						<div class="form-group">
+						class="signin-form user-ajax"  action="dang-nhap" method="post" novalidate="novalidate"
+          >
+          <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+						<div class="form-group validate-input" data-validate="Email không đúng định dạng">
 							<label for="email" class="form-label">Email</label>
 							<input
-								type="email"
-								class="form-input"
+                type="email"
+                name='email'
+								class="form-input validate-form-control"
 								id="email"
-								placeholder="Eg: goldentour@gmail.com"
+                placeholder="Eg: goldentour@gmail.com"
+                value=""
 							/>
 						</div>
-						<div class="form-group">
+						<div class="form-group validate-input" data-validate="Mật khẩu phải từ 8 ký tự (Hoa, thường, 0-9)">
 							<label for="password" class="form-label">Mật khẩu</label>
-							<div class="form-psw">
-								<input
-									type="password"
-									class="form-input"
-									id="password"
-									placeholder="*******"
-								/>
-								<span class="eyes-psw">
-									<i class="far fa-eye"></i>
-								</span>
-							</div>
+              <input
+                type="password"
+                name='psw'
+                class="form-input validate-form-control"
+                id="password"
+                placeholder="*******"
+                value=""
+              />
+              <i class="far fa-eye eyes-psw"></i>
 						</div>
 						<div class="form-forget">
 							<a href="{{ url('quen-mat-khau') }}">Quên mật khẩu?</a>
@@ -84,6 +88,8 @@
 		<script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.min.js"></script>
 		<script src="{{asset('FrontEnd/assets/libs/js')}}/flatpickr.js"></script>
 		<script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script> -->
-		<script src="{{asset('FrontEnd/assets/js/')}}/main.js"></script>
+    <script src="{{asset('FrontEnd/assets/libs/js')}}/sweetalert.min.js" ></script>
+    <script src="{{asset('FrontEnd/assets/js')}}/validate.js" ></script>
+    <script src="{{asset('FrontEnd/assets/js')}}/api.js" ></script>
 	</body>
 </html>
