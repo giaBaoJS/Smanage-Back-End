@@ -2568,6 +2568,11 @@ footer .copyright p {
   font-size: 20px;
   color: #5e6d77;
 }
+@media screen and (max-width: 540px) {
+  .filter-tour .sort .layout-item:last-child {
+    display: none;
+  }
+}
 
 .sidebar i {
   color: #c4c7ca;
@@ -2614,7 +2619,7 @@ footer .copyright p {
 @media screen and (max-width: 768px) {
   .search-form .form .wrapper-items-form .item .content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
   }
 }
 .search-form .form .wrapper-items-form .item .content label {
