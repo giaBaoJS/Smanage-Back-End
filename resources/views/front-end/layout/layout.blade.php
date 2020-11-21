@@ -51,7 +51,7 @@
         <div class="main-header">
           <div class="container isner">
             <div class="main-logo">
-              <a href="#"><img   
+              <a href="#"><img
                       src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
                     width="100px"
                     alt="logo" />
@@ -64,7 +64,7 @@
               <div class="main-menu">
                 <div class="logo-mobile">
                   <a href="#" >
-                  <img   
+                  <img
                   src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
                     width="100px"
                     alt="logo"/>

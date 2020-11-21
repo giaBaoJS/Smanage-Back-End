@@ -24,7 +24,7 @@
 	<body class="bg-pattern">
 		<div class="home-btn d-none d-sm-block">
 			<!-- Trở về trang chủ nhé -->
-			<a href="index.html"
+			<a href="/"
 				><i class="mdi mdi-home-variant h2 text-white"></i
 			></a>
 		</div>
@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="text-center mb-5">
-							<a href="index.html" class="logo"
+							<a href="/admin" class="logo"
 								><img src="{{asset('BackEnd/assets/images')}}/logo-chu-den.png" height="90" alt="logo"
 							/></a>
 							<h5 class="font-size-16 text-white-50 mb-4">

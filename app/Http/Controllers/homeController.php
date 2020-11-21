@@ -20,9 +20,10 @@ class homeController extends Controller
     // HOME
     public function index()
     {
+        $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
         $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(2)->get();
         $showMien=mien::all();
-        return view('front-end/home',['showMien'=>$showMien,'showOneNews'=>$showOneNews]);
+        return view('front-end/home',['showMien'=>$showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
     // PAGE 404 ---------------------------------->
     public function notfound()
@@ -49,7 +50,7 @@ class homeController extends Controller
       return view('front-end/auth/history');
     }
     // AUTH - END
-    // CHECKOUT 
+    // CHECKOUT
     public function checkoutOne() {
       return view('front-end/pages/checkout/form-checkout');
     }
@@ -82,14 +83,22 @@ class homeController extends Controller
       return view('front-end/pages/tours/tours-detail');
     }
     public function news() {
-      return view('front-end/pages/news/news');
+        $showMien=mien::all();
+        $showTinh=tinh::all();
+        $showNews=tintucTable::join('user','news.id_user','=','user.id_user')->get();
+        $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
+      return view('front-end/pages/news/news',['showNews'=>$showNews,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
-    public function newsDetail() {
-      return view('front-end/pages/news/news-detail');
+    public function newsDetail($id) {
+        $showMien=mien::all();
+        $showTinh=tinh::all();
+        $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
+        $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->find($id);
+      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights]);
     }
     public function gallery() {
       return view('front-end/pages/gallery');
     }
-   
+
 
 }

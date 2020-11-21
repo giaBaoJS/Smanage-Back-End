@@ -1461,7 +1461,6 @@
     </div>
     <!-- end container-fluid -->
 </div>
-
 @else
 <div class="page-content-wrapper">
     <div class="container-fluid">
