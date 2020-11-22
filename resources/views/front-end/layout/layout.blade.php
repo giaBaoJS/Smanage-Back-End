@@ -86,6 +86,20 @@
                   </a>
                 </div>
                 <ul class="main-menu-nav">
+                <li class="login-mobile dropdown">
+                    <!-- <a href="#">Đăng nhập</a> -->
+                    <a href="#">
+                      <span>  <img
+                      src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
+                      width="30px"
+                      alt="logo"> Gia Bảo</span>
+                    </a>
+                    <ul class="submenu">
+                      <li><a href="#">Thông tin cá nhân</a></li>
+                      <li><a href="#">Hóa đơn</a></li>
+                      <li><a href="#">Đăng xuất</a></li>
+                    </ul>
+                  </li>
                   <li class="current-menu-item"><a href="{{ url('/') }}">Trang chủ</a></li>
                   <li><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
                   <li>

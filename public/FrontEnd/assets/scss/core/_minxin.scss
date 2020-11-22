@@ -4,6 +4,11 @@
   transition: $value;
 }
 
+@mixin min-media($point) {
+  @media screen and (min-width: $point) {
+      @content;
+  }
+}
 @mixin transform($value) {
   -webkit-transform: $value;
   -ms-transform: $value;
