@@ -3010,3 +3010,45 @@ a:hover {
     color: #fff;
 }
 
+.add-form-tours{
+	margin-top:30px;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 5px;
+}
+.add-form-tours .row{
+	justify-content: center;
+	align-items: center;
+}
+.add-form-tours .items{
+	background: #84d1d8;
+    color: #ffffff;
+	padding:15px 0;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 5px;
+}
+.add-form-tours .items.active{
+	background: #0ac9db;
+}
+.add-form-tours .group-forms{
+	margin-top: 30px;
+	border-radius: 5px;
+	border: 1px solid #f3f3f3;
+	padding: 30px;
+}
+.add-form-tours .group-forms .title-cm{
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 15px;
+}
+.add-form-tours .group-forms label{
+	display: inline-block;
+	font-size: 14px;
+}
+.add-form-tours .group-forms input{
+	width: 100%;
+	appearance: none;
+	
+}
