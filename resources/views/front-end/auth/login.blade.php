@@ -7,7 +7,7 @@
   //     $crAcc->update_user_by('kichhoat', 1, 'email', $user['email']);
   //     echo '<p class="text-center text-success">Bạn đã kích hoạt tài khoản thành công.</p>';
   // }
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

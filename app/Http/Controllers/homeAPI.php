@@ -9,6 +9,7 @@ use App\mien;
 use App\contact;
 use App\gallerytable;
 use App\slider;
+use App\comment;
 use App\tinh;
 use App\tintucTable;
 use \App\mailer;
@@ -36,7 +37,7 @@ class homeAPI extends Controller
     [
       'email' => 'Email',
       'psw' => 'Mật khẩu',
-    ]); 
+    ]);
     $data = [
       'email' => $request->email,
       'password' => $request->psw,
@@ -49,11 +50,11 @@ class homeAPI extends Controller
       $mail->sendMail($title, 'http://127.0.0.1:8000/dang-nhap?email='.$request->email, $request->email);
       echo json_encode(['success' => false, 'message' => 'Tài khoản của bạn chưa được kích hoạt. Hãy kiểm tra email', 'redirect' => true, 'location' => '/dang-nhap']);
       return;
-    } 
+    }
 
     if (Auth::attempt($data))   {
       if (Auth::check()) {
-        session(['account' => Auth::user()]); 
+        session(['account' => Auth::user()]);
         // if ($request->checkbox == "true") {
         //     Cookie::queue('email', $request->email, 1000);
         //     Cookie::queue('password', $request->password, 1000);
@@ -99,7 +100,7 @@ class homeAPI extends Controller
         'phone' => 'Số điện thoại',
         'address' => 'Địa chỉ'
       ]
-    ); 
+    );
     $data=[
       'name'=>$request->name,
       'email'=>$request->email,
@@ -136,7 +137,7 @@ class homeAPI extends Controller
       'psw_new_1' => 'Mật khẩu mới',
       'psw_new_2' => 'Nhập lại mật khẩu mới',
       ]
-    ); 
+    );
     $account = Session::get('account');
     $data = [
       'email' => $account->email,
@@ -159,5 +160,18 @@ class homeAPI extends Controller
     Auth::logout();
     Session::forget('account');
     echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. Bạn sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
+  }
+
+  //BÌNH LUẬN
+  public function addComment(Request $request)
+  {
+    $data = array(
+        'id_user' => $request->id_user,
+        'id_news' => $request->id_news,
+        'content' => $request->comment
+    );
+    comment::create($data);
+    $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$request->id_news)->orderby('id_comment','desc')->get();
+    return $showComment;
   }
 }

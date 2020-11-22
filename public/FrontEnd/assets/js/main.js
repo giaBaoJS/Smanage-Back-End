@@ -405,3 +405,4 @@ $(".list-cato .tab").click(function (e) {
     $(".tablist").removeClass("active");
     $("." + id).addClass("active");
 });
+
