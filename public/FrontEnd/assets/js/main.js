@@ -218,6 +218,12 @@ jQuery(document).ready(function ($) {
     }
     /** FLATPICKER - END */
 
+    new WOW().init();
+
+    $(".btn-video").magnificPopup({
+        type: "iframe",
+    });
+
     $(window).scroll(function () {
         if ($(this).scrollTop() >= 500) {
             $("#return-to-top").fadeIn(300);

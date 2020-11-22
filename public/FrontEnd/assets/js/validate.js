@@ -48,7 +48,7 @@ function showValidate(input) {
 function hideValidate(input) {
     var parent = $(input).closest(".validate-input");
     $(parent).removeClass("alert-validate");
-    $(input).css("border", "1px solid #ced4da");
+    $(input).css("border", "0");
 }
 
 function valid_phone(str) {

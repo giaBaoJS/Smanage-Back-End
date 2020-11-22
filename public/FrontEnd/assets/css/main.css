@@ -5336,7 +5336,8 @@ html .mfp-wrap {
 
 .alert-validate::after {
     content: "\f06a";
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     display: block;
     position: absolute;
     color: #e44a7a;

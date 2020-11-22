@@ -38,7 +38,6 @@ jQuery(function () {
             }
         }
         if (checkValid) {
-            console.log(data);
             $(":submit", form).attr("disabled", true);
             $(".loading").addClass("--active");
             $.ajax({
@@ -47,8 +46,8 @@ jQuery(function () {
                 dataType: "json",
                 data: { ...formatDataForm(data) },
                 success: function (res) {
-                    $(".loading").removeClass("--active");
                     console.log(res);
+                    $(".loading").removeClass("--active");
                     if (res.success) {
                         Swal.fire({
                             title: "Xin chúc mừng",
@@ -85,6 +84,7 @@ jQuery(function () {
                     if (request.status === 422) {
                         $(".loading").removeClass("--active");
                         const res = request.responseJSON.errors;
+                        console.log(res);
                         for (let key in res) {
                             //thông báo lỗi chung chung
                             if (key === "error_field_lg") {
@@ -170,14 +170,25 @@ jQuery(function () {
     //submit logout with ajax
     $(".logout").one("click", function (e) {
         $.ajax({
-            url: "../view/account/handleUser.php",
+            url: "/dang-xuat",
             type: "post",
             dataType: "json",
-            data: { type: "logout" },
             success: function (res) {
-                setTimeout(function () {
-                    window.location.href = res["direct"];
-                }, 200);
+                if (res.success) {
+                    Swal.fire({
+                        title: "Xin chúc mừng",
+                        text: res.message,
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                    });
+                    if (res.redirect) {
+                        setTimeout(function () {
+                            window.location.replace(res.location);
+                        }, 1500);
+                    }
+                }
             },
         });
     });

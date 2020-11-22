@@ -33,6 +33,7 @@ Route::get('/doi-mat-khau','homeController@changePsw')->middleware('auth');
 Route::post('/doi-mat-khau','homeApi@changePswPost')->middleware('auth');
 Route::get('/lich-su','homeController@history')->middleware('auth');
 Route::post('/lich-su','homeApi@historyPost')->middleware('auth');
+Route::post('/dang-xuat','homeApi@logoutPost')->middleware('auth');
 // AUTH
 
 // COMMON

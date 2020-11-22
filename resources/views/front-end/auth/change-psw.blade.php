@@ -20,7 +20,7 @@
 									placeholder="*******"
                   value=""
                 />
-                <i class="far fa-eye eyes-psw"></i>
+                <i class="fas fa-eye eyes-psw"></i>
 						</div>
 						<div class="form-group validate-input" data-validate="Mật khẩu cần 8 ký tự trở lên (Hoa, thường, 0-9)">
 							<label for="new-password" class="form-label"
@@ -34,7 +34,7 @@
                   placeholder="*******"
                   value=""
 								/>
-                <i class="far fa-eye eyes-psw"></i>
+                <i class="fas fa-eye eyes-psw"></i>
 						</div>
 						<div class="form-group validate-input" data-validate="Mật khẩu cần 8 ký tự trở lên (Hoa, thường, 0-9)">
 							<label for="new-password-2" class="form-label"
@@ -49,7 +49,7 @@
                   placeholder="*******"
                   value=""
 								/>
-                <i class="far fa-eye eyes-psw"></i>
+                <i class="fas fa-eye eyes-psw"></i>
 						</div>
 						<button type="submit" class="form-submit">Thay đổi</button>
 					</form>

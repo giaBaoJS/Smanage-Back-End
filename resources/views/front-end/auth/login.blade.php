@@ -1,6 +1,13 @@
 @if(Session::has('account'))
   <script>window.location = "/";</script>
 @endif
+<?php
+  // $user = @$crAcc->get_user_by('email', $_GET['email']);
+  // if ($user['kichhoat'] === '0') {
+  //     $crAcc->update_user_by('kichhoat', 1, 'email', $user['email']);
+  //     echo '<p class="text-center text-success">Bạn đã kích hoạt tài khoản thành công.</p>';
+  // }
+?> 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -13,11 +20,7 @@
 			type="image/png"
 			href="{{asset('favicon.ico')}}/"
 		/>
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-		/>
-		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css/')}}/fontawesome.min.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css/')}}/bootstrap.min.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/font.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
@@ -67,7 +70,7 @@
                 placeholder="*******"
                 value=""
               />
-              <i class="far fa-eye eyes-psw"></i>
+              <i class="fas fa-eye eyes-psw"></i>
 						</div>
 						<div class="form-forget">
 							<a href="{{ url('quen-mat-khau') }}">Quên mật khẩu?</a>
@@ -82,12 +85,6 @@
 			</div>
     </div>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/jquery-3.5.1.min.js"></script>
-		<!-- <script src="{{asset('FrontEnd/assets/libs/js')}}/bootstrap.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/jquery.mousewheel.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/flatpickr.js"></script>
-		<script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script> -->
     <script src="{{asset('FrontEnd/assets/libs/js')}}/sweetalert.min.js" ></script>
     <script src="{{asset('FrontEnd/assets/js')}}/validate.js" ></script>
     <script src="{{asset('FrontEnd/assets/js')}}/api.js" ></script>

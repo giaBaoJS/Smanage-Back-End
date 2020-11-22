@@ -10,12 +10,8 @@
       type="image/png"
       href="{{asset('favicon.ico')}}"
     />
-    <link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-		/>
-  <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/swiper-bundle.css" />
+    <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/fontawesome.min.css" />
+    <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/bootstrap.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css')}}/magnific.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/light-gallery')}}/lightgallery.min.css" />
@@ -47,6 +43,7 @@
             <ul class="topbar-right">
               <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
               <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li>
+              <li><a href="#" class='logout'>Đăng xuất</a></li>
               <!-- <li>VIE</li> -->
             </ul>
           </div>
@@ -170,23 +167,13 @@
     ></a>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/jquery-3.5.1.min.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/bootstrap.min.js"></script>
-    <script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/magnific.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/light-gallery')}}/lightgallery-all.min.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/wow.min.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/flatpickr.js"></script>
     <script src="{{asset('FrontEnd/assets/libs/js')}}/sweetalert.min.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
-    <script>
-      new WOW().init();
-    </script>
-    <script>
-      $('.btn-video').magnificPopup({
-        type: 'iframe',
-      });
-    </script>
     <script src="{{asset('FrontEnd/assets/js')}}/validate.js"></script>
     <script src="{{asset('FrontEnd/assets/js')}}/api.js"></script>
     <script src="{{asset('FrontEnd/assets/js')}}/main.js"></script>

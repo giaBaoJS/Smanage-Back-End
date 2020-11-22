@@ -13,11 +13,7 @@
 			type="image/png"
 			href="{{asset('favicon.ico')}}/"
 		/>
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-		/>
-		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css/')}}/fontawesome.min.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/libs/css/')}}/bootstrap.min.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/font.css" />
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
@@ -25,7 +21,6 @@
 	<body>
     <div class="loading"></div>
   <div class="auth">
-			<!-- Design belong to: https://dribbble.com/chouaibblgn45 -->
 			<div class="container">
 				<div class="signin register">
 					<div class="auth__home-btn">
@@ -72,10 +67,10 @@
 									type="password"
 									class="form-input validate-form-control"
                   id="password"
-                  name='psw_new-1'
+                  name='psw_new_1'
 									placeholder="*******"
 								/>
-									<i class="far fa-eye eyes-psw"></i>
+									<i class="fas fa-eye eyes-psw"></i>
 						</div>
 						<div class="form-group validate-input"  data-validate="Mật khẩu phải từ 8 ký tự (Hoa, thường, 0-9)">
 							<label for="password-2" class="form-label"
@@ -85,17 +80,17 @@
 									type="password"
 									class="form-input validate-form-control"
                   id="password-2"
-                  name='psw_new-2'
+                  name='psw_new_2'
 									placeholder="*******"
 								/>
-									<i class="far fa-eye eyes-psw"></i>
+									<i class="fas fa-eye eyes-psw"></i>
 						</div>
-						<div class="form-group validate-input"  data-validate="Số điện thoại không được để trống">
+						<div class="form-group validate-input"  data-validate="Số điện thoại không đúng định dạng">
 							<label for="phone" class="form-label">Số điện thoại (*)</label>
 							<input
-								type="tel"
-								pattern="^[0-9-+\s()]*$"
-								class="form-input validate-form-control"
+								type="text"
+                class="form-input validate-form-control"
+                maxlength="10" 
                 id="phone"
                 name="phone"
 								placeholder="0909123123"
@@ -104,10 +99,10 @@
             <div class="form-group validate-input">
               <label for="address" class="form-label">Giới tính</label>
               <select class='form-control validate-form-control' name="gender" id="">
-                <option value="1">Hãy chọn giới tính</option>
+                <option value="0">Hãy chọn giới tính</option>
                 <option value="1">Nam</option>
-                <option value="1">Nữ</option>
-                <option value="1">Không công khai</option>
+                <option value="2">Nữ</option>
+                <option value="0">Không công khai</option>
               </select>
 						</div>
 						<div class="form-group validate-input"  data-validate="Địa chỉ không được để trống" style="grid-column: span 2">
@@ -115,7 +110,8 @@
 							<input
 								type="text"
 								class="form-input validate-form-control"
-								id="address"
+                id="address"
+                name="address"
 								placeholder="Địa chỉ"
 							/>
 						</div>
@@ -129,15 +125,9 @@
 				</div>
 			</div>
 		</div>
-     <script src="{{asset('FrontEnd/assets/libs/js')}}/jquery-3.5.1.min.js"></script>
-		<!--<script src="{{asset('FrontEnd/assets/libs/js')}}/bootstrap.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/jquery.mousewheel.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/swiper-bundle.min.js"></script>
-		<script src="{{asset('FrontEnd/assets/libs/js')}}/flatpickr.js"></script>
-		<script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script> -->
+    <script src="{{asset('FrontEnd/assets/libs/js')}}/jquery-3.5.1.min.js"></script>
+    <script src="{{asset('FrontEnd/assets/libs/js')}}/sweetalert.min.js" ></script>
     <script src="{{asset('FrontEnd/assets/js')}}/validate.js"></script>
     <script src="{{asset('FrontEnd/assets/js')}}/api.js"></script>
-    
 	</body>
 </html>

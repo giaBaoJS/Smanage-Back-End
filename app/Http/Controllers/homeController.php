@@ -32,6 +32,13 @@ class homeController extends Controller
     }
     // AUTH
     public function login() {
+      if($_GET && $_GET['email']) {
+        $email = $_GET['email'];
+        $user = userTable::where('email', '=', $email)->first();
+        if($user && $user->active === -1) {
+          $user = userTable::where('email', '=', $email)->update(['active'=>0]);
+        }
+      }
       return view('front-end/auth/login');
     }
     public function register() {
