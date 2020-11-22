@@ -2682,6 +2682,11 @@ footer .copyright p {
     font-size: 20px;
     color: #5e6d77;
 }
+@media screen and (max-width: 540px) {
+  .filter-tour .sort .layout-item:last-child {
+    display: none;
+  }
+}
 
 .sidebar i {
     color: #c4c7ca;
@@ -2726,10 +2731,17 @@ footer .copyright p {
     margin-left: 20px;
 }
 @media screen and (max-width: 768px) {
+<<<<<<< HEAD
     .search-form .form .wrapper-items-form .item .content {
         display: flex;
         align-items: center;
     }
+=======
+  .search-form .form .wrapper-items-form .item .content {
+    display: flex;
+    flex-direction: column;
+  }
+>>>>>>> b00e3f9a60e07a15269ecae36095c8c72f315ca5
 }
 .search-form .form .wrapper-items-form .item .content label {
     font-size: 15px;

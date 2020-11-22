@@ -285,6 +285,11 @@
 					color: #5e6d77;
 				}
 				cursor: pointer;
+				&:last-child{
+					@include media(540px){
+						display: none;
+					}
+				}
 			}
 		}
 	}
@@ -336,7 +341,7 @@
 
 					@include media(768px) {
 						display: flex;
-						align-items: center;
+						flex-direction: column;
 					}
 					label {
 						font-size: 15px;
