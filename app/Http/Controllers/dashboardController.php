@@ -13,6 +13,7 @@ use App\gallerytable;
 use App\slider;
 use App\tinh;
 use App\tintucTable;
+use App\doitacTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -194,7 +195,98 @@ class dashboardController extends Controller
     }
     public function addUser()
     {
-        return view('admin/page/user/user-add');
+        $showGender=array(
+            array(
+                'id' => 1,
+                'name' => 'Nam'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Nữ'
+            ),
+            array(
+                'id' => 3,
+                'name' => 'Khác'
+            )
+        );
+        $showVaitro=array(
+            array(
+                'id' => 0,
+                'name' => 'Người dùng'
+            ),
+            array(
+                'id' => 1,
+                'name' => 'Đối tác'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Admin'
+            )
+        );
+        $showActive=array(
+            array(
+                'id' => 0,
+                'name' => 'Chưa kích hoạt'
+            ),
+            array(
+                'id' => 1,
+                'name' => 'Dùng thử'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Kích hoạt'
+            )
+        );
+        $showDoitac=doitacTable::all();
+        return view('admin/page/user/user-add',['showGender'=>$showGender,'showVaitro'=>$showVaitro,'showActive'=>$showActive,'showDoitac'=>$showDoitac]);
+    }
+    public function formEditUser($id)
+    {
+        $showOneUser=userTable::find($id);
+        $showGender=array(
+            array(
+                'id' => 1,
+                'name' => 'Nam'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Nữ'
+            ),
+            array(
+                'id' => 3,
+                'name' => 'Khác'
+            )
+        );
+        $showVaitro=array(
+            array(
+                'id' => 0,
+                'name' => 'Người dùng'
+            ),
+            array(
+                'id' => 1,
+                'name' => 'Đối tác'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Admin'
+            )
+        );
+        $showActive=array(
+            array(
+                'id' => 0,
+                'name' => 'Chưa kích hoạt'
+            ),
+            array(
+                'id' => 1,
+                'name' => 'Dùng thử'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Kích hoạt'
+            )
+        );
+        $showDoitac=doitacTable::all();
+        return view('admin/page/user/user-update',['showDoitac'=>$showDoitac,'showOneUser'=>$showOneUser,'showGender'=>$showGender,'showVaitro'=>$showVaitro,'showActive'=>$showActive]);
     }
     // user table ---------------------------------->
 

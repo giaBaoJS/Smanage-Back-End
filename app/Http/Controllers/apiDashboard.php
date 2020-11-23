@@ -32,6 +32,29 @@ class apiDashboard extends Controller
             return 0;
         }
     }
+    function updateUser(Request $request)
+    {
+        // $getEmail=UserTable::where('email','=',$request->email)->get();
+        // if (count($getEmail)>0) {
+        //     return 1;
+        // }else{
+
+        // }
+        $showOneUser=UserTable::find($request->id_user);
+        $showOneUser->name=$request->name;
+        $showOneUser->email=$request->email;
+        if ($request->password!="") {
+            $showOneUser->password=bcrypt($request->password);
+        }
+        $showOneUser->phone=$request->phone;
+        $showOneUser->address=$request->address;
+        $showOneUser->id_doitac=$request->id_doitac;
+        $showOneUser->gender=$request->gender;
+        $showOneUser->role=$request->role;
+        $showOneUser->active=$request->active;
+        $showOneUser->save();
+        return 0;
+    }
     public function loginLock(Request $request)
     {
 
@@ -86,17 +109,19 @@ class apiDashboard extends Controller
     }
     public function setPremium()
     {
-        if (session('account')) {
+        $showUser=UserTable::all();
+        $u="";
+        for ($i=0; $i < count($showUser); $i++) {
+           $u.="số".$showUser[$i]['name'];
             $dayEnd = strtotime( Carbon::now());
-            $dayStart =strtotime(session('account')->created_at);
+            $dayStart =strtotime($showUser[$i]['created_at']);
             $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
-            if ($dayDiff>=7 && session('account')->active==1) {
-                $user=UserTable::find(session('account')->id_user);
+            if ($dayDiff>=7 && $showUser[$i]['active']==1) {
+                $user=UserTable::find($showUser[$i]['id_user']);
                 $user->active=0;
-                $user->created_at=session('account')->created_at;
                 $user->save();
             }
-        }
+        };
     }
     // coupon -----------------
 

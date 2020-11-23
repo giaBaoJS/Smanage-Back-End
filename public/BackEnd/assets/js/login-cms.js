@@ -5,6 +5,7 @@ $(document).ready(function () {
     }).done(function (ketqua) {
         console.log(ketqua, "ưewe");
     });
+    kiemtraDoiTac();
 });
 $("#buttonLogin").click(function () {
     email = $("#email").val();
@@ -153,27 +154,69 @@ function deleteUser(id, id_kt, role) {
 function kiemtraDoiTac() {
     doitac = $("#chucnang").val();
     if (doitac == 1) {
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/admin/doitac",
-            success: function (params) {
-                http = "";
-                params.forEach((s) => {
-                    http +=
-                        '<option value="' +
-                        s.id_doitac +
-                        '">' +
-                        s.name +
-                        "</option>";
-                });
-                document.getElementById("doitac").innerHTML =
-                    '<label>Đối tác</label><select class="form-control" id="doitacR" name="id_doitac" value=""><option>Chọn đối tác</option>' +
-                    http +
-                    "</select>";
-            },
-        });
+        $("#doitac").css('display','block');
     } else {
-        $("#doitac").html("");
+        $("#doitac").css('display','none');
     }
+}
+function updateUser() {
+    name = $("#name").val();
+    email = $("#email").val();
+    password = $("#password").val();
+    phone = $("#phone").val();
+    address = $("#address").val();
+    gender = $("#gender").val();
+    active = $("#active").val();
+    role = $("#chucnang").val();
+    id_doitac = $("#doitacR").val();
+    if (name == "") {
+        alertify.error("Vui lòng nhập họ tên");
+        return false;
+    }
+    if (email == "") {
+        alertify.error("Vui lòng nhập Email");
+        return false;
+    }
+    if (phone == "") {
+        alertify.error("Vui lòng nhập số điện thoại");
+        return false;
+    }
+    if (address == "") {
+        alertify.error("Vui lòng nhập địa chỉ");
+        return false;
+    }
+    if (role == "Chọn chức năng") {
+        alertify.error("Vui lòng chọn chức năng");
+        return false;
+    }
+    if (id_doitac == "Chọn đối tác") {
+        alertify.error("Vui lòng chọn đối tác!");
+        return false;
+    }
+    if (gender == "Chọn giới tính") {
+        alertify.error("Vui lòng chọn giới tính!");
+        return false;
+    }
+    if (active == "Chọn") {
+        alertify.error("Vui lòng chọn kích hoạt!");
+        return false;
+    }
+    form = $("#formUpdateUser").serialize();
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/updateuser",
+        type: "get",
+        data: form,
+    }).done(function (ketqua) {
+        if (ketqua == 1) {
+            alertify.error("Email đã đăng ký. Vui lòng chọn lại Email");
+        } else {
+            alertify.success("Cập nhật tài khoản thành công ");
+            function loadpage() {
+                window.location.href = "/admin/user";
+            }
+            setTimeout(loadpage, 800);
+        }
+    });
 }
 function addUser() {
     name = $("#name").val();

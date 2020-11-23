@@ -95,15 +95,16 @@
                                                 >
                                                     <i class="mdi mdi-eye"></i>
                                                 </button>
-                                                <button
+                                                <a
                                                     type="button"
+                                            href="/admin/formedituser/{{$t->id_user}}"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Edit"
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
-                                                </button>
+                                                </a>
                                                 <button
                                                 onclick="deleteUser({{$t->id_user}},{{session('account')->id_user}},{{$t->role}})"
                                                     type="button"

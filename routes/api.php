@@ -25,6 +25,7 @@ Route::GET('admin/onecounpon/{id}','apiDashboard@oneCounpon');
 Route::GET('admin/doitac','apiDashboard@doiTac');
 
 Route::GET('admin/adduser','apiDashboard@addUser');
+Route::GET('admin/updateuser','apiDashboard@updateUser');
 Route::GET('admin/rtlogin','apiDashboard@returnLogin');
 Route::GET('admin/setpremium','apiDashboard@setPremium');
 

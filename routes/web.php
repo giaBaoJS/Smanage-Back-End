@@ -94,6 +94,8 @@ Route::post('admin/editcoupon/{id}', 'dashboardController@editCoupon')->middlewa
 // Trang user --------------------
 Route::get('admin/user', 'dashboardController@userTable')->middleware('CheckRole');
 Route::get('admin/add-user', 'dashboardController@addUser')->middleware('CheckRole');
+Route::get('admin/formedituser/{id}', 'dashboardController@formEditUser')->middleware('CheckRole');
+
 // Trang user -------------------- END
 
 // Trang slider --------------------

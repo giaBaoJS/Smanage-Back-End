@@ -48,15 +48,6 @@
                                         <td>{{$sl->content}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-outline-secondary btn-sm"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="View"
-                                                >
-                                                    <i class="mdi mdi-eye"></i>
-                                                </button>
                                             <a href="/admin/editformslider/{{ $sl->id_slider }}"
 
                                                     class="btn btn-outline-secondary btn-sm"
