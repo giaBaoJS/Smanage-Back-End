@@ -27,6 +27,8 @@ Route::get('/dang-ky','homeController@register');
 Route::post('/dang-ky','homeApi@registerPost');
 Route::get('/quen-mat-khau','homeController@forgotPsw');
 Route::post('/quen-mat-khau','homeApi@forgotPswPost');
+Route::get('/doi-quen-mat-khau','homeController@changeForgotPsw');
+Route::post('/doi-quen-mat-khau','homeApi@changeForgotPswPost');
 Route::get('/cap-nhat-tai-khoan','homeController@updateAccount')->middleware('auth');
 Route::post('/cap-nhat-tai-khoan','homeApi@updateAccountPost')->middleware('auth');
 Route::get('/doi-mat-khau','homeController@changePsw')->middleware('auth');

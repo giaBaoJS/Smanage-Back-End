@@ -11,24 +11,37 @@ $("#buttonLogin").click(function () {
     email = $("#email").val();
     password = $("#password").val();
     checkbox = $("#customControlInline").prop("checked");
-    $.ajax({
-        url: "admin/loginCms",
-        type: "get",
-        data: { email: email, password: password, checkbox: checkbox },
-        success: function (data) {
-            if (data == 0) {
-                alertify.error(
-                    "Email hoặc mật khẩu không đúng. Vui lòng nhập lại"
-                );
-            } else {
-                alertify.success("Đăng nhập thành công");
-                function loadpage() {
-                    window.location.href = "/admin/dashboard";
+
+    var form = $(this).parents("form");
+    var inputArr = form.find(".validate-form-control");
+    var checkValid = true;
+
+    for (let i = 0; i < inputArr.length; i++) {
+        if (validate(inputArr[i]) == false) {
+            showValidate(inputArr[i]);
+            checkValid = false;
+        }
+    }
+    if (checkValid) {
+        $.ajax({
+            url: "admin/loginCms",
+            type: "get",
+            data: { email: email, password: password, checkbox: checkbox },
+            success: function (data) {
+                if (data == 0) {
+                    alertify.error(
+                        "Email hoặc mật khẩu không đúng. Vui lòng nhập lại"
+                    );
+                } else {
+                    alertify.success("Đăng nhập thành công");
+                    function loadpage() {
+                        window.location.href = "/admin/dashboard";
+                    }
+                    setTimeout(loadpage, 1000);
                 }
-                setTimeout(loadpage, 1000);
-            }
-        },
-    });
+            },
+        });
+    }
 });
 $("#buttonLoginLock").click(function () {
     email = $("#email").val();
