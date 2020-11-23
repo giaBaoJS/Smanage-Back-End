@@ -1,6 +1,3 @@
-@if(Session::has('account'))
-  <script>window.location = "/";</script>
-@endif
 <!DOCTYPE html>
 <html lang="en">
 	<head>

@@ -33,6 +33,9 @@ class homeController extends Controller
     }
     // AUTH
     public function login() {
+       if(Session::has('account')) {
+        return redirect('/');
+      }
       if($_GET && $_GET['email']) {
         $email = $_GET['email'];
         $user = userTable::where('email', '=', $email)->first();
@@ -43,13 +46,29 @@ class homeController extends Controller
       return view('front-end/auth/login');
     }
     public function register() {
+       if(Session::has('account')) {
+        return redirect('/');
+      }
       return view('front-end/auth/register');
     }
     public function changePsw() {
       return view('front-end/auth/change-psw');
     }
     public function forgotPsw() {
+      if(Session::has('account')) {
+        return redirect('/');
+      }
       return view('front-end/auth/forgot-psw');
+    }
+    public function changeForgotPsw() {
+      // if($_GET && $_GET['email'] && $_GET['token']) {
+      //   $email = $_GET['email'];
+      //   $user = userTable::where([['email', '=', $email].[''])->first();
+      //   if($user && $user->active === -1) {
+      //     $user = userTable::where('email', '=', $email)->update(['active'=>0]);
+      //   }
+      // }
+      return view('front-end/auth/change-forgot-psw');
     }
     public function updateAccount() {
       return view('front-end/auth/update');

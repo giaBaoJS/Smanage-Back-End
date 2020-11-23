@@ -1,13 +1,3 @@
-@if(Session::has('account'))
-  <script>window.location = "/";</script>
-@endif
-<?php
-  // $user = @$crAcc->get_user_by('email', $_GET['email']);
-  // if ($user['kichhoat'] === '0') {
-  //     $crAcc->update_user_by('kichhoat', 1, 'email', $user['email']);
-  //     echo '<p class="text-center text-success">Bạn đã kích hoạt tài khoản thành công.</p>';
-  // }
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -26,7 +16,7 @@
 		<link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
 	</head>
 	<body>
-  <div class="loading"></div>
+    <div class="loading"></div>
 		<div class="auth">
 			<!-- Design belong to: https://dribbble.com/chouaibblgn45 -->
 			<div class="container">

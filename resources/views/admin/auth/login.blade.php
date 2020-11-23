@@ -1,7 +1,7 @@
 @extends('admin.auth.layout-auth')
 @section('content-auth')
 <div class="row justify-content-center">
-    <div class="col-xl-5 col-sm-8">
+    <div class="col-xl-7 col-sm-10">
         <div class="card">
             <div class="card-body p-4">
                 <div class="p-2">
@@ -11,31 +11,30 @@
                     <form class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group form-group-custom mb-4">
+                                <div class="form-group form-group-custom mb-4 validate-input" data-validate="Email không đúng định dạng">
                                     @if (Cookie::get('email'))
                                     <input
-                                        type="text"
-                                        class="form-control"
+                                        type="email"
+                                        class="form-control validate-form-control"
                                         id="email"
                                 value="{{Cookie::get('email')}}"
                                         required
                                     />
                                     @else
                                     <input
-                                        type="text"
-                                        class="form-control"
+                                        type="email"
+                                        class="form-control validate-form-control"
                                         id="email"
                                         required
                                     />
                                     <label for="email">Email</label>
                                     @endif
-
                                 </div>
-                                <div class="form-group form-group-custom mb-4">
+                                <div class="form-group form-group-custom mb-4 validate-input" data-validate="Mật khẩu phải từ 8 ký tự (Hoa, thường, 0-9)">
                                     @if (Cookie::get('password'))
                                     <input
                                         type="password"
-                                        class="form-control"
+                                        class="form-control validate-form-control"
                                         id="password"
                                         value="{{Cookie::get('password')}}"
                                         required
@@ -43,7 +42,7 @@
                                     @else
                                     <input
                                         type="password"
-                                        class="form-control"
+                                        class="form-control validate-form-control"
                                         id="password"
                                         required
                                     />
