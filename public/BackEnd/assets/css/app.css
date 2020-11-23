@@ -3145,3 +3145,11 @@ a:hover {
 .add-form-tours .form-check-input{
 	appearance: unset !important;
 }
+@media (max-width: 540px) {
+	.add-form-tours .items{
+		margin-bottom: 20px;
+	}
+	.add-form-tours .group-my-btn .mybtn {
+		padding: 15px;
+	}
+}
