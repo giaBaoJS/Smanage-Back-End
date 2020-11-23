@@ -280,3 +280,42 @@ $(window).on('load', function () {
 		});
 	/** TYNIMCE - END */
 });
+
+//Change tab tour
+$(".add-form-tours .items").click(function (e) {
+    $(".add-form-tours .items").removeClass("active");
+    $(this).addClass("active");
+    let id = $(this).attr("data-tab");
+    $(".tabsz").removeClass("active");
+    $("." + id).addClass("active");
+});
+//Next tab 2
+$(".group-my-btn .mybtn.tab1").click(function (e) {
+	$(".add-form-tours .items").removeClass("active");
+	$(".add-form-tours .items.tabl2").addClass("active");
+	$(".group-forms.tab2 ").addClass("active");
+	$(".group-forms.tab1 ").removeClass("active");
+});
+//Next tab 3
+$(".group-my-btn .mybtn.tab2").click(function (e) {
+	$(".add-form-tours .items").removeClass("active");
+	$(".add-form-tours .items.tabl3").addClass("active");
+	$(".group-forms.tab3 ").addClass("active");
+	$(".group-forms.tab2 ").removeClass("active");
+});
+
+//Trở lại tab 1 từ tab2 
+
+$(".group-my-btn .mybtn.tab2-ql").click(function (e) {
+	$(".add-form-tours .items").removeClass("active");
+	$(".add-form-tours .items.tabl1").addClass("active");
+	$(".group-forms.tab1 ").addClass("active");
+	$(".group-forms.tab2 ").removeClass("active");
+});
+// Trở lại tab 2 từ tab 3
+$(".group-my-btn .mybtn.tab3").click(function (e) {
+	$(".add-form-tours .items").removeClass("active");
+	$(".add-form-tours .items.tabl2").addClass("active");
+	$(".group-forms.tab2 ").addClass("active");
+	$(".group-forms.tab3 ").removeClass("active");
+});
