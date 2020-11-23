@@ -3065,3 +3065,86 @@ a:hover {
 .alert-validate .eyes-psw {
     display: none;
 }
+
+.add-form-tours {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+}
+.add-form-tours .row {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.add-form-tours .items {
+    background: #84d1d8;
+    color: #ffffff;
+    padding: 15px 0;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add-form-tours .items.active {
+    background: #0ac9db;
+}
+.add-form-tours .group-forms {
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 1px solid #f3f3f3;
+    padding: 30px;
+}
+.add-form-tours .group-forms.tabsz {
+    display: none;
+}
+.add-form-tours .group-forms.active {
+    display: block;
+}
+.add-form-tours .group-forms .title-cm {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.add-form-tours .group-forms label {
+    display: inline-block;
+    font-size: 14px;
+}
+.add-form-tours .group-forms input {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.add-form-tours .group-my-btn {
+    margin-top: 30px;
+	display: flex;
+    justify-content: space-between;
+}
+.add-form-tours .group-my-btn .mybtn {
+	display: inline-block;
+    background-color: #0ac9db;
+    padding: 15px 30px;
+    color: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+	appearance: none;
+	outline: none;
+	border:none;
+	cursor: pointer;
+}
+.add-form-tours .form-check-input{
+	appearance: unset !important;
+}
+@media (max-width: 540px) {
+	.add-form-tours .items{
+		margin-bottom: 20px;
+	}
+	.add-form-tours .group-my-btn .mybtn {
+		padding: 15px;
+	}
+}
