@@ -1519,7 +1519,7 @@ footer .copyright p {
     font-size: 16px;
     height: 62px !important;
 }
-.sign .change-psw {
+.change-psw {
     padding: 80px 0;
 }
 .change-psw .signin {
@@ -2683,9 +2683,9 @@ footer .copyright p {
     color: #5e6d77;
 }
 @media screen and (max-width: 540px) {
-  .filter-tour .sort .layout-item:last-child {
-    display: none;
-  }
+    .filter-tour .sort .layout-item:last-child {
+        display: none;
+    }
 }
 
 .sidebar i {
@@ -2731,17 +2731,14 @@ footer .copyright p {
     margin-left: 20px;
 }
 @media screen and (max-width: 768px) {
-<<<<<<< HEAD
     .search-form .form .wrapper-items-form .item .content {
         display: flex;
         align-items: center;
     }
-=======
-  .search-form .form .wrapper-items-form .item .content {
-    display: flex;
-    flex-direction: column;
-  }
->>>>>>> b00e3f9a60e07a15269ecae36095c8c72f315ca5
+    .search-form .form .wrapper-items-form .item .content {
+        display: flex;
+        flex-direction: column;
+    }
 }
 .search-form .form .wrapper-items-form .item .content label {
     font-size: 15px;
@@ -2985,6 +2982,7 @@ footer .copyright p {
         display: none;
     }
 }
+
 .wraper-contact .border-bottom-title .title-detial ul {
     display: -webkit-box;
     display: -ms-flexbox;

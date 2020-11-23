@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/font.css" />
     <link rel="stylesheet" href="{{asset('FrontEnd/assets/css')}}/main.css" />
   </head>
-
   <body>
+    <div class="loading"></div>
     <header class="header">
       <div class="header__topbar">
         <div class="container-fluid px-0">

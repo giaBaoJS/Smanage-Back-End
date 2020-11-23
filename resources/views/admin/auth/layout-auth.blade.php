@@ -61,6 +61,7 @@
 		<script src="{{asset('BackEnd/assets/libs/node-waves')}}/waves.min.js"></script>
 
 		<script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+        <script src="{{asset('Backend/assets/js')}}/validate.js"></script>
         <script src="{{asset('BackEnd/assets/js')}}/login-cms.js"></script>
         <script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
         <script src="{{asset('BackEnd/assets/libs/alertifyjs/build')}}/alertify.min.js"></script>

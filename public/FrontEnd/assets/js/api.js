@@ -82,7 +82,7 @@ jQuery(function () {
                     console.log(status);
                     console.log(error);
                     if (request.status === 422) {
-                        $(".loading").removeClass("--active");
+                        // $(".loading").removeClass("--active");
                         const res = request.responseJSON.errors;
                         console.log(res);
                         for (let key in res) {
@@ -108,7 +108,7 @@ jQuery(function () {
                                 ).val("");
                             }, 100); //xóa value của input nếu sai validate
                         }
-                        $(":submit", form).removeAttr("disabled");
+                        // $(":submit", form).removeAttr("disabled");
                     }
                 },
             });
@@ -169,11 +169,13 @@ jQuery(function () {
 
     //submit logout with ajax
     $(".logout").one("click", function (e) {
+        $(".loading").addClass("--active");
         $.ajax({
             url: "/dang-xuat",
             type: "post",
             dataType: "json",
             success: function (res) {
+                $(".loading").removeClass("--active");
                 if (res.success) {
                     Swal.fire({
                         title: "Xin chúc mừng",
