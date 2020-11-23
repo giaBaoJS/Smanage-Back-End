@@ -662,6 +662,9 @@ table {
     li:hover.dropdown.--show {
     display: block;
 }
+.header__menu .main-header .isner .right .main-menu-nav li.login-mobile {
+    display: none;
+  }
 @media screen and (max-width: 1200px) {
     .header__menu
         .main-header
@@ -682,9 +685,7 @@ table {
     .header__menu .main-header .isner .right .main-menu-nav li:hover a {
         color: #ffffff;
     }
-    .header__menu .main-header .isner .right .main-menu-nav li.login-mobile {
-        display: none;
-      }
+    
       .header__menu .main-header .isner .right .main-menu-nav li.login-mobile a span {
         display: flex;
         align-items: center;
