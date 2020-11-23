@@ -11,6 +11,7 @@ use App\gallerytable;
 use App\slider;
 use App\tinh;
 use App\tintucTable;
+use App\comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -120,11 +121,10 @@ class homeController extends Controller
         $showTinh=tinh::all();
         $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
         $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->find($id);
-      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights]);
+        $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
+      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment]);
     }
     public function gallery() {
       return view('front-end/pages/gallery');
     }
-
-
 }
