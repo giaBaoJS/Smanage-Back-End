@@ -6,49 +6,52 @@
 				<div class="signin register">
 					<h1 class="signin-heading">Cập nhật thông tin tài khoản</h1>
 					<form
-						action="javscript:voi(0);"
-						class="signin-form"
-						autocomplete="off"
+						class="signin-form user-ajax"  action="cap-nhat-tai-khoan" method="post" novalidate="novalidate"
 					>
 						<div class="form-group">
 							<label for="email" class="form-label">Email</label>
 							<input
 								type="email"
+                name="email"
 								class="form-input"
 								id="email"
 								readonly
-								value="kimbao123@gmail.com"
+								value="{{$user->email}}"
 							/>
 						</div>
-						<div class="form-group">
+						<div class="form-group validate-input"  data-validate="Số điện thoại không đúng định dạng">
 							<label for="phone" class="form-label">Số điện thoại</label>
 							<input
-								type="tel"
-								pattern="^[0-9-+\s()]*$"
-								class="form-input"
+								type="text"
+                name="phone"
+								class="form-input validate-form-control"
 								id="phone"
-								readonly
-								value="0909123123"
+                maxlength='10'
+								value="{{$user->phone}}"
 							/>
 						</div>
-						<div class="form-group">
+						<div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
 							<label for="name" class="form-label">Tên đầy đủ</label>
 							<input
 								type="text"
-								class="form-input"
+                name="name"
+								class="form-input validate-form-control"
 								id="name"
 								placeholder="Ví dụ: Kim Bảo Đẹp Trai "
+                value="{{$user->name}}"
 							/>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
 							<label for="address" class="form-label">Địa chỉ</label>
 							<input
 								type="text"
-								class="form-input"
+                name="address"
+								class="form-input validate-form-control"
 								id="address"
 								placeholder="Địa chỉ"
-							/>
+                value="{{$user->address}}"
+              />
 						</div>
 						<button type="submit" class="form-submit">Cập nhật</button>
 					</form>

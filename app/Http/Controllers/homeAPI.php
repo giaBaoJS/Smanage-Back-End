@@ -613,10 +613,49 @@ class homeAPI extends Controller
       echo json_encode(['success' => false, 'message' => 'Bạn không đủ điều kiện thực hiện hành động này', 'redirect' => true, 'location' => '/']);
     }
   }
+  // CẬP NHẬT THÔNG TIN TÀI KHOẢN
+  public function updateAccountPost(Request $request) {
+    $account = Session::get('account');
+    $request->validate(
+      [
+        'name' => 'required',
+        'phone' => ['required','regex:/^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/','unique:user,phone,' . $account->id_user .',id_user'],
+        'gender' => 'nullable',
+        'address' => 'required'
+      ],
+      [
+        'required' => ':attribute không được để trống',
+        'phone.regex' => ':attribute không hợp lệ',
+        'unique' => ":attribute đã được sử dụng"
+      ],
+      [
+        'name' => 'Họ và Tên',
+        'phone' => 'Số điện thoại',
+        'address' => 'Địa chỉ'
+      ]
+    ); 
+    $newPhone = $request->phone;
+    $newGender = $request->gender;
+    $newAddress = $request->address;
+    $newName = $request->name;
+    $email = $request->email;
+    $user = userTable::where('email','=',  $email)->first();
+    if($user) {
+      userTable::where('email','=',  $email)->update(['name'=>$newName,'phone'=>$newPhone,'gender'=>$newGender,'address'=>$newAddress]);
+      echo json_encode(['success' => true, 'message' => 'Bạn đã cập nhật thành công', 'redirect' => true, 'location' => '/cap-nhat-tai-khoan']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Bạn không đủ điều kiện thực hiện hành động này', 'redirect' => true, 'location' => '/']);
+    }
+  }
   // ĐĂNG XUẤT
   public function logoutPost() {
-    Auth::logout();
-    Session::forget('account');
-    echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. Bạn sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
+    if(Auth::check()) {
+      Auth::logout();
+      Session::forget('account');
+      echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. Bạn sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
+    } 
+    // else {
+    //   echo json_encode(['success' => false, 'message' => 'Đăng xuất không thành công. Bạn sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
+    // }
   }
 }
