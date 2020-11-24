@@ -41,24 +41,27 @@
               <li class="header-mail"> <a href="mailto:goldentour@gmail.com">goldentour@gmail.com</a></li>
             </ul>
             <ul class="topbar-right">
-              <!-- <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
-              <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li> -->
-              <!-- <li>VIE</li> -->
-              <li class="logined"> 
-                <a href="#">
-                  <img
-                    src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
-                    width="30px"
-                    alt="logo">
-                    <span> Gia Bảo</span>
-                    <span class="arrows"><i class="fas fa-angle-down"></i></span>
-                </a>
-                <div class="info-user">
-                  <a href="#">Thông tin cá nhân</a>
-                  <a href="#">Đơn hàng</a>
-                  <a href="#">Đăng xuất</a>
-                </div>
-              </li>
+              @if (session('account'))
+                <li class="logined">
+                    <a href="#">
+                    <img
+                        src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
+                        width="30px"
+                        alt="logo">
+                    <span>{{session('account')->name}}</span>
+                        <span class="arrows"><i class="fas fa-angle-down"></i></span>
+                    </a>
+                    <div class="info-user">
+                    <a href="#">Thông tin cá nhân</a>
+                    <a href="#">Đơn hàng</a>
+                    <a href="{{ url('/dang-xuat') }}">Đăng xuất</a>
+                    </div>
+                </li>
+              @else
+                <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
+                <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li>
+                <!-- <li>VIE</li> -->
+              @endif
             </ul>
           </div>
         </div>
