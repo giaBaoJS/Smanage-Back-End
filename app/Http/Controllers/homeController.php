@@ -15,6 +15,8 @@ use App\comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class homeController extends Controller
 {
@@ -33,7 +35,7 @@ class homeController extends Controller
     }
     // AUTH
     public function login() {
-       if(Session::has('account')) {
+      if(Session::has('account')) {
         return redirect('/');
       }
       if($_GET && $_GET['email']) {
@@ -61,19 +63,27 @@ class homeController extends Controller
       return view('front-end/auth/forgot-psw');
     }
     public function changeForgotPsw() {
-      // if($_GET && $_GET['email'] && $_GET['token']) {
-      //   $email = $_GET['email'];
-      //   $user = userTable::where([['email', '=', $email].[''])->first();
-      //   if($user && $user->active === -1) {
-      //     $user = userTable::where('email', '=', $email)->update(['active'=>0]);
-      //   }
-      // }
-      return view('front-end/auth/change-forgot-psw');
+      if($_GET && $_GET['email'] && $_GET['token']) {
+        $email = $_GET['email'];
+        $token = $_GET['token'];
+        $user = userTable::where([['email', '=', $email]])->first();
+        $isExpired = $user->expired;
+        $isSameToken = Hash::check($token, $user->token);
+        if ($isExpired > date('U') || $isSameToken ) {
+          return view('front-end/auth/change-forgot-psw');
+        } 
+        return redirect('/');
+      } else {
+        return redirect('/');
+      }
+      
     }
     public function updateAccount() {
-      return view('front-end/auth/update');
+      $user = userTable::where('email', '=', Session::get('account')->email)->first();
+      return view('front-end/auth/update', ['user'=>$user]);
     }
     public function history() {
+      
       return view('front-end/auth/history');
     }
     // AUTH - END
