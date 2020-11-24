@@ -43,7 +43,7 @@
             <ul class="topbar-right">
               @if (session('account'))
                 <li class="logined">
-                    <a href="#">
+                    <a href="{{ url('/') }}">
                     <img
                         src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
                         width="30px"
@@ -54,7 +54,7 @@
                     <div class="info-user">
                     <a href="#">Thông tin cá nhân</a>
                     <a href="#">Đơn hàng</a>
-                    <a href="{{ url('/dang-xuat') }}">Đăng xuất</a>
+                    <a href="#" class="logout">Đăng xuất</a>
                     </div>
                 </li>
               @else
@@ -70,7 +70,7 @@
         <div class="main-header">
           <div class="container isner">
             <div class="main-logo">
-              <a href="#"><img
+              <a href="{{ url('/') }}"><img
                       src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png"
                     width="100px"
                     alt="logo" />
