@@ -11,5 +11,5 @@ class comment extends Model
     protected $fillable = [
         'id_news','id_user','content','created_at','updated_at'
     ];
-    public $timestamps = true;
+    public $timestamps = false;
 }

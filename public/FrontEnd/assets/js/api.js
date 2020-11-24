@@ -215,4 +215,30 @@ jQuery(function () {
             },
         });
     });
+
 });
+function addComment() {
+   var forms = $("#formComment").serialize();
+    var textArea = $('textarea[name="comment"]');
+    var checkValid = true;
+    if (validate(textArea) == false) {
+        showValidate(textArea);
+        $(textArea).val('');
+        checkValid = false;
+    }
+    if (checkValid) {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/addcomment",
+            type: "get",
+            data: forms,
+            success: function (res) {
+            var div='';
+            res.forEach(s => {
+                div +='<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/'+s.url_avatar+'" alt="avatar"/><div><h4>'+s.name+'</h4><span>'+s.created_at+'</span></div></div><div class="comment"><p>'+s.content+'</p><a href="#">TRẢ LỜI</a></div></div>'
+            });
+            $('#showComment').html(div);
+            $('#comment__count').html('<h3>Bình luận ('+res.length+')</h3>');
+            },
+        });
+    }
+}

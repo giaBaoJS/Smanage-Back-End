@@ -44,3 +44,12 @@ Route::GET('admin/editgallery/{id}','apiDashboard@editgallery');
 Route::GET('admin/delnews/{id}','apiDashboard@delNews');
 Route::GET('admin/editnews/{id}','apiDashboard@editNews');
 // -----------------news---------------
+
+
+
+//END admin
+
+//HOME
+
+//commnent
+Route::GET('addcomment','homeAPI@addComment');

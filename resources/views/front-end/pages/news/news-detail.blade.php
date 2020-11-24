@@ -41,7 +41,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="poster">
+                  {{-- <div class="poster">
                     <div class="info">
                       <img
                         src="{{asset('BackEnd/assets/images')}}/{{$showOneNew->url_avatar}}"
@@ -52,103 +52,91 @@
                         <p>Quản trị viên</p>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                 </div>
                 <div class="comments">
-                  <div class="comments__title">
-                    <h3>Bình luận (4)</h3>
+                  <div class="comments__title" id="comment__count">
+                    <h3>Bình luận ({{count($showComment)}})</h3>
                   </div>
-                  <div class="comments__list">
-                    <div class="items">
-                      <div class="info-users">
-                        <img
-                          src="{{asset('FrontEnd/assets/images/defaults')}}/bao.jpg"
-                          alt="avatar"
-                        />
-                        <div>
-                          <h4>Gia Bảo</h4>
-                          <span>22/10/2020</span>
+                  <div class="comments__list" id="showComment">
+                      @foreach ($showComment as $c)
+                      <div class="items">
+                        <div class="info-users">
+                          <img
+                            src="{{asset('BackEnd/assets/images')}}/{{$c->url_avatar}}"
+                            alt="avatar"
+                          />
+                          <div>
+                          <h4>{{$c->name}}</h4>
+                          <span>{{date('d/m/Y',strtotime($c->created_at))}}</span>
+                          </div>
+                        </div>
+                        <div class="comment">
+                          <p>
+                            {{$c->content}}
+                          </p>
+                          <a href="#">TRẢ LỜI</a>
                         </div>
                       </div>
-                      <div class="comment">
-                        <p>
-                          Dream constantly receive a stable income on the
-                          auction and make less mistakes? Introducing To your
-                          attention– service for automatic investment in
-                          profitable positions on the exchange. For a successful
-                          start, register in the system and after making $ 300
-                          attention– service for automatic investment in
-                          profitable positions on the exchange. For a successful
-                          start, register in the system and after making $ 300
-                        </p>
-                        <a href="#">TRẢ LỜI</a>
-                      </div>
-                    </div>
-                    <div class="items">
-                      <div class="info-users">
-                        <img
-                          src="{{asset('FrontEnd/assets/images/defaults')}}/bao.jpg"
-                          alt="avatar"
-                        />
-                        <div>
-                          <h4>Gia Bảo</h4>
-                          <span>22/10/2020</span>
-                        </div>
-                      </div>
-                      <div class="comment">
-                        <p>
-                          Dream constantly receive a stable income on the
-                          auction and make less mistakes? Introducing To your
-                          attention– service for automatic investment in
-                          profitable positions on the exchange. For a successful
-                          start, register in the system and after making $ 300
-                          attention– service for automatic investment in
-                          profitable positions on the exchange. For a successful
-                          start, register in the system and after making $ 300
-                        </p>
-                        <a href="#">TRẢ LỜI</a>
-                      </div>
-                    </div>
+                      @endforeach
+
                   </div>
                 </div>
                 <div class="replay">
                   <div class="wrap-content">
                     <h3>ĐỂ LẠI BÌNH LUẬN</h3>
-                    <form action="#">
-                      <div class="content">
-                        <textarea
-                          class="form-control"
-                          name="comment"
-                          placeholder="Nhận xét ..."
-                          id="comment"
-                          cols="45"
-                          rows="6"
-                        ></textarea>
-                        <div class="info-group">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <input
-                                class="form-control"
-                                type="text"
-                                placeholder="Họ và tên*"
-                              />
-                            </div>
-                            <div class="col-md-6">
-                              <input
-                                class="form-control"
-                                type="email"
-                                placeholder="Email*"
-                              />
+                    @if (session('account'))
+                    <form id="formComment">
+                        <div class="content">
+                          <div class="info-group">
+                            <div class="row">
+                                <div class="col-md-12" data-validate="Vui lòng nhận xét!!">
+                                    <textarea
+                                    class="form-control validate-form-control"
+                                    name="comment"
+                                    placeholder="Nhận xét ..."
+                                    id="comment"
+                                    cols="45"
+                                    rows="6"
+                                  ></textarea>
+                                </div>
+                              <div class="col-md-6">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  placeholder="Họ và tên*"
+                                  readonly
+                                  value="{{session('account')->name}}"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <input
+                                  class="form-control"
+                                  type="email"
+                                  placeholder="Email*"
+                                  readonly
+                              value="{{session('account')->email}}"
+                                />
+                                <input type="hidden" name="id_user" value="{{session('account')->id_user}}">
+                                <input type="hidden" name="id_news" value="{{$showOneNew->id_news}}">
+                              </div>
                             </div>
                           </div>
+                          <div class="btn-submit">
+                            <button class="form-control" type="button" onclick="addComment()">
+                              BÌNH LUẬN
+                            </button>
+                          </div>
                         </div>
-                        <div class="btn-submit">
-                          <button class="form-control" type="submit">
-                            BÌNH LUẬN
-                          </button>
-                        </div>
-                      </div>
-                    </form>
+                      </form>
+                    @else
+                      <div>Vui lòng <a style="display: inline-block;
+                        padding: 5px 10px;
+                        border-radius: 50px;
+                        background-color: #4d4d4d;
+                        color: #fff;" href="{{ url('/dang-nhap') }}">Đăng nhập</a> để bình luận</div>
+                    @endif
+
                   </div>
                 </div>
               </div>
