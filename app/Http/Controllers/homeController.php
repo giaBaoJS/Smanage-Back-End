@@ -76,14 +76,13 @@ class homeController extends Controller
       } else {
         return redirect('/');
       }
-      
     }
     public function updateAccount() {
       $user = userTable::where('email', '=', Session::get('account')->email)->first();
       return view('front-end/auth/update', ['user'=>$user]);
     }
     public function history() {
-      
+      $bill = tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(2)->get();
       return view('front-end/auth/history');
     }
     // AUTH - END
@@ -120,19 +119,21 @@ class homeController extends Controller
       return view('front-end/pages/tours/tours-detail');
     }
     public function news() {
-        $showMien=mien::all();
-        $showTinh=tinh::all();
-        $showNews=tintucTable::join('user','news.id_user','=','user.id_user')->get();
-        $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
-      return view('front-end/pages/news/news',['showNews'=>$showNews,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+      $showMien=mien::all();
+      $showTinh=tinh::all();
+      $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->get();
+      $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->limit(6)->get();
+      $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
+      return view('front-end/pages/news/news',['showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
     public function newsDetail($id) {
         $showMien=mien::all();
         $showTinh=tinh::all();
         $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
         $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->find($id);
-        $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
-      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment]);
+        $showComment=comment::leftJoin('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
+        $showCommentLimit=comment::leftJoin('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->limit(4)->get();
+      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }
     public function gallery() {
       return view('front-end/pages/gallery');

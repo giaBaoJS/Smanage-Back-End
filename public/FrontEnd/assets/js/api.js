@@ -53,14 +53,14 @@ jQuery(function () {
                             title: "Xin chúc mừng",
                             text: res.message,
                             icon: "success",
-                            timer: 1500,
+                            timer: 2500,
                             showConfirmButton: false,
                             allowOutsideClick: false,
                         });
                         if (res.redirect) {
                             setTimeout(function () {
                                 window.location.replace(res.location);
-                            }, 1500);
+                            }, 3000);
                         }
                     } else {
                         Swal.fire({
@@ -215,30 +215,135 @@ jQuery(function () {
             },
         });
     });
-
 });
+function formatDate(timeStr) {
+    const time = new Date(timeStr);
+    return `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
+}
+// PAGINATION COMMENT OF NEWS
 function addComment() {
-   var forms = $("#formComment").serialize();
+    var forms = $("#formComment").serialize();
     var textArea = $('textarea[name="comment"]');
     var checkValid = true;
     if (validate(textArea) == false) {
         showValidate(textArea);
-        $(textArea).val('');
+        $(textArea).val("");
+        $(textArea).on("focus", function () {
+            var parent = $(this).closest(".validate-input");
+            $(parent).removeClass("alert-validate");
+            $(this).css("border", "1px solid #ced4da");
+        });
         checkValid = false;
     }
     if (checkValid) {
         $.ajax({
             url: "http://127.0.0.1:8000/api/addcomment",
-            type: "get",
+            type: "post",
             data: forms,
             success: function (res) {
-            var div='';
-            res.forEach(s => {
-                div +='<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/'+s.url_avatar+'" alt="avatar"/><div><h4>'+s.name+'</h4><span>'+s.created_at+'</span></div></div><div class="comment"><p>'+s.content+'</p><a href="#">TRẢ LỜI</a></div></div>'
-            });
-            $('#showComment').html(div);
-            $('#comment__count').html('<h3>Bình luận ('+res.length+')</h3>');
+                $(textArea).val("");
+                let div = "";
+                res.slice(0, 4).forEach((s) => {
+                    div +=
+                        '<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/' +
+                        s.url_avatar +
+                        '" alt="avatar"/><div><h4>' +
+                        s.name +
+                        "</h4><span>" +
+                        formatDate(s.created_at) +
+                        '</span></div></div><div class="comment"><p>' +
+                        s.content +
+                        '</p><a href="#">TRẢ LỜI</a></div></div>';
+                });
+                $("#showComment").html(div);
+                $("#comment__count").html(
+                    "<h3>Bình luận (" + res.length + ")</h3>"
+                );
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+                console.log(status);
+                console.log(error);
             },
         });
     }
 }
+let pageCmts = 2;
+$("body").on("click", ".pagination-cmts", function () {
+    const idNews = $(this).data("id-news");
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/pagination-cmts",
+        type: "get",
+        data: { pageCmts, id_news: idNews },
+        success: function (res) {
+            let div = "";
+            pageCmts++;
+            console.log(res);
+            res.forEach((s) => {
+                div +=
+                    '<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/' +
+                    s.url_avatar +
+                    '" alt="avatar"/><div><h4>' +
+                    s.name +
+                    "</h4><span>" +
+                    formatDate(s.created_at) +
+                    '</span></div></div><div class="comment"><p>' +
+                    s.content +
+                    '</p><a href="#">TRẢ LỜI</a></div></div>';
+            });
+            $("#showComment").append(div);
+            if (res.length < 6) {
+                $(".pagination-cmts").css("display", "none");
+            }
+        },
+    });
+    return false;
+});
+// PAGINATION COMMENT OF NEWS - END
+// PAGINATION FOR NEWS
+let pageNews = 2;
+$("body").on("click", ".pagination-news", function () {
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/pagination-news",
+        type: "get",
+        data: { pageNews },
+        success: function (res) {
+            let div = "";
+            pageNews++;
+            res.forEach((s) => {
+                div += `<div class="items">
+                    <a href="/tin-tuc/dt/${s.id_news}">
+                      <img
+                    src="http://127.0.0.1:8000/BackEnd/assets/images/news/${
+                        s.url_img_news
+                    }"
+                        alt="news"
+                    /></a>
+                    <a class="title" href="/tin-tuc/dt/${s.id_news}">${
+                    s.title
+                }</a>
+                    <div class="list-info">
+                      <img src="http://127.0.0.1:8000/BackEnd/assets/images/${
+                          s.url_avatar
+                      }" alt="icon" />
+                      <h4>${s.name}</h4>
+                      <span>${formatDate(s.created_at)}</span>
+                      <a href="#">4 Nhận xét</a>
+                    </div>
+                    <p>
+                      ${s.short_content} […]
+                    </p>
+                    <a class="readmore" href="/tin-tuc/dt/${
+                        s.id_news
+                    }">Xem thêm</a>
+                  </div>`;
+            });
+            $(".news-list").append(div);
+            if (res.length < 6) {
+                $(".pagination-news").css("display", "none");
+            }
+        },
+    });
+    return false;
+});
+// PAGINATION FOR NEWS - END

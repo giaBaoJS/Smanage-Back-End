@@ -40,9 +40,12 @@ Route::post('/dang-xuat','homeApi@logoutPost')->middleware('auth');
 
 // COMMON
 Route::get('/gioi-thieu','homeController@about');
-Route::get('/lien-he','homeController@contact');
 Route::get('/thu-vien','homeController@gallery');
 // COMMON - END
+// CONTACT
+Route::get('/lien-he','homeController@contact');
+Route::post('/lien-he','homeAPI@contactPost');
+
 // PARTNERS
 Route::get('/doi-tac','homeController@partners');
 Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');

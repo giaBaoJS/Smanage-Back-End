@@ -10,9 +10,8 @@
       <div class="sec-breadcrumb">
 					<div class="container">
 						<ul class="breadcrumb">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Tour</a></li>
-							<li class="--active"><a href="#">Tour Detail</a></li>
+							<li><a href="{{url('/')}}">Trang Chủ</a></li>
+							<li class="--active"><a href="{{url('/lien-he')}}">Liên Hệ</a></li>
 						</ul>
 					</div>
 				</div>
@@ -24,35 +23,27 @@
                 <h1>Liên Hệ</h1>
                 <p>Chúng tôi sẽ phản hồi mail của bạn sớm nhất</p>
               </div>
-              <form>
-                <div class="form-group">
+              <form 	class="contact-form user-ajax"  action="lien-he" method="post" novalidate="novalidate">
+                <div class="form-group  validate-input" data-validate="Tên không đúng định dạng">
                   <input
                     type="text"
-                    class="form-control"
-                    placeholder="Họ và Tên"
+                    class="form-control validate-form-control"
+                    name="name"
+                    placeholder="Họ và Tên (*)"
                   />
                 </div>
-                <div class="form-group">
+                <div class="form-group  validate-input"  data-validate="Email không đúng định dạng">
                   <input
                     type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Email của bạn"
+                    class="form-control validate-form-control"
+                    name="email"
+                    placeholder="Email của bạn (*)"
                   />
                   <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
-                <div class="form-group">
-                  <textarea
-                    class="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    value=""
-                    placeholder="Để lại lời nhắn..."
-                  >
-                  </textarea>
+                <div class="form-group  validate-input"   data-validate="Lời nhắn không đúng định dạng">
+                  <textarea class="form-control validate-form-control" name="content" id="" cols="30" rows="10" placeholder="Để lại lời nhắn... (*)"></textarea>
                 </div>
-
                 <button class="btn btn-primary" type="submit">Gửi Thư</button>
               </form>
             </div>
@@ -64,10 +55,10 @@
                   alt=""
                 />
                 <div class="title-contact-right">
-                  <h1>Travel Ltd</h1>
+                  <h1>Golden Tours</h1>
                   <ul>
-                    <li>Tell. +0904047470</li>
-                    <li>Email. Duytrinh2508@gmail.com</li>
+                    <li>Tell. +0909123123</li>
+                    <li>Email. goldentour.fpoly@gmail.com</li>
                     <li>Đ/C.Công viên phần mềm Quang Trung, Quận 12, TP HCM</li>
                     <li></li>
                   </ul>

@@ -10,9 +10,9 @@
       <div class="sec-breadcrumb">
 					<div class="container">
 						<ul class="breadcrumb">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Tour</a></li>
-							<li class="--active"><a href="#">Tour Detail</a></li>
+            <li><a href="{{url('/')}}">Trang chủ</a></li>
+						<li ><a href="{{url('/doi-tac')}}">Đối tác</a></li>
+						<li class='--active'><a href="{{url('/doi-tac/dt/1')}}">Tên đối tác</a></li>
 						</ul>
 					</div>
 				</div>

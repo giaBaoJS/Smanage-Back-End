@@ -52,8 +52,9 @@
                         <span class="arrows"><i class="fas fa-angle-down"></i></span>
                     </a>
                     <div class="info-user">
-                    <a href="#">Thông tin cá nhân</a>
-                    <a href="#">Đơn hàng</a>
+                    <a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a>
+                    <a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a>
+                    <a href="{{url('/lich-su')}}">Đơn hàng</a>
                     <a href="#" class="logout">Đăng xuất</a>
                     </div>
                 </li>
@@ -99,19 +100,20 @@
                       alt="logo"> Gia Bảo</span>
                     </a>
                     <ul class="submenu">
-                      <li><a href="#">Thông tin cá nhân</a></li>
-                      <li><a href="#">Hóa đơn</a></li>
-                      <li><a href="#">Đăng xuất</a></li>
+                      <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
+                      <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
+                      <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>
+                      <li><a href="#" class="logout">Đăng xuất</a></li>
                     </ul>
                   </li>
-                  <li class="current-menu-item"><a href="{{ url('/') }}">Trang chủ</a></li>
-                  <li><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
-                  <li>
+                  <li class="{{ request()->is('/') ? 'current-menu-item' : '' }}"><a href="{{ url('/') }}">Trang chủ</a></li>
+                  <li class="{{ request()->is('gioi-thieu') ? 'current-menu-item' : '' }}"><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
+                  <li class="{{ request()->is('tours') ? 'current-menu-item' : '' }}">
                     <a href="{{ url('/tours') }}">Tours</a>
                   </li>
-                  <li><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
-                  <li><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
-                  <li><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
+                  <li class="{{ request()->is('doi-tac') ? 'current-menu-item' : '' }}"><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
+                  <li class="{{ request()->is('tin-tuc') ? 'current-menu-item' : '' }}"><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
+                  <li class="{{ request()->is('lien-he') ? 'current-menu-item' : '' }}"><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
                 </ul>
                 <div class="main-menu-overlay"></div>
               </div>

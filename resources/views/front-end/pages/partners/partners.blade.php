@@ -217,49 +217,49 @@
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-1.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-1.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-2.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-2.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-3.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-3.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-4.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-4.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-5.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-5.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-6.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-6.png "
                       alt=" "
                     />
                   </div>
                   <div class="swiper-slide">
                     <img
                       class="img-fluid"
-                      src="./assets/images/defaults/partner/pn-1.png "
+                      src="{{asset('FrontEnd/assets/images/defaults/partner/')}}/pn-1.png "
                       alt=" "
                     />
                   </div>

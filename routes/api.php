@@ -53,4 +53,6 @@ Route::GET('admin/editnews/{id}','apiDashboard@editNews');
 //HOME
 
 //commnent
-Route::GET('addcomment','homeAPI@addComment');
+Route::POST('addcomment','homeAPI@addComment');
+Route::GET('pagination-cmts','homeAPI@paginationCmts');
+Route::GET('pagination-news','homeAPI@paginationNews');

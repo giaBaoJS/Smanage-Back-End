@@ -10,9 +10,8 @@
 			<div class="sec-breadcrumb">
 				<div class="container">
 					<ul class="breadcrumb">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Tour</a></li>
-						<li class="--active"><a href="#">Tour Detail</a></li>
+						<li><a href="{{url('/')}}">Trang chủ</a></li>
+						<li class="--active"><a href="{{url('/gioi-thieu')}}" >Giới thiệu</a></li>
 					</ul>
 				</div>
 			</div>

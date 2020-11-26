@@ -9,11 +9,10 @@
       </section>
       <div class="sec-breadcrumb">
 					<div class="container">
-						<ul class="breadcrumb">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Tour</a></li>
-							<li class="--active"><a href="#">Tour Detail</a></li>
-						</ul>
+            <ul class="breadcrumb">
+						<li><a href="{{url('/')}}">Trang chủ</a></li>
+						<li class='--active'><a href="{{url('/tours')}}">Tours</a></li>
+					</ul>
 					</div>
 				</div>
 			<section class="tours">

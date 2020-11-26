@@ -59,7 +59,7 @@
                     <h3>Bình luận ({{count($showComment)}})</h3>
                   </div>
                   <div class="comments__list" id="showComment">
-                      @foreach ($showComment as $c)
+                      @foreach ($showCommentLimit as $c)
                       <div class="items">
                         <div class="info-users">
                           <img
@@ -79,7 +79,12 @@
                         </div>
                       </div>
                       @endforeach
-
+                     
+                  </div>
+                  <div class="text-right mb-5">
+                    @if(count($showComment) > 4)
+                      <a href="#" class='pagination-cmts' data-id-news='{{$showOneNew->id_news}}'>Xem thêm</a>
+                    @endif
                   </div>
                 </div>
                 <div class="replay">

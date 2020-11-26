@@ -12,28 +12,32 @@
           <div class="row">
             <div class="col-lg-9 col-md-8">
               <div class="news-list">
-                @foreach ($showNews as $new)
+                @foreach ($showNewsLimit as $new)
                 <div class="items">
-                    <a href="/tin-tuc/dt/{{$new->id_news}}">
-                      <img
-                    src="{{asset('BackEnd/assets/images/news')}}/{{$new->url_img_news}}"
-                        alt="news"
-                    /></a>
-                    <a class="title" href="/tin-tuc/dt/{{$new->id_news}}">{{$new->title}}</a>
-                    <div class="list-info">
-                      <img src="{{asset('BackEnd/assets/images')}}/{{$new->url_avatar}}" alt="icon" />
-                      <h4>{{$new->name}}</h4>
-                      <span>{{date('d/m/Y',strtotime($new->created_at))}}</span>
-                      <a href="#">4 Nhận xét</a>
-                    </div>
-                    <p>
-                        {{$new->short_content}} […]
-                    </p>
-                    <a class="readmore" href="/tin-tuc/dt/{{$new->id_news}}">Xem thêm</a>
+                  <a href="/tin-tuc/dt/{{$new->id_news}}">
+                    <img
+                  src="{{asset('BackEnd/assets/images/news')}}/{{$new->url_img_news}}"
+                      alt="news"
+                  /></a>
+                  <a class="title" href="/tin-tuc/dt/{{$new->id_news}}">{{$new->title}}</a>
+                  <div class="list-info">
+                    <img src="{{asset('BackEnd/assets/images')}}/{{$new->url_avatar}}" alt="icon" />
+                    <h4>{{$new->name}}</h4>
+                    <span>{{date('d/m/Y',strtotime($new->created_at))}}</span>
+                    <a href="#">4 Nhận xét</a>
                   </div>
+                  <p>
+                      {{$new->short_content}} […]
+                  </p>
+                  <a class="readmore" href="/tin-tuc/dt/{{$new->id_news}}">Xem thêm</a>
+                </div>
                 @endforeach
-
               </div>
+                @if(count($showNewsTotal) > 6)
+                  <div class='mb-5 text-right'>
+                    <a href="#" class='pagination-news' style="font-size:20px">Tin cũ hơn</a>
+                  </div>
+                @endif
             </div>
             <div class="col-lg-3 col-md-4">
               <div class="filter-news">

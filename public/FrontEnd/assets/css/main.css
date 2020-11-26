@@ -383,27 +383,27 @@ table {
 .header__topbar .topbar-right .logined {
     padding-right: 50px;
     position: relative;
-  }
-  @media screen and (max-width: 540px) {
+}
+@media screen and (max-width: 540px) {
     .header__topbar .topbar-right .logined {
         display: none;
     }
-  }
-  .header__topbar .topbar-right .logined a {
+}
+.header__topbar .topbar-right .logined a {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .header__topbar .topbar-right .logined a:hover {
+}
+.header__topbar .topbar-right .logined a:hover {
     color: unset;
-  }
-  .header__topbar .topbar-right .logined a img {
+}
+.header__topbar .topbar-right .logined a img {
     margin-right: 10px;
     height: auto;
     border-radius: 100%;
-  }
-  .header__topbar .topbar-right .logined a:first-child::before {
+}
+.header__topbar .topbar-right .logined a:first-child::before {
     content: "";
     position: absolute;
     top: -25px;
@@ -411,14 +411,14 @@ table {
     width: 100%;
     height: 25px;
     background-color: transparent;
-  }
-  .header__topbar .topbar-right .logined .arrows {
+}
+.header__topbar .topbar-right .logined .arrows {
     margin-left: 10px;
-  }
-  .header__topbar .topbar-right .logined .arrows:hover i {
+}
+.header__topbar .topbar-right .logined .arrows:hover i {
     color: unset;
-  }
-  .header__topbar .topbar-right .logined .info-user {
+}
+.header__topbar .topbar-right .logined .info-user {
     display: none;
     position: absolute;
     top: 40px;
@@ -428,21 +428,21 @@ table {
     width: max-content;
     background-color: #f8f8f8;
     border-radius: 4px;
-  }
-  .header__topbar .topbar-right .logined .info-user a {
+}
+.header__topbar .topbar-right .logined .info-user a {
     padding: 15px;
     color: #000000;
     border-bottom: 1px solid #cccccc;
-  }
-  .header__topbar .topbar-right .logined .info-user a:last-child {
+}
+.header__topbar .topbar-right .logined .info-user a:last-child {
     border-bottom: none;
-  }
-  .header__topbar .topbar-right .logined .info-user a:hover {
+}
+.header__topbar .topbar-right .logined .info-user a:hover {
     color: #0ac9db;
-  }
-  .header__topbar .topbar-right .logined:hover .info-user {
+}
+.header__topbar .topbar-right .logined:hover .info-user {
     display: block;
-  }
+}
 .header__topbar .topbar-left li a:hover,
 .header__topbar .topbar-right li a:hover {
     color: #f1d354;
@@ -664,7 +664,7 @@ table {
 }
 .header__menu .main-header .isner .right .main-menu-nav li.login-mobile {
     display: none;
-  }
+}
 @media screen and (max-width: 1200px) {
     .header__menu
         .main-header
@@ -685,27 +685,58 @@ table {
     .header__menu .main-header .isner .right .main-menu-nav li:hover a {
         color: #ffffff;
     }
-    
-      .header__menu .main-header .isner .right .main-menu-nav li.login-mobile a span {
+
+    .header__menu
+        .main-header
+        .isner
+        .right
+        .main-menu-nav
+        li.login-mobile
+        a
+        span {
         display: flex;
         align-items: center;
-      }
-      .header__menu .main-header .isner .right .main-menu-nav li.login-mobile a span img {
+    }
+    .header__menu
+        .main-header
+        .isner
+        .right
+        .main-menu-nav
+        li.login-mobile
+        a
+        span
+        img {
         margin-right: 10px;
         border-radius: 100%;
-      }
-      @media screen and (max-width: 1200px) {
-        .header__menu .main-header .isner .right .main-menu-nav li.login-mobile {
-          display: block;
+    }
+    @media screen and (max-width: 1200px) {
+        .header__menu
+            .main-header
+            .isner
+            .right
+            .main-menu-nav
+            li.login-mobile {
+            display: block;
         }
-        .header__menu .main-header .isner .right .main-menu-nav li.login-mobile:hover{
+        .header__menu
+            .main-header
+            .isner
+            .right
+            .main-menu-nav
+            li.login-mobile:hover {
             background-color: transparent !important;
         }
-      }
-      .header__menu .main-header .isner .right .main-menu-nav li.login-mobile .submenu {
+    }
+    .header__menu
+        .main-header
+        .isner
+        .right
+        .main-menu-nav
+        li.login-mobile
+        .submenu {
         display: none;
-      }
-      .header__menu .main-header .isner .right .main-menu-nav li i {
+    }
+    .header__menu .main-header .isner .right .main-menu-nav li i {
         -webkit-transition: 0.3s all;
         -o-transition: 0.3s all;
         transition: 0.3s all;
@@ -722,20 +753,20 @@ table {
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-      }
-      @media screen and (min-width: 1200px) {
+    }
+    @media screen and (min-width: 1200px) {
         .header__menu .main-header .isner .right .main-menu-nav li i {
-          pointer-events: none;
-          -webkit-transition: none;
-          -o-transition: none;
-          transition: none;
+            pointer-events: none;
+            -webkit-transition: none;
+            -o-transition: none;
+            transition: none;
         }
-      }
-      .header__menu .main-header .isner .right .main-menu-nav li i.--active {
+    }
+    .header__menu .main-header .isner .right .main-menu-nav li i.--active {
         -webkit-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
         transform: rotate(180deg);
-      }
+    }
 }
 .header__menu .main-header .isner .right .main-menu-overlay {
     position: absolute;
@@ -3128,8 +3159,9 @@ footer .copyright p {
 }
 .wraper-contact .section-2 .btn {
     border-radius: 10px !important;
-    background: #5191fa;
+    background: #0ac9db;
     color: #fff;
+    border: unset;
 }
 .wraper-contact .section-2 .btn:hover {
     border: unset;
@@ -5480,6 +5512,21 @@ html .mfp-wrap {
 
 .alert-validate .eyes-psw {
     display: none;
+}
+.goog-maps iframe {
+    display: block;
+}
+.contact-form input,
+.contact-form textarea {
+    background-color: #f2f3f5;
+    color: #363a40;
+    border: none;
+}
+.contact-form .alert-validate::after {
+    bottom: 8px;
+}
+.contact-form .alert-validate::before {
+    bottom: 6px;
 }
 
 /* .validate_field {
