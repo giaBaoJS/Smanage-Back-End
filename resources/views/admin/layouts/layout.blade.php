@@ -94,6 +94,7 @@
         <script src="{{asset('BackEnd/assets/js')}}/app.js"></script>
         <script src="{{asset('BackEnd/assets/libs/sweetalert2')}}/sweetalert2.min.js"></script>
         <script src="{{asset('BackEnd/assets/js')}}/login-cms.js"></script>
+        <script src="{{asset('Backend/assets/js')}}/validate.js"></script>
         <script src="{{asset('BackEnd/assets/libs/alertifyjs/build')}}/alertify.min.js"></script>
 	</body>
 </html>

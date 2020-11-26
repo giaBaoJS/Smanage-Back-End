@@ -32,6 +32,33 @@ class apiDashboard extends Controller
             return 0;
         }
     }
+    public function addUser(Request $request)
+    {
+        $getEmail=UserTable::where('email','=',$request->email)->get();
+        if (count($getEmail)>0) {
+            return 1;
+        }else{
+            if ($request->role==1) {
+                $id_doitac=$request->id_doitac;
+            }else{
+                $id_doitac=0;
+            }
+            $data=[
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password'=>bcrypt($request->password),
+                'phone'=>$request->phone,
+                'address'=>$request->address,
+                'id_doitac'=>$id_doitac,
+                'gender'=>$request->gender,
+                'role'=>$request->role,
+                'active'=>$request->active,
+            ];
+            UserTable::create($data);
+            return 0;
+        }
+
+    }
     function updateUser(Request $request)
     {
         // $getEmail=UserTable::where('email','=',$request->email)->get();

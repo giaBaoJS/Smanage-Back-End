@@ -30,60 +30,66 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Hình ảnh</th>
                                         <th scope="col">Tên tours</th>
-                                        <th scope="col">Nơi đi</th>
-                                        <th scope="col">Nơi đến</th>
+                                        <th scope="col">Thời gian khởi hành</th>
                                         <th scope="col">Ngày đi</th>
                                         <th scope="col">Ngày về</th>
                                         <th scope="col">Phương tiện</th>
                                         <th scope="col">Giá</th>
+                                        <th scope="col">Giá trẻ em</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Mô tả</th>
                                         <th scope="col">Hành vi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i=1;
+                                    @endphp
+                                    @foreach ($showTour as $t)
                                     <tr>
                                         <th scope="row">
-                                            <a href="#"># XO1345</a>
+                                        <a href="#"># {{$i ++}}</a>
                                         </th>
-                                        <td>URL hình ảnh</td>
-                                        <td>Đường vào tim Kim Bảo đẹp trai</td>
-                                        <td>Sài gòn</td>
-                                        <td>Trái tim Kim Bảo</td>
-                                        <td>01/01/2020</td>
-                                        <td>10/01/2020</td>
-                                        <td>Đường vào tim băng giá</td>
-                                        <td>40.000.000 VNĐ</td>
+                                    <td><img width="100px" src="{{asset('BackEnd/assets/images/tours')}}/{{$t->url_img_tour}}" alt=""></td>
+                                        <td>{{$t->name_tour}}</td>
+                                        <td>{{$t->time}}</td>
+                                        <td>{{$t->date_start}}</td>
+                                        <td>{{$t->date_end}}</td>
+                                        <td>@if ($t->vehicle==1)
+                                                Máy bay
+                                            @else
+                                                Xe khách
+                                            @endif</td>
+                                        <td>{{$t->price}}</td>
+                                        <td>{{$t->price_children}}</td>
+                                        <td>{{$t->quantity_limit}}</td>
+                                        <td>{{$t->short_content}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button
+                                                <a
                                                     type="button"
-                                                    class="btn btn-outline-secondary btn-sm"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="View"
-                                                >
-                                                    <i class="mdi mdi-eye"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
+                                                    href="/admin/edittour/{{$t->id_tour}}"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Edit"
                                                 >
                                                     <i class="mdi mdi-pencil"></i>
-                                                </button>
-                                                <button
+                                                </a>
+                                                <a
                                                     type="button"
+                                            href="/admin/deltour/{{$t->id_tour}}"
                                                     class="btn btn-outline-secondary btn-sm"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="Delete"
                                                 >
                                                     <i class="mdi mdi-trash-can"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

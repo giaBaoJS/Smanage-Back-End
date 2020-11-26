@@ -130,6 +130,11 @@ Route::post('admin/editTinh/{id}', 'dashboardController@editTinh')->middleware('
 // Trang tours --------------------
 Route::get('admin/tours', 'dashboardController@toursTable')->middleware('CheckAdmins');
 Route::get('admin/tours/add', 'dashboardController@toursAdd')->middleware('CheckAdmins');
+Route::get('admin/deltour/{id}', 'dashboardController@delTour')->middleware('CheckAdmins');
+Route::post('admin/addtour', 'dashboardController@addTour')->middleware('CheckAdmins');
+Route::get('admin/edittour/{id}', 'dashboardController@editTour')->middleware('CheckAdmins');
+Route::post('admin/addschedule', 'dashboardController@addSchedule')->middleware('CheckAdmins');
+Route::post('admin/updatetour', 'dashboardController@updateTour')->middleware('CheckAdmins');
 // Trang tours -------------------- END
 
 // Trang bill --------------------

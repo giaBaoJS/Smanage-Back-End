@@ -306,14 +306,6 @@
                                 <span>Danh sách tours</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/tours/add" class="waves-effect">
-                                <div class="d-inline-block icons-sm mr-1">
-                                    <i class="uim uim-airplay"></i>
-                                </div>
-                                <span>Thêm tours</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li>
