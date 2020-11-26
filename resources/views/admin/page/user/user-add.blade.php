@@ -97,7 +97,7 @@
                                         @endforeach
                                     </select>
                             </div>
-                            <div class="form-group col-xl-6" id="doitac" style="">
+                            <div class="form-group col-xl-6" id="doitac" style="display:none">
                                 <label>Đối tác</label>
                                 <select class="form-control" id="doitacR" name="id_doitac" value="">
                                     <option>Chọn đối tác</option>

@@ -164,6 +164,8 @@ function deleteUser(id, id_kt, role) {
 }
 
 //Delete user--------------------------->
+
+//KIỂM TRA ĐỐI TÁC
 function kiemtraDoiTac() {
     doitac = $("#chucnang").val();
     if (doitac == 1) {
@@ -172,6 +174,10 @@ function kiemtraDoiTac() {
         $("#doitac").css('display','none');
     }
 }
+
+//KIỂM TRA ĐỐI TÁC
+
+
 function updateUser() {
     name = $("#name").val();
     email = $("#email").val();
@@ -202,9 +208,11 @@ function updateUser() {
         alertify.error("Vui lòng chọn chức năng");
         return false;
     }
-    if (id_doitac == "Chọn đối tác") {
-        alertify.error("Vui lòng chọn đối tác!");
-        return false;
+    if (role==1) {
+        if (id_doitac == "Chọn đối tác") {
+            alertify.error("Vui lòng chọn đối tác!");
+            return false;
+        }
     }
     if (gender == "Chọn giới tính") {
         alertify.error("Vui lòng chọn giới tính!");
@@ -272,9 +280,11 @@ function addUser() {
         alertify.error("Vui lòng chọn chức năng");
         return false;
     }
-    if (id_doitac == "Chọn đối tác") {
-        alertify.error("Vui lòng chọn đối tác!");
-        return false;
+    if (role==1) {
+        if (id_doitac == "Chọn đối tác") {
+            alertify.error("Vui lòng chọn đối tác!");
+            return false;
+        }
     }
     if (gender == "Chọn giới tính") {
         alertify.error("Vui lòng chọn giới tính!");
@@ -390,3 +400,5 @@ function deleteNews(id) {
         },
     });
 }
+// KIỂM TRA VALIDATE
+

@@ -11,6 +11,8 @@ use App\mien;
 use App\contact;
 use App\gallerytable;
 use App\slider;
+use App\schedule;
+use App\tour;
 use App\tinh;
 use App\tintucTable;
 use App\doitacTable;
@@ -463,14 +465,113 @@ class dashboardController extends Controller
 
     public function toursTable()
     {
-        return view('admin/page/tours/tours-table');
+        $showTour=tour::all();
+        return view('admin/page/tours/tours-table',['showTour'=>$showTour]);
     }
 
     public function toursAdd()
     {
-        return view('admin/page/tours/tours-add');
+        $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon]);
     }
+    public function addTour(Request $request)
+    {
+        $path = '';
+        $file = $request->url_img_tour;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/tours', $path);
+        }
+        if ($request->hasFile('url_gallery_tours')) {
+            $data1='';
+            $image = $request->file('url_gallery_tours');
+            foreach ($image as $files) {
+                $destinationPath = 'BackEnd/assets/images/tours';
+                $file_name = $files->getClientOriginalName();
+                $files->move($destinationPath, $file_name);
+                $data1=$data1.','.$file_name;
+            }
+            $data1=ltrim($data1,",");
+        }
+        $data = array(
+            'id_doitac' => session('account')->id_doitac,
+            'time' => $request->time,
+            'price' => $request->price,
+            'price_children' => $request->price_children,
+            'name_tour' => $request->name_tour,
+            'discount' => $request->discount,
+            'quantity_limit' => $request->quantity_limit,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+            'vehicle' => $request->vehicle,
+            'short_content' => $request->short_content,
+            'url_img_tour' => $path,
+            'url_gallery_tours' => json_encode($data1)
+        );
+        tour::create($data);
+        $tourOne=tour::orderby('id_tour','desc')->first();
+        return view('admin/page/tours/tours-schedule',['id_tour'=>$tourOne->id_tour]);
+    }
+    public function delTour($id)
+    {
 
+        $schedule = schedule::where('id_tour','=',$id);
+        $schedule->delete();
+        $tour = tour::find($id);
+        $tour->delete();
+        return redirect('admin/tours');
+    }
+    public function addSchedule(Request $request)
+    {
+        $data = array(
+            'id_tour' => $request->id_tour,
+            'content' => $request->content,
+        );
+        schedule::create($data);
+        return redirect('admin/tours');
+    }
+    public function editTour($id)
+    {
+        $showTour=tour::find($id);
+        $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour]);
+    }
+    public function updateTour(Request $request)
+    {
+        $showTour=tour::find($request->id_tour);
+        $showTour->name_tour=$request->name_tour;
+        $showTour->id_doitac=session('account')->id_doitac;
+        $showTour->time=$request->time;
+        $showTour->price=$request->price;
+        $showTour->price_children=$request->price_children;
+        $showTour->discount=$request->discount;
+        $showTour->quantity_limit=$request->quantity_limit;
+        $showTour->date_start=$request->date_start;
+        $showTour->date_end=$request->date_end;
+        $showTour->vehicle=$request->vehicle;
+        $showTour->short_content=$request->short_content;
+        $path = '';
+        $file = $request->url_img_tour;
+        if ($file) {
+            $path = $file->getClientOriginalName();
+            $file->move('BackEnd/assets/images/tours', $path);
+            $showTour->url_img_tour= $path;
+        }
+        if ($request->hasFile('url_gallery_tours')) {
+            $data1='';
+            $image = $request->file('url_gallery_tours');
+            foreach ($image as $files) {
+                $destinationPath = 'BackEnd/assets/images/tours';
+                $file_name = $files->getClientOriginalName();
+                $files->move($destinationPath, $file_name);
+                $data1=$data1.','.$file_name;
+            }
+            $data1=ltrim($data1,",");
+            $showTour->url_gallery_tours=$data1;
+        }
+        $showTour->save();
+        return redirect('admin/tours');
+    }
     // tour table ---------------------------------->
 
     // bill table ---------------------------------->
