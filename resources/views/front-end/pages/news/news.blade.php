@@ -24,7 +24,7 @@
                     <img src="{{asset('BackEnd/assets/images')}}/{{$new->url_avatar}}" alt="icon" />
                     <h4>{{$new->name}}</h4>
                     <span>{{date('d/m/Y',strtotime($new->created_at))}}</span>
-                    <a href="#">4 Nhận xét</a>
+                    <!-- <a href="#">4 Nhận xét</a> -->
                   </div>
                   <p>
                       {{$new->short_content}} […]
@@ -41,8 +41,8 @@
             </div>
             <div class="col-lg-3 col-md-4">
               <div class="filter-news">
-                <form action="#">
-                  <input type="text" placeholder="Tìm kiếm ..." />
+                <form action="/tim-tin-tuc">
+                  <input type="text" name="keyword" placeholder="Tìm kiếm ..." />
                   <button type="submit">
                     <i class="fa fa-search"></i>
                   </button>

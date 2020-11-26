@@ -21,7 +21,7 @@
                   <h3 class="title">{{ucwords($showOneNew->title)}}</h3>
                   <div class="list-info">
                     <span>{{date('d/m/Y',strtotime($showOneNew->created_at))}}</span>
-                    <a>4 Nhận xét</a>
+                    <a>{{count($showComment)}} Nhận xét</a>
                   </div>
                   {!!$showOneNew->content!!}
                   <div class="shared">
@@ -148,8 +148,8 @@
             </div>
             <div class="col-lg-3 col-md-4">
                 <div class="filter-news">
-                  <form action="#">
-                    <input type="text" placeholder="Tìm kiếm ..." />
+                  <form action="/tim-tin-tuc">
+                    <input type="text" name="keyword" placeholder="Tìm kiếm ..." />
                     <button type="submit">
                       <i class="fa fa-search"></i>
                     </button>

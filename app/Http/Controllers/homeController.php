@@ -118,11 +118,23 @@ class homeController extends Controller
     public function toursDetail() {
       return view('front-end/pages/tours/tours-detail');
     }
+    public function searchNews() {
+      if($_GET && $_GET['keyword']) {
+        $keyword = trim(htmlspecialchars(addslashes($_GET['keyword'])));
+        $showMien=mien::all();
+        $showTinh=tinh::all();
+        $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->get();
+        $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->limit(6)->get();
+        $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
+        return view('front-end/pages/news/news',['showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+      }
+      return redirect('tin-tuc');
+    }
     public function news() {
       $showMien=mien::all();
       $showTinh=tinh::all();
-      $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->get();
-      $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->limit(6)->get();
+      $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->get();
+      $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->limit(6)->get();
       $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
       return view('front-end/pages/news/news',['showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
@@ -130,8 +142,8 @@ class homeController extends Controller
         $showMien=mien::all();
         $showTinh=tinh::all();
         $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
-        $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->find($id);
-        $showComment=comment::leftJoin('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
+        $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->find($id);
+        $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
         $showCommentLimit=comment::leftJoin('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->limit(4)->get();
       return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }

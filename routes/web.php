@@ -55,6 +55,7 @@ Route::get('/tours','homeController@tours');
 Route::get('/tours/dt','homeController@toursDetail');
 // TOURS - END
 // NEWS
+Route::get('/tim-tin-tuc','homeController@searchNews');
 Route::get('/tin-tuc','homeController@news');
 Route::get('/tin-tuc/dt/{id}','homeController@newsDetail');
 // NEWS - END
