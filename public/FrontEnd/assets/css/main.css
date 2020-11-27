@@ -3522,6 +3522,9 @@ footer .copyright p {
     object-fit: cover;
     border-radius: 100%;
 }
+.wraper-about-us .our-team .describe {
+    margin-bottom: 30px;
+}
 .wraper-about-us .our-team .describe .content {
     margin-top: 20px;
 }

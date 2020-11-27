@@ -199,7 +199,7 @@
 				<h2 class="title">Thành Viên Nhóm</h2>
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg col-md-6">
 							<div class="describe">
 								<img src="{{asset('FrontEnd/assets/images/defaults')}}/bao.jpg" alt="ava" />
 								<div class="content">
@@ -208,7 +208,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg-4 col-md-6">
 							<div class="describe">
 								<img src="{{asset('FrontEnd/assets/images/defaults')}}/kimbeo.jpg" alt="ava" />
 								<div class="content">
@@ -217,7 +217,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg-4 col-md-6">
 							<div class="describe">
 								<img src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg" alt="ava" />
 								<div class="content">
@@ -226,11 +226,20 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg-4 col-md-6">
 							<div class="describe">
 								<img src="{{asset('FrontEnd/assets/images/defaults')}}/linhduy.jpg" alt="ava" />
 								<div class="content">
 									<h3>Trịnh Linh Duy</h3>
+									<p>PS08844</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="describe">
+								<img src="{{asset('FrontEnd/assets/images/defaults')}}/nhat.jpg" alt="ava" />
+								<div class="content">
+									<h3>Nguyễn Hồng Nhật</h3>
 									<p>PS08844</p>
 								</div>
 							</div>
