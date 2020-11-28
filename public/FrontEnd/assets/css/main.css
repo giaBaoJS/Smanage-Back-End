@@ -1809,7 +1809,7 @@ footer .copyright p {
     height: 100%;
     width: 100%;
     background-color: #000000;
-    opacity: 0.2;
+    opacity: 0.4;
 }
 .wrapper-home .banner-home .content .image img {
     display: block;
@@ -3264,7 +3264,6 @@ footer .copyright p {
     }
 }
 .wraper-contact .contact-right .title-contact-right ul li {
-    font-family: none !important;
     line-height: 25px;
 }
 @media (max-width: 991px) {
@@ -3529,6 +3528,9 @@ footer .copyright p {
     -o-object-fit: cover;
     object-fit: cover;
     border-radius: 100%;
+}
+.wraper-about-us .our-team .describe {
+    margin-bottom: 30px;
 }
 .wraper-about-us .our-team .describe .content {
     margin-top: 20px;

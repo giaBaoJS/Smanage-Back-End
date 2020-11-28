@@ -22,6 +22,8 @@
                   <div class="list-info">
                     <span>{{date('d/m/Y',strtotime($showOneNew->created_at))}}</span>
                     <a>{{count($showComment)}} Nhận xét</a>
+                    <span><i class="fas fa-eye"></i> 100</span>
+                    <span><i class="fas fa-thumbs-up"></i> 1.4k</span>
                   </div>
                   {!!$showOneNew->content!!}
                   <div class="shared">
