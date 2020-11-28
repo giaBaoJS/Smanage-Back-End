@@ -157,7 +157,12 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
+i {
+    font-style: italic;
+}
+b {
+    font-weight: bold;
+}
 .hero-banner {
     padding: 100px 0;
     background-image: url("./../images/defaults/tour.jpg");
@@ -985,11 +990,16 @@ footer .copyright p {
 .wrapper-tour .feature-image {
     overflow: hidden;
     position: relative;
+    height: 200px;
+}
+.wrapper-tour .feature-image a {
+    height: 100%;
 }
 .wrapper-tour .feature-image a img {
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    height: 100%;
 }
 .wrapper-tour .feature-image a:hover img {
     -webkit-transform: scale(1.2);
@@ -1095,9 +1105,7 @@ footer .copyright p {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    flex-direction: column;
 }
 .wrapper-tour .content-bottom i {
     font-size: 14px;

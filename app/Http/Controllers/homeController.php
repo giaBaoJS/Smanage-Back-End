@@ -11,6 +11,7 @@ use App\gallerytable;
 use App\slider;
 use App\tinh;
 use App\tintucTable;
+use App\tour;
 use App\comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -113,7 +114,10 @@ class homeController extends Controller
       return view('front-end/pages/partners/partners-detail');
     }
     public function tours() {
-      return view('front-end/pages/tours/tours');
+      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')->join('mien','mien.id_mien','=','tours.id_mien')->orderby('created_at','asc')->whereRaw('Date(created_at) >= CURDATE()')->get();
+      $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')->join('mien','mien.id_mien','=','tours.id_mien')->orderby('created_at','asc')->whereRaw('Date(created_at) >= CURDATE()')->limit(15)->get();
+      // $showComment = comment::join('user','user.id_user','=','comment.id_user')
+      return view('front-end/pages/tours/tours',['showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
     }
     public function toursDetail() {
       return view('front-end/pages/tours/tours-detail');

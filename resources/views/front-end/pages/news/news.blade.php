@@ -11,6 +11,9 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-9 col-md-8">
+              @if(count($showNewsTotal) < 1)
+              <p style="font-weight: bold; font-style: italic">Không tìm thấy tin tức</p>
+              @endif
               <div class="news-list">
                 @foreach ($showNewsLimit as $new)
                 <div class="items">

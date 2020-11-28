@@ -75,7 +75,7 @@
                           <p>
                             {{$c->content}}
                           </p>
-                          <a href="#">TRẢ LỜI</a>
+                          <!-- <a href="#">TRẢ LỜI</a> -->
                         </div>
                       </div>
                       @endforeach
