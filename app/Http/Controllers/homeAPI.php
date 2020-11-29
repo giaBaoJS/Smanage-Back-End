@@ -10,6 +10,7 @@ use App\contact;
 use App\gallerytable;
 use App\slider;
 use App\comment;
+use App\comment_tour;
 use App\tinh;
 use App\tintucTable;
 use \App\mailer;
@@ -42,7 +43,9 @@ class homeAPI extends Controller
       'email' => $request->email,
       'password' => $request->psw,
     ];
-    
+    if($request->prev_url) {
+      $location = $request->prev_url;
+    }
     if(Auth::attempt(['email' => $request->email,
     'password' => $request->psw,'active'=> -1])) {
       $user = UserTable::where('email','=',$request->email)->first();
@@ -125,9 +128,9 @@ class homeAPI extends Controller
         </div>
       </div>';
       if($mail->sendMail($title, $desc, $email) === 1) {
-        echo json_encode(['success' => false, 'message' => 'Tài khoản của quý khách chưa được kích hoạt. Hãy kiểm tra email', 'redirect' => true, 'location' => '/dang-nhap']);
+        echo json_encode(['success' => false, 'message' => 'Tài khoản của quý khách chưa được kích hoạt. Hãy kiểm tra email', 'redirect' => true, 'location' => $location ?? '/dang-nhap']);
       } else {
-        echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => '/dang-nhap']);
+        echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => $location ?? '/dang-nhap']);
       }
       return;
     }
@@ -143,10 +146,10 @@ class homeAPI extends Controller
         //     $password = Cookie::forget('password');
         //     return redirect('/')->withCookie($email)->withCookie($password);
         // }
-        echo json_encode(['success' => true, 'message' => 'Đăng nhập thành công', 'redirect'=> true, 'location' => '/']);
+        echo json_encode(['success' => true, 'message' => 'Đăng nhập thành công', 'redirect'=> true, 'location' => $location ?? '/']);
       }
     } else {
-      echo json_encode(['success' => false, 'message' => 'Tài khoản hoặc mật khẩu không đúng', 'redirect' => false, 'location' => '/dang-nhap']);
+      echo json_encode(['success' => false, 'message' => 'Tài khoản hoặc mật khẩu không đúng', 'redirect' => false, 'location' => $location ?? '/dang-nhap']);
     }
   }
   // ĐĂNG KÝ
@@ -188,7 +191,8 @@ class homeAPI extends Controller
       'phone'=>$request->phone,
       'address'=>$request->address,
       'role'=> 0,
-      'active'=> -1
+      'active'=> -1,
+      'created_at' =>  date("Y:m:d H:i:s")
     ];
     $email = $request->email;
     $name = $request->name;
@@ -538,21 +542,51 @@ class homeAPI extends Controller
   // BÌNH LUẬN
   public function addComment(Request $request)
   {
-    $data = array(
+    if($request->type == 'news') {
+      $data = array(
         'id_user' => $request->id_user,
-        'id_news' => $request->id_news,
+        'id_news' => $request->id,
         'content' => $request->comment,
         'created_at' =>  date("Y:m:d H:i:s")
-    );
-    comment::create($data);
-    $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$request->id_news)->orderby('id_comment','desc')->get();
-    return $showComment;
+      );
+      comment::create($data);
+      $showComment = comment::join('user','comment.id_user','=','user.id_user')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->where('comment.id_news','=',$request->id)
+            ->orderby('id_comment','desc')
+            ->get();
+      return $showComment;
+    } else if($request->type == 'tour') {
+      $data = array(
+        'id_user' => $request->id_user,
+        'id_tour' => $request->id,
+        'content' => $request->comment,
+        'created_at' =>  date("Y:m:d H:i:s")
+      );
+      comment_tour::create($data);
+      $showComment = comment_tour::join('user','user.id_user','=','comment_tour.id_user')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->where('comment_tour.id_tour','=',$request->id)
+          ->orderby('id_comment_tour','desc')
+          ->get();
+      return $showComment;
+    }
+    
   }
-  // PHÂN TRANG COMMENT TIN TỨC
+  // PHÂN TRANG BÌNH LUẬN
   public function paginationCmts(Request $request) {
-    $gioihansp = ($request->pageCmts - 1) * 4;
-    $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$request->id_news)->orderby('id_comment','desc')->offset($gioihansp)->limit(4)->get();
-    return $showComment;
+    if($request->type==='news') {
+      $gioihansp = ($request->pageCmts - 1) * 4;
+      $showComment=comment::join('user','user.id_user','=','comment.id_user')->where('comment.id_news','=',$request->id)->orderby('id_comment','desc')->get();
+      $showCommentLimit=comment::join('user','user.id_user','=','comment.id_user')->where('comment.id_news','=',$request->id)->orderby('id_comment','desc')->offset($gioihansp)->limit(4)->get();
+      return $showComment;
+    } else if($request->type==='tour') {
+      $gioihansp = ($request->pageCmts - 1) * 4;
+      $showComment=comment_tour::join('user','user.id_user','=','comment_tour.id_user')->where('comment_tour.id_tour','=',$request->id)->orderby('id_comment_tour','desc')->get();
+      $showCommentLimit=comment_tour::join('user','user.id_user','=','comment_tour.id_user')->where('comment_tour.id_tour','=',$request->id)->orderby('id_comment_tour','desc')->offset($gioihansp)->limit(4)->get();
+      return $showComment;
+    }
+    
   }
   // PHÂN TRANG TIN TỨC
   public function paginationNews(Request $request) {

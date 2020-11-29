@@ -218,7 +218,9 @@ jQuery(function () {
 });
 function formatDate(timeStr) {
     const time = new Date(timeStr);
-    return `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
+    return `${time.getDate()}/${
+        time.getMonth() + 1
+    }/${time.getFullYear()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
 }
 // PAGINATION COMMENT OF NEWS
 function addComment() {
@@ -242,23 +244,27 @@ function addComment() {
             data: forms,
             success: function (res) {
                 $(textArea).val("");
-                let div = "";
+                let div = ``;
                 res.slice(0, 4).forEach((s) => {
-                    div +=
-                        '<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/' +
-                        s.url_avatar +
-                        '" alt="avatar"/><div><h4>' +
-                        s.name +
-                        "</h4><span>" +
-                        formatDate(s.created_at) +
-                        '</span></div></div><div class="comment"><p>' +
-                        s.content +
-                        '</p><a href="#">TRẢ LỜI</a></div></div>';
+                    div += `<div class="items">
+                              <div class="info-users">
+                                <img src="/BackEnd/assets/images/${
+                                    s.url_avatar
+                                }" alt="avatar"/>
+                                <div>
+                                  <h4>${s.name}</h4>
+                                  <span>${formatDate(s.created_at)}</span>
+                                </div>
+                              </div>
+                              <div class="comment">
+                                <p>${s.content}</p>
+                              </div>
+                            </div>
+                           `;
+                    // '</p><a href="#">TRẢ LỜI</a></div></div>;
                 });
                 $("#showComment").html(div);
-                $("#comment__count").html(
-                    "<h3>Bình luận (" + res.length + ")</h3>"
-                );
+                $(".cmt-count").html(res.length);
             },
             error: function (request, status, error) {
                 console.log(request.responseText);
@@ -270,31 +276,39 @@ function addComment() {
 }
 let pageCmts = 2;
 $("body").on("click", ".pagination-cmts", function () {
-    const idNews = $(this).data("id-news");
+    const id = $(this).data("id");
+    const type = $(this).data("type");
+    console.log(id);
     $.ajax({
         url: "http://127.0.0.1:8000/api/pagination-cmts",
         type: "get",
-        data: { pageCmts, id_news: idNews },
+        data: { pageCmts, id: id, type: type },
         success: function (res) {
             let div = "";
+            const totalPages = Math.ceil(res.length / 4);
             pageCmts++;
-            console.log(res);
-            res.forEach((s) => {
-                div +=
-                    '<div class="items"><div class="info-users"><img src="/BackEnd/assets/images/' +
-                    s.url_avatar +
-                    '" alt="avatar"/><div><h4>' +
-                    s.name +
-                    "</h4><span>" +
-                    formatDate(s.created_at) +
-                    '</span></div></div><div class="comment"><p>' +
-                    s.content +
-                    '</p><a href="#">TRẢ LỜI</a></div></div>';
-            });
-            $("#showComment").append(div);
-            if (res.length < 6) {
+            if (pageCmts >= totalPages) {
                 $(".pagination-cmts").css("display", "none");
             }
+            res.forEach((s) => {
+                div += `<div class="items">
+                        <div class="info-users">
+                          <img src="/BackEnd/assets/images/${
+                              s.url_avatar
+                          }" alt="avatar"/>
+                          <div>
+                            <h4>${s.name}</h4>
+                            <span>${formatDate(s.created_at)}</span>
+                          </div>
+                        </div>
+                        <div class="comment">
+                          <p>${s.content}</p>
+                        </div>
+                      </div>
+                    `;
+                // '</p><a href="#">TRẢ LỜI</a></div></div>';
+            });
+            $("#showComment").append(div);
         },
     });
     return false;

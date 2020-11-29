@@ -320,10 +320,10 @@
 							<div class="list-tours tabs tab1 active">
 								<div class="row">
                   @foreach($showToursLimit as $t)
-	<div class="col-lg-4 col-md-6">
+                  <div class="col-lg-4 col-md-6">
 										<div class="wrapper-tour">
 											<div class="feature-image">
-												<a href="#">
+												<a href="/tours/dt/{{$t->id_tour}}">
 													<img
 														class="w-100 img-fluid"
 														src="{{asset('BackEnd/assets/images/tours')}}/{{$t->url_img_tour}}"
@@ -337,12 +337,12 @@
                           <div class="sale">- {{$t->discount}}%</div>
                         @endif
 											</div>
-											<div class="content">
+											<div class="content"  style="min-height: 210px">
 												<div class="content-top">
 													<i class="fas fa-map-marker-alt"></i>
-													<h3>{{$t->name_mien}}</h3>
+													<h3>{{$t->name_tinh}}, {{$t->name_mien}}</h3>
 												</div>
-												<a href="#">{{$t->name_tour}}</a>
+												<a href="/tours/dt/{{$t->id_tour}}">{{$t->name_tour}}</a>
 												<div class="content-mid">
 													<ul class="d-flex list-star">
 														<li><i class="fa fa-star"></i></li>
@@ -351,7 +351,7 @@
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star"></i></li>
 													</ul>
-													<!-- <span>7 nhận xét</span> -->
+													<span>{{ count(\App\comment_tour::where('id_tour', $t->id_tour)->get()) }} nhận xét</span>
 												</div>
 												<div class="content-bottom ">
 													<div class="d-flex align-items-center">
@@ -362,13 +362,13 @@
 																font-size: 14px;
 																margin-left: 5px;
 															"
-															>{{date("d-m-Y", strtotime($t->created_at))}}</span
+															>{{date("d-m-Y", strtotime($t->date_start))}}</span
 														>
 													</div>
 													<div class="d-flex flex-wrap">
                             <p style=" margin-top: 5px">
-                            <i class="fas fa-bolt"></i>
-                            <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
+                              <i class="fas fa-bolt"></i>
+                              <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
                             </p>
                             <del style="padding-left: 5px; font-size: 12px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
 													</div>
@@ -377,7 +377,6 @@
 										</div>
 									</div>
                   @endforeach
-								
 								</div>
 							</div>
 
@@ -606,7 +605,14 @@
 										</div>
 									</div>
 								</div>
-							</div>
+              </div>
+              <div class='pagination'>
+                <nav>
+                  <div class='--active disable <?=(isset($_GET['page']) && $_GET['page'] < 1) ? 'disable' : '' ?>'><a href='#'><</a></div>
+                  <div><b class="page">1 </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
+                  <div><a href='#'>></a></div>
+                </nav>
+              </div>
 						</div>
 					</div>
 				</div>

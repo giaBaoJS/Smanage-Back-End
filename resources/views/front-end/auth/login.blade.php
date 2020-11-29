@@ -64,7 +64,14 @@
 						</div>
 						<div class="form-forget">
 							<a href="{{ url('quen-mat-khau') }}">Quên mật khẩu?</a>
-						</div>
+            </div>
+            <?php 
+              if(isset($_GET['prev_url'])) {
+                ?>
+                <input type="hidden" name="prev_url" value="<?=$_GET['prev_url']?>">
+                <?php
+              }
+            ?>
 						<button type="submit" class="form-submit">Đăng nhập</button>
 					</form>
 					<p class="signin-already">

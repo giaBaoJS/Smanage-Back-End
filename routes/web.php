@@ -52,7 +52,7 @@ Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
-Route::get('/tours/dt','homeController@toursDetail');
+Route::get('/tours/dt/{id}','homeController@toursDetail');
 // TOURS - END
 // NEWS
 Route::get('/tim-tin-tuc','homeController@searchNews');

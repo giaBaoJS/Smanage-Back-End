@@ -3,17 +3,18 @@
 @section('wrapper')<div>
 			<div class="book-mobile">
 				<div class="price-wrapper">
-					from
-					<span class="price"
-						><span class="text-lg lh1em item"> $150,00</span></span
-					>
+					Giá từ
+					<span class="price">
+            <del style="padding-left: 5px; font-size: 14px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
+            <p><b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b></p>
+          </span>
 				</div>
-				<a href="#booking-request" class="btn open-popup-btn">Book Now</a>
+				<a href="#booking-request" class="btn open-popup-btn">Đặt ngay</a>
 			</div>
 			<div class="tour-dt">
 				<section class="hero-banner">
 					<div class="container">
-						<h2>Chi tiết</h2>
+						<h2>Tour du lịch: {{$t->name_tour}}</h2>
 					</div>
 				</section>
 				<div class="sec-breadcrumb">
@@ -21,7 +22,7 @@
 					<ul class="breadcrumb">
 						<li><a href="{{url('/')}}">Trang chủ</a></li>
 						<li ><a href="{{url('/tours')}}">Tours</a></li>
-						<li class='--active'><a href="{{url('/tours/dt')}}">Tours Detail</a></li>
+						<li class='--active'><a href="{{url('/tours/dt')}}">{{$t->name_tour}}</a></li>
 					</ul>
 					</div>
 				</div>
@@ -32,15 +33,15 @@
 							<!-- TOUR HEADER -->
 							<div class="tour-dt__header">
 								<div class="left">
-									<h2>New York: Museum of Modern Art</h2>
+									<h2>{{$t->name_tour}}</h2>
 									<div class="sub">
 										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										New York, USA
+										{{$t->name_tinh}}, {{$t->name_mien}}
 									</div>
 								</div>
 								<div class="right">
 									<div class="tour-dt__rating">
-										<span>Average</span>
+										<span>Đánh giá</span>
 										<div class="rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -49,7 +50,7 @@
 											<i class="fa fa-star grey"></i>
 										</div>
 
-										<p>from 4 reviews</p>
+										<p id="comment__count-2">Từ <span class="cmt-count" style="display: inline-block">{{count($showComment)}}</span> đánh giá</p>
 									</div>
 								</div>
 							</div>
@@ -62,8 +63,8 @@
 												<i class="fa far fa-clock" aria-hidden="true"></i>
 											</div>
 											<div class="info">
-												<h4 class="name">Duration</h4>
-												<p class="value">Full day</p>
+												<h4 class="name">Ngày đi</h4>
+												<p class="value"><b>{{date("d-m-Y", strtotime($t->date_start))}}</b></p>
 											</div>
 										</div>
 									</div>
@@ -73,8 +74,8 @@
 												<i class="fa far fa-clock" aria-hidden="true"></i>
 											</div>
 											<div class="info">
-												<h4 class="name">Tour Type</h4>
-												<p class="value">Specific Tour</p>
+												<h4 class="name">Ngày về</h4>
+												<p class="value"><b>{{date("d-m-Y", strtotime($t->date_end))}}</b></p>
 											</div>
 										</div>
 									</div>
@@ -84,8 +85,8 @@
 												<i class="fa fa-users" aria-hidden="true"></i>
 											</div>
 											<div class="info">
-												<h4 class="name">Group Size</h4>
-												<p class="value">10 people</p>
+												<h4 class="name">Số lượng</h4>
+												<p class="value"><b>{{$t->quantity_limit}}</b></p>
 											</div>
 										</div>
 									</div>
@@ -95,83 +96,37 @@
 												<i class="fa fa-language" aria-hidden="true"></i>
 											</div>
 											<div class="info">
-												<h4 class="name">Languages</h4>
-												<p class="value">___</p>
+												<h4 class="name">Ngôn ngữ</h4>
+												<p class="value"><b>Việt / Anh</b></p>
+                        <p></p>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- TOUR SLIDER -->
+             
 							<div class="is-slider tour-dt__slider" id="is-slider-detail">
 								<div class="swiper-container-tour swiper-container-tour-dt">
 									<div class="swiper-wrapper is-lightgallery">
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-1.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-1.jpg"
-													alt=""
-												/>
+                    <?php
+                      $galleryArr = explode(',',$t->url_gallery_tours);
+                      foreach ($galleryArr as $g) {
+                    ?>
+                      <div
+                      class="swiper-slide"
+                      data-src="{{asset('BackEnd/assets/images/tours')}}/<?=$g?>"
+                      >
+											  <div class="tour-dt__img">
+                          <img
+                            src="{{asset('BackEnd/assets/images/tours')}}/<?=$g?>"
+                            alt=""
+                          />
 											</div>
 										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-2.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-2.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-3.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-3.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-4.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-4.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-5.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-5.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-6.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-6.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
+                    <?php
+                      }
+                    ?>
 									</div>
 									<div class="swiper-pagination"></div>
 								</div>
@@ -186,119 +141,59 @@
 									class="swiper-container-tour swiper-container-tour-dt-thumbs"
 								>
 									<div class="swiper-wrapper">
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-1.jpg"
-										>
+                  <?php
+                      $galleryArr = explode(',',$t->url_gallery_tours);
+                      foreach ($galleryArr as $g) {
+                    ?>
+                    <div
+                    class="swiper-slide"
+                    data-src="{{asset('BackEnd/assets/images/tours')}}/<?=$g?>"
+                    >
 											<div class="tour-dt__img">
 												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-1.jpg"
+													src="{{asset('BackEnd/assets/images/tours')}}/<?=$g?>"
 													alt=""
 												/>
 											</div>
 										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-2.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-2.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-3.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-3.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-4.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-4.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-5.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-5.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
-										<div
-											class="swiper-slide"
-											data-src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-6.jpg"
-										>
-											<div class="tour-dt__img">
-												<img
-													src="{{asset('FrontEnd/assets/images/defaults/tours')}}/tour-detail-6.jpg"
-													alt=""
-												/>
-											</div>
-										</div>
+                    <?php
+                      }
+                    ?>
 									</div>
 								</div>
 							</div>
 							<!-- TOUR OVERVIEW -->
-							<div class="tour-dt__overview">
-								<h3>Overview</h3>
+							<div class="tour-dt__overview" style="margin-top: 48px">
+								<h3>Mô tả</h3>
 								<div>
-									<p>
-										The Museum of Modern Art is a place that fuels creativity,
-										challenges minds, and provides inspiration. With
-										extraordinary exhibitions and the world’s finest collection
-										of modern and contemporary art, MoMA is dedicated to the
-										conversation between the past and the present, the
-										established and the experimental. Purchase your admission
-										and skip the lines to one of the world’s most celebrated art
-										museums.
-									</p>
+									{{$t->short_content}}
 								</div>
 							</div>
 							<!-- TOUR HIGHT LIGHT -->
 							<div class="tour-dt__hightlight">
-								<h3>HIGHLIGHTS</h3>
+								<h3>Điểm nổi bật</h3>
 								<ul>
-									<li>Visit the Museum of Modern Art in Manhattan</li>
+									<li>Nón, nước suối, khăn lạnh, viết miễn phí</li>
 									<li>
-										See amazing works of contemporary art, including Vincent van
-										Gogh's The Starry Night
+										Hướng dẫn viên du lịch nhiệt tình, chu đáo. Phục vụ hành khách an toàn và vui vẻ trên mọi nẻo đường.
 									</li>
 									<li>
-										Check out Campbell's Soup Cans by Warhol and The Dance (I)
-										by Matisse
+										Wifi miễn phí trên xe. 
 									</li>
 									<li>
-										Behold masterpieces by Gauguin, Dali, Picasso, and Pollock
-									</li>
-									<li>
-										Enjoy free audio guides available in English, French,
-										German, Italian, Spanish, Portuguese
+                    Quà tặng mùa dịch: nước rửa tay sát khuẩn. khẩu trang y tế.
 									</li>
 								</ul>
 							</div>
 							<!-- TOUR PROGRAM -->
 							<div class="tour-dt__program">
 								<div class="title">
-									<h3 class="st-section-title">Itinerary</h3>
-								</div>
-								<div class="list">
+									<h3 class="st-section-title">Hành trình</h3>
+                </div>
+                <div class="list">
+                  {{$schedule->content}}
+                </div>
+								<!-- <div class="list">
 									<div class="item --active">
 										<div class="item-header">
 											<h5>
@@ -392,29 +287,34 @@
 											</p>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<!-- TOUR INCLUDES -->
 							<div class="tour-dt__includes">
-								<h3 class="title">Included/Excluded</h3>
+								<h3 class="title">Giá trên bao gồm</h3>
 								<div class="row">
 									<div class="col-sm-6 col-lg-6">
 										<ul class="include">
 											<li>
 												<i class="fa fa-plus-square" aria-hidden="true"></i
-												>Specialized bilingual guide
+                        >
+                        Bảo hiểm.
 											</li>
 											<li>
 												<i class="fa fa-plus-square" aria-hidden="true"></i
-												>Private Transport
+                        >
+                        Chi phí xe phục vụ theo chương trình.
 											</li>
 											<li>
 												<i class="fa fa-plus-square" aria-hidden="true"></i
-												>Entrance fees (Cable and car and Moon Valley)
+												>Chi phí ăn – uống theo chương trình.
 											</li>
 											<li>
-												<i class="fa fa-plus-square" aria-hidden="true"></i>Box
-												lunch water, banana apple and chocolate
+												<i class="fa fa-plus-square" aria-hidden="true"></i
+												>Chi phí khách sạn: 2 khách/phòng. Lẻ khách ngủ giường phụ hoặc chịu phụ thu phòng đơn: theo giá khách sạn
+											</li>
+											<li>
+												<i class="fa fa-plus-square" aria-hidden="true"></i>Phí tham quan, hướng dẫn viên tiếng Việt
 											</li>
 										</ul>
 									</div>
@@ -422,19 +322,15 @@
 										<ul class="exclude">
 											<li>
 												<i class="fa fa-minus-square" aria-hidden="true"></i
-												>Additional Services
+												>Ăn uống ngoài chương trình.
 											</li>
 											<li>
 												<i class="fa fa-minus-square" aria-hidden="true"></i
-												>Insurance
+												>Chi phí tham quan ngoài chương trình.
 											</li>
 											<li>
 												<i class="fa fa-minus-square" aria-hidden="true"></i
-												>Drink
-											</li>
-											<li>
-												<i class="fa fa-minus-square" aria-hidden="true"></i
-												>Tickets
+												>Dịch vụ giặt ủi, điện thoại và các chi phí cá nhân khác.
 											</li>
 										</ul>
 									</div>
@@ -442,24 +338,37 @@
 							</div>
 							<!-- TOUR FAQ -->
 							<div class="tour-dt__faq">
-								<h3>FAQs</h3>
-								<div class="item">
+                <h3>Câu hỏi thường gặp</h3>
+                <div class="item">
 									<div class="item-header">
 										<i
 											class="fa fa-question-circle icon"
 											aria-hidden="true"
 										></i>
-										<h5>When and where does the tour end?</h5>
+										<h5>Tour sẽ được bắt đầu và kết thúc khi nào?</h5>
 										<span class="arrow">
 											<i class="fa fa-angle-down"></i>
 										</span>
 									</div>
 									<div class="body">
-										Your tour will conclude in San Francisco on Day 8 of the
-										trip. There are no activities planned for this day so you're
-										free to depart at any time. We highly recommend booking
-										post-accommodation to give yourself time to fully experience
-										the wonders of this iconic city!
+                    Chuyến tham quan của bạn sẽ bắt đầu vào ngày <b>{{date("d-m-Y", strtotime($t->date_start))}}</b> và kết thúc vào ngày <b>{{date("d-m-Y", strtotime($t->date_end))}}</b> của chuyến đi. 
+                    Không có hoạt động nào được lên kế hoạch cho ngày này nên bạn có thể khởi hành bất cứ lúc nào.
+                    Chúng tôi đặc biệt khuyên bạn nên dành cho mình thời gian để trải nghiệm đầy đủ những điều kỳ diệu của thành phố mang tính biểu tượng này!
+									</div>
+								</div>
+                <div class="item">
+									<div class="item-header">
+										<i
+											class="fa fa-question-circle icon"
+											aria-hidden="true"
+										></i>
+										<h5>Thanh toán</h5>
+										<span class="arrow">
+											<i class="fa fa-angle-down"></i>
+										</span>
+									</div>
+									<div class="body">
+                  Khi đặt phòng với <b>Golden Tours</b>, bạn sẽ nhận được giá ưu đãi hơn khi đặt trực tiếp với khách sạn. Theo điều kiện hợp tác giữa khách sạn và Golden Tours, khoản thanh toán này bạn sẽ phải thanh toán cho <b>Golden Tours</b>, trừ các phụ thu phát sinh khác mới thanh toán riêng cho khách sạn. Hãy liên hệ hotline của chúng tôi <b>0909-123-123</b> để được hỗ trợ đặt phòng phù hợp với nhu cầu và nhận được mức giá ưu đãi nhất cho chuyến du lịch của mình nhé!
 									</div>
 								</div>
 								<div class="item">
@@ -468,18 +377,13 @@
 											class="fa fa-question-circle icon"
 											aria-hidden="true"
 										></i>
-										<h5>When and where does the tour start?</h5>
+										<h5>Phương tiện di chuyển</h5>
 										<span class="arrow">
 											<i class="fa fa-angle-down"></i>
 										</span>
 									</div>
 									<div class="body">
-										Day 1 of this tour is an arrivals day, which gives you a
-										chance to settle into your hotel and explore Los Angeles.
-										The only planned activity for this day is an evening welcome
-										meeting at 7pm, where you can get to know your guides and
-										fellow travellers. Please be aware that the meeting point is
-										subject to change until your final documents are released.
+										Phương tiện di chuyển sẽ được dựa trên hành trình của chuyến đi. Các phương tiện được hay được <b>Golden Tours</b> lựa chọn là <b>Máy bay, Xe du lịch, và yêu cầu của khách hàng</b>
 									</div>
 								</div>
 								<div class="item">
@@ -488,41 +392,18 @@
 											class="fa fa-question-circle icon"
 											aria-hidden="true"
 										></i>
-										<h5>Do you arrange airport transfers?</h5>
+										<h5>Độ tuổi tham gia chuyến đi.</h5>
 										<span class="arrow">
 											<i class="fa fa-angle-down"></i>
 										</span>
 									</div>
 									<div class="body">
-										Airport transfers are not included in the price of this
-										tour, however you can book for an arrival transfer in
-										advance. In this case a tour operator representative will be
-										at the airport to greet you. To arrange this please contact
-										our customer service team once you have a confirmed booking.
-									</div>
-								</div>
-								<div class="item">
-									<div class="item-header">
-										<i
-											class="fa fa-question-circle icon"
-											aria-hidden="true"
-										></i>
-										<h5>What is the age range?</h5>
-										<span class="arrow">
-											<i class="fa fa-angle-down"></i>
-										</span>
-									</div>
-									<div class="body">
-										This tour has an age range of 12-70 years old, this means
-										children under the age of 12 will not be eligible to
-										participate in this tour. However, if you are over 70 years
-										please contact us as you may be eligible to join the tour if
-										you fill out G Adventures self-assessment form.
+                    Tour này có độ tuổi từ <b>2-70 tuổi.</b> Tuy nhiên, nếu trong đoàn của bạn có thành viên dưới 12 tuổi hoặc trên 70 tuổi, hãy liên hệ với chúng tôi vì bạn có thể đủ điều kiện tham gia chuyến tham quan. Xin cảm ơn.
 									</div>
 								</div>
 							</div>
 							<!-- TOUR REVIEW -->
-							<h2 class="tour-dt__heading">Reviews</h2>
+							<h2 class="tour-dt__heading">Đánh giá</h2>
 							<div class="tour-dt__reviews">
 								<div class="review-box">
 									<div class="row">
@@ -586,100 +467,94 @@
 								</div>
 							</div>
 							<div class="comments">
-								<div class="comments__title">
-									<h3>Bình luận (4)</h3>
+								<div class="comments__title" id="comment__count">
+									<h3>Bình luận <span class="cmt-count">({{count($showComment)}})</span></h3>
 								</div>
-								<div class="comments__list">
-									<div class="items">
-										<div class="info-users">
-											<img
-												src="{{asset('FrontEnd/assets/images/defaults/')}}/bao.jpg"
-												alt="avatar"
-											/>
-											<div>
-												<h4>Gia Bảo</h4>
-												<span>22/10/2020</span>
-											</div>
-										</div>
-										<div class="comment">
-											<p>
-												Dream constantly receive a stable income on the auction
-												and make less mistakes? Introducing To your attention–
-												service for automatic investment in profitable positions
-												on the exchange. For a successful start, register in the
-												system and after making $ 300 attention– service for
-												automatic investment in profitable positions on the
-												exchange. For a successful start, register in the system
-												and after making $ 300
-											</p>
-											<a href="#">TRẢ LỜI</a>
-										</div>
-									</div>
-									<div class="items">
-										<div class="info-users">
-											<img
-												src="{{asset('FrontEnd/assets/images/defaults/')}}/bao.jpg"
-												alt="avatar"
-											/>
-											<div>
-												<h4>Gia Bảo</h4>
-												<span>22/10/2020</span>
-											</div>
-										</div>
-										<div class="comment">
-											<p>
-												Dream constantly receive a stable income on the auction
-												and make less mistakes? Introducing To your attention–
-												service for automatic investment in profitable positions
-												on the exchange. For a successful start, register in the
-												system and after making $ 300 attention– service for
-												automatic investment in profitable positions on the
-												exchange. For a successful start, register in the system
-												and after making $ 300
-											</p>
-											<a href="#">TRẢ LỜI</a>
-										</div>
-									</div>
-								</div>
+								<div class="comments__list" id="showComment">
+                  @foreach ($showCommentLimit as $c)
+                    <div class="items">
+                      <div class="info-users">
+                        <img
+                          src="{{asset('BackEnd/assets/images')}}/{{$c->url_avatar}}"
+                          alt="avatar"
+                        />
+                        <div>
+                        <h4>{{$c->name}}</h4>
+                        <span>{{date('d/m/Y: H:i:s',strtotime($c->created_at))}}</span>
+                        </div>
+                      </div>
+                      <div class="comment">
+                        <p>
+                          {{$c->content}}
+                        </p>
+                        <!-- <a href="#">TRẢ LỜI</a> -->
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
+                <div class="text-right mb-5">
+                  @if(count($showComment) > 4)
+                    <a href="#" class='pagination-cmts' data-id='{{$t->id_tour}}' data-type="tour">Xem thêm</a>
+                  @endif
+                </div>
 							</div>
 							<div class="replay">
 								<div class="wrap-content">
-									<h3>ĐỂ LẠI BÌNH LUẬN</h3>
-									<form action="#">
-										<div class="content">
-											<textarea
-												class="form-control"
-												name="comment"
-												placeholder="Nhận xét ..."
-												id="comment"
-												cols="45"
-												rows="6"
-											></textarea>
-											<div class="info-group">
-												<div class="row">
-													<div class="col-md-6">
-														<input
-															class="form-control"
-															type="text"
-															placeholder="Họ và tên*"
-														/>
-													</div>
-													<div class="col-md-6">
-														<input
-															class="form-control"
-															type="email"
-															placeholder="Email*"
-														/>
-													</div>
-												</div>
-											</div>
-											<div class="btn-submit">
-												<button class="form-control" type="submit">
-													BÌNH LUẬN
-												</button>
-											</div>
-										</div>
-									</form>
+                  <h3>ĐỂ LẠI BÌNH LUẬN</h3>
+                  @if (session('account'))
+                    <form id="formComment">
+                        <div class="content">
+                          <div class="info-group">
+                            <div class="row">
+                                <div class="col-md-12" data-validate="Vui lòng nhận xét!!">
+                                    <textarea
+                                    class="form-control validate-form-control"
+                                    name="comment"
+                                    placeholder="Nhận xét ..."
+                                    id="comment"
+                                    cols="45"
+                                    rows="6"
+                                  ></textarea>
+                                </div>
+                              <div class="col-md-6">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  placeholder="Họ và tên*"
+                                  readonly
+                                  value="{{session('account')->name}}"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <input
+                                  class="form-control"
+                                  type="email"
+                                  placeholder="Email*"
+                                  readonly
+                              value="{{session('account')->email}}"
+                                />
+                                <input type="hidden" name="id_user" value="{{session('account')->id_user}}">
+                                <input type="hidden" name="id" value="{{$t->id_tour}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="btn-submit">
+                            <input type="hidden" name="type" value="tour">
+                            <button class="form-control" type="button" onclick="addComment()">
+                              BÌNH LUẬN
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    @else
+                      <div>Vui lòng 
+                        <a style="display: inline-block;
+                            padding: 5px 10px;
+                            border-radius: 50px;
+                            background-color: #4d4d4d;
+                            color: #fff;" href="/dang-nhap?prev_url=<?= $_SERVER["REQUEST_URI"] ?>">Đăng nhập</a> để bình luận
+                      </div>
+                    @endif
 								</div>
 							</div>
 						</div>
@@ -692,26 +567,27 @@
 
 									<div class="form-book-wrapper">
 										<div class="form-head">
-											<div class="price">
-												<span class="label"> Từ </span>
+                      <div class="price">
+                        <span class="label"> Từ </span>
 												<span class="value">
-													<span> $150,00</span>
+                          <del style="padding-left: 5px; font-size: 14px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
+													<p style="color: #fff"><b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b></p>
 												</span>
 											</div>
 										</div>
 										<div class="form-content pb-3">
 											<div class="guest-wrapper" style="border-bottom: 0">
 												<div style="width: 100%">
-													<label>Time</label>
-													<div class="render">20/02/2020 - 22/02/2020</div>
+													<label>Thời gian</label>
+													<div class="render">{{date("d-m-Y", strtotime($t->date_start))}} - {{date("d-m-Y", strtotime($t->date_end))}}</div>
 												</div>
 											</div>
 											<form method="#" action="#" class="tour-booking-form">
 												<div class="form-group form-guest-search">
 													<div class="guest-wrapper">
 														<div class="check-in-wrapper">
-															<label>Adults</label>
-															<div class="render">Age 18+</div>
+															<label>Người lớn</label>
+															<div class="render">Trên 12 tuổi</div>
 														</div>
 														<div class="select-wrapper">
 															<div class="st-number-wrapper qtt-picker">
@@ -732,8 +608,8 @@
 													</div>
 													<div class="guest-wrapper">
 														<div class="check-in-wrapper">
-															<label>Children</label>
-															<div class="render">Age 6-17</div>
+															<label>Trẻ em</label>
+															<div class="render">2 tuổi - 12 tuổi</div>
 														</div>
 														<div class="select-wrapper">
 															<div class="st-number-wrapper qtt-picker">
@@ -759,7 +635,7 @@
 														type="submit"
 														name="submit"
 													>
-														Book Now
+														Đặt ngay
 													</button>
 												</div>
 											</form>
@@ -767,17 +643,17 @@
 									</div>
 
 									<div class="widget-box">
-										<h4 class="heading">Organized by</h4>
+										<h4 class="heading">Đối tác cung cấp</h4>
 										<div class="media">
 											<div class="media-left">
 												<a
-													href="https://mixmap.travelerwp.com/author/travelhotel/"
+													href="/doi-tac/dt/{{$t->id_doitac}}"
 												>
 													<img
 														alt="avatar"
 														width="60"
 														height="60"
-														src="https://mixmap.travelerwp.com/wp-content/uploads/bfi_thumb/pp_1-200x200-3a2xg7hpbo3km7ux1396gw.png"
+														src="{{asset('BackEnd/assets/images/users')}}/{{$infoPartner->url_avatar}}"
 														class="avatar avatar-96 photo origin round"
 													/>
 												</a>
@@ -785,12 +661,12 @@
 											<div class="media-body">
 												<h4 class="media-heading">
 													<a
-														href="https://mixmap.travelerwp.com/author/travelhotel/"
+                          href="/doi-tac/dt/{{$t->id_doitac}}"
 														class="author-link"
-														>travelhotel</a
+														>{{$infoPartner->name}}</a
 													>
 												</h4>
-												<p>Member Since 2018</p>
+												<p>Hợp tác từ {{date("d-m-Y", strtotime($infoPartner->contract_date))}}</p>
 												<div class="author-review-box">
 													<div class="author-start-rating">
 														<div class="stm-star-rating">
@@ -803,11 +679,11 @@
 															</div>
 														</div>
 													</div>
-													<p class="author-review-label">255 Reviews</p>
+													<!-- <p class="author-review-label">255 Reviews</p> -->
 												</div>
 											</div>
 										</div>
-										<div class="ask_question">
+										<!-- <div class="ask_question">
 											<a
 												href=""
 												class="login btn btn-primary upper mt5"
@@ -815,7 +691,7 @@
 												data-target="#st-login-form"
 												>Ask a Question</a
 											>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
