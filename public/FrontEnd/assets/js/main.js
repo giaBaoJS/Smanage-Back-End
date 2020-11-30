@@ -279,8 +279,9 @@ jQuery(document).ready(function ($) {
         loop: false,
         slidesPerView: 1,
         spaceBetween: 20,
+        speed:1000,
         autoplay: {
-            delay: 3000,
+            delay: 2000,
             disableOnInteraction: false,
         },
         pagination: {
@@ -303,6 +304,7 @@ jQuery(document).ready(function ($) {
     var mySwiper3 = new Swiper(".swiper-container3", {
         direction: "horizontal",
         loop: false,
+        speed:1000,
         slidesPerView: 1,
         pagination: {
             el: ".swiper-pagination3",
@@ -314,6 +316,7 @@ jQuery(document).ready(function ($) {
     var mySwiper4 = new Swiper(".swiper-container4", {
         direction: "horizontal",
         loop: true,
+        speed:1000,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 5,
@@ -332,6 +335,7 @@ jQuery(document).ready(function ($) {
     var mySwiper5 = new Swiper(".swiper-container5", {
         direction: "horizontal",
         loop: true,
+        speed:1000,
         slidesPerView: 2,
         spaceBetween: 10,
         allowTouchMove: false,
