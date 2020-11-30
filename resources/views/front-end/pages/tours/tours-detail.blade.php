@@ -551,7 +551,7 @@
                         <a style="display: inline-block;
                             padding: 5px 10px;
                             border-radius: 50px;
-                            background-color: #4d4d4d;
+                            background-color: #0ac9db;
                             color: #fff;" href="/dang-nhap?prev_url=<?= $_SERVER["REQUEST_URI"] ?>">Đăng nhập</a> để bình luận
                       </div>
                     @endif
