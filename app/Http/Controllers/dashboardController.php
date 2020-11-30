@@ -471,8 +471,9 @@ class dashboardController extends Controller
 
     public function toursAdd()
     {
+        $showTinh=tinh::all();
         $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon]);
+        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon,'showTinh'=>$showTinh]);
     }
     public function addTour(Request $request)
     {
@@ -497,6 +498,7 @@ class dashboardController extends Controller
             'id_doitac' => session('account')->id_doitac,
             'time' => $request->time,
             'price' => $request->price,
+            'id_tinh' => $request->id_tinh,
             'price_children' => $request->price_children,
             'name_tour' => $request->name_tour,
             'discount' => $request->discount,
@@ -532,14 +534,16 @@ class dashboardController extends Controller
     }
     public function editTour($id)
     {
+        $showTinh=tinh::all();
         $showTour=tour::find($id);
         $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour]);
+        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour,'showTinh'=>$showTinh]);
     }
     public function updateTour(Request $request)
     {
         $showTour=tour::find($request->id_tour);
         $showTour->name_tour=$request->name_tour;
+        $showTour->id_tinh=$request->id_tinh;
         $showTour->id_doitac=session('account')->id_doitac;
         $showTour->time=$request->time;
         $showTour->price=$request->price;
@@ -570,6 +574,14 @@ class dashboardController extends Controller
             $showTour->url_gallery_tours=$data1;
         }
         $showTour->save();
+        $showSchedule=schedule::where('id_tour','=',$request->id_tour)->first();
+        return view('admin/page/tours/tours-editschedule',['showSchedule'=>$showSchedule]);
+    }
+    public function editSchedule(Request $request)
+    {
+        $showSchedule=schedule::find($request->id_schedule);
+        $showSchedule->content=$request->content;
+        $showSchedule->save();
         return redirect('admin/tours');
     }
     // tour table ---------------------------------->

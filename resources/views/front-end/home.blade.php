@@ -120,7 +120,7 @@
     </section>
     <section class="about-us">
       <div class="container">
-        <div class="row">
+        <div class="row opg">
           <div class="col-lg-5 col-md-12">
             <div class="content">
               <img
@@ -146,7 +146,7 @@
           <div
             class="col-lg-7 col-md-12 wow zoomIn"
             data-wow-duration="1s"
-            data-wow-delay="1s"
+            data-wow-delay="0.2s"
           >
             <img
               class="img-fluid w-100"
@@ -156,6 +156,10 @@
           </div>
         </div>
       </div>
+      <div class="image-ol">
+        <div class="img1"><img src="{{asset('FrontEnd/assets/images/defaults')}}/cay1.png" alt="img"></div>
+        <div class="img2"><img src="{{asset('FrontEnd/assets/images/defaults')}}/cay2.png" alt="img"></div>
+      </div>
     </section>
     <section class="regions">
       <div class="container">
@@ -163,13 +167,11 @@
           <p>xách ba lô lên và đi</p>
           <h2>3 miền <strong>Việt Nam</strong></h2>
         </div>
-        <div
-          class="row wow fadeInUp"
+        <div class="row wow fadeInUp"
           data-wow-duration="1s"
-          data-wow-delay="0.5s"
-        >
+          data-wow-delay="0.2s">
         @foreach ($showMien as $m)
-        <div class="col-md-4">
+        <div class="col-md-4 ">
             <div class="wrapper-image">
               <a href="#"
                 ><img
@@ -198,11 +200,10 @@
       <div class="container">
         <div class="row">
           <div
-            class="col-md-12 wow fadeInUp"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
+            class="col-md-12"
           >
             <div class="content">
+              <div class="wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.2s">
               <h2>NHỮNG <strong>CHUYẾN ĐI</strong> MỚI</h2>
               <h3>TRẢI NGHIỆM</h3>
               <p>
@@ -211,7 +212,9 @@
                 form, by injected humour, or randomised words which don't
                 look.
               </p>
-              <div class="img-video">
+            </div>
+
+              <div class="img-video wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.4s">
                 <img
                   class="img-fluid w-100"
                   src="{{asset('FrontEnd/assets/images/defaults')}}/imgvideo.jpg"
@@ -229,7 +232,7 @@
       </div>
     </section>
     <section class="tour-hot">
-      <div class="tour-hot__title">
+      <div class="tour-hot__title wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.2s">
         <h2 class="title">Tour Hot</h2>
         <h3 class="sub-title">Hãy Chọn Ngay</h3>
       </div>
@@ -646,13 +649,21 @@
         </div>
         <div class="swiper-pagination"></div>
       </div>
+      <div class="image-ol">
+        <div class="img1"><img src="{{asset('FrontEnd/assets/images/defaults')}}/mayanh.png" alt="img"></div>
+        <div class="img2"><img src="{{asset('FrontEnd/assets/images/defaults')}}/traibanh.png" alt="img"></div>
+        <div class="img3"><img src="{{asset('FrontEnd/assets/images/defaults')}}/voso.png" alt="img"></div>
+        <div class="img4">
+          <img src="{{asset('FrontEnd/assets/images/defaults')}}/laban.png" alt="img">
+        </div>
+      </div>
     </section>
     <section class="news">
       <div class="container">
         <h2>Tin tức mới nhất</h2>
         <div
           class="swiper-container3 wow fadeInUp"
-          data-wow-delay="0.5s"
+          data-wow-delay="0.2s"
           data-wow-duration="1s"
         >
           <div class="swiper-wrapper">
@@ -668,7 +679,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="content">
-                      <a class="title" href="#"
+                    <a class="title" href="/tin-tuc/dt/{{$tintuc->id_news}}"
                         >{{ $tintuc->title}}</a
                       >
                       <ul>
@@ -679,7 +690,7 @@
                         {{ $tintuc->short_content}}
                       </p>
                     </div>
-                    <a class="btn btn-main" href="#">Xem Thêm</a>
+                    <a class="btn btn-main" href="/tin-tuc/dt/{{$tintuc->id_news}}">Xem Thêm</a>
                   </div>
                 </div>
               </div>
@@ -694,7 +705,7 @@
         <div class="col-md-12">
           <div class="content">
             <div class="detail">
-              <div class="detail-left">
+              <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
                 <div class="sale-box">
                   <h2>20</h2>
                   <span class="sup-1">%</span>
@@ -702,7 +713,7 @@
                 </div>
                 <h3>SALE</h3>
               </div>
-              <div class="detail-right">
+              <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
                 <h2>Hà Nội - Hạ Long</h2>
                 <p>
                   Du lịch Hà Nội - Hạ Long 3 ngày 4 đêm (Khởi hành từ Hồ Chí
@@ -720,7 +731,7 @@
     </section>
     <section class="contact-us">
       <div class="container">
-        <div class="contact-form">
+        <div class="contact-form wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.2s">
           <h5>Liên Hệ Với Chúng Tôi</h5>
           <p>
             Chỉ xách balo và đi! Hãy để lại kế hoạch du lịch của bạn cho các

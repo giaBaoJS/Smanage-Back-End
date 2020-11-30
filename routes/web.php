@@ -52,7 +52,7 @@ Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
-Route::get('/tours/dt','homeController@toursDetail');
+Route::get('/tours/dt/{id}','homeController@toursDetail');
 // TOURS - END
 // NEWS
 Route::get('/tim-tin-tuc','homeController@searchNews');
@@ -138,6 +138,7 @@ Route::get('admin/deltour/{id}', 'dashboardController@delTour')->middleware('Che
 Route::post('admin/addtour', 'dashboardController@addTour')->middleware('CheckAdmins');
 Route::get('admin/edittour/{id}', 'dashboardController@editTour')->middleware('CheckAdmins');
 Route::post('admin/addschedule', 'dashboardController@addSchedule')->middleware('CheckAdmins');
+Route::post('admin/editschedule', 'dashboardController@editSchedule')->middleware('CheckAdmins');
 Route::post('admin/updatetour', 'dashboardController@updateTour')->middleware('CheckAdmins');
 // Trang tours -------------------- END
 

@@ -11,7 +11,11 @@ use App\gallerytable;
 use App\slider;
 use App\tinh;
 use App\tintucTable;
+use App\tour;
+use App\schedule;
 use App\comment;
+use App\comment_tour;
+use App\doitacTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -38,7 +42,7 @@ class homeController extends Controller
       if(Session::has('account')) {
         return redirect('/');
       }
-      if($_GET && $_GET['email']) {
+      if(isset($_GET['email'])) {
         $email = $_GET['email'];
         $user = userTable::where('email', '=', $email)->first();
         if($user && $user->active === -1) {
@@ -71,7 +75,7 @@ class homeController extends Controller
         $isSameToken = Hash::check($token, $user->token);
         if ($isExpired > date('U') || $isSameToken ) {
           return view('front-end/auth/change-forgot-psw');
-        } 
+        }
         return redirect('/');
       } else {
         return redirect('/');
@@ -109,14 +113,65 @@ class homeController extends Controller
     public function partners() {
       return view('front-end/pages/partners/partners');
     }
-    public function partnersDetail() {
-      return view('front-end/pages/partners/partners-detail');
+    public function partnersDetail($id) {
+      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
+          ->get();
+      $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
+          ->limit(15)
+          ->get();
+      $infoPartner = doitacTable::join('user','user.id_doitac','=','doitac.id_doitac')
+          ->select('doitac.*','user.url_avatar','user.role')
+          ->where('doitac.id_doitac','=', $id)
+          ->first();
+      return view('front-end/pages/partners/partners-detail',['infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursTotal]);
     }
     public function tours() {
-      return view('front-end/pages/tours/tours');
+      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE()')
+          ->get();
+      $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE()')
+          ->limit(12)
+          ->get();
+      $showComment = comment_tour::all();
+      return view('front-end/pages/tours/tours',['showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
     }
-    public function toursDetail() {
-      return view('front-end/pages/tours/tours-detail');
+    public function toursDetail($id) {
+      $toursDetail = tour::join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->where('id_tour', '=' , $id)
+          ->first();
+      $schedule = schedule::where('id_tour','=', $id)->first() ;
+      $infoPartner = doitacTable::join('user','user.id_doitac','=','doitac.id_doitac')
+          ->select('doitac.*','user.url_avatar','user.role')
+          ->where([['user.role','=','1'],['doitac.id_doitac','=', $toursDetail->id_doitac]])
+          ->first();
+      $showComment=comment_tour::join('user','user.id_user','=','comment_tour.id_user')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->where('comment_tour.id_tour','=',$id)
+          ->orderby('id_comment_tour','desc')
+          ->get();
+      $showCommentLimit=comment_tour::join('user','user.id_user','=','comment_tour.id_user')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->where('comment_tour.id_tour','=',$id)
+          ->orderby('id_comment_tour','desc')
+          ->limit(4)
+          ->get();
+      return view('front-end/pages/tours/tours-detail', ['t' => $toursDetail, 'schedule' => $schedule,'infoPartner'=>$infoPartner,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }
     public function searchNews() {
       if($_GET && $_GET['keyword']) {
@@ -133,18 +188,40 @@ class homeController extends Controller
     public function news() {
       $showMien=mien::all();
       $showTinh=tinh::all();
-      $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->get();
-      $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->limit(6)->get();
-      $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
-      return view('front-end/pages/news/news',['showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+      $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')
+          ->select('news.*','user.name','user.url_avatar')
+          ->get();
+      $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')
+          ->select('news.*','user.name','user.url_avatar')
+          ->limit(6)
+          ->get();
+      $showNewsHighlights=tintucTable::orderby('id_news','desc')
+          ->limit(3)
+          ->get();
+      $showComment = comment::all();
+      return view('front-end/pages/news/news',['showComment'=>$showComment,'showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
     public function newsDetail($id) {
         $showMien=mien::all();
         $showTinh=tinh::all();
-        $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
-        $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->find($id);
-        $showComment=comment::join('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->get();
-        $showCommentLimit=comment::leftJoin('user','comment.id_user','=','user.id_user')->where('comment.id_news','=',$id)->orderby('id_comment','desc')->limit(4)->get();
+        $showNewsHighlights=tintucTable::orderby('id_news','desc')
+            ->limit(3)
+            ->get();
+        $showOneNew=tintucTable::join('user','news.id_user','=','user.id_user')
+                ->select('news.*','user.name','user.url_avatar')
+            ->find($id);
+        tintucTable::where('id_news','=',$id)->update(['views'=> tintucTable::raw('views+1')]);
+        $showComment=comment::join('user','comment.id_user','=','user.id_user')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->where('comment.id_news','=',$id)
+            ->orderby('id_comment','desc')
+            ->get();
+        $showCommentLimit=comment::leftJoin('user','comment.id_user','=','user.id_user')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->where('comment.id_news','=',$id)
+            ->orderby('id_comment','desc')
+            ->limit(4)
+            ->get();
       return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }
     public function gallery() {
