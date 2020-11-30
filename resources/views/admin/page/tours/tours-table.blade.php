@@ -65,7 +65,6 @@
                                         <td>{{$t->quantity_limit}}</td>
                                         <td>{{$t->short_content}}</td>
                                         <td>
-                                            @if (session('account')->role==1)
                                             <div class="btn-group" role="group">
                                                 <a
                                                     type="button"
@@ -88,7 +87,6 @@
                                                     <i class="mdi mdi-trash-can"></i>
                                                 </a>
                                             </div>
-                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

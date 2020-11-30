@@ -213,7 +213,7 @@
                 look.
               </p>
             </div>
-
+              
               <div class="img-video wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.4s">
                 <img
                   class="img-fluid w-100"
@@ -679,7 +679,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="content">
-                    <a class="title" href="/tin-tuc/dt/{{$tintuc->id_news}}"
+                      <a class="title" href="#"
                         >{{ $tintuc->title}}</a
                       >
                       <ul>
@@ -690,7 +690,7 @@
                         {{ $tintuc->short_content}}
                       </p>
                     </div>
-                    <a class="btn btn-main" href="/tin-tuc/dt/{{$tintuc->id_news}}">Xem Thêm</a>
+                    <a class="btn btn-main" href="#">Xem Thêm</a>
                   </div>
                 </div>
               </div>

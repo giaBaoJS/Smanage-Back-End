@@ -75,7 +75,7 @@ class homeController extends Controller
         $isSameToken = Hash::check($token, $user->token);
         if ($isExpired > date('U') || $isSameToken ) {
           return view('front-end/auth/change-forgot-psw');
-        }
+        } 
         return redirect('/');
       } else {
         return redirect('/');

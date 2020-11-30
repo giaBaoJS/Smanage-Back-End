@@ -23,14 +23,6 @@
                     <input type="text" class="form-control" name="name_tour" placeholder="Nhập tên tour" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="name">Tỉnh</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="id_tinh" value='' required>
-                        @foreach ($showTinh as $t)
-                    <option value="{{$t->id_tinh}}">{{$t->name_tinh}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-md-12">
                     <label for="name">Mô tả</label>
                     <input type="text" class="form-control" name="short_content" placeholder="Nhập mô tả" required>
                 </div>
