@@ -3283,8 +3283,22 @@ footer .copyright p {
     color: #1a2b48;
 }
 .wraper-contact .section-2 {
+    position: relative;
     padding-bottom: 50px;
     padding-top: 50px;
+    overflow: hidden;
+}
+
+.wraper-contact .section-2 .img1 {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    z-index: 10;
+}
+.wraper-contact .section-2 .img2 {
+    position: absolute;
+    bottom: -110px;
+    left: -186px;
 }
 @media (max-width: 767px) {
     .wraper-contact .section-2 {
@@ -5928,4 +5942,9 @@ body::-webkit-scrollbar {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
+}
+
+.form-control:focus{
+    border-color: #0ac9db;
+    box-shadow: none;
 }

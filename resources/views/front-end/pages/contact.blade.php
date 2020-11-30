@@ -13,10 +13,10 @@
 							<li><a href="{{url('/')}}">Trang Chủ</a></li>
 							<li class="--active"><a href="{{url('/lien-he')}}">Liên Hệ</a></li>
 						</ul>
-					</div>
+				</div>
 				</div>
       <section class="section-2">
-        <div class="container">
+        <div class="container position-relative" style="z-index:20">
           <div class="row">
             <div class="col-lg-5">
               <div class="title-form">
@@ -66,6 +66,10 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="image-ol">
+        <div class="img1"><img src="{{asset('FrontEnd/assets/images/defaults')}}/saobien.png" alt="img"></div>
+        <div class="img2"><img src="{{asset('FrontEnd/assets/images/defaults')}}/cat.png" alt="img"></div>
         </div>
       </section>
       <section>
