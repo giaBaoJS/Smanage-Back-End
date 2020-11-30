@@ -608,7 +608,7 @@
 									</div>
 								</div>
               </div>
-              <div class='pagination --ct'>
+              <div class='pagination'>
                 <nav>
                   <div class='--active disable <?=(isset($_GET['page']) && $_GET['page'] < 1) ? 'disable' : '' ?>'><a href='#'><</a></div>
                   <div><b class="page">1 </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>

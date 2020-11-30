@@ -2598,6 +2598,7 @@ footer .copyright p {
 }
 .wrapper-tour .tours {
     margin-top: 50px;
+    padding-bottom: 50px;
 }
 .wrapper-tour .tours a {
     text-decoration: none;
@@ -2883,7 +2884,7 @@ footer .copyright p {
     cursor: pointer;
 }
 .filter-tour .sort .layout-item.active i {
-    color: #19a1e5;
+    color: #0ac9db;
 }
 .filter-tour .sort .layout-item i {
     font-size: 20px;
@@ -3210,6 +3211,7 @@ footer .copyright p {
 }
 .wraper-contact .section-2 {
     padding-bottom: 50px;
+    padding-top: 50px;
 }
 @media (max-width: 767px) {
     .wraper-contact .section-2 {
@@ -5634,9 +5636,6 @@ body::-webkit-scrollbar {
     -ms-flex-pack: center;
     justify-content: center;
 }
-.pagination.--ct {
-    padding-bottom: 30px;
-}
 .pagination nav {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -5821,4 +5820,36 @@ body::-webkit-scrollbar {
 .custom-option:hover,
 .custom-option.selection {
     background: #f3f3f3;
+}
+
+
+/* List Start */
+.rate {
+    display:  flex;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+.rate input{
+    width: unset !important;
+    margin-right: 5px;
+}
+.rate:not(:checked) > label {
+    cursor:pointer;
+    font-size:16px;
+    color:#ccc;
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
