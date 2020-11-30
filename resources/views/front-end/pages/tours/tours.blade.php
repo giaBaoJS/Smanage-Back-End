@@ -366,14 +366,24 @@
 															"
 															>{{date("d-m-Y", strtotime($t->date_start))}}</span
 														>
-													</div>
-													<div class="d-flex flex-wrap">
-                            <p>
-                              <i class="fas fa-bolt"></i>
-                              <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
-                            </p>
-                            <del style="padding-left: 5px; font-size: 12px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
-													</div>
+                                                    </div>
+                                                    @if ($t->discount==0)
+                                                    <div class="d-flex flex-wrap">
+                                                        <p>
+                                                          <i class="fas fa-bolt"></i>
+                                                          <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
+                                                        </p>
+                                                                                </div>
+                                                    @else
+                                                    <div class="d-flex flex-wrap">
+                                                        <p>
+                                                          <i class="fas fa-bolt"></i>
+                                                          <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
+                                                        </p>
+                                                        <del style="padding-left: 5px; font-size: 12px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
+                                                                                </div>
+                                                    @endif
+
 												</div>
 											</div>
 										</div>
