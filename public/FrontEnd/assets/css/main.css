@@ -1662,6 +1662,11 @@ footer .copyright p {
         margin-top: 25px;
     }
 }
+@media screen and (max-width: 540px) {
+   .wow{
+    animation-delay: 0s!important;
+   }
+}
 
 .register {
     max-width: 800px;
@@ -1789,6 +1794,23 @@ footer .copyright p {
 
 .wrapper-home .about-us {
     padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+.wrapper-home .about-us .opg {
+    position: relative;
+    z-index: 10;
+}
+.wrapper-home .about-us .img1{
+    position: absolute;
+    top: -30px;
+    left: -40px;
+}
+.wrapper-home .about-us .img2{
+    position: absolute;
+    bottom: -40px;
+    right: -140px;
+    transform: rotate(90deg);
 }
 .wrapper-home .about-us .content img {
     margin-bottom: 30px;
@@ -1818,6 +1840,11 @@ footer .copyright p {
     }
     .wrapper-home .about-us .content h2 {
         text-align: center;
+    }
+}
+@media screen and (max-width: 540px) {
+    .wrapper-home .about-us .image-ol{
+        display: none;
     }
 }
 .wrapper-home .banner-home .content .image {
@@ -2174,11 +2201,42 @@ footer .copyright p {
 }
 .wrapper-home .tour-hot {
     background-color: #f8f8f8;
-    padding: 60px 0;
+    padding: 100px 0;
+    position: relative;
+}
+.wrapper-home .tour-hot .img1{
+    position: absolute;
+    top:85px;
+    left: 0;
+}
+.wrapper-home .tour-hot .img2{
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.wrapper-home .tour-hot .img3{
+    position: absolute;
+    bottom: -90px;
+    left: 80px;
+}
+.wrapper-home .tour-hot .img4{
+    position: absolute;
+    bottom: -136px;
+    right: 96px;
+}
+@media screen and (max-width: 540px) {
+    .wrapper-home .tour-hot{
+        padding: 60px 0;
+    }
+    .wrapper-home .tour-hot .image-ol {
+        display: none;
+    }
 }
 .wrapper-home .tour-hot__title {
     text-align: center;
     margin-bottom: 50px;
+    position: relative;
+    z-index: 10;
 }
 .wrapper-home .tour-hot__title .title {
     font-family: "Lobster";
@@ -2370,6 +2428,7 @@ footer .copyright p {
 }
 .wrapper-home .tours-sale {
     color: #fff;
+    overflow: hidden;
 }
 .wrapper-home .tours-sale .content {
     padding: 154px 0;
@@ -3564,7 +3623,10 @@ footer .copyright p {
 }
 .wraper-about-us .our-team {
     text-align: center;
-    padding: 50px 0;
+    padding: 100px 0;
+    background-image: url('../images/defaults/bgnau.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .wraper-about-us .our-team .title {
     font-size: 30px;

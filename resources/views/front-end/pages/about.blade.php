@@ -47,7 +47,7 @@
 							<div class="content-1">
 								<img
 									class="img-fluid"
-									src="{{asset('FrontEnd/assets/images/defaults')}}/about_2.png"
+									src="{{asset('FrontEnd/assets/images/defaults')}}/about-us/about_2.png"
 									alt=""
 								/>
 								<div class="box-text">
