@@ -120,7 +120,7 @@
     </section>
     <section class="about-us">
       <div class="container">
-        <div class="row">
+        <div class="row opg">
           <div class="col-lg-5 col-md-12">
             <div class="content">
               <img
@@ -155,6 +155,10 @@
             />
           </div>
         </div>
+      </div>
+      <div class="image-ol">
+        <div class="img1"><img src="{{asset('FrontEnd/assets/images/defaults')}}/cay1.png" alt="img"></div>
+        <div class="img2"><img src="{{asset('FrontEnd/assets/images/defaults')}}/cay2.png" alt="img"></div>
       </div>
     </section>
     <section class="regions">
@@ -644,6 +648,14 @@
           </div>
         </div>
         <div class="swiper-pagination"></div>
+      </div>
+      <div class="image-ol">
+        <div class="img1"><img src="{{asset('FrontEnd/assets/images/defaults')}}/mayanh.png" alt="img"></div>
+        <div class="img2"><img src="{{asset('FrontEnd/assets/images/defaults')}}/traibanh.png" alt="img"></div>
+        <div class="img3"><img src="{{asset('FrontEnd/assets/images/defaults')}}/voso.png" alt="img"></div>
+        <div class="img4">
+          <img src="{{asset('FrontEnd/assets/images/defaults')}}/laban.png" alt="img">
+        </div>
       </div>
     </section>
     <section class="news">
