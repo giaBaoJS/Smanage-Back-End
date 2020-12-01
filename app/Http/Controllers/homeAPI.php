@@ -10,6 +10,8 @@ use App\contact;
 use App\gallerytable;
 use App\slider;
 use App\comment;
+use App\bill;
+use App\passenger;
 use App\comment_tour;
 use App\tinh;
 use App\tintucTable;
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 class homeAPI extends Controller
 {
@@ -329,11 +332,11 @@ class homeAPI extends Controller
     ],
     [
       'email' => 'Email',
-    ]); 
+    ]);
     $email = $request->email;
     $user = userTable::where('email','=',$email)->first();
     if ($user) {
-      $token = base64_encode("random_bytes(32)"); //tạo 1 chuỗi token random 
+      $token = base64_encode("random_bytes(32)"); //tạo 1 chuỗi token random
 
       $hashedToken = bcrypt($token); //hash token
 
@@ -449,7 +452,7 @@ class homeAPI extends Controller
         'phone' => 'Số điện thoại',
         'address' => 'Địa chỉ'
       ]
-    ); 
+    );
     $newPhone = $request->phone;
     $newGender = $request->gender;
     $newAddress = $request->address;
@@ -534,7 +537,7 @@ class homeAPI extends Controller
       Auth::logout();
       Session::forget('account');
       echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. quý khách sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
-    } 
+    }
     // else {
     //   echo json_encode(['success' => false, 'message' => 'Đăng xuất không thành công. quý khách sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
     // }
@@ -571,7 +574,7 @@ class homeAPI extends Controller
           ->get();
       return $showComment;
     }
-    
+
   }
   // PHÂN TRANG BÌNH LUẬN
   public function paginationCmts(Request $request) {
@@ -586,7 +589,7 @@ class homeAPI extends Controller
       $showCommentLimit=comment_tour::join('user','user.id_user','=','comment_tour.id_user')->where('comment_tour.id_tour','=',$request->id)->orderby('id_comment_tour','desc')->offset($gioihansp)->limit(4)->get();
       return $showComment;
     }
-    
+
   }
   // PHÂN TRANG TIN TỨC
   public function paginationNews(Request $request) {
@@ -598,5 +601,49 @@ class homeAPI extends Controller
     $gioihansp = ($request->pageNews - 1) * 4;
     $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->offset($gioihansp)->limit(6)->get();
     return $showNewsLimit;
+  }
+
+  //COUPON
+  public function checkCoupon(Request $request)
+  {
+      $showCouponOne=couponTable::where('code_coupon','=',$request->name_code)->first();
+     if ($showCouponOne) {
+        $date_start = explode("-", $showCouponOne->date_start);
+        $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
+        $dayStart =strtotime(date('d/m/Y',strtotime($date_start[1])));
+          if ($dayEnd>$dayStart && $showCouponOne->quantity!=0) {
+              return 1;
+          } else {
+              return $showCouponOne;
+          }
+     }else{
+        return 0;
+     }
+
+  }
+  //Passenger
+  public function addPassenger(Request $request)
+  {
+    $showBill=bill::orderby('id_bill','desc')->limit(1)->first();
+      foreach ($request->mang as $t) {
+        $data = array(
+            'id_bill' => $showBill->id_bill,
+            'name_passenger' => $t['name_passenger'],
+            'address_passenger' => $t['address_passenger'],
+            'phone_passenger' => $t['phone_passenger'],
+            'gender_passenger' => $t['gender_passenger'],
+            'country_passenger' => $t['country_passenger'],
+            'passport_passenger' => $t['passport_passenger'],
+        );
+        passenger::create($data);
+      }
+      return 1;
+  }
+  public function addPayment(Request $request)
+  {
+    $showBill=bill::find($request->id_bill);
+    $showBill->id_payment=$request->id_payment;
+    $showBill->save();
+    return 1;
   }
 }

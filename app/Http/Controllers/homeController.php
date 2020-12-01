@@ -7,11 +7,14 @@ use App\userTable;
 use App\couponTable;
 use App\mien;
 use App\contact;
+use App\payment;
 use App\gallerytable;
 use App\slider;
 use App\tinh;
 use App\tintucTable;
+use App\passenger;
 use App\tour;
+use App\bill;
 use App\schedule;
 use App\comment;
 use App\comment_tour;
@@ -75,7 +78,7 @@ class homeController extends Controller
         $isSameToken = Hash::check($token, $user->token);
         if ($isExpired > date('U') || $isSameToken ) {
           return view('front-end/auth/change-forgot-psw');
-        } 
+        }
         return redirect('/');
       } else {
         return redirect('/');
@@ -91,14 +94,39 @@ class homeController extends Controller
     }
     // AUTH - END
     // CHECKOUT
-    public function checkoutOne() {
-      return view('front-end/pages/checkout/form-checkout');
+    public function checkoutOne(Request $request) {
+        $showT=tour::find($request->id_tour);
+        $quantity=array(
+            'qty_adult'=>$request->adult_number,
+            'qty_child'=>$request->child_number
+        );
+      return view('front-end/pages/checkout/form-checkout',['showT'=>$showT,'qty'=>$quantity]);
     }
-    public function checkoutTwo() {
-      return view('front-end/pages/checkout/form-detail-checkout');
+    public function checkoutTwo(Request $request) {
+        $showT=tour::find($request->id_tour);
+        $showBill=$request;
+        if ($request->id_coupon) {
+           $id_coupon=$request->id_coupon;
+        }else{
+            $id_coupon=0;
+        }
+        $data = array(
+            'id_tour' => $request->id_tour,
+            'id_user' => session('account')->id_user,
+            'id_coupon' => $id_coupon,
+            'quantity_adults' => $request->quantity_adults,
+            'quantity_children' => $request->quantity_children,
+            'note' => $request->note,
+            'total_price' => ($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults),
+
+        );
+        bill::create($data);
+      return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
     }
     public function checkoutThree() {
-      return view('front-end/pages/checkout/pay-checkout');
+        $showPayment=payment::all();
+        $showT=bill::orderby('id_bill','desc')->join('tours','bill.id_tour','=','tours.id_tour')->limit(1)->first();
+      return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment]);
     }
     public function checkoutFour() {
       return view('front-end/pages/checkout/finish-checkout');
