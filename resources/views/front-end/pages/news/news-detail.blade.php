@@ -46,8 +46,9 @@
                       </div>
                       <div class="col-md-6">
                         <div class="shared__icon">
-                          <a href="#"><i class="fa fa-facebook-f"></i></a>
-                          <a href="#"><i class="fa fa-instagram"></i></a>
+                          <a href="#"><i class="fas fa-thumbs-up"></i> Thích</a>
+                          <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a> -->
                         </div>
                       </div>
                     </div>
