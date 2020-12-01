@@ -191,7 +191,9 @@
 									<h3 class="st-section-title">Hành trình</h3>
                 </div>
                 <div class="list">
-                  {!! $schedule->content !!}
+                    @if ($schedule)
+                    {!! $schedule->content !!}
+                    @endif
                 </div>
 								<!-- <div class="list">
 									<div class="item --active">
@@ -596,8 +598,9 @@
 													<div class="render">{{date("d-m-Y", strtotime($t->date_start))}} - {{date("d-m-Y", strtotime($t->date_end))}}</div>
 												</div>
 											</div>
-											<form method="#" action="#" class="tour-booking-form">
-												<div class="form-group form-guest-search">
+                                        <form method="post" action="{{url('/thanh-toan-1')}}" class="tour-booking-form">
+                                                @csrf
+                                            <div class="form-group form-guest-search">
 													<div class="guest-wrapper">
 														<div class="check-in-wrapper">
 															<label>Người lớn</label>
@@ -608,13 +611,14 @@
 																<span class="prev">-</span>
 																<input
 																	type="text"
-																	name="adult_number"
+                                                                    name="adult_number"
+                                                                    id="adult_number"
 																	value="0"
 																	class="form-control qtt-input"
 																	autocomplete="off"
 																	readonly=""
 																	min="0"
-																	max="10"
+                                                                    max="10"
 																/>
 																<span class="next">+</span>
 															</div>
@@ -630,24 +634,30 @@
 																<span class="prev">-</span>
 																<input
 																	type="text"
-																	name="child_number"
+                                                                    name="child_number"
+                                                                    id="child_number"
 																	value="0"
 																	class="form-control qtt-input"
 																	autocomplete="off"
 																	readonly=""
 																	min="0"
-																	max="10"
+                                                                    max="10"
 																/>
 																<span class="next">+</span>
 															</div>
-														</div>
-													</div>
-												</div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div id="showError">
+                                                </div>
 												<div class="submit-group">
+
 													<button
 														class="btn btn-green btn-large btn-full upper btn-book-ajax"
 														type="submit"
-														name="submit"
+                                                        name="submit"
+                                                        id="checkvalidate"
 													>
 														Đặt ngay
 													</button>
