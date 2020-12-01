@@ -147,6 +147,17 @@ class homeController extends Controller
           ->whereRaw('Date(date_start) >= CURDATE()')
           ->limit(12)
           ->get();
+      if(isset($_GET['page'])) {
+        $gioihansp = ($_GET['page'] - 1) * 12;
+        $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE()')
+          ->offset($gioihansp)
+          ->limit(12)
+          ->get();
+      }
       $showComment = comment_tour::all();
       return view('front-end/pages/tours/tours',['showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
     }
