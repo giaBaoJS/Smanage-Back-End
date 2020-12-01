@@ -438,7 +438,7 @@ $(".custom-selects").each(function() {
           template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
         });
     template += '</div></div>';
-    
+
     $(this).wrap('<div class="custom-select-wrapper"></div>');
     $(this).hide();
     $(this).after(template);
@@ -462,3 +462,20 @@ $(".custom-selects").each(function() {
     $(this).parents(".custom-selects").removeClass("opened");
     $(this).parents(".custom-selects").find(".custom-select-trigger").text($(this).text());
   });
+
+  $('#checkvalidate').click(function () {
+    var adult_number=$('#adult_number').val();
+    var child_number=$('#child_number').val();
+    if (child_number!=0 && adult_number==0) {
+        $('#showError').html('<p style="color: red;text-align:center;font-size:14px;padding:5px">Vui lòng chọn số lượng người lớn</p>');
+        return false;
+    } else {
+        $('#showError').html('');
+    }
+   if (adult_number==0) {
+       $('#showError').html('<p style="color: red;text-align:center;font-size:14px;padding:5px">Chọn số lượng người đi</p>');
+        return false;
+   }else{
+    $('#showError').html('');
+   }
+})

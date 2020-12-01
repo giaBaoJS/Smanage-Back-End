@@ -361,3 +361,15 @@ $("body").on("click", ".pagination-news", function () {
     return false;
 });
 // PAGINATION FOR NEWS - END
+
+//CHECK ĐỐI TÁC
+$("body").on("click", "#checkpartners", function () {
+    Swal.fire({
+        title: "Bạn đã trở thành đối tác",
+        icon: "warning",
+        timer: 2000,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+    });
+    return false;
+});

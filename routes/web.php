@@ -60,7 +60,7 @@ Route::get('/tin-tuc','homeController@news');
 Route::get('/tin-tuc/dt/{id}','homeController@newsDetail');
 // NEWS - END
 // CHECKOUT
-Route::get('/thanh-toan-1','homeController@checkoutOne');
+Route::post('/thanh-toan-1','homeController@checkoutOne');
 Route::get('/thanh-toan-2','homeController@checkoutTwo');
 Route::get('/thanh-toan-3','homeController@checkoutThree');
 Route::get('/thanh-toan-4','homeController@checkoutFour');

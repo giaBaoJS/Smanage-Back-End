@@ -65,7 +65,7 @@
 						<div class="form-forget">
 							<a href="{{ url('quen-mat-khau') }}">Quên mật khẩu?</a>
             </div>
-            <?php 
+            <?php
               if(isset($_GET['prev_url'])) {
                 ?>
                 <input type="hidden" name="prev_url" value="<?=$_GET['prev_url']?>">

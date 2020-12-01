@@ -153,9 +153,16 @@
                     <li>Tạo coupon hàng tháng</li>
                     <li>Hỗ trợ 24/7 <i class="fas fa-times"></i></li>
                   </ul>
+
+                  @if (session('account')->role!=0 && session('account')->active!=0)
+                  <div class="btn-choose">
+                    <a href="#" id="checkpartners">Chọn</a>
+                  </div>
+                  @else
                   <div class="btn-choose">
                     <a href="#">Chọn</a>
                   </div>
+                  @endif
                 </div>
               </div>
             </div>
@@ -175,9 +182,15 @@
                     <li>Tạo coupon hàng tháng</li>
                     <li>Hỗ trợ 24/7 <i class="fas fa-check"></i></li>
                   </ul>
+                  @if (session('account')->role!=0 && session('account')->active!=0)
+                  <div class="btn-choose">
+                    <a href="#" id="checkpartners">Chọn</a>
+                  </div>
+                  @else
                   <div class="btn-choose">
                     <a href="#">Chọn</a>
                   </div>
+                  @endif
                 </div>
               </div>
             </div>
@@ -196,9 +209,15 @@
                     <li>Tạo coupon hàng tháng</li>
                     <li>Hỗ trợ 24/7 <i class="fas fa-check"></i></li>
                   </ul>
+                  @if (session('account')->role!=0 && session('account')->active!=0)
+                  <div class="btn-choose">
+                    <a href="#" id="checkpartners">Chọn</a>
+                  </div>
+                  @else
                   <div class="btn-choose">
                     <a href="#">Chọn</a>
                   </div>
+                  @endif
                 </div>
               </div>
             </div>
