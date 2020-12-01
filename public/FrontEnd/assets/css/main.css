@@ -4055,13 +4055,18 @@ footer .copyright p {
 .wrapper-detail-news .detail-news .news-list .items .shared__icon {
     text-align: right;
 }
+
 .wrapper-detail-news .detail-news .news-list .items .shared__icon a {
-    margin-right: 10px;
-    color: #5e6d77;
+    display: inline-block;
+    color: #ffffff;
     font-size: 18px;
+    background-color: #0bcadb;
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: 0.3s all;
 }
 .wrapper-detail-news .detail-news .news-list .items .shared__icon a:hover {
-    color: #5191fa;
+    transform: scale(1.1);
 }
 .wrapper-detail-news .detail-news .news-list .items .poster {
     margin-top: 40px;
