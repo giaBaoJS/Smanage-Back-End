@@ -30,48 +30,25 @@
               <div class="col-lg-8">
                 <h3>Chọn phương thức thanh toán</h3>
                 <div class="phuongthuctt">
-                  <div class="phuongthuctt__items active" data-tab="tab1">
-                    <div class="wrap__info">
-                      <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/bank.png"
-                        alt="img"
-                      />
-                      <p>Ngân hàng nội địa</p>
+                    @php
+                        $i=1;
+                    @endphp
+                    <input type="hidden" name="id_bill" id="id_bill" value="{{$showT->id_bill}}">
+                    <div id="showPayment">
+
                     </div>
-                  </div>
-                  <div class="phuongthuctt__items" data-tab="tab2">
-                    <div class="wrap__info">
-                      <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/master-card.png"
-                        alt="img"
-                      />
-                      <p>Thanh toán quốc tế</p>
-                    </div>
-                  </div>
-                  <div class="phuongthuctt__items" data-tab="tab3">
-                    <div class="wrap__info">
-                      <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/zalopay.png"
-                        alt="img"
-                      />
-                      <p>Zalo Pay</p>
-                    </div>
-                  </div>
-                  <div class="phuongthuctt__items" data-tab="tab4">
-                    <div class="wrap__info">
-                      <img src="{{asset('FrontEnd/assets/images/defaults')}}/momo.png" alt="img" />
-                      <p>Ví điện tử Momo</p>
-                    </div>
-                  </div>
-                  <div class="phuongthuctt__items" data-tab="tab5">
-                    <div class="wrap__info">
-                      <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/thanhtoantructiep.png"
-                        alt="img"
-                      />
-                      <p>Thanh toán trực tiếp</p>
-                    </div>
-                  </div>
+                    @foreach ($showPayment as $p)
+                <div class="phuongthuctt__items" data-tab="tab{{$i++}}" id="payMent">
+                <input type="hidden" value="{{$p->id_payment}}" name="payment">
+                        <div class="wrap__info">
+                          <img
+                        src="{{asset('FrontEnd/assets/images/defaults')}}/{{$p->img_payment}}"
+                            alt="img"
+                          />
+                          <p>{{$p->name_payment}}</p>
+                        </div>
+                      </div>
+                    @endforeach
                 </div>
                 <div class="list-tab">
                   <div class="tabs tab1 active">
@@ -248,11 +225,11 @@
                   </div>
                 </div>
                 <form >
-                  <div class="form__items">
+                  {{-- <div class="form__items">
                     <a class="goback" href="#">Trở về</a>
-                  </div>
+                  </div> --}}
                   <div class="form__items">
-                    <a class="goback --next" href="#" >
+                    <a class="goback --next" href="#" id="addPayment">
                       Xác nhận
                     </a>
                   </div>
@@ -261,46 +238,46 @@
               <div class="col-lg-4">
                 <div class="support-kh">Hotline - 1900 200 777</div>
                 <div class="book-details">
-                  <img
+                    <img
                     class="w-100"
-                    src="{{asset('FrontEnd/assets/images/defaults')}}/tours/mientrung.jpg"
+                    src="{{asset('BackEnd/assets/images/tours')}}/{{$showT->url_img_tour}}"
                     alt="tour"
                   />
                   <div class="book-details__info">
-                    <h4>Nha trang - Đà Lạt</h4>
-                    <ul>
-                      <li>
-                        <i class="fa fa-barcode" aria-hidden="true"></i>
-                        Mã: <span>STN084-2020-00330</span>
-                      </li>
-                      <li>
-                        <i class="far fa-calendar" aria-hidden="true"></i>
-                        Ngày đi: <span>11-11-2020</span>
-                      </li>
-                      <li>
-                        <i class="far fa-calendar" aria-hidden="true"></i>
-                        Ngày về: <span>15-11-2020</span>
-                      </li>
-                      <li>
-                        <i class="far fa-clock" aria-hidden="true"></i>
-                        Thời gian: <span>5 ngày 4 đêm</span>
-                      </li>
-                      <li>
-                        <i class="fas fa-user-friends" aria-hidden="true"></i>
-                        Tổng thành viên: <span>3</span>
-                      </li>
-                      <li>
-                        <i class="fas fa-user" aria-hidden="true"></i>
-                        Giá Người lớn: <span>4.279.000 đ</span>
-                        <span class="adult">X 1</span>
-                      </li>
-                      <li>
-                        <i class="fas fa-baby" aria-hidden="true"></i>
-                        Trẻ em: <span>3.279.000 đ</span>
-                        <span class="adult">X 2</span>
-                      </li>
-                    </ul>
-                  </div>
+                    <h4>{{$showT->name_tour}}</h4>
+                      <ul>
+                        <li>
+                          <i class="fa fa-barcode" aria-hidden="true"></i>
+                          Mã: <span>STN{{$showT->id_tour}}</span>
+                        </li>
+                        <li>
+                          <i class="far fa-calendar" aria-hidden="true"></i>
+                          Ngày đi: <span>{{date('d-m-Y',strtotime($showT->date_start))}}</span>
+                        </li>
+                        <li>
+                          <i class="far fa-calendar" aria-hidden="true"></i>
+                          Ngày về: <span>{{date('d-m-Y',strtotime($showT->date_end))}}</span>
+                        </li>
+                        <li>
+                          <i class="far fa-clock" aria-hidden="true"></i>
+                          Thời gian xuất phát: <span>{{$showT->time}}</span>
+                        </li>
+                        <li>
+                          <i class="fas fa-user-friends" aria-hidden="true"></i>
+                        Tổng thành viên: <span>{{$showT->quantity_adults+$showT->quantity_children}}</span>
+                        </li>
+                        <li>
+                          <i class="fas fa-user" aria-hidden="true"></i>
+                          Người lớn: <span>{{number_format($showT->price*$showT->quantity_adults,0,'','.')}} đ</span>
+                        <span class="adult">X {{$showT->quantity_adults}}</span>
+                        </li>
+                        <li>
+                          <i class="fas fa-baby" aria-hidden="true"></i>
+                          Trẻ em: <span>{{number_format($showT->price_children*$showT->quantity_children,0,'','.')}} đ</span>
+                          <span class="adult">X {{$showT->quantity_children}}</span>
+                        </li>
+                      </ul>
+                    </div>
                 </div>
               </div>
             </div>

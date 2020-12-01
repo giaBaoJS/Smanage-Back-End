@@ -605,7 +605,8 @@
 														<div class="check-in-wrapper">
 															<label>Người lớn</label>
 															<div class="render">Trên 12 tuổi</div>
-														</div>
+                                                        </div>
+                                                    <input type="hidden" name="id_tour" value="{{$t->id_tour}}">
 														<div class="select-wrapper">
 															<div class="st-number-wrapper qtt-picker">
 																<span class="prev">-</span>
@@ -651,17 +652,29 @@
                                                 </div>
                                                 <div id="showError">
                                                 </div>
-												<div class="submit-group">
+                                                @if (session('account'))
+                                                    <div class="submit-group">
+                                                        <button
+                                                            class="btn btn-green btn-large btn-full upper btn-book-ajax"
+                                                            type="submit"
+                                                            name="submit"
+                                                            id="checkvalidate"
+                                                        >
+                                                            Đặt ngay
+                                                        </button>
+                                                    </div>
+                                                @else
+                                                    <div class="submit-group">
+                                                        <button
+                                                            class="btn btn-green btn-large btn-full upper btn-book-ajax checkaccount"
+                                                            type="submit"
+                                                            name="submit"
+                                                        >
+                                                            Đặt ngay
+                                                        </button>
+                                                    </div>
+                                                @endif
 
-													<button
-														class="btn btn-green btn-large btn-full upper btn-book-ajax"
-														type="submit"
-                                                        name="submit"
-                                                        id="checkvalidate"
-													>
-														Đặt ngay
-													</button>
-												</div>
 											</form>
 										</div>
 									</div>

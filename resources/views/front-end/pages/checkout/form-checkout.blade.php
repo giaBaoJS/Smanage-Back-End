@@ -29,13 +29,16 @@
             <div class="row">
               <div class="col-lg-8">
                 <h3>Thông tin liên hệ</h3>
-                <form action="#">
+                <form action="{{url('/thanh-toan-2')}}" method="post">
+                    @csrf
                   <div class="form__items">
                     <label for="name">Họ và tên</label>
                     <input
                       class="reset-apperance"
                       placeholder="Nhập họ và tên"
                       type="text"
+                  value="{{session('account')->name}}"
+                      disabled
                     />
                   </div>
                   <div class="form__items">
@@ -44,6 +47,8 @@
                       class="reset-apperance"
                       placeholder="Nhập email"
                       type="email"
+                      disabled
+                      value="{{session('account')->email}}"
                     />
                   </div>
                   <div class="form__items">
@@ -51,36 +56,47 @@
                     <input
                       class="reset-apperance"
                       placeholder="Nhập số điện thoại"
-                      type="email"
+                      type="text"
+                      value="{{session('account')->phone}}"
+                      disabled
                     />
                   </div>
                   <div class="form__items">
-                    <label for="name">Thành phố</label>
-                    <input class="reset-apperance" type="text" />
+                    <label for="name">Địa chỉ</label>
+                    <input class="reset-apperance" type="text" value="{{session('account')->address}}" disabled/>
                   </div>
                   <div class="form__items form__items-full">
                     <label for="name">Ghi chú</label>
                     <textarea
                       class="reset-apperance"
-                      name="ghichu"
+                      name="note"
                       id="ghichu"
                       cols="30"
                       rows="10"
                     ></textarea>
                   </div>
-                  <div class="form__items form__items-full add-coupon">
+                <input type="hidden" name="id_tour" value="{{$showT->id_tour}}">
+                <input type="hidden" name="quantity_adults" value="{{$qty['qty_adult']}}">
+                <input type="hidden" name="quantity_children" value="{{$qty['qty_child']}}">
+                <input type="hidden" name="total_price" value="{{$showT->price*$qty['qty_adult']+$showT->price_children*$qty['qty_child']}}">
+                <div id="show_coupon">
+                </div>
+                <div class="form__items form__items-full add-coupon">
                     <h3 class="magiamgia">
                       Mã Giảm giá <small>(nếu có)</small>
                     </h3>
                   </div>
-                  <div class="form__items">
-                    <input type="text " />
+                  <div class="form__items" style="margin-bottom: 0">
+                    <input type="text" name="code_coupon" id="code_coupon"/>
+                  </div>
+                  <div class="form__items" style="margin-bottom: 0">
+                    <a class="check-cp" href="#" id="checkcoupon" >Áp dụng</a>
+                  </div>
+                  <div style="width:100%">
+                    <p style="padding:10px" id="show_erro_cp"></p>
                   </div>
                   <div class="form__items">
-                    <a class="check-cp" href="#">Áp dụng</a>
-                  </div>
-                  <div class="form__items">
-                    <a class="goback" href="#">Trở về</a>
+                  <a class="goback" href="/tours/dt/{{$showT->id_tour}}">Trở về</a>
                   </div>
                   <div class="form__items">
                     <button class="reset-apperance" type="submit">
@@ -94,41 +110,41 @@
                 <div class="book-details">
                   <img
                     class="w-100"
-                    src="{{asset('FrontEnd/assets/images/defaults/tours')}}/mientrung.jpg"
+                    src="{{asset('BackEnd/assets/images/tours')}}/{{$showT->url_img_tour}}"
                     alt="tour"
                   />
                   <div class="book-details__info">
-                    <h4>Nha trang - Đà Lạt</h4>
+                  <h4>{{$showT->name_tour}}</h4>
                     <ul>
                       <li>
                         <i class="fa fa-barcode" aria-hidden="true"></i>
-                        Mã: <span>STN084-2020-00330</span>
+                        Mã: <span>STN{{$showT->id_tour}}</span>
                       </li>
                       <li>
                         <i class="far fa-calendar" aria-hidden="true"></i>
-                        Ngày đi: <span>11-11-2020</span>
+                        Ngày đi: <span>{{date('d-m-Y',strtotime($showT->date_start))}}</span>
                       </li>
                       <li>
                         <i class="far fa-calendar" aria-hidden="true"></i>
-                        Ngày về: <span>15-11-2020</span>
+                        Ngày về: <span>{{date('d-m-Y',strtotime($showT->date_end))}}</span>
                       </li>
                       <li>
                         <i class="far fa-clock" aria-hidden="true"></i>
-                        Thời gian: <span>5 ngày 4 đêm</span>
+                        Thời gian xuất phát: <span>{{$showT->time}}</span>
                       </li>
                       <li>
                         <i class="fas fa-user-friends" aria-hidden="true"></i>
-                        Tổng thành viên: <span>3</span>
+                      Tổng thành viên: <span>{{$qty['qty_adult']+$qty['qty_child']}}</span>
                       </li>
                       <li>
                         <i class="fas fa-user" aria-hidden="true"></i>
-                        Người lớn: <span>4.279.000 đ</span>
-                        <span class="adult">X 1</span>
+                        Người lớn: <span>{{number_format($showT->price*$qty['qty_adult'],0,'','.')}} đ</span>
+                      <span class="adult">X {{$qty['qty_adult']}}</span>
                       </li>
                       <li>
                         <i class="fas fa-baby" aria-hidden="true"></i>
-                        Trẻ em: <span>3.279.000 đ</span>
-                        <span class="adult">X 2</span>
+                        Trẻ em: <span>{{number_format($showT->price_children*$qty['qty_child'],0,'','.')}} đ</span>
+                        <span class="adult">X {{$qty['qty_child']}}</span>
                       </li>
                     </ul>
                   </div>
