@@ -108,7 +108,7 @@ class homeController extends Controller
         if ($request->id_coupon) {
            $id_coupon=$request->id_coupon;
            $coupon=couponTable::find($request->id_coupon);
-            $total=((100-$coupon->price)/100)*(($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults));
+           $total=((100-$coupon->price)/100)*(($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults));
            $coupon->quantity=$coupon->quantity-1;
            $coupon->save();
         }else{
@@ -125,6 +125,10 @@ class homeController extends Controller
             'total_price' =>$total,
         );
         bill::create($data);
+        $kt=array(
+            'checkBill'=>1,
+        );
+        session(['stepCheckout'=>$kt]);
       return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
     }
     public function checkoutThree() {
@@ -132,8 +136,14 @@ class homeController extends Controller
         $showT=bill::orderby('id_bill','desc')->join('tours','bill.id_tour','=','tours.id_tour')->limit(1)->first();
       return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment]);
     }
-    public function checkoutFour() {
-      return view('front-end/pages/checkout/finish-checkout');
+    public function checkoutFour(Request $request) {
+        if (session('stepCheckout')) {
+            $request->session()->forget('stepCheckout');
+            return view('front-end/pages/checkout/finish-checkout');
+        } else {
+            return redirect('/tours');
+        }
+
     }
     // CHECKOUT - END
     public function about() {

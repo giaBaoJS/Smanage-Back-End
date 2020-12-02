@@ -638,7 +638,7 @@ $('#checkPass').click(function () {
                             }
                         div2+='<tr><td>'+p.name_passenger+'</td><td>'+gender+'</td><td>'+p.phone_passenger+'</td><td>'+p.address_passenger+'</td><td>'+p.country_passenger+'</td><td>'+p.passport_passenger+'</td></tr>';
                         });
-                        div2+='</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>'+b.total_price+' VNĐ</span></td></tr></tfoot>';
+                        div2+='</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>'+formatNumber(b.total_price,'.',',')+' VNĐ</span></td></tr></tfoot>';
                         $('#table-bill').html(div2);
                     },
                 });
@@ -646,3 +646,14 @@ $('#checkPass').click(function () {
         });
     }
 
+    function formatNumber(nStr, decSeperate, groupSeperate) {
+        nStr += '';
+        x = nStr.split(decSeperate);
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+        }
+        return x1 + x2;
+    }

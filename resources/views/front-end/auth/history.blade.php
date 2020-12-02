@@ -21,9 +21,9 @@
 								<tbody class="shop_table cart">
                                     @foreach ($bill as $b)
                                     <tr>
-                                    <td>{{$b->id_bill}}</td>
+                                    <td>HDGT{{$b->id_bill}}</td>
 										<td>{{$b->created_at}}</td>
-										<td>{{$b->total_price}}</td>
+										<td>{{number_format($b->total_price,0,'',',')}} VNĐ</td>
                                         <td>{{$b->note}}</td>
                                         @if ($b->status==0)
                                         <td><span class="badge badge-secondary" style="padding: 5px">Chưa xử lý</span></td>
