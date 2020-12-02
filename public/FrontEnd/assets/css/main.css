@@ -993,7 +993,7 @@ footer .copyright p {
         text-align: center;
         padding: 60px 0;
     }
-    footer .footer-main img{
+    footer .footer-main img {
         margin-bottom: 60px;
     }
     footer .footer-main .list-mien li a {
@@ -1026,7 +1026,7 @@ footer .copyright p {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     height: 100%;
-    object-fit:  cover;
+    object-fit: cover;
 }
 .wrapper-tour .feature-image a:hover img {
     -webkit-transform: scale(1.2);
@@ -1668,9 +1668,9 @@ footer .copyright p {
     }
 }
 @media screen and (max-width: 540px) {
-   .wow{
-    animation-delay: 0s!important;
-   }
+    .wow {
+        animation-delay: 0s !important;
+    }
 }
 
 .register {
@@ -1806,12 +1806,12 @@ footer .copyright p {
     position: relative;
     z-index: 10;
 }
-.wrapper-home .about-us .img1{
+.wrapper-home .about-us .img1 {
     position: absolute;
     top: -30px;
     left: -40px;
 }
-.wrapper-home .about-us .img2{
+.wrapper-home .about-us .img2 {
     position: absolute;
     bottom: -40px;
     right: -140px;
@@ -1848,7 +1848,7 @@ footer .copyright p {
     }
 }
 @media screen and (max-width: 540px) {
-    .wrapper-home .about-us .image-ol{
+    .wrapper-home .about-us .image-ol {
         display: none;
     }
 }
@@ -2215,31 +2215,31 @@ footer .copyright p {
     padding: 100px 0;
     position: relative;
 }
-.wrapper-home .tour-hot .wrapper-tour .content{
+.wrapper-home .tour-hot .wrapper-tour .content {
     background-color: #fff;
 }
-.wrapper-home .tour-hot .img1{
+.wrapper-home .tour-hot .img1 {
     position: absolute;
-    top:85px;
+    top: 85px;
     left: 0;
 }
-.wrapper-home .tour-hot .img2{
+.wrapper-home .tour-hot .img2 {
     position: absolute;
-    top:0;
+    top: 0;
     right: 0;
 }
-.wrapper-home .tour-hot .img3{
+.wrapper-home .tour-hot .img3 {
     position: absolute;
     bottom: -90px;
     left: 80px;
 }
-.wrapper-home .tour-hot .img4{
+.wrapper-home .tour-hot .img4 {
     position: absolute;
     bottom: -136px;
     right: 96px;
 }
 @media screen and (max-width: 540px) {
-    .wrapper-home .tour-hot{
+    .wrapper-home .tour-hot {
         padding: 60px 0;
     }
     .wrapper-home .tour-hot .image-ol {
@@ -3652,7 +3652,7 @@ footer .copyright p {
 .wraper-about-us .our-team {
     text-align: center;
     padding: 100px 0;
-    background-image: url('../images/defaults/bgnau.jpg');
+    background-image: url("../images/defaults/bgnau.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -4683,8 +4683,14 @@ body::-webkit-scrollbar {
 .tour-dt__reviews .percent.green {
     background: #2ecc71;
 }
+.tour-dt__reviews .percent.darkgreen {
+    background: #84e6ff;
+}
 .tour-dt__reviews .percent.red {
     background-color: red;
+}
+.tour-dt__reviews .percent.orange {
+    background-color: orange;
 }
 .tour-dt__reviews .percent.yellow {
     background-color: #f1d354;
@@ -4730,7 +4736,7 @@ body::-webkit-scrollbar {
 .form-book-wrapper .form-head {
     position: relative;
     padding: 20px 15px;
-    background:#f1d354;
+    background: #f1d354;
     font-size: 12px;
     color: #fff;
 }
@@ -5802,6 +5808,7 @@ body::-webkit-scrollbar {
     transition: 0.3s;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
+    border-radius: 100%;
 }
 /** test css select **/
 
@@ -5917,29 +5924,28 @@ body::-webkit-scrollbar {
     background: #f3f3f3;
 }
 
-
 /* List Start */
 .rate {
-    display:  flex;
+    display: flex;
     margin-bottom: 20px;
     justify-content: flex-end;
     flex-direction: row-reverse;
 }
-.rate input{
+.rate input {
     width: unset !important;
     margin-right: 5px;
 }
 .rate:not(:checked) > label {
-    cursor:pointer;
-    font-size:16px;
-    color:#ccc;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ccc;
 }
 .rate > input:checked ~ label {
-    color: #ffc700;    
+    color: #ffc700;
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+    color: #deb217;
 }
 .rate > input:checked + label:hover,
 .rate > input:checked + label:hover ~ label,
@@ -5949,7 +5955,7 @@ body::-webkit-scrollbar {
     color: #c59b08;
 }
 
-.form-control:focus{
+.form-control:focus {
     border-color: #0ac9db;
     box-shadow: none;
 }

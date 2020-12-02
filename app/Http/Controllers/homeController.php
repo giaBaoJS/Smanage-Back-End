@@ -31,7 +31,7 @@ class homeController extends Controller
     public function index()
     {
         $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
-        $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(2)->get();
+        $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(4)->get();
         $showMien=mien::all();
         return view('front-end/home',['showMien'=>$showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
@@ -153,13 +153,24 @@ class homeController extends Controller
           ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
           ->orderby('date_start','asc')
           ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
-          ->limit(15)
+          ->limit(12)
           ->get();
       $infoPartner = doitacTable::join('user','user.id_doitac','=','doitac.id_doitac')
           ->select('doitac.*','user.url_avatar','user.role')
           ->where('doitac.id_doitac','=', $id)
           ->first();
-      return view('front-end/pages/partners/partners-detail',['infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursTotal]);
+      if(isset($_GET['page'])) {
+      $gioihansp = ($_GET['page'] - 1) * 12;
+      $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
+          ->offset($gioihansp)
+          ->limit(12)
+          ->get();
+      }
+      return view('front-end/pages/partners/partners-detail',['infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
     }
     public function tours() {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
@@ -200,12 +211,12 @@ class homeController extends Controller
           ->where([['user.role','=','1'],['doitac.id_doitac','=', $toursDetail->id_doitac]])
           ->first();
       $showComment=comment_tour::join('user','user.id_user','=','comment_tour.id_user')
-          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content','comment_tour.rating')
           ->where('comment_tour.id_tour','=',$id)
           ->orderby('id_comment_tour','desc')
           ->get();
       $showCommentLimit=comment_tour::join('user','user.id_user','=','comment_tour.id_user')
-          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content','comment_tour.rating')
           ->where('comment_tour.id_tour','=',$id)
           ->orderby('id_comment_tour','desc')
           ->limit(4)
@@ -251,12 +262,12 @@ class homeController extends Controller
             ->find($id);
         tintucTable::where('id_news','=',$id)->update(['views'=> tintucTable::raw('views+1')]);
         $showComment=comment::join('user','comment.id_user','=','user.id_user')
-            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content','comment.rating')
             ->where('comment.id_news','=',$id)
             ->orderby('id_comment','desc')
             ->get();
         $showCommentLimit=comment::leftJoin('user','comment.id_user','=','user.id_user')
-            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content','comment.rating')
             ->where('comment.id_news','=',$id)
             ->orderby('id_comment','desc')
             ->limit(4)

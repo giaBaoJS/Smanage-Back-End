@@ -26,7 +26,7 @@
                   <div class="list-info">
                     <img src="{{asset('BackEnd/assets/images')}}/{{$new->url_avatar}}" alt="icon" />
                     <h4>{{$new->name}}</h4>
-                    <span>{{date('d/m/Y',strtotime($new->created_at))}}</span>
+                    <span>{{date('d/m/Y H:i:s',strtotime($new->created_at))}}</span>
                     <a href="/tin-tuc/dt/{{$new->id_news}}">
                       {{ count(\App\comment::where('id_news', $new->id_news)->get()) }} Nhận xét
                     </a>

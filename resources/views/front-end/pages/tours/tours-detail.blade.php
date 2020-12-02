@@ -42,14 +42,21 @@
 								<div class="right">
 									<div class="tour-dt__rating">
 										<span>Đánh giá</span>
-										<div class="rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star grey"></i>
-											<i class="fa fa-star grey"></i>
-											<i class="fa fa-star grey"></i>
-										</div>
-
+                    <div class="review-score" style="font-size:16px; display:flex; align-items:center;justify-content:flex-end">
+                    <b style="margin-right: 3px">
+                    <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                  $total += $cmt['rating'];
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total;
+                          } else {
+                              echo 0;
+                          }
+                          ?></b><span>/5</span>
+                    </div>
 										<p id="comment__count-2">Từ <span class="cmt-count" style="display: inline-block">{{count($showComment)}}</span> đánh giá</p>
 									</div>
 								</div>
@@ -412,56 +419,175 @@
 										<div class="col-lg-5">
 											<div class="review-box-score">
 												<div class="review-score">
-													5.1<span class="per-total">/5</span>
+                          <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                  $total += $cmt['rating'];
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total;
+                          } else {
+                              echo 0;
+                          }
+                          ?><span class="per-total">/5</span>
 												</div>
-												<div class="review-score-text">Average</div>
+												<div class="review-score-text">Điểm trung bình</div>
 												<div class="review-score-base">
-													Based on <span>4 reviews</span>
+												  Dựa trên <span>{{count($showComment)}} đánh giá</span>
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-7">
 											<div class="review-sumary">
 												<div class="item">
-													<div class="label">Excellent</div>
+													<div class="label">Tuyệt vời</div>
 													<div class="progress">
-														<div class="percent green" style="width: 25%"></div>
+                            
+														<div class="percent green" style="width:  <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                if($cmt['rating'] === 5) {
+                                  $total += $cmt['rating'];
+                                }
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total * 20;
+                          } else {
+                              echo 0;
+                          }
+                          ?>%"></div>
 													</div>
-													<div class="number">1</div>
+													<div class="number">
+                            <?php
+                            $count = 0;
+                            foreach ($showComment as $c) {
+                              if($c['rating']===5) {
+                                $count += 1;
+                              }
+                            }
+                            echo $count;
+                          ?>
+                          </div>
 												</div>
 												<div class="item">
-													<div class="label">Very Good</div>
+													<div class="label">Tốt</div>
 													<div class="progress">
 														<div
 															class="percent darkgreen"
-															style="width: 0%"
+															style="width: <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                if($cmt['rating'] === 4) {
+                                  $total += $cmt['rating'];
+                                }
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total * 20;
+                          } else {
+                              echo 0;
+                          }
+                          ?>%"
 														></div>
 													</div>
-													<div class="number">0</div>
+													<div class="number"> <?php
+                            $count = 0;
+                            foreach ($showComment as $c) {
+                              if($c['rating']===4) {
+                                $count += 1;
+                              }
+                            }
+                            echo $count;
+                          ?></div>
 												</div>
 												<div class="item">
-													<div class="label">Average</div>
+													<div class="label">Trung bình</div>
 													<div class="progress">
 														<div
 															class="percent yellow"
-															style="width: 25%"
+															style="width: <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                if($cmt['rating'] === 3) {
+                                  $total += $cmt['rating'];
+                                }
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total * 20;
+                          } else {
+                              echo 0;
+                          }
+                          ?>%"
 														></div>
 													</div>
-													<div class="number">1</div>
+													<div class="number"> <?php
+                            $count = 0;
+                            foreach ($showComment as $c) {
+                              if($c['rating']===3) {
+                                $count += 1;
+                              }
+                            }
+                            echo $count;
+                          ?></div>
 												</div>
 												<div class="item">
-													<div class="label">Poor</div>
+													<div class="label">Tệ</div>
 													<div class="progress">
-														<div class="percent orange" style="width: 0%"></div>
+														<div class="percent orange" style="width: <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                if($cmt['rating'] === 2) {
+                                  $total += $cmt['rating'];
+                                }
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total * 20;
+                          } else {
+                              echo 0;
+                          }
+                          ?>%"></div>
 													</div>
-													<div class="number">0</div>
+													<div class="number"> <?php
+                            $count = 0;
+                            foreach ($showComment as $c) {
+                              if($c['rating']===2) {
+                                $count += 1;
+                              }
+                            }
+                            echo $count;
+                          ?></div>
 												</div>
 												<div class="item">
-													<div class="label">Terrible</div>
+													<div class="label">Rất tệ</div>
 													<div class="progress">
-														<div class="percent red" style="width: 25%"></div>
+														<div class="percent red" style="width: <?php
+                            if ($showComment) {
+                              $total = 0;
+                              foreach ($showComment as $cmt) {
+                                if($cmt['rating'] === 1) {
+                                  $total += $cmt['rating'];
+                                }
+                              }
+                              $total = number_format(($total / count($showComment)), 2);
+                              echo $total * 20;
+                          } else {
+                              echo 0;
+                          }
+                          ?>%"></div>
 													</div>
-													<div class="number">1</div>
+													<div class="number"> <?php
+                            $count = 0;
+                            foreach ($showComment as $c) {
+                              if($c['rating']===1) {
+                                $count += 1;
+                              }
+                            }
+                            echo $count;
+                          ?></div>
 												</div>
 											</div>
 										</div>
@@ -483,6 +609,11 @@
                         <div>
                         <h4>{{$c->name}}</h4>
                         <span>{{date('d/m/Y: H:i:s',strtotime($c->created_at))}}</span>
+                        <div class="rate" style="margin:5px 0 0; color:#ffc700">
+                          @for ($i = 1; $i <= $c->rating; $i++)
+                            <i class="fa fa-star" ></i>
+                          @endfor  
+                        </div>
                         </div>
                       </div>
                       <div class="comment">
@@ -508,20 +639,20 @@
                         <div class="content">
                           <div class="info-group">
                             <div class="row">
-								<div class="col-md-12">
-									<div class="rate">
-										<input type="radio" id="star5" name="rate" value="5" />
-										<label for="star5" title="text"><i class="fa fa-star"></i></label>
-										<input type="radio" id="star4" name="rate" value="4" />
-										<label for="star4" title="text"><i class="fa fa-star"></i></label>
-										<input type="radio" id="star3" name="rate" value="3" />
-										<label for="star3" title="text"><i class="fa fa-star"></i></label>
-										<input type="radio" id="star2" name="rate" value="2" />
-										<label for="star2" title="text"><i class="fa fa-star"></i></label>
-										<input type="radio" id="star1" name="rate" value="1" />
-										<label for="star1" title="text"><i class="fa fa-star"></i></label>
-									</div>
-								</div>
+                                <div class="col-md-12">
+                                  <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text"><i class="fa fa-star"></i></label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text"><i class="fa fa-star"></i></label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text"><i class="fa fa-star"></i></label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text"><i class="fa fa-star"></i></label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text"><i class="fa fa-star"></i></label>
+                                  </div>
+                                </div>
                                 <div class="col-md-12" data-validate="Vui lòng nhận xét!!">
                                     <textarea
                                     class="form-control validate-form-control"
