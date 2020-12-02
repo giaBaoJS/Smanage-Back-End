@@ -62,3 +62,7 @@ Route::GET('admin/checkcp','homeAPI@checkCoupon');
 //passenger
 Route::GET('admin/addpassenger','homeAPI@addPassenger');
 Route::GET('admin/addpayment','homeAPI@addPayment');
+
+//BILL
+Route::GET('admin/billdetail/{id}','homeAPI@billDetail');
+Route::GET('admin/passdetail/{id}','homeAPI@passDetail');

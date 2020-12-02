@@ -7,7 +7,7 @@
           <h2>Đặt Tour</h2>
         </div>
       </section>
-      <section class="checkout__detail">
+      <section class="checkout__detail" id="resetTime">
         <div class="container">
           <div class="step-check">
             <ul>
@@ -34,8 +34,8 @@
                 thông tin chi tiết liên hệ qua số điện thoại: 0924010212.
               </h4>
               <p>
-                Quý khách sẽ trở lại trang chủ trong <span>30</span> giây hoặc
-                nhấp vào <a href="{{url('/')}}">đây</a>
+                Nhấp vào <a href="{{url('/')}}">đây</a> để trở lại trang chủ
+
               </p>
             </div>
           </div>

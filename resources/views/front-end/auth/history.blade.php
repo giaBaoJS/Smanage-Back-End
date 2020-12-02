@@ -12,30 +12,31 @@
 									<tr>
 										<th scope="col">Mã HĐ</th>
 										<th scope="col">Thời Gian</th>
-										<th scope="col">Tổng</th>
+                                        <th scope="col">Tổng</th>
+										<th scope="col">Ghi chú</th>
 										<th scope="col">Trạng Thái</th>
 										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody class="shop_table cart">
-									<tr>
-										<td>1</td>
-										<td>12-11-2020 22:48:11</td>
-										<td>25.800.000 VNĐ</td>
-										<td>Đã Hoàn Tất</td>
+                                    @foreach ($bill as $b)
+                                    <tr>
+                                    <td>HDGT{{$b->id_bill}}</td>
+										<td>{{$b->created_at}}</td>
+										<td>{{number_format($b->total_price,0,'',',')}} VNĐ</td>
+                                        <td>{{$b->note}}</td>
+                                        @if ($b->status==0)
+                                        <td><span class="badge badge-secondary" style="padding: 5px">Chưa xử lý</span></td>
+                                        @else
+                                        <td><span class="badge badge-success" style="padding: 5px">Đã Hoàn Tất</span></td>
+                                        @endif
+
 										<td>
-											<a href="#/" class="bill-detail">Xem chi tiết</a>
+                                        <a href="#/" onclick="showBill({{$b->id_bill}})" class="bill-detail">Xem chi tiết</a>
 										</td>
 									</tr>
-									<tr>
-										<td>3</td>
-										<td>12-11-2020 00:23:33</td>
-										<td>13.035.000 VNĐ</td>
-										<td>Chờ Xác Nhận</td>
-										<td>
-											<a href="#/" class="bill-detail">Xem chi tiết</a>
-										</td>
-									</tr>
+                                    @endforeach
+
 								</tbody>
 							</table>
 						</div>
@@ -53,7 +54,6 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="modal-title-bill">Hóa đơn chi tiết</h4>
-
 						<button
 							type="button"
 							class="close"
@@ -64,48 +64,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<div>
-							<p>Tên tour: <span>Du lịch cùng trai đẹp Kim Bảo</span></p>
-							<p>Thời gian: <span>12-11-2020 22:48:11</span></p>
-							<p>Số lượng: <span>4</span> người lớn / <span>2</span> trẻ em</p>
-						</div>
-						<table id="table-bill" class="table table-bordered">
-							<thead>
-								<tr>
-									<td>Tên thành viên</td>
-									<td>Giới tính</td>
-									<td>Giá vé</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Kim Bảo</td>
-									<td>Nam</td>
-									<td>12.900.000 VNĐ</td>
-								</tr>
-								<tr>
-									<td>Kim Bảo</td>
-									<td>Nam</td>
-									<td>12.900.000 VNĐ</td>
-								</tr>
-								<tr>
-									<td>Kim Bảo</td>
-									<td>Nam</td>
-									<td>12.900.000 VNĐ</td>
-								</tr>
-								<tr>
-									<td>Kim Bảo</td>
-									<td>Nam</td>
-									<td>12.900.000 VNĐ</td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="2" style="text-align: right">Tổng Giá vé</td>
-									<td><span>20.000.000 VNĐ</span></td>
-								</tr>
-							</tfoot>
-						</table>
+
 					</div>
 				</div>
 			</div>

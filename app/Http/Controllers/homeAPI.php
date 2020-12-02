@@ -11,11 +11,13 @@ use App\gallerytable;
 use App\slider;
 use App\comment;
 use App\bill;
+use App\tour;
 use App\passenger;
 use App\comment_tour;
 use App\tinh;
 use App\tintucTable;
 use \App\mailer;
+use App\payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -645,8 +647,174 @@ class homeAPI extends Controller
   public function addPayment(Request $request)
   {
     $showBill=bill::find($request->id_bill);
+    $showUser=userTable::find($showBill->id_user);
+    $showPTTT=payment::find($request->id_payment);
+    $showTour=tour::find($showBill->id_tour);
+    $showPass=passenger::where('id_bill','=',$showBill->id_bill)->get();
     $showBill->id_payment=$request->id_payment;
     $showBill->save();
-    return 1;
+    $email = $showUser->email;
+    $name = $showUser->name;
+    $payment=$showPTTT->name_payment;
+    $tourDstart=$showTour->date_start;
+    $time=$showTour->time;
+    $quantity=$showBill->quantity_adults+$showBill->quantity_children;
+    $total=number_format($showBill->total_price,0,'','.');
+    $mail = new mailer;
+    $title = '[GOLDEN TOURS] Đặt tour du lịch thành công';
+    $desc = '<div style="background-color:#f8f8f8;font-family:sans-serif;padding:15px">
+    <div style="max-width:1000px;margin:auto;background:#ffffff">
+      <div style="background-color:#fff;padding:10px 30px;color:#fff;display:flex;border-bottom:1px solid #d4d4d4">
+        <div style="width:70px;margin-top:15px; margin: 0 auto;">
+          <img src="BackEnd/assets/images/defaults/logo-1.png" style="height:auto;object-fit:contain;width:150px ;"
+            class="CToWUd">
+        </div>
+      </div>
+      <div style="background-color:#fff;padding:5px 20px;color:#000;border-radius:0px 0px 2px 2px">
+        <div style="padding:35px 15px">
+          <p style="margin:0;font-size:16px; color: #ff0000;"><b>Xin chào '.$name.'</b></p>
+          <br>
+          <p style="margin:0;font-size:16px; margin-bottom: 15px;"> Phương thức Thanh toán: '.$payment.'.
+            <!-- <span style="font-weight: 500;color: #ff0000;">Bạn đã đăng ký tour thành công .</span> -->
+          </p>
+          <p style="margin:20px 0px;font-size:16px">Kính chào quý khách!
+            - Cảm ơn quý Khách đã sử dụng dịch vụ của Golden Tours. Quý khách cần thanh toán trước ngày '.$tourDstart.'.</p>
+          <p style="margin:20px 0px;font-size:16px">- Quý khách cần hổ trọ vui lòng liên hệ: website
+            https://goldentours.vn online 24/7 sẽ mang lại thuận tiện cho quý khách trong việc sử dụng và quản lý các dịch
+            vụ đăng ký tại Golden Tours.</p>
+          <p style="margin:20px 0px;font-size:16px">- Website https://goldentours.vn online 24/7 sẽ mang lại thuận tiện
+            cho quý khách trong việc sử dụng và quản lý các dịch vụ đăng ký tại Golden Tours.</p>
+          <div style="margin:auto;text-align:center">
+          <ul style="text-align: left;width: 100%;float: left;font-size:18px">
+                <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>STT: </strong><span>'.$showBill['id_bill'].'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong style="text-align: right;">Tên KH Đặt tour: </strong><span>'.$name.'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Tên tour: </strong><span>'.$showTour['name_tour'].'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Thời gian đi: </strong><span>'.$time.'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Ngày đi : </strong><span>'.$showTour['date_start'].'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Ngày về: </strong><span>'.$showTour['date_end'].'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>SL:</strong> <span>'.$quantity.'</span></li>
+                  <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Giá tiền: </strong> <span>'.$showTour['price'].' VNĐ</span></li>
+          </ul>
+            <table style="width:100%;border-collapse:collapse; margin-bottom: 20px;">
+              <thead style="color:#ffffff;background:#7376c0;text-align:left">
+                <tr style="padding:8px">
+                  <th style="padding:8px">STT</th>
+                  <th style="padding:8px">Tên KH</th>
+                  <th style="padding:8px">Địa chỉ</th>
+                  <th style="padding:8px">Điện thoại</th>
+                  <th style="padding:8px">Giới tính</th>
+                  <th style="padding:8px">Thành phố</th>
+                  <th style="padding:8px">Passport</th>
+                </tr>
+              </thead>
+              <tbody style="text-align:left">';
+            foreach ($showPass as $p) {
+                if ($p['gender_passenger']==1) {
+                   $gen='Nam';
+                }else{
+                    $gen='Nữ';
+                }
+               $desc .=' <tr style="background-color:#eaeaea;border-bottom:1px solid #d4d4d4">
+               <td style="padding:8px;width:5%">'.$p['id_passenger '].'</td>
+               <td style="padding:8px;width:15%">'.$p['name_passenger'].'</td>
+               <td style="padding:8px;width:15%">'.$p['address_passenger'].'</td>
+               <td style="padding:8px;width:15%">'.$p['phone_passenger'].'</td>
+               <td style="padding:8px;width:10%">'.$gen.'</td>
+               <td style="padding:8px;width:20%">'.$p['country_passenger'].'</td>
+               <td style="padding:8px;width:20%">'.$p['passport_passenger'].'</td>
+             </tr>';
+            }
+            $desc.='
+              </tbody>
+              <tfoot>
+
+                <tr>
+                  <td colspan="4"></td>
+                  <td colspan="3" style="color:black;background:#cfc9c9;text-align:center; padding: 10px;">Tổng:
+                    '.$total.'
+                    VNĐ
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <div style="text-align: left;">
+              <p>
+                -Phương thức thanh toán: Ngân Hàng VietcomeBank(chi nhánh Tân Bình) 012200456.
+              </p>
+              <p style="margin-bottom: 25px">
+                -Thanh toán qua momo: 0904047470 (username_mã tour_ số tiền).
+              </p>
+
+            </div>
+
+            <a href=" #"
+              style="width:fit-content;margin:10px;background-image:linear-gradient(to right,#0ac9db,#e5d25a);color:#fff;font-weight:bold;text-align:center;padding:10px 12px;border-radius:2px;margin:auto;font-size:large;text-decoration:none"
+              target="_blank">Quay về trang chủ</a>
+          </div>
+          <br>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+        <div style="padding:10px 15px">
+          <h4 style="color:#000">THÔNG TIN TÀI KHOẢN </h4>
+          <div style="padding:0px 30px">
+            <table style="width:100%">
+              <tbody>
+                <tr>
+                  <td>
+                    <b>Tài khoản: </b>Duytrinh2508
+                  </td>
+                  <td>
+                    <b>Email: </b>
+                    <a style="color: #000; text-decoration: none;" href="#" target="_blank">Duytrinh2508@gmail.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Tình trạng: </b>Gia hạn.
+                  </td>
+                  <td>
+                    <b>Số điện thoại: </b> 0904047470
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Địa chỉ : </b>
+                    666 Nguyễn Văn Quá, Q12, TP Hồ Chí Minh.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+      </div>
+      <div style="clear:both;overflow:hidden;margin-top:15px;padding:40px 30px;background-color:#eee;border-radius:2px">
+        <div style="float:left;width:50%">
+          <ul style="list-style:none;margin:0;padding:0">
+            <li style="margin-bottom:8px;font-size:15px">Fanpage <a style="text-decoration:none; color: #000;"
+                href="#"><b>Goldentours/8845</b></a></li>
+            <li style="margin-bottom:8px;font-size:15px">Website: <a style="text-decoration:none; color: #000;" href="#"
+                target="_blank"><b>Goldentours.com</b></a></li>
+            <li>Số điện thoại: <b>0904047470</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>';
+    if($mail->sendMail($title, $desc, $email) === 1) {
+      echo json_encode(['success' => false, 'message' => 'Tài khoản của quý khách chưa được kích hoạt. Hãy kiểm tra email', 'redirect' => true, 'location' => $location ?? '/dang-nhap']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => $location ?? '/dang-nhap']);
+    }
+  }
+  public function billDetail($id)
+  {
+     $showBill=bill::join('tours','bill.id_tour','=','tours.id_tour')->where('bill.id_bill','=',$id)->first();
+     return $showBill;
+  }
+  public function passDetail($id)
+  {
+     $showPass=passenger::where('id_bill','=',$id)->get();
+     return $showPass;
   }
 }
