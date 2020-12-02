@@ -605,14 +605,13 @@ $('#checkPass').click(function () {
             });
             return false;
         }
+        $('#showLoader').html('<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>');
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/addpayment",
             type:'get',
             data:{id_payment:id_payment,id_bill:id_bill},
             success: function (params) {
-                if (params==1) {
-                    window.location.href = "/thanh-toan-4";
-                }
+                window.location.href = "/thanh-toan-4";
             },
         });
         return false;

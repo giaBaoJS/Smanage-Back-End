@@ -229,9 +229,31 @@
                     <a class="goback" href="#">Trở về</a>
                   </div> --}}
                   <div class="form__items">
-                    <a class="goback --next" href="#" id="addPayment">
-                      Xác nhận
-                    </a>
+                      <style>
+                        .loader {
+                            border: 5px solid #f3f3f3; /* Light grey */
+                            border-top: 5px solid blue;
+                            border-right: 5px solid green;
+                            border-bottom: 5px solid red;
+                            border-left: 5px solid pink;
+                            border-radius: 50%;
+                            width: 30px;
+                            height: 30px;
+                            animation: spin 2s linear infinite;
+                            float: right;
+                            margin-left: 10px;
+                            margin-top: 10px;
+                            }
+
+                            @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                            }
+                      </style>
+                    <div id="showLoader">
+                        <a class="goback --next" href="#" id="addPayment">Xác nhận</a>
+                    </div>
+
                   </div>
                 </form>
               </div>

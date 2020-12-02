@@ -93,7 +93,9 @@
                     {{-- <a class="goback" href="{{url('/thanh-toan-1')}}">Trở về</a> --}}
                     </div>
                     <div class="form__items">
-                     <button class="reset-apperance" type="button" id="checkPass">Tiếp tục</button>
+                     <button class="reset-apperance" type="button" id="checkPass">
+                        Tiếp tục
+                    </button>
                     </div>
                 </form>
               </div>
