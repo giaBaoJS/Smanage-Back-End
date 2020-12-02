@@ -646,4 +646,14 @@ class homeAPI extends Controller
     $showBill->save();
     return 1;
   }
+  public function billDetail($id)
+  {
+     $showBill=bill::join('tours','bill.id_tour','=','tours.id_tour')->where('bill.id_bill','=',$id)->first();
+     return $showBill;
+  }
+  public function passDetail($id)
+  {
+     $showPass=passenger::where('id_bill','=',$id)->get();
+     return $showPass;
+  }
 }

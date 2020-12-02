@@ -595,6 +595,16 @@ $('#checkPass').click(function () {
     $('#addPayment').click(function () {
         var id_payment = $('#id_payment').val();
         var id_bill = $('#id_bill').val();
+        if (id_payment==undefined) {
+            Swal.fire({
+                title: "Vui lòng chọn phương thức thanh toán",
+                icon: "warning",
+                timer: 2000,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+            return false;
+        }
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/addpayment",
             type:'get',
@@ -605,5 +615,34 @@ $('#checkPass').click(function () {
                 }
             },
         });
+        return false;
     })
+    //BILL DETAILS
+    function showBill(id) {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/admin/billdetail/"+id,
+            type:'get',
+            success: function (b) {
+                div='<div><p>Tên tour: <span>'+b.name_tour+'</span></p><p>Thời gian: <span>'+b.date_start+'</span></p><p>Số lượng: <span>'+b.quantity_adults+'</span> người lớn / <span>'+b.quantity_children+'</span> trẻ em</p></div><table id="table-bill" class="table table-bordered"></table>';
+                $('.modal-body').html(div);
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/admin/passdetail/"+b.id_bill,
+                    type:'get',
+                    success: function (s) {
+                        div2='<thead><tr><td>Tên thành viên</td><td>Giới tính</td><td>Số điện thoại</td><td>Địa chỉ</td><td>Thành phố</td><td>Passport</td></tr></thead><tbody>';
+                        s.forEach(p => {
+                            if (p.gender_passenger==1) {
+                                gender="Nam";
+                            } else {
+                                gender="Nữ";
+                            }
+                        div2+='<tr><td>'+p.name_passenger+'</td><td>'+gender+'</td><td>'+p.phone_passenger+'</td><td>'+p.address_passenger+'</td><td>'+p.country_passenger+'</td><td>'+p.passport_passenger+'</td></tr>';
+                        });
+                        div2+='</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>'+b.total_price+' VNĐ</span></td></tr></tfoot>';
+                        $('#table-bill').html(div2);
+                    },
+                });
+            },
+        });
+    }
 

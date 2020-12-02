@@ -46,7 +46,7 @@ jQuery(function () {
                 dataType: "json",
                 data: { ...formatDataForm(data) },
                 success: function (res) {
-                    console.log(res);
+                    // console.log(res);
                     $(".loading").removeClass("--active");
                     if (res.success) {
                         Swal.fire({
@@ -78,13 +78,13 @@ jQuery(function () {
                     $(":submit", form).removeAttr("disabled");
                 },
                 error: function (request, status, error) {
-                    console.log(request.responseText);
-                    console.log(status);
-                    console.log(error);
+                    // console.log(request.responseText);
+                    // console.log(status);
+                    // console.log(error);
                     if (request.status === 422) {
                         $(".loading").removeClass("--active");
                         const res = request.responseJSON.errors;
-                        console.log(res);
+                        // console.log(res);
                         for (let key in res) {
                             //thông báo lỗi chung chung
                             if (key === "error_field_lg") {
@@ -140,7 +140,7 @@ jQuery(function () {
                 dataType: false,
                 data: { sdt: sdt, type: "check-bill-no-lg" },
                 success: function (res) {
-                    console.log(res);
+                    // console.log(res);
                     //res is object
                     if (res["error_phone"]) {
                         $('input[name="phone"]')
@@ -158,9 +158,9 @@ jQuery(function () {
                     $(":submit", form).removeAttr("disabled");
                 },
                 error: function (request, status, error) {
-                    console.log(request.responseText);
-                    console.log(error);
-                    console.log(status);
+                    // console.log(request.responseText);
+                    // console.log(error);
+                    // console.log(status);
                 },
             });
         }
@@ -209,9 +209,9 @@ jQuery(function () {
                 $("#modal-bill").modal("show");
             },
             error: function (request, status, error) {
-                console.log(request.responseText);
-                console.log(error);
-                console.log(status);
+                // console.log(request.responseText);
+                // console.log(error);
+                // console.log(status);
             },
         });
     });
@@ -267,9 +267,9 @@ function addComment() {
                 $(".cmt-count").html(res.length);
             },
             error: function (request, status, error) {
-                console.log(request.responseText);
-                console.log(status);
-                console.log(error);
+                // console.log(request.responseText);
+                // console.log(status);
+                // console.log(error);
             },
         });
     }
@@ -278,7 +278,7 @@ let pageCmts = 2;
 $("body").on("click", ".pagination-cmts", function () {
     const id = $(this).data("id");
     const type = $(this).data("type");
-    console.log(id);
+    // console.log(id);
     $.ajax({
         url: "http://127.0.0.1:8000/api/pagination-cmts",
         type: "get",

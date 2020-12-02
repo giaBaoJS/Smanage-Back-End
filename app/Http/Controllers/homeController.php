@@ -89,8 +89,8 @@ class homeController extends Controller
       return view('front-end/auth/update', ['user'=>$user]);
     }
     public function history() {
-      $bill = tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(2)->get();
-      return view('front-end/auth/history');
+      $bill = bill::where('id_user','=',session('account')->id_user)->get();
+      return view('front-end/auth/history',['bill'=>$bill]);
     }
     // AUTH - END
     // CHECKOUT
@@ -107,8 +107,13 @@ class homeController extends Controller
         $showBill=$request;
         if ($request->id_coupon) {
            $id_coupon=$request->id_coupon;
+           $coupon=couponTable::find($request->id_coupon);
+            $total=((100-$coupon->price)/100)*(($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults));
+           $coupon->quantity=$coupon->quantity-1;
+           $coupon->save();
         }else{
             $id_coupon=0;
+            $total=($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults);
         }
         $data = array(
             'id_tour' => $request->id_tour,
@@ -117,8 +122,7 @@ class homeController extends Controller
             'quantity_adults' => $request->quantity_adults,
             'quantity_children' => $request->quantity_children,
             'note' => $request->note,
-            'total_price' => ($showT->price_children*$request->quantity_children)+($showT->price*$request->quantity_adults),
-
+            'total_price' =>$total,
         );
         bill::create($data);
       return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
