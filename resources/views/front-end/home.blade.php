@@ -671,26 +671,29 @@
               <div class="swiper-slide">
                 <div class="row">
                   <div class="col-md-6">
+                  <a href="/tin-tuc/dt/{{$tintuc->id_news}}">
                     <img
                   src="{{asset('BackEnd/assets/images/news')}}/{{ $tintuc->url_img_news}}"
                       class="w-100 img-fluid"
                       alt="images"
+                      style="height:100%; object-fit:cover"
                     />
+                    </a>
                   </div>
                   <div class="col-md-6">
                     <div class="content">
-                      <a class="title" href="#"
+                      <a class="title" href="/tin-tuc/dt/{{$tintuc->id_news}}"
                         >{{ $tintuc->title}}</a
                       >
                       <ul>
-                      <li><a href="#">{{date('M-d-Y',strtotime($tintuc->updated_at))}}</a></li>
-                        <li><a href="#">Bao Dep Trai</a></li>
+                      <li><a href="/tin-tuc/dt/{{$tintuc->id_news}}">{{date('m-d-Y',strtotime($tintuc->updated_at))}}</a></li>
+                        <li><a href="#.">{{$tintuc->name}}</a></li>
                       </ul>
                       <p>
                         {{ $tintuc->short_content}}
                       </p>
                     </div>
-                    <a class="btn btn-main" href="#">Xem Thêm</a>
+                    <a class="btn btn-main" href="/tin-tuc/dt/{{$tintuc->id_news}}">Xem Thêm</a>
                   </div>
                 </div>
               </div>

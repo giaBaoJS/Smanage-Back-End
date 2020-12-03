@@ -81,6 +81,11 @@
                           <div>
                           <h4>{{$c->name}}</h4>
                           <span>{{date('d/m/Y: H:i:s',strtotime($c->created_at))}}</span>
+                          <div class="rate" style="margin:5px 0 0; color:#ffc700">
+                            @for ($i = 1; $i <= $c->rating; $i++)
+                              <i class="fa fa-star" ></i>
+                            @endfor  
+                          </div>
                           </div>
                         </div>
                         <div class="comment">
@@ -107,6 +112,20 @@
                         <div class="content">
                           <div class="info-group">
                             <div class="row">
+                            <div class="col-md-12">
+									<div class="rate">
+										<input type="radio" id="star5" name="rate" value="5" />
+										<label for="star5" title="text"><i class="fa fa-star"></i></label>
+										<input type="radio" id="star4" name="rate" value="4" />
+										<label for="star4" title="text"><i class="fa fa-star"></i></label>
+										<input type="radio" id="star3" name="rate" value="3" />
+										<label for="star3" title="text"><i class="fa fa-star"></i></label>
+										<input type="radio" id="star2" name="rate" value="2" />
+										<label for="star2" title="text"><i class="fa fa-star"></i></label>
+										<input type="radio" id="star1" name="rate" value="1" />
+										<label for="star1" title="text"><i class="fa fa-star"></i></label>
+									</div>
+								</div>
                                 <div class="col-md-12" data-validate="Vui lòng nhận xét!!">
                                     <textarea
                                     class="form-control validate-form-control"

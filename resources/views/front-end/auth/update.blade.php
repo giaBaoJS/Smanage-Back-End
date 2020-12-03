@@ -52,6 +52,15 @@
 								placeholder="Địa chỉ"
                 value="{{$user->address}}"
               />
+            </div>
+            <div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
+							<label for="address" class="form-label">Địa chỉ</label>
+							<input
+								type="file"
+                name="avatar"
+								class="form-input validate-form-control"
+								id="avatar"
+              />
 						</div>
 						<button type="submit" class="form-submit">Cập nhật</button>
 					</form>

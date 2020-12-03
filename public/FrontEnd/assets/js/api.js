@@ -218,9 +218,14 @@ jQuery(function () {
 });
 function formatDate(timeStr) {
     const time = new Date(timeStr);
-    return `${time.getDate()}/${
-        time.getMonth() + 1
-    }/${time.getFullYear()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+    return `${("0" + time.getDate()).slice(-2)}/${(
+        "0" +
+        (time.getMonth() + 1)
+    ).slice(-2)}/${("0" + time.getFullYear()).slice(-2)} ${(
+        "0" + time.getHours()
+    ).slice(-2)}:${("0" + time.getMinutes()).slice(-2)}:${(
+        "0" + time.getSeconds()
+    ).slice(-2)}`;
 }
 // PAGINATION COMMENT OF NEWS
 function addComment() {
@@ -246,6 +251,10 @@ function addComment() {
                 $(textArea).val("");
                 let div = ``;
                 res.slice(0, 4).forEach((s) => {
+                    let rating = ``;
+                    for (let i = 1; i <= s.rating; i++) {
+                        rating += `<i class="fa fa-star" ></i>`;
+                    }
                     div += `<div class="items">
                               <div class="info-users">
                                 <img src="/BackEnd/assets/images/${
@@ -254,6 +263,9 @@ function addComment() {
                                 <div>
                                   <h4>${s.name}</h4>
                                   <span>${formatDate(s.created_at)}</span>
+                                  <div class="rate" style="margin:5px 0 0; color:#ffc700">
+                                    ${rating}
+                                  </div>
                                 </div>
                               </div>
                               <div class="comment">
@@ -292,19 +304,22 @@ $("body").on("click", ".pagination-cmts", function () {
             }
             res.forEach((s) => {
                 div += `<div class="items">
-                        <div class="info-users">
-                          <img src="/BackEnd/assets/images/${
-                              s.url_avatar
-                          }" alt="avatar"/>
-                          <div>
-                            <h4>${s.name}</h4>
-                            <span>${formatDate(s.created_at)}</span>
+                          <div class="info-users">
+                            <img src="/BackEnd/assets/images/${
+                                s.url_avatar
+                            }" alt="avatar"/>
+                            <div>
+                              <h4>${s.name}</h4>
+                              <span>${formatDate(s.created_at)}</span>
+                              <div class="rate" style="margin:5px 0 0; color:#ffc700">
+                                ${rating}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment">
+                            <p>${s.content}</p>
                           </div>
                         </div>
-                        <div class="comment">
-                          <p>${s.content}</p>
-                        </div>
-                      </div>
                     `;
                 // '</p><a href="#">TRẢ LỜI</a></div></div>';
             });
@@ -324,7 +339,7 @@ $("body").on("click", ".pagination-news", function () {
         success: function (res) {
             let div = "";
             pageNews++;
-            res.forEach((s) => {
+            res[0].forEach((s) => {
                 div += `<div class="items">
                     <a href="/tin-tuc/dt/${s.id_news}">
                       <img
@@ -342,7 +357,11 @@ $("body").on("click", ".pagination-news", function () {
                       }" alt="icon" />
                       <h4>${s.name}</h4>
                       <span>${formatDate(s.created_at)}</span>
-                      <a href="#">4 Nhận xét</a>
+                      <a href="#">${
+                          res[1].filter((c) => {
+                              c.id_news === 4;
+                          }).length
+                      } Nhận xét</a>
                     </div>
                     <p>
                       ${s.short_content} […]

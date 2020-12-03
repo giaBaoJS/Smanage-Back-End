@@ -127,6 +127,13 @@
                   @endforeach
                 </div>
               </div>
+              <div class='pagination'>
+                <nav>
+                  <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/doi-tac/dt/<?=$infoPartner->id_doitac?>?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
+                  <div><b class="page"><?=(!isset($_GET['page']) ? '1' : $_GET['page'])?> </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
+                  <div  class='<?=(isset($_GET['page']) && $_GET['page'] == ceil(count($showToursTotal) / 12)) ? 'disable' : '' ?>'><a href='/doi-tac/dt/<?=$infoPartner->id_doitac?>?page=<?=(!isset($_GET['page']) ? '2' : $_GET['page'] + 1)?>'>></a></div>
+                </nav>
+              </div>
             </div>
           </div>
         </div>

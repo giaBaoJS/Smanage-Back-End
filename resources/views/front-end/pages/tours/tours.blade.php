@@ -620,9 +620,9 @@
               </div>
               <div class='pagination'>
                 <nav>
-                  <div class='--active disable <?=(isset($_GET['page']) && $_GET['page'] < 1) ? 'disable' : '' ?>'><a href='#'><</a></div>
-                  <div><b class="page">1 </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
-                  <div><a href='#'>></a></div>
+                  <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
+                  <div><b class="page"><?=(!isset($_GET['page']) ? '1' : $_GET['page'])?> </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
+                  <div  class='<?=(isset($_GET['page']) && $_GET['page'] == ceil(count($showToursTotal) / 12)) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '2' : $_GET['page'] + 1)?>'>></a></div>
                 </nav>
               </div>
 						</div>

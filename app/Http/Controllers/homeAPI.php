@@ -552,11 +552,12 @@ class homeAPI extends Controller
         'id_user' => $request->id_user,
         'id_news' => $request->id,
         'content' => $request->comment,
+        'rating'=> $request->rate ?? 5,
         'created_at' =>  date("Y:m:d H:i:s")
       );
       comment::create($data);
       $showComment = comment::join('user','comment.id_user','=','user.id_user')
-            ->select('user.url_avatar','user.name','comment.created_at','comment.content')
+            ->select('user.url_avatar','user.name','comment.created_at','comment.content','comment.rating')
             ->where('comment.id_news','=',$request->id)
             ->orderby('id_comment','desc')
             ->get();
@@ -566,11 +567,12 @@ class homeAPI extends Controller
         'id_user' => $request->id_user,
         'id_tour' => $request->id,
         'content' => $request->comment,
+        'rating'=> $request->rate ?? 5,
         'created_at' =>  date("Y:m:d H:i:s")
       );
       comment_tour::create($data);
       $showComment = comment_tour::join('user','user.id_user','=','comment_tour.id_user')
-          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content')
+          ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content','comment_tour.rating')
           ->where('comment_tour.id_tour','=',$request->id)
           ->orderby('id_comment_tour','desc')
           ->get();
@@ -602,7 +604,8 @@ class homeAPI extends Controller
     // return view('front-end/pages/news/news',['showNews'=>$showNews,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     $gioihansp = ($request->pageNews - 1) * 4;
     $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->offset($gioihansp)->limit(6)->get();
-    return $showNewsLimit;
+    $showComment=comment::join('user','user.id_user','=','comment.id_user')->get();
+    return [$showNewsLimit, $showComment];
   }
 
   //COUPON
