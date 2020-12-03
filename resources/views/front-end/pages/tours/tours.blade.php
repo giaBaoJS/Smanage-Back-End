@@ -303,7 +303,7 @@
 										<option value="5">Tour mới nhất</option>
 										</select>
 									</div>
-									<div class="layout tablist">
+									<!-- <div class="layout tablist">
 										<span class="layout-item active" data-tab="tab1">
 											<span class="icon-normal">
 												<i class="fas fa-list"></i>
@@ -314,7 +314,7 @@
 												<i class="fas fa-th" aria-hidden="true"></i>
 											</span>
 										</span>
-									</div>
+									</div> -->
 								</div>
 							</div>
 
@@ -393,7 +393,7 @@
 							</div>
 
 							<!-- Tour dạng chi tiết -->
-							<div class="tours-cover tabs tab2">
+							<!-- <div class="tours-cover tabs tab2">
 								<div class="container">
 									<div class="row">
 										<div class="item-service">
@@ -617,7 +617,7 @@
 										</div>
 									</div>
 								</div>
-              </div>
+              </div> -->
               <div class='pagination'>
                 <nav>
                   <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
