@@ -1151,7 +1151,6 @@ footer .copyright p {
     text-decoration: none;
 }
 .wrapper-tour .content-bottom p {
-    padding-left: 5px;
 }
 
 .filter-news h3 {
@@ -1713,6 +1712,44 @@ footer .copyright p {
     padding: 0;
     max-width: 800px;
 }
+.change-psw.--gb{
+    position: relative;
+    overflow: hidden;
+}
+.change-psw.--gb .img1{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+}
+.change-psw.--gb .img1 img{
+   width: 300px;
+   height: auto;
+}
+.change-psw.--gb .img2{
+    position: absolute;
+    top: 0;
+    right: -70px;
+}
+.change-psw.--gb .img3{
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+}
+.change-psw.--gb .img3 img{
+    width: 300px;
+    height: auto;
+ }
+.change-psw.--gb .signin{
+   position: relative;
+   z-index: 10;
+}
+@media screen and (max-width: 1024px) {
+    .change-psw.--gb .image-ol{
+        display: none;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .change-psw {
         padding: 60px 0;
