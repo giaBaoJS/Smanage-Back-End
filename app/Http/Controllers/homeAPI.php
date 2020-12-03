@@ -682,7 +682,7 @@ class homeAPI extends Controller
           <p style="margin:20px 0px;font-size:16px">- Website https://goldentours.vn online 24/7 sẽ mang lại thuận tiện
             cho quý khách trong việc sử dụng và quản lý các dịch vụ đăng ký tại Golden Tours.</p>
           <div style="margin:auto;text-align:center">
-          <ul style="text-align: left;width: 100%;float: left;font-size:18px">
+          <ul style="text-align: left;width: 100%;float: left;font-size:16px">
                 <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>STT: </strong><span>'.$showBill['id_bill'].'</span></li>
                   <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong style="text-align: right;">Tên KH Đặt tour: </strong><span>'.$name.'</span></li>
                   <li style="padding:8px;list-style: none;width: 45%;float: left;"><strong>Tên tour: </strong><span>'.$showTour['name_tour'].'</span></li>
