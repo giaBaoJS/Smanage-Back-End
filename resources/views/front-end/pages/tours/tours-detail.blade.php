@@ -45,17 +45,18 @@
                     <div class="review-score" style="font-size:16px; display:flex; align-items:center;justify-content:flex-end">
                     <b style="margin-right: 3px">
                     <?php
-                            if ($showComment) {
-                              $total = 0;
-                              foreach ($showComment as $cmt) {
-                                  $total += $cmt['rating'];
-                              }
-                              $total = number_format(($total / count($showComment)), 2);
-                              echo $total;
-                          } else {
-                              echo 0;
-                          }
-                          ?></b><span>/5</span>
+                            if (count($showComment)!=0) {
+                                $total = 0;
+                                foreach ($showComment as $cmt) {
+                                    $total += $cmt['rating'];
+                                }
+                                $total = number_format(($total / count($showComment)), 2);
+                                echo $total;
+                            } else {
+                                echo 0;
+                            }
+                          ?>
+                          </b><span>/5</span>
                     </div>
 										<p id="comment__count-2">Từ <span class="cmt-count" style="display: inline-block">{{count($showComment)}}</span> đánh giá</p>
 									</div>
@@ -420,7 +421,7 @@
 											<div class="review-box-score">
 												<div class="review-score">
                           <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                   $total += $cmt['rating'];
@@ -443,9 +444,9 @@
 												<div class="item">
 													<div class="label">Tuyệt vời</div>
 													<div class="progress">
-                            
+
 														<div class="percent green" style="width:  <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                 if($cmt['rating'] === 5) {
@@ -477,7 +478,7 @@
 														<div
 															class="percent darkgreen"
 															style="width: <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                 if($cmt['rating'] === 4) {
@@ -508,7 +509,7 @@
 														<div
 															class="percent yellow"
 															style="width: <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                 if($cmt['rating'] === 3) {
@@ -537,7 +538,7 @@
 													<div class="label">Tệ</div>
 													<div class="progress">
 														<div class="percent orange" style="width: <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                 if($cmt['rating'] === 2) {
@@ -565,7 +566,7 @@
 													<div class="label">Rất tệ</div>
 													<div class="progress">
 														<div class="percent red" style="width: <?php
-                            if ($showComment) {
+                            if (count($showComment)!=0) {
                               $total = 0;
                               foreach ($showComment as $cmt) {
                                 if($cmt['rating'] === 1) {
@@ -612,7 +613,7 @@
                         <div class="rate" style="margin:5px 0 0; color:#ffc700">
                           @for ($i = 1; $i <= $c->rating; $i++)
                             <i class="fa fa-star" ></i>
-                          @endfor  
+                          @endfor
                         </div>
                         </div>
                       </div>
