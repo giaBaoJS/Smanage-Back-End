@@ -81,56 +81,67 @@ $(window).on('load', function () {
 
 	/** YEARLY - CHART */
 	if ($('#yearly-sale-chart').length) {
-		const options = {
-			chart: {height: 330, type: 'area', toolbar: {show: !1}},
-			colors: ['#3051d3', '#e4cc37'],
-			dataLabels: {enabled: false},
-			// gọi ajax để lấy dữ liệu
-			series: [
-				{name: '2018', data: [41, 47, 32, 75, 63, 35, 42, 20, 6, 15, 27, 39]},
-				{name: '2019', data: [35, 41, 62, 45, 14, 18, 29, 57, 28, 49, 35, 27]},
-			],
-			grid: {yaxis: {lines: {show: !1}}},
-			stroke: {width: 3, curve: 'stepline'},
-			markers: {size: 5},
-			xaxis: {
-				categories: [
-					'Tháng một',
-					'Tháng hai',
-					'Tháng ba',
-					'Tháng tư',
-					'Tháng năm',
-					'Tháng sáu',
-					'Tháng bảy',
-					'Tháng tám',
-					'Tháng chín',
-					'Tháng mười',
-					'Tháng mười một',
-					'Tháng mười hai',
-				],
-				title: {text: 'Tháng'},
-			},
-			fill: {
-				type: 'gradient',
-				gradient: {
-					shadeIntensity: 1,
-					opacityFrom: 0.7,
-					opacityTo: 0.9,
-					stops: [0, 90, 100],
-				},
-			},
-			legend: {
-				position: 'top',
-				horizontalAlign: 'right',
-				floating: !0,
-				offsetY: -25,
-				offsetX: -5,
-			},
-		};
-		(chart = new ApexCharts(
-			document.querySelector('#yearly-sale-chart'),
-			options
-		)).render();
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/admin/chart",
+            type: "get",
+            success: function (data) {
+                var text=[data[1],data[2],data[3],data[4],data[5],data[6],data[7],data[8],data[9],data[10],data[11],data[12]];
+                const options = {
+                    chart: {height: 330, type: 'area', toolbar: {show: !1}},
+                    colors: ['#3051d3', '#e4cc37','#e9cc99','#CD853F','#191970'],
+                    dataLabels: {enabled: false},
+                    // gọi ajax để lấy dữ liệu
+                    series: [
+                        {name: '2018', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+                        {name: '2019', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+                        {name: '2020', data: text},
+                        // {name: '2021', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+
+                    ],
+                    grid: {yaxis: {lines: {show: !1}}},
+                    stroke: {width: 3, curve: 'stepline'},
+                    markers: {size: 5},
+                    xaxis: {
+                        categories: [
+                            'Tháng 1',
+                            'Tháng 2',
+                            'Tháng 3',
+                            'Tháng 4',
+                            'Tháng 5',
+                            'Tháng 6',
+                            'Tháng 7',
+                            'Tháng 8',
+                            'Tháng 9',
+                            'Tháng 10',
+                            'Tháng 11',
+                            'Tháng 12',
+                        ],
+                        title: {text: 'Thống kê theo tháng'},
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.9,
+                            stops: [0, 90, 100],
+                        },
+                    },
+                    legend: {
+                        position: 'top',
+                        horizontalAlign: 'right',
+                        floating: !0,
+                        offsetY: -25,
+                        offsetX: -5,
+                    },
+                };
+                (chart = new ApexCharts(
+                    document.querySelector('#yearly-sale-chart'),
+                    options
+                )).render();
+            }
+        });
+
 	}
 	/** YEARLY - CHART - END */
 
@@ -304,7 +315,7 @@ $(".group-my-btn .mybtn.tab2").click(function (e) {
 	$(".group-forms.tab2 ").removeClass("active");
 });
 
-//Trở lại tab 1 từ tab2 
+//Trở lại tab 1 từ tab2
 
 $(".group-my-btn .mybtn.tab2-ql").click(function (e) {
 	$(".add-form-tours .items").removeClass("active");
@@ -319,3 +330,14 @@ $(".group-my-btn .mybtn.tab3").click(function (e) {
 	$(".group-forms.tab2 ").addClass("active");
 	$(".group-forms.tab3 ").removeClass("active");
 });
+function formatNumber(nStr, decSeperate, groupSeperate) {
+    nStr += '';
+    x = nStr.split(decSeperate);
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+    }
+    return x1 + x2;
+}

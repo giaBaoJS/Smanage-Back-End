@@ -811,7 +811,7 @@
 										</div>
 									</div>
 
-									<div class="widget-box">
+                                    <div class="widget-box">
 										<h4 class="heading">Đối tác cung cấp</h4>
 										<div class="media">
 											<div class="media-left">
@@ -822,7 +822,7 @@
 														alt="avatar"
 														width="60"
 														height="60"
-														src="{{asset('BackEnd/assets/images/users')}}/{{$infoPartner->url_avatar}}"
+														src="{{asset('BackEnd/assets/images')}}/{{$infoPartner->url_avatar}}"
 														class="avatar avatar-96 photo origin round"
 													/>
 												</a>

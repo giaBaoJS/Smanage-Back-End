@@ -1,4 +1,13 @@
 jQuery(document).ready(function ($) {
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/admin/setpremium",
+            type: "get",
+        }).done(function (ketqua) {
+            console.log(ketqua, "ưewe");
+        });
+        kiemtraDoiTac();
+    });
     $(".tour-dt__program .item, .tour-dt__faq .item").each(function () {
         $(this)
             .find(".item-header")
@@ -14,6 +23,17 @@ jQuery(document).ready(function ($) {
                 $(this).parent().siblings().removeClass("--active");
             });
     });
+    //KIỂM TRA ĐỐI TÁC
+function kiemtraDoiTac() {
+    doitac = $("#chucnang").val();
+    if (doitac == 1) {
+        $("#doitac").css('display','block');
+    } else {
+        $("#doitac").css('display','none');
+    }
+}
+
+//KIỂM TRA ĐỐI TÁC
     /** SHOW PASSWORD */
     // $(document).on("click", ".eyes-psw", function () {
     //     $(this).find("i").toggleClass("fa-eye fa-eye-slash");
@@ -580,6 +600,20 @@ $('#checkPass').click(function () {
             success: function (params) {
                 if (params==1) {
                     window.location.href = "/thanh-toan-3";
+                }else{
+                    Swal.fire({
+                        title: 'Thông bào?',
+                        text: "Bạn chưa hoàn tất thủ tục đặt tour!",
+                        icon: 'warning',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Tiếp tục',
+                        confirmButtonText: 'Trở về trang tour'
+                      }).then((result) => {
+                        window.location.href = "/thanh-toan-3";
+                      })
+
                 }
             },
         });

@@ -103,7 +103,7 @@ class homeController extends Controller
       return view('front-end/pages/checkout/form-checkout',['showT'=>$showT,'qty'=>$quantity]);
     }
     public function checkoutTwo(Request $request) {
-        $showT=tour::find($request->id_tour);
+            $showT=tour::find($request->id_tour);
         $showBill=$request;
         if ($request->id_coupon) {
            $id_coupon=$request->id_coupon;
@@ -120,6 +120,7 @@ class homeController extends Controller
             'id_user' => session('account')->id_user,
             'id_coupon' => $id_coupon,
             'quantity_adults' => $request->quantity_adults,
+            'id_doitac' => $request->id_doitac,
             'quantity_children' => $request->quantity_children,
             'note' => $request->note,
             'total_price' =>$total,
@@ -127,18 +128,23 @@ class homeController extends Controller
         bill::create($data);
         $kt=array(
             'checkBill'=>1,
-        );
-        session(['stepCheckout'=>$kt]);
-      return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
+          );
+        session(['stepBill'=>$kt]);
+        return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
     }
     public function checkoutThree() {
-        $showPayment=payment::all();
-        $showT=bill::orderby('id_bill','desc')->join('tours','bill.id_tour','=','tours.id_tour')->limit(1)->first();
-      return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment]);
+        if (session('stepCheckout')) {
+            $showPayment=payment::all();
+            $showT=bill::orderby('id_bill','desc')->join('tours','bill.id_tour','=','tours.id_tour')->limit(1)->first();
+            return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment]);
+        }else{
+            return redirect('/tours');
+        }
     }
     public function checkoutFour(Request $request) {
         if (session('stepCheckout')) {
             $request->session()->forget('stepCheckout');
+            $request->session()->forget('stepBill');
             return view('front-end/pages/checkout/finish-checkout');
         } else {
             return redirect('/tours');
@@ -220,9 +226,9 @@ class homeController extends Controller
           ->where('id_tour', '=' , $id)
           ->first();
       $schedule = schedule::where('id_tour','=', $id)->first() ;
-      $infoPartner = doitacTable::join('user','user.id_doitac','=','doitac.id_doitac')
-          ->select('doitac.*','user.url_avatar','user.role')
-          ->where([['user.role','=','1'],['doitac.id_doitac','=', $toursDetail->id_doitac]])
+      $infoPartner = doitacTable::join('user','doitac.id_doitac','=','user.id_doitac')
+        ->select('doitac.name','user.url_avatar')
+          ->where('doitac.id_doitac','=', $toursDetail->id_doitac)
           ->first();
       $showComment=comment_tour::join('user','user.id_user','=','comment_tour.id_user')
           ->select('user.url_avatar','user.name','comment_tour.created_at','comment_tour.content','comment_tour.rating')

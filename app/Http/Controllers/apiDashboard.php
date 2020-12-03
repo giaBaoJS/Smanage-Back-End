@@ -7,12 +7,15 @@ use App\couponTable;
 use App\doitacTable;
 use App\tintucTable;
 use App\gallerytable;
+use App\bill;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Mail;
 use Session;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Constraint\Count;
+
 class apiDashboard extends Controller
 {
     function addAccount(Request $request)
@@ -89,7 +92,6 @@ class apiDashboard extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ];
-
         if (Auth::attempt($data)) {
             if (Auth::check()) {
                 if (Auth::check()) {
@@ -137,9 +139,7 @@ class apiDashboard extends Controller
     public function setPremium()
     {
         $showUser=UserTable::all();
-        $u="";
         for ($i=0; $i < count($showUser); $i++) {
-           $u.="số".$showUser[$i]['name'];
             $dayEnd = strtotime( Carbon::now());
             $dayStart =strtotime($showUser[$i]['created_at']);
             $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
@@ -149,6 +149,19 @@ class apiDashboard extends Controller
                 $user->save();
             }
         };
+        $showCoupon=couponTable::all();
+        for ($y=0; $y < count($showCoupon); $y++) {
+            if ($showCoupon[$y]['quantity']==0) {
+                $showCouponDt=couponTable::find($showCoupon[$y]['id_coupon']);
+                  $showCouponDt->status=0;
+                  $showCouponDt->save();
+            }
+            $date_start = explode("-", $showCoupon[$y]['date_start']);
+            $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
+            $dayStart =strtotime(date('d/m/Y',strtotime($date_start[1])));
+            return $dayStart;
+        }
+
     }
     // coupon -----------------
 
@@ -157,7 +170,79 @@ class apiDashboard extends Controller
         couponTable::find($id)->delete();
         return 1;
     }
-
+    public function chart()
+    {
+        $showBill=bill::where('id_doitac','=',session('account')->id_doitac)->get();
+        $day1=0;
+        $day2=0;
+        $day3=0;
+        $day4=0;
+        $day5=0;
+        $day6=0;
+        $day7=0;
+        $day8=0;
+        $day9=0;
+        $day10=0;
+        $day11=0;
+        $day12=0;
+        foreach ($showBill as $t) {
+            $dayStart =date('m',strtotime($t->created_at));
+            if ($dayStart==1) {
+                $day1=$day1+$t->total_price;
+            }
+            if ($dayStart==2) {
+                $day2=$day2+$t->total_price;
+            }
+            if ($dayStart==3) {
+                $day3=$day3+$t->total_price;
+            }
+            if ($dayStart==3) {
+                $day3=$day3+$t->total_price;
+            }
+            if ($dayStart==4) {
+                $day4=$day4+$t->total_price;
+            }
+            if ($dayStart==5) {
+                $day5=$day5+$t->total_price;
+            }
+            if ($dayStart==6) {
+                $day6=$day6+$t->total_price;
+            }
+            if ($dayStart==7) {
+                $day7=$day7+$t->total_price;
+            }
+            if ($dayStart==8) {
+                $day8=$day8+$t->total_price;
+            }
+            if ($dayStart==9) {
+                $day9=$day9+$t->total_price;
+            }
+            if ($dayStart==10) {
+                $day10=$day10+$t->total_price;
+            }
+            if ($dayStart==11) {
+                $day11=$day11+$t->total_price;
+            }
+            if ($dayStart==12) {
+                $day12=$day12+$t->total_price;
+            }
+        }
+        $chart=[
+            '1'=>$day1,
+            '2'=>$day2,
+            '3'=>$day3,
+            '4'=>$day4,
+            '5'=>$day5,
+            '6'=>$day6,
+            '7'=>$day7,
+            '8'=>$day8,
+            '9'=>$day9,
+            '10'=>$day10,
+            '11'=>$day11,
+            '12'=>$day12,
+        ];
+        return $chart;
+    }
     // coupon -----------------
     // coupon -----------------
 

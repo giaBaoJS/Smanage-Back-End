@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bill;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Cookie;
@@ -18,7 +19,7 @@ use App\tintucTable;
 use App\doitacTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-
+use Carbon\Carbon;
 class dashboardController extends Controller
 {
     public function login()
@@ -96,7 +97,22 @@ class dashboardController extends Controller
     }
     public function index()
     {
-        return view('admin/page/home');
+        $showBill=bill::where('id_doitac','=',session('account')->id_doitac)->get();
+        $showBillUser=bill::join('user','bill.id_user','=','user.id_user')->where('bill.id_doitac','=',session('account')->id_doitac)->get();
+        $totalBill=count($showBill);
+        $totalPrice=0;
+        $totalDay=0;
+        $dayEnd = strtotime(date('d/m/Y',strtotime(Carbon::now())));
+        $chart=[];
+        foreach ($showBill as $t) {
+            $dayStart =strtotime(date('d/m/Y',strtotime($t->created_at)));
+            if ($dayEnd==$dayStart) {
+                $totalDay=$totalDay+$t->total_price;
+            }
+            array_push($chart,$t->total_price);
+            $totalPrice=$totalPrice+$t->total_price;
+        }
+        return view('admin/page/home',['totalBill'=>$totalBill,'totalPrice'=>$totalPrice,'totalDay'=>$totalDay,'showBill'=>$showBillUser]);
     }
 
     // Page404 ---------------------------------->

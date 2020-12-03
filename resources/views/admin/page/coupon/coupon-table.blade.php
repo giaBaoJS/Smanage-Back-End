@@ -31,7 +31,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Nhà cung cấp</th>
                                     <th scope="col">Mã Coupon</th>
-                                    <th scope="col">Ngày bắt đầu</th>
+                                    <th scope="col">Ngày bắt đầu - Ngày kết thúc</th>
                                     <th scope="col">Giá trị</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Trạng thái</th>
@@ -56,8 +56,8 @@
                                     <td>
                                         @if ($t->status==0)
                                         <div class="badge badge-soft-danger">
-                                            Chưa kích hoạt
-                                        </div>
+                                            Hết hạn
+                                         </div>
                                         @else
                                         <div class="badge badge-soft-success">
                                             Đang hoạt động
@@ -70,9 +70,9 @@
                                             Hủy
                                         </a>
                                         @else
-                                    <a href="/admin/activecoupon/{{$t->id_coupon}}" class="btn btn-success btn-sm waves-effect waves-light" style="padding: 2px">
-                                            Kích hoạt
-                                        </a>
+                                        <div class="badge badge-soft-danger">
+                                            None
+                                         </div>
                                         @endif
                                     </td>
                                     <td>

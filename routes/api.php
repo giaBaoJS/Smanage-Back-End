@@ -45,7 +45,7 @@ Route::GET('admin/editgallery/{id}','apiDashboard@editgallery');
 Route::GET('admin/delnews/{id}','apiDashboard@delNews');
 Route::GET('admin/editnews/{id}','apiDashboard@editNews');
 // -----------------news---------------
-
+Route::GET('admin/chart','apiDashboard@chart');
 
 
 //END admin

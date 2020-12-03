@@ -62,7 +62,7 @@ Route::get('/tin-tuc/dt/{id}','homeController@newsDetail');
 // CHECKOUT
 Route::post('/thanh-toan-1','homeController@checkoutOne');
 Route::post('/thanh-toan-2','homeController@checkoutTwo');
-Route::get('/thanh-toan-3','homeController@checkoutThree')->middleware('CheckBill');
+Route::get('/thanh-toan-3','homeController@checkoutThree');
 Route::get('/thanh-toan-4','homeController@checkoutFour');
 // CHECKOUT - END
 

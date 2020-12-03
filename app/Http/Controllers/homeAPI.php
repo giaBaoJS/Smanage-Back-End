@@ -613,14 +613,20 @@ class homeAPI extends Controller
   {
       $showCouponOne=couponTable::where('code_coupon','=',$request->name_code)->first();
      if ($showCouponOne) {
-        $date_start = explode("-", $showCouponOne->date_start);
-        $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
-        $dayStart =strtotime(date('d/m/Y',strtotime($date_start[1])));
-          if ($dayEnd>$dayStart && $showCouponOne->quantity!=0) {
-              return 1;
-          } else {
-              return $showCouponOne;
-          }
+        // $date_start = explode("-", $showCouponOne->date_start);
+        // $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
+        // $dayStart =strtotime(date('d/m/Y',strtotime($date_start[1])));
+        //   if ($dayEnd>$dayStart && $showCouponOne->quantity!=0) {
+        //       return 1;
+        //   } else {
+        //       return $showCouponOne;
+        //   }
+        if ($showCouponOne->status==0) {
+            return 1;
+        }else{
+            return $showCouponOne;
+        }
+
      }else{
         return 0;
      }
@@ -629,20 +635,29 @@ class homeAPI extends Controller
   //Passenger
   public function addPassenger(Request $request)
   {
-    $showBill=bill::orderby('id_bill','desc')->limit(1)->first();
-      foreach ($request->mang as $t) {
-        $data = array(
-            'id_bill' => $showBill->id_bill,
-            'name_passenger' => $t['name_passenger'],
-            'address_passenger' => $t['address_passenger'],
-            'phone_passenger' => $t['phone_passenger'],
-            'gender_passenger' => $t['gender_passenger'],
-            'country_passenger' => $t['country_passenger'],
-            'passport_passenger' => $t['passport_passenger'],
-        );
-        passenger::create($data);
+      if (!session('stepCheckout')) {
+        $showBill=bill::orderby('id_bill','desc')->limit(1)->first();
+        foreach ($request->mang as $t) {
+          $data = array(
+              'id_bill' => $showBill->id_bill,
+              'name_passenger' => $t['name_passenger'],
+              'address_passenger' => $t['address_passenger'],
+              'phone_passenger' => $t['phone_passenger'],
+              'gender_passenger' => $t['gender_passenger'],
+              'country_passenger' => $t['country_passenger'],
+              'passport_passenger' => $t['passport_passenger'],
+          );
+          passenger::create($data);
+          $kt=array(
+            'checkBill'=>1,
+          );
+        session(['stepCheckout'=>$kt]);
+        }
+        return 1;
+      }else{
+        return 0;
       }
-      return 1;
+
   }
   public function addPayment(Request $request)
   {
