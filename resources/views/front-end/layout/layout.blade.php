@@ -136,33 +136,21 @@
               alt=""
           /></a>
           <div class="row">
-            <div class="col-md-3">
-              <h3>Miền Bắc</h3>
-              <ul class="list-mien">
-                <li><a href="#">Hà Nội</a></li>
-                <li><a href="#">Hạ Long</a></li>
-                <li><a href="#">Spa</a></li>
-                <li><a href="#">Ninh Bình</a></li>
-              </ul>
-            </div>
-            <div class="col-md-3">
-              <h3>Miền Bắc</h3>
-              <ul class="list-mien">
-                <li><a href="#">Hà Nội</a></li>
-                <li><a href="#">Hạ Long</a></li>
-                <li><a href="#">Spa</a></li>
-                <li><a href="#">Ninh Bình</a></li>
-              </ul>
-            </div>
-            <div class="col-md-3">
-              <h3>Miền Bắc</h3>
-              <ul class="list-mien">
-                <li><a href="#">Hà Nội</a></li>
-                <li><a href="#">Hạ Long</a></li>
-                <li><a href="#">Spa</a></li>
-                <li><a href="#">Ninh Bình</a></li>
-              </ul>
-            </div>
+              @foreach ($showMien as $m)
+                <div class="col-md-3">
+                <h3>{{$m->name_mien}}</h3>
+            <?php 
+                $showTinh=DB::table('tinh')->where('id_mien','=',$m->id_mien)->get();
+            ?>
+                    <ul class="list-mien">
+                        <?php 
+                                foreach ($showTinh as $t) {
+                                    echo '<li><a href="#">'.$t->name_tinh.'</a></li>';
+                                }
+                        ?>
+                    </ul>
+                </div>
+              @endforeach
             <div class="col-md-3">
               <h3>Mạng xã hội</h3>
               <ul class="list-icon-social">

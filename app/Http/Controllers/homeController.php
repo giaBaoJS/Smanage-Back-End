@@ -27,18 +27,23 @@ use Illuminate\Support\Facades\Hash;
 
 class homeController extends Controller
 {
+    public $showMien;
+    function __construct(){
+        $this->showMien=mien::all();
+    }
     // HOME
     public function index()
     {
         $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
         $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(4)->get();
-        $showMien=mien::all();
-        return view('front-end/home',['showMien'=>$showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
+        
+
+        return view('front-end/home',['showMien'=>$this->showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
     // PAGE 404 ---------------------------------->
     public function notfound()
     {
-        return view('front-end/pages/404');
+        return view('front-end/pages/404',['showMien'=>$this->showMien]);
     }
     // AUTH
     public function login() {
@@ -52,22 +57,22 @@ class homeController extends Controller
           $user = userTable::where('email', '=', $email)->update(['active'=>0]);
         }
       }
-      return view('front-end/auth/login');
+      return view('front-end/auth/login',['showMien'=>$this->showMien]);
     }
     public function register() {
        if(Session::has('account')) {
         return redirect('/');
       }
-      return view('front-end/auth/register');
+      return view('front-end/auth/register',['showMien'=>$this->showMien]);
     }
     public function changePsw() {
-      return view('front-end/auth/change-psw');
+      return view('front-end/auth/change-psw',['showMien'=>$this->showMien]);
     }
     public function forgotPsw() {
       if(Session::has('account')) {
         return redirect('/');
       }
-      return view('front-end/auth/forgot-psw');
+      return view('front-end/auth/forgot-psw',['showMien'=>$this->showMien]);
     }
     public function changeForgotPsw() {
       if($_GET && $_GET['email'] && $_GET['token']) {
@@ -77,7 +82,7 @@ class homeController extends Controller
         $isExpired = $user->expired;
         $isSameToken = Hash::check($token, $user->token);
         if ($isExpired > date('U') || $isSameToken ) {
-          return view('front-end/auth/change-forgot-psw');
+          return view('front-end/auth/change-forgot-psw',['showMien'=>$this->showMien]);
         }
         return redirect('/');
       } else {
@@ -86,11 +91,11 @@ class homeController extends Controller
     }
     public function updateAccount() {
       $user = userTable::where('email', '=', Session::get('account')->email)->first();
-      return view('front-end/auth/update', ['user'=>$user]);
+      return view('front-end/auth/update', ['user'=>$user,'showMien'=>$this->showMien]);
     }
     public function history() {
       $bill = bill::where('id_user','=',session('account')->id_user)->get();
-      return view('front-end/auth/history',['bill'=>$bill]);
+      return view('front-end/auth/history',['bill'=>$bill,'showMien'=>$this->showMien]);
     }
     // AUTH - END
     // CHECKOUT
@@ -100,7 +105,7 @@ class homeController extends Controller
             'qty_adult'=>$request->adult_number,
             'qty_child'=>$request->child_number
         );
-      return view('front-end/pages/checkout/form-checkout',['showT'=>$showT,'qty'=>$quantity]);
+      return view('front-end/pages/checkout/form-checkout',['showT'=>$showT,'qty'=>$quantity,'showMien'=>$this->showMien]);
     }
     public function checkoutTwo(Request $request) {
             $showT=tour::find($request->id_tour);
@@ -130,13 +135,13 @@ class homeController extends Controller
             'checkBill'=>1,
           );
         session(['stepBill'=>$kt]);
-        return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT]);
+        return view('front-end/pages/checkout/form-detail-checkout',['showBill'=>$showBill,'showT'=>$showT,'showMien'=>$this->showMien]);
     }
     public function checkoutThree() {
         if (session('stepCheckout')) {
             $showPayment=payment::all();
             $showT=bill::orderby('id_bill','desc')->join('tours','bill.id_tour','=','tours.id_tour')->limit(1)->first();
-            return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment]);
+            return view('front-end/pages/checkout/pay-checkout',['showT'=>$showT,'showPayment'=>$showPayment,'showMien'=>$this->showMien]);
         }else{
             return redirect('/tours');
         }
@@ -145,7 +150,7 @@ class homeController extends Controller
         if (session('stepCheckout')) {
             $request->session()->forget('stepCheckout');
             $request->session()->forget('stepBill');
-            return view('front-end/pages/checkout/finish-checkout');
+            return view('front-end/pages/checkout/finish-checkout',['showMien'=>$this->showMien]);
         } else {
             return redirect('/tours');
         }
@@ -153,16 +158,16 @@ class homeController extends Controller
     }
     // CHECKOUT - END
     public function about() {
-      return view('front-end/pages/about');
+      return view('front-end/pages/about',['showMien'=>$this->showMien]);
     }
     public function contact() {
-      return view('front-end/pages/contact');
+      return view('front-end/pages/contact',['showMien'=>$this->showMien]);
     }
     public function partners() {
-      return view('front-end/pages/partners/partners');
+      return view('front-end/pages/partners/partners',['showMien'=>$this->showMien]);
     }
     public function partnersResign() {
-      return view('front-end/pages/partners/partners-resign');
+      return view('front-end/pages/partners/partners-resign',['showMien'=>$this->showMien]);
     }
     public function partnersDetail($id) {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
@@ -193,7 +198,7 @@ class homeController extends Controller
           ->limit(12)
           ->get();
       }
-      return view('front-end/pages/partners/partners-detail',['infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
+      return view('front-end/pages/partners/partners-detail',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
     }
     public function tours() {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
@@ -221,7 +226,7 @@ class homeController extends Controller
           ->get();
       }
       $showComment = comment_tour::all();
-      return view('front-end/pages/tours/tours',['showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
+      return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
     }
     public function toursDetail($id) {
       $toursDetail = tour::join('mien','mien.id_mien','=','tours.id_mien')
@@ -244,7 +249,7 @@ class homeController extends Controller
           ->orderby('id_comment_tour','desc')
           ->limit(4)
           ->get();
-      return view('front-end/pages/tours/tours-detail', ['t' => $toursDetail, 'schedule' => $schedule,'infoPartner'=>$infoPartner,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
+      return view('front-end/pages/tours/tours-detail', ['showMien'=>$this->showMien,'t' => $toursDetail, 'schedule' => $schedule,'infoPartner'=>$infoPartner,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }
     public function searchNews() {
       if($_GET && $_GET['keyword']) {
@@ -254,7 +259,7 @@ class homeController extends Controller
         $showNewsTotal=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->get();
         $showNewsLimit=tintucTable::join('user','news.id_user','=','user.id_user')->select('news.*','user.name','user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->limit(6)->get();
         $showNewsHighlights=tintucTable::orderby('id_news','desc')->limit(3)->get();
-        return view('front-end/pages/news/news',['showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+        return view('front-end/pages/news/news',['showMien'=>$this->showMien,'showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
       }
       return redirect('tin-tuc');
     }
@@ -272,7 +277,7 @@ class homeController extends Controller
           ->limit(3)
           ->get();
       $showComment = comment::all();
-      return view('front-end/pages/news/news',['showComment'=>$showComment,'showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+      return view('front-end/pages/news/news',['showMien'=>$this->showMien,'showComment'=>$showComment,'showNewsTotal'=>$showNewsTotal,'showNewsLimit'=>$showNewsLimit,'showNewsHighlights'=>$showNewsHighlights,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
     public function newsDetail($id) {
         $showMien=mien::all();
@@ -295,9 +300,9 @@ class homeController extends Controller
             ->orderby('id_comment','desc')
             ->limit(4)
             ->get();
-      return view('front-end/pages/news/news-detail',['showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
+      return view('front-end/pages/news/news-detail',['showMien'=>$this->showMien,'showOneNew'=>$showOneNew,'showMien'=>$showMien,'showTinh'=>$showTinh,'showNewsHighlights'=>$showNewsHighlights,'showComment'=>$showComment,'showCommentLimit'=>$showCommentLimit]);
     }
     public function gallery() {
-      return view('front-end/pages/gallery');
+      return view('front-end/pages/gallery',['showMien'=>$this->showMien]);
     }
 }
