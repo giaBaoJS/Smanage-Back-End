@@ -33,6 +33,7 @@ Route::GET('admin/setpremium','apiDashboard@setPremium');
 
 Route::GET('admin/activecoupon','apiDashboard@activeCoupon');
 Route::GET('admin/delcoupon/{id}','apiDashboard@delCoupon');
+Route::GET('admin/checknamecoupon','apiDashboard@checkNameCoupon');
 // -----------------coupon---------------
 
 // -----------------gallery---------------

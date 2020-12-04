@@ -91,13 +91,7 @@
                                         type="submit"
                                         class="btn waves-effect waves-light mr-1 white-cl bg-main-cl"
                                     >
-                                        Thêm
-                                    </button>
-                                    <button
-                                        type="reset"
-                                        class="btn btn-secondary waves-effect"
-                                    >
-                                        Hủy
+                                        Cập nhật
                                     </button>
                                 </div>
                             </div>

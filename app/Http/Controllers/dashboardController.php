@@ -196,6 +196,7 @@ class dashboardController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'date_start' => $request->date_start,
+            'status' => 1,
 
         );
         couponTable::create($data);

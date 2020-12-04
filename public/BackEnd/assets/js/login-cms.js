@@ -130,6 +130,22 @@ function deleteCoupon(id, role) {
     } else {
     }
 }
+
+  $('#checkNameCoupon').click(function(){
+            var form = $("#formCoupon").serialize();
+                $.ajax({
+                url: "http://127.0.0.1:8000/api/admin/checknamecoupon",
+                data:form,
+                success: function (pr) {
+                   if(pr==1){
+                   alertify.error("Mã Coupon Đã Tồn Tại");
+                   return false;
+                   }else{
+                    window.location.href = "/admin/coupon";
+                   }
+                },
+            });
+ });
 // delete Coupon-------------------
 
 //Delete user--------------------------->
@@ -401,4 +417,3 @@ function deleteNews(id) {
     });
 }
 // KIỂM TRA VALIDATE
-

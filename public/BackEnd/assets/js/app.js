@@ -92,6 +92,7 @@ $(window).on('load', function () {
                     dataLabels: {enabled: false},
                     // gọi ajax để lấy dữ liệu
                     series: [
+                        {name: '2017', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
                         {name: '2018', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
                         {name: '2019', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
                         {name: '2020', data: text},

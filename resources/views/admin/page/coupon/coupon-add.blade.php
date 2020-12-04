@@ -22,7 +22,7 @@
                             Tạo coupon tạo ưu đãi cho người dùng
                         </p>
 
-                        <form class="custom-validation" action="/admin/addcoupon" method="POST">
+                        <form id="formCoupon" class="custom-validation">
                             @csrf
                             <div class="form-group">
                                 <label>Mã Coupon</label>
@@ -40,10 +40,11 @@
                                 <label>Giá trị coupon</label>
                                 <div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id="coupon-value"
                                         class="form-control"
                                         name="price"
+                                        max="50"
                                         required
                                         parsley-type="email"
                                         placeholder="1% - 50%"
@@ -80,11 +81,14 @@
                                         placeholder="Nhấp số lượng của coupon"
                                     />
                                 </div>
+                            <input type="hidden" name="id_user" value="{{session('account')->id_user}}">
+                            <input type="hidden" name="id_doitac" value="{{session('account')->id_doitac}}">
                             </div>
                             <div class="form-group mb-0">
                                 <div>
                                     <button
                                         type="submit"
+                                        id="checkNameCoupon"
                                         class="btn waves-effect waves-light mr-1 white-cl bg-main-cl"
                                     >
                                         Thêm

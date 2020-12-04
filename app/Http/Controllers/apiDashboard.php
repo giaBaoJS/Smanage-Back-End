@@ -267,8 +267,29 @@ class apiDashboard extends Controller
     }
 
     // tin tức -----------------
-}
+    //COUPON
+    public function checkNameCoupon(Request $request)
+    {
+        $showCoupon=couponTable::where('code_coupon','=',$request->code_coupon)->get();
+        if(count($showCoupon)>0){
+            return 1;
+        }else{
+            $data = array(
+                'id_user' => $request->id_user,
+                'id_doitac' => $request->id_doitac,
+                'code_coupon' => $request->code_coupon,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'date_start' => $request->date_start,
+                'status' => 1,
+    
+            );
+            couponTable::create($data);
+            return 0;
+        }
+    }
 
+}
 
 
 
