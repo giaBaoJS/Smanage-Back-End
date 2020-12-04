@@ -115,6 +115,107 @@ jQuery(function () {
         }
         return false;
     });
+    $(".user-ajax-update").on("submit", function (e) {
+        e.preventDefault();
+        const $form = $(this);
+        const action = $form.attr("action");
+        const method = $form.attr("method");
+        const inputArr = $form.find(".validate-form-control");
+        let checkValid = true;
+
+        for (let i = 0; i < inputArr.length; i++) {
+            if (validate(inputArr[i]) == false) {
+                showValidate(inputArr[i]);
+                checkValid = false;
+            }
+        }
+        let formData = new FormData();
+        formData.append("phone", $form.find("#phone").val());
+        formData.append("gender", $form.find("#gender").val());
+        formData.append("address", $form.find("#address").val());
+        formData.append("name", $form.find("#name").val());
+        formData.append("email", $form.find("#email").val());
+        formData.append("avatar", $form.find("#avatar")[0].files[0]);
+        // console.log($form.find("#avatar")[0].files[0]);
+        if (checkValid) {
+            $(":submit", $form).attr("disabled", true);
+            $(".loading").addClass("--active");
+            $.ajax({
+                url: action,
+                type: method,
+                dataType: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $(".loading").removeClass("--active");
+                    if (res.success) {
+                        Swal.fire({
+                            title: "Xin chúc mừng",
+                            text: res.message,
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                        });
+                        if (res.redirect) {
+                            setTimeout(function () {
+                                window.location.replace(res.location);
+                            }, 3000);
+                        }
+                    } else {
+                        Swal.fire({
+                            title: "Đã có lỗi",
+                            text: res.message,
+                            icon: "warning",
+                            timer: 1500,
+                        });
+                        if (res.redirect) {
+                            setTimeout(function () {
+                                window.location.replace(res.location);
+                            }, 1500);
+                        }
+                    }
+                    $(":submit", $form).removeAttr("disabled");
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                    console.log(status);
+                    console.log(error);
+                    if (request.status === 422) {
+                        $(".loading").removeClass("--active");
+                        const res = request.responseJSON.errors;
+                        // console.log(res);
+                        for (let key in res) {
+                            //thông báo lỗi chung chung
+                            if (key === "error_field_lg") {
+                                $(".error_field_lg").html(res[key]);
+                            }
+                            if (key === "error_field") {
+                                $(".error_field").html(res[key]);
+                            }
+                            $(`input[name="${key}"]`)
+                                .parent()
+                                .attr("data-validate", res[key]); //gắn thông báo validate lên parent's input
+                            $(`input[name="${key}"]`)
+                                .parent()
+                                .addClass("alert-validate"); //add class to parent's input to show validate
+
+                            setTimeout(function () {
+                                $(
+                                    'input[name="' +
+                                        key.slice(key.indexOf("_") + 1) +
+                                        '"]'
+                                ).val("");
+                            }, 100); //xóa value của input nếu sai validate
+                        }
+                        $(":submit", $form).removeAttr("disabled");
+                    }
+                },
+            });
+        }
+        return false;
+    });
 
     $(".find-bill").on("submit", function (e) {
         e.preventDefault();
