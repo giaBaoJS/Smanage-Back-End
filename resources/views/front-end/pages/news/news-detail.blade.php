@@ -84,7 +84,7 @@
                           <div class="rate" style="margin:5px 0 0; color:#ffc700">
                             @for ($i = 1; $i <= $c->rating; $i++)
                               <i class="fa fa-star" ></i>
-                            @endfor  
+                            @endfor
                           </div>
                           </div>
                         </div>

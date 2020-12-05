@@ -14,6 +14,8 @@ use App\bill;
 use App\tour;
 use App\passenger;
 use App\comment_tour;
+use App\billdoitac;
+use App\doitacTable;
 use App\tinh;
 use App\tintucTable;
 use \App\mailer;
@@ -611,7 +613,7 @@ class homeAPI extends Controller
   //COUPON
   public function checkCoupon(Request $request)
   {
-      $showCouponOne=couponTable::where('code_coupon','=',$request->name_code)->first();
+      $showCouponOne=couponTable::where('code_coupon','=',$request->name_code)->where('id_doitac','=',$request->id_doitac)->first();
      if ($showCouponOne) {
         // $date_start = explode("-", $showCouponOne->date_start);
         // $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
@@ -832,4 +834,324 @@ class homeAPI extends Controller
      $showPass=passenger::where('id_bill','=',$id)->get();
      return $showPass;
   }
+  public function createPartnerDemo(Request $request)
+  {
+    $data = array(
+        'name' =>$request->name,
+        'address_doitac' => $request->diachi,
+        'phone_doitac' => $request->sdt,
+        'email_doitac' => $request->email,
+        'slogan' => $request->slogan,
+    );
+    doitacTable::create($data);
+    $showDoitac=doitacTable::orderby('id_doitac','desc')->first();
+    $userDT=userTable::find(session('account')->id_user);
+    $userDT->id_doitac=$showDoitac->id_doitac;
+    $userDT->created_at=Carbon::now();
+    $userDT->role=1;
+    $userDT->active=1;
+    $userDT->save();
+    $databill = array(
+        'id_doitac' =>$showDoitac->id_doitac,
+        'id_user' => session('account')->id_user,
+        'price_billdoitac' =>0,
+        'catalog_doitac' => $request->catalog_doitac,
+    );
+    billdoitac::create($databill);
+    $email= session('account')->email;
+    $name = session('account')->name;
+    $mail = new mailer;
+    $title = '[GOLDEN TOURS] Đăng ký đối tác thành công';
+    $desc = '<div style="background-color:#f8f8f8;font-family:sans-serif;padding:15px">
+    <div style="max-width:1000px;margin:auto;background:#ffffff">
+      <div style="background-color:#fff;padding:10px 30px;color:#fff;display:flex;border-bottom:1px solid #d4d4d4">
+        <div style="width:70px;margin-top:15px; margin: 0 auto;">
+          <img src="../../assets/images/defaults/logo-1.png" style="height:auto;object-fit:contain;width:150px ;"
+            class="CToWUd">
+        </div>
+      </div>
+      <div style="background-color:#fff;padding:5px 20px;color:#000;border-radius:0px 0px 2px 2px">
+        <div style="padding:35px 15px">
+          <p style="margin:0;font-size:16px; color: #ff0000;"><b>Xin chào quý công ty '.$request['name'].'</b></p>
+          <br>
+          <p style="margin:0;font-size:16px; margin-bottom: 15px;">Cảm ơn quý công ty đã quan tâm và trở thành đối tác của
+            Golden
+            Tours.
+            <span style="font-weight: 500;color: #ff0000;">Bạn đã đăng ký thành công.</span>
+          </p>
+          <p style="margin:0;font-size:16px">Tài khoản của bạn đã được kích hoạt thành tài khoản đối tác, Bạn có 7 ngày để trở thành đối tác của Goldentours.</p>
+          <div style="padding:40px;margin:auto;text-align:center">
+            <a href="#"
+              style="width:fit-content;background-image:linear-gradient(to right,#0ac9db,#e5d25a);color:#fff;font-weight:bold;text-align:center;padding:10px 12px;border-radius:2px;margin:auto;font-size:large;text-decoration:none"
+              target="_blank">Quay lại trang chủ</a>
+          </div>
+          <br>
+          <!-- <p style="margin:0;font-size:16px">Để xem chi tiết đơn hàng của mình tại
+              <a href="pncompany.online" style="text-decoration:none" target="_blank">pncompany.online</a>, bạn có thể
+              <a href="pncompany.online" style="text-decoration:none" target="_blank"><b>nhấn vào đây</b></a>
+            </p> -->
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+        <div style="padding:10px 15px">
+          <h4 style="color:#000">THÔNG TIN TÀI KHOẢN </h4>
+          <!-- <span style="color:#989898">(Ngày đặt ....)</span> -->
+          <div style="padding:0px 30px">
+            <!-- <div style="width:100%">
+              <b>Thông tin thanh toán</b>
+            </div> -->
+            <table style="width:100%">
+              <tbody>
+                <tr>
+                  <td>
+                    <b>Tài khoản: </b>Duytrinh2508
+                  </td>
+                  <td>
+                    <b>Email: </b>
+                    <a style="color: #000; text-decoration: none;" href="#" target="_blank">Duytrinh2508@gmail.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Tình trạng: </b>chưa kích hoạt.
+                  </td>
+                  <td>
+                    <b>Số điện thoại: </b> 0904047470
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Địa chỉ : </b>
+                    666 Nguyễn Văn Quá, Q12, TP Hồ Chí Minh.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+      </div>
+      <div style="clear:both;overflow:hidden;margin-top:15px;padding:40px 30px;background-color:#eee;border-radius:2px">
+        <div style="float:left;width:50%">
+          <ul style="list-style:none;margin:0;padding:0">
+            <li style="margin-bottom:8px;font-size:15px">Fanpage <a style="text-decoration:none; color: #000;"
+                href="#"><b>Goldentours/8845</b></a></li>
+            <li style="margin-bottom:8px;font-size:15px">Website: <a style="text-decoration:none; color: #000;" href="#"
+                target="_blank"><b>Goldentours.com</b></a></li>
+            <li>Số điện thoại: <b>0904047470</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>';
+    if($mail->sendMail($title, $desc, $email) === 1) {
+        return 1;
+      echo json_encode(['success' => true, 'message' => 'Gửi liên hệ thành công. Chúng tôi sẽ liên lạc lại với quý khách sớm nhất. Xin cảm ơn', 'redirect'=> true, 'location' => '/']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => '/lien-he']);
+    }
+  }
+  public function createPartner(Request $request)
+  {
+    $data = array(
+        'name' =>$request->name,
+        'address_doitac' => $request->diachi,
+        'phone_doitac' => $request->sdt,
+        'email_doitac' => $request->email,
+        'slogan' => $request->slogan,
+    );
+    doitacTable::create($data);
+    $showDoitac=doitacTable::orderby('id_doitac','desc')->first();
+    $userDT=userTable::find(session('account')->id_user);
+    $userDT->id_doitac=$showDoitac->id_doitac;
+    $userDT->created_at=Carbon::now();
+    $userDT->role=1;
+    $userDT->active=2;
+    $userDT->save();
+    if ($request->catalog_doitac==1) {
+        $price_billdoitac=500000;
+    } else {
+        $price_billdoitac=5500000;
+    }
+    $databill = array(
+        'id_doitac' =>$showDoitac->id_doitac,
+        'id_user' => session('account')->id_user,
+        'price_billdoitac' =>$price_billdoitac,
+        'catalog_doitac' => $request->catalog_doitac,
+    );
+    billdoitac::create($databill);
+   return 1;
+  }
+    public function paymentPart(Request $request)
+    {
+       $showbill=billdoitac::orderby('id_billdoitac','desc')->first();
+       $showbill->id_payment=$request->id_payment;
+       $showbill->save();
+       $showbillNew=billdoitac::orderby('id_billdoitac','desc')->first();
+    $email= session('account')->email;
+    $name = session('account')->name;
+    $mail = new mailer;
+    $title = '[GOLDEN TOURS] Đăng ký đối tác thành công';
+    $desc = '<div style="background-color:#f8f8f8;font-family:sans-serif;padding:15px">
+    <div style="max-width:1000px;margin:auto;background:#ffffff">
+      <div style="background-color:#fff;padding:10px 30px;color:#fff;display:flex;border-bottom:1px solid #d4d4d4">
+        <div style="width:70px;margin-top:15px; margin: 0 auto;">
+          <img src="../../assets/images/defaults/logo-1.png" style="height:auto;object-fit:contain;width:150px ;"
+            class="CToWUd">
+        </div>
+      </div>
+      <div style="background-color:#fff;padding:5px 20px;color:#000;border-radius:0px 0px 2px 2px">
+        <div style="padding:35px 15px">
+          <p style="margin:0;font-size:16px; color: #ff0000;"><b>Xin chào '.$name.'</b></p>
+          <br>
+          <p style="margin:0;font-size:16px; margin-bottom: 15px;"> Thanh toán thành công: Đối Tác
+            <!-- <span style="font-weight: 500;color: #ff0000;">Bạn đã đăng ký thành công.</span> -->
+          </p>
+          <p style="margin:20px 0px;font-size:16px">- Cảm ơn quý đối tác đã tin tưởng trở thành đối tác của Golden Tours.
+          </p>
+          <p style="margin:20px 0px;font-size:16px">- Nhằm nâng cao tính chuyên nghiệp trong việc hỗ trợ khách hàng, chúng
+            tôi
+            cung cấp mỗi khách hàng đăng ký dịch vụ một "Mã Số khách Hàng" và mật khẩu truy cập để quản lý các dịch vụ mà
+            quý khách đã đăng ký sử dụng tại golden Tours.</p>
+          <p style="margin:20px 0px;font-size:16px">- Website https://goldentours.vn online 24/7 sẽ mang lại thuận tiện
+            cho quý khách trong việc sử dụng và quản lý các dịch vụ đăng ký tại Golden Tours.</p>
+          <div style="padding:40px;margin:auto;text-align:center">
+            <table style="width:100%;border-collapse:collapse; margin-bottom: 20px;">
+              <thead style="color:#ffffff;background:#7376c0;text-align:left">
+                <tr style="padding:8px">
+                  <th style="padding:8px">ID</th>
+                  <th style="padding:8px">Tài khoản</th>
+                  <th style="padding:8px">Email</th>
+                  <th style="padding:8px">Ngày đăng ký</th>
+                  <th style="padding:8px">Ngày hết hạn</th>
+                  <th style="padding:8px">Tổng giá</th>
+
+                </tr>
+              </thead>
+              <tbody style="text-align:left">
+                <tr style="background-color:#eaeaea;border-bottom:1px solid #d4d4d4">
+                  <td style="padding:8px;width:10%">1</td>
+                  <td style="padding:8px;width:15%">'.$name.'</td>
+                  <td style="padding:8px;width:15%">'.$email.'</td>
+                  <td style="padding:8px;width:20%">'.$showbillNew['created_at'].'</td>
+                  <td style="padding:8px;width:20%">20-11-2021</td>
+                  <td style="padding:8px;width:20%">'.number_format($showbillNew['price_billdoitac'],0,'',',').' VNĐ</td>
+                </tr>
+              </tbody>
+
+            </table>
+            <a href="#"
+              style="width:fit-content;background-image:linear-gradient(to right,#0ac9db,#e5d25a);color:#fff;font-weight:bold;text-align:center;padding:10px 12px;border-radius:2px;margin:auto;font-size:large;text-decoration:none"
+              target="_blank">Quay về trang chủ</a>
+          </div>
+          <br>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+        <div style="padding:10px 15px">
+          <h4 style="color:#000">THÔNG TIN TÀI KHOẢN </h4>
+          <!-- <span style="color:#989898">(Ngày đặt ....)</span> -->
+          <div style="padding:0px 30px">
+            <!-- <div style="width:100%">
+              <b>Thông tin thanh toán</b>
+            </div> -->
+            <table style="width:100%">
+              <tbody>
+                <tr>
+                  <td>
+                    <b>Tài khoản: </b>Duytrinh2508
+                  </td>
+                  <td>
+                    <b>Email: </b>
+                    <a style="color: #000; text-decoration: none;" href="#" target="_blank">Duytrinh2508@gmail.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Tình trạng: </b>Đã thanh toán.
+                  </td>
+                  <td>
+                    <b>Số điện thoại: </b> 0904047470
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Địa chỉ : </b>
+                    666 Nguyễn Văn Quá, Q12, TP Hồ Chí Minh.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+        <!-- <div style="padding:10px 15px">
+          <h4 style="color:#8083c5">CHI TIẾT ĐƠN HÀNG</h4>
+          <table style="width:100%;border-collapse:collapse">
+            <thead style="color:#ffffff;background:#7376c0;text-align:left">
+              <tr style="padding:8px">
+                <th style="padding:8px">ID</th>
+                <th style="padding:8px">Sản phẩm</th>
+                <th style="padding:8px">Hình</th>
+                <th style="padding:8px;text-align:left">SL</th>
+                <th style="padding:8px;text-align:right">Giá</th>
+                <th style="padding:8px;text-align:right">Tổng</th>
+              </tr>
+            </thead>
+            <tbody style="text-align:left">
+              <tr style="background-color:#eaeaea;border-bottom:1px solid #d4d4d4">
+                <td style="padding:8px;width:10%">1</td>
+                <td style="padding:8px;width:30%">Rust</td>
+                <td style="padding:8px;width:15%">img</td>
+                <td style="padding:8px;text-align:left;width:5%"><b>1</b></td>
+                <td style="padding:8px;text-align:right;width:20%;white-space:nowrap">279.000 đ</td>
+                <td style="padding:8px;text-align:right;width:20%;white-space:nowrap">279.000 đ</td>
+              </tr>
+            </tbody>
+            <tfoot style="text-align:right">
+              <tr style="background-color:#eaeaea">
+                <td style="padding:8px;text-align:right" colspan="5"><b>Thành tiền</b></td>
+                <td style="padding:8px;text-align:right">279.000 đ</td>
+              </tr>
+              <tr style="background-color:#eaeaea">
+                <td style="padding:8px;text-align:right" colspan="5"><b>Tổng đơn hàng </b></td>
+                <td style="padding:8px;text-align:right">279.000 đ</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div style="padding:40px;margin:auto;text-align:center">
+          <a href="#"
+            style="width:fit-content;background-image:linear-gradient(to right,#9a9ccf,#6e71b6);color:#fff;font-weight:bold;text-align:center;padding:10px 12px;border-radius:2px;margin:auto;font-size:large;text-decoration:none"
+            target="_blank">Tiếp tục mua sắm</a>
+        </div>
+        <div style="border-top:1.5px solid #f1f1f1"></div>
+        <div style="background-color:#fff;padding:5px 20px;color:#000;border-radius:0px 0px 2px 2px">
+          <div style="padding:35px 15px">
+            <p style="margin:0;font-size:16px">Nếu gặp bất cứ vấn đề gì xin hãy phản hồi lại thư này cho chúng tôi biết.
+            </p>
+            <br>
+            <p style="margin:0;font-size:16px">Trân trọng,</p>
+            <p style="margin:0;font-size:16px">Golden Tours</p>
+          </div>
+        </div> -->
+      </div>
+      <div style="clear:both;overflow:hidden;margin-top:15px;padding:40px 30px;background-color:#eee;border-radius:2px">
+        <div style="float:left;width:50%">
+          <ul style="list-style:none;margin:0;padding:0">
+            <li style="margin-bottom:8px;font-size:15px">Fanpage <a style="text-decoration:none; color: #000;"
+                href="#"><b>Goldentours/8845</b></a></li>
+            <li style="margin-bottom:8px;font-size:15px">Website: <a style="text-decoration:none; color: #000;" href="#"
+                target="_blank"><b>Goldentours.com</b></a></li>
+            <li>Số điện thoại: <b>0904047470</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>';
+    if($mail->sendMail($title, $desc, $email) === 1) {
+        return 1;
+      echo json_encode(['success' => true, 'message' => 'Gửi liên hệ thành công. Chúng tôi sẽ liên lạc lại với quý khách sớm nhất. Xin cảm ơn', 'redirect'=> true, 'location' => '/']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => '/lien-he']);
+    }
+    }
 }

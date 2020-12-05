@@ -13,6 +13,11 @@ function validate(input) {
             return false;
         }
     }
+    if ($(input).attr("type") == "text" || $(input).attr("name") == "diachi") {
+        if (!valid_text($(input).val())) {
+            return false;
+        }
+    }
     if ($(input).attr("type") == "phone" || $(input).attr("name") == "phone") {
         if (!valid_phone($(input).val())) {
             return false;

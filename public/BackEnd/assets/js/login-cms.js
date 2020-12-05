@@ -416,4 +416,18 @@ function deleteNews(id) {
         },
     });
 }
+$('#checkMien').change(function () {
+    var id_mien=$(this).val();
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/showtinh/" + id_mien,
+        success:function (t) {
+            var showMien='';
+            t.forEach(s => {
+                showMien +="<option value='"+s.id_tinh+"'>"+s.name_tinh+"</option>";
+            });
+            $('#checkTinh').html(showMien);
+            console.log(t,'dsadsa');
+        }
+    })
+})
 // KIỂM TRA VALIDATE

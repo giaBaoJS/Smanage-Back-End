@@ -155,18 +155,18 @@
                   </ul>
                   @if (session('account'))
                   @if (session('account')->role!=0 && session('account')->active!=0)
-                  <div class="btn-choose">
-                      <a href="#" id="checkpartners">Chọn</a>
-                  </div>
+                    <div class="btn-choose">
+                        <a href="#" id="checkpartners">Chọn</a>
+                    </div>
                   @else
-                  <div class="btn-choose">
-                      <a href="#">Chọn</a>
-                  </div>
+                    <div class="btn-choose">
+                        <a href="/doi-tac-resign-demo">Chọn</a>
+                    </div>
                   @endif
                 @else
-                <div class="btn-choose">
-                    <a href="#">Chọn</a>
-                </div>
+                    <div class="btn-choose">
+                        <a href="/dang-nhap?prev_url=<?= $_SERVER["REQUEST_URI"]?>">Chọn</a>
+                    </div>
                 @endif
                 </div>
               </div>
@@ -194,12 +194,12 @@
                   </div>
                   @else
                   <div class="btn-choose">
-                      <a href="#">Chọn</a>
+                      <a href="/doi-tac-resign">Chọn</a>
                   </div>
                   @endif
                 @else
                 <div class="btn-choose">
-                    <a href="#">Chọn</a>
+                    <a href="/dang-nhap?prev_url=<?= $_SERVER["REQUEST_URI"]?>">Chọn</a>
                 </div>
                 @endif
                 </div>
@@ -227,12 +227,12 @@
                   </div>
                   @else
                   <div class="btn-choose">
-                      <a href="#">Chọn</a>
+                      <a href="/doi-tac-resign">Chọn</a>
                   </div>
                   @endif
                 @else
                 <div class="btn-choose">
-                    <a href="#">Chọn</a>
+                    <a href="/dang-nhap?prev_url=<?= $_SERVER["REQUEST_URI"]?>">Chọn</a>
                 </div>
                 @endif
                 </div>

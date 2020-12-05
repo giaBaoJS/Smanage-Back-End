@@ -483,13 +483,16 @@ class dashboardController extends Controller
     public function toursTable()
     {
         $showTour=tour::all();
-        return view('admin/page/tours/tours-table',['showTour'=>$showTour]);
+        $showTourDT=tour::where('id_doitac','=',session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-table',['showTour'=>$showTour,'showTourDT'=>$showTourDT]);
     }
 
     public function toursAdd()
     {
+        $showMien=mien::all();
+        $showTinh=tinh::where('id_mien','=',1)->get();
         $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon]);
+        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
     public function addTour(Request $request)
     {
@@ -514,6 +517,8 @@ class dashboardController extends Controller
             'id_doitac' => session('account')->id_doitac,
             'time' => $request->time,
             'price' => $request->price,
+            'id_mien' => $request->id_mien,
+            'id_tinh' => $request->id_tinh,
             'price_children' => $request->price_children,
             'name_tour' => $request->name_tour,
             'discount' => $request->discount,
@@ -550,8 +555,10 @@ class dashboardController extends Controller
     public function editTour($id)
     {
         $showTour=tour::find($id);
+        $showMien=mien::all();
+        $showTinh=tinh::where('id_mien','=',1)->get();
         $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour]);
+        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour,'showMien'=>$showMien,'showTinh'=>$showTinh]);
     }
     public function updateTour(Request $request)
     {

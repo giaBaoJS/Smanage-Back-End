@@ -76,7 +76,7 @@
                     ></textarea>
                   </div>
                 <input type="hidden" name="id_tour" value="{{$showT->id_tour}}">
-                <input type="hidden" name="id_doitac" value="{{session('account')->id_doitac}}">
+                <input type="hidden" name="id_doitac" id="id_doitac" value="{{$showT->id_doitac}}">
                 <input type="hidden" name="quantity_adults" value="{{$qty['qty_adult']}}">
                 <input type="hidden" name="quantity_children" value="{{$qty['qty_child']}}">
                 <input type="hidden" name="total_price" value="{{$showT->price*$qty['qty_adult']+$showT->price_children*$qty['qty_child']}}">

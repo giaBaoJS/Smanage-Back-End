@@ -8,6 +8,7 @@ use App\doitacTable;
 use App\tintucTable;
 use App\gallerytable;
 use App\bill;
+use App\tinh;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -139,16 +140,21 @@ class apiDashboard extends Controller
     public function setPremium()
     {
         $showUser=UserTable::all();
+        $show='';
         for ($i=0; $i < count($showUser); $i++) {
-            $dayEnd = strtotime( Carbon::now());
+            $dayEnd = strtotime(Carbon::now());
             $dayStart =strtotime($showUser[$i]['created_at']);
-            $dayDiff=floor(($dayEnd-$dayStart)/(60*60*24));
+            $dayDiff=floor(($dayStart-$dayEnd)/(60*60*24));
             if ($dayDiff>=7 && $showUser[$i]['active']==1) {
                 $user=UserTable::find($showUser[$i]['id_user']);
                 $user->active=0;
                 $user->save();
+                $show.=$showUser[$i]['id_user']." + ".$dayDiff."-------------";
             }
+
+
         };
+        return  $show;
         $showCoupon=couponTable::all();
         for ($y=0; $y < count($showCoupon); $y++) {
             if ($showCoupon[$y]['quantity']==0) {
@@ -159,7 +165,6 @@ class apiDashboard extends Controller
             $date_start = explode("-", $showCoupon[$y]['date_start']);
             $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
             $dayStart =strtotime(date('d/m/Y',strtotime($date_start[1])));
-            return $dayStart;
         }
 
     }
@@ -256,7 +261,11 @@ class apiDashboard extends Controller
        $showGallery= gallerytable::find($id);
         return $showGallery;
     }
-
+    public function showTinh($id)
+    {
+        $showTinh=tinh::where('id_mien','=',$id)->get();
+        return $showTinh;
+    }
     // coupon -----------------
     // tin tức -----------------
 
@@ -282,7 +291,7 @@ class apiDashboard extends Controller
                 'quantity' => $request->quantity,
                 'date_start' => $request->date_start,
                 'status' => 1,
-    
+
             );
             couponTable::create($data);
             return 0;

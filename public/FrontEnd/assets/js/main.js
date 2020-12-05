@@ -514,13 +514,13 @@ $('.checkaccount').click(function () {
 })
 $('#checkcoupon').click(function () {
     var name_code=$('#code_coupon').val();
-
+    var id_doitac=$('#id_doitac').val();
     if (name_code=="") {
         $('#show_erro_cp').html('<span style="color: red;">Mã coupon trống</span>');
     } else {
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/checkcp",
-            data:{name_code:name_code},
+            data:{name_code:name_code,id_doitac:id_doitac},
             success: function (params) {
                 if (params==1) {
                     $('#show_erro_cp').html('<span style="color: red;">Mã coupon đã hết hạn hoặc số lượng sử dụng đạt tối đa</span>');
@@ -690,3 +690,35 @@ $('#checkPass').click(function () {
         }
         return x1 + x2;
     }
+    $('#checkout-part').click(function () {
+        var id_payment = $('#id_payment').val();
+        if (id_payment==undefined) {
+            Swal.fire({
+                title: "Vui lòng chọn phương thức thanh toán",
+                icon: "warning",
+                timer: 2000,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+            return false;
+        }
+        $('#showLoader').html('<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>');
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/paymentpart",
+            type:'get',
+            data:{id_payment:id_payment},
+            success: function (t) {
+               if (t==1) {
+                Swal.fire({
+                    title: "Đăng ký đối tác thành công",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                });
+                window.location.href = "/";
+               }
+            },
+        });
+        return false;
+    })

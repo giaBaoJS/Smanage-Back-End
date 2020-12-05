@@ -36,7 +36,7 @@ class homeController extends Controller
     {
         $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
         $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(4)->get();
-        
+
 
         return view('front-end/home',['showMien'=>$this->showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
@@ -157,14 +157,21 @@ class homeController extends Controller
 
     }
     // CHECKOUT - END
+
     public function about() {
       return view('front-end/pages/about',['showMien'=>$this->showMien]);
     }
     public function contact() {
       return view('front-end/pages/contact',['showMien'=>$this->showMien]);
     }
+
+        //START PARTNERS
     public function partners() {
       return view('front-end/pages/partners/partners',['showMien'=>$this->showMien]);
+    }
+    public function partnersResignDemo()
+    {
+        return view('front-end/pages/partners/partners-resign-demo',['showMien'=>$this->showMien]);
     }
     public function partnersResign() {
       return view('front-end/pages/partners/partners-resign',['showMien'=>$this->showMien]);
@@ -200,6 +207,12 @@ class homeController extends Controller
       }
       return view('front-end/pages/partners/partners-detail',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
     }
+    public function checkOutPart()
+    {
+        $showPayment=payment::all();
+        return view('front-end/pages/partners/partners-checkout',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'showPayment'=>$showPayment]);
+    }
+    //END Part
     public function tours() {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
           ->join('mien','mien.id_mien','=','tours.id_mien')

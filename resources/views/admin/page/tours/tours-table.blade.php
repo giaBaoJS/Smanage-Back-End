@@ -45,7 +45,8 @@
                                     @php
                                         $i=1;
                                     @endphp
-                                    @foreach ($showTour as $t)
+                                    @if (session('account')->role==1)
+                                        @foreach ($showTourDT as $t)
                                     <tr>
                                         <th scope="row">
                                         <a href="#"># {{$i ++}}</a>
@@ -90,6 +91,54 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                    @foreach ($showTour as $t)
+                                    <tr>
+                                        <th scope="row">
+                                        <a href="#"># {{$i ++}}</a>
+                                        </th>
+                                    <td><img width="100px" src="{{asset('BackEnd/assets/images/tours')}}/{{$t->url_img_tour}}" alt=""></td>
+                                        <td>{{$t->name_tour}}</td>
+                                        <td>{{$t->time}}</td>
+                                        <td>{{$t->date_start}}</td>
+                                        <td>{{$t->date_end}}</td>
+                                        <td>@if ($t->vehicle==1)
+                                                Máy bay
+                                            @else
+                                                Xe khách
+                                            @endif</td>
+                                        <td>{{$t->price}}</td>
+                                        <td>{{$t->price_children}}</td>
+                                        <td>{{$t->quantity_limit}}</td>
+                                        <td>{{$t->short_content}}</td>
+                                        <td>
+                                            {{-- <div class="btn-group" role="group">
+                                                <a
+                                                    type="button"
+                                                    href="/admin/edittour/{{$t->id_tour}}"
+                                                    class="btn btn-outline-secondary btn-sm"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Edit"
+                                                >
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a
+                                                    type="button"
+                                            href="/admin/deltour/{{$t->id_tour}}"
+                                                    class="btn btn-outline-secondary btn-sm"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Delete"
+                                                >
+                                                    <i class="mdi mdi-trash-can"></i>
+                                                </a>
+                                            </div> --}}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>

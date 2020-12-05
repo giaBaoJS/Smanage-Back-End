@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="signin">
 					<h1 class="signin-heading">Cung cấp thông tin doanh nghiệp</h1>
-                    <form action="create-part" class="signin-form doitac-ajax-demo">
+                    <form action="create-part-demo" class="signin-form doitac-ajax">
                         @csrf
 						<div class="form-group validate-input" data-validate="Vui lòng nhập tên doanh nghiệp!!">
 							<label for="name" class="form-label">Tên doanh nghiệp</label>
@@ -23,6 +23,7 @@
 									placeholder="Nhập địa chỉ doanh nghiệp"
                                     value=""/>
                         </div>
+                        <input type="hidden" name="catalog_doitac" value="0">
 						<div class="form-group validate-input" data-validate="Vui lòng nhập số điện thoại doanh nghiệp!!">
 							<label for="name" class="form-label">Số điện thoại</label>
 								<input type="number" name="sdt"
@@ -38,14 +39,7 @@
 									id="email"
 									placeholder="Nhập email"
                                     value=""/>
-                        </div>
-                        <div class="form-group validate-input" data-validate="Vui lòng nhập thanh toán!!">
-                            <label for="address" class="form-label">Thanh toán</label>
-                            <select class='form-input validate-form-control' name="catalog_doitac" id="">
-                              <option value="1">1 Tháng</option>
-                              <option value="2">1 Năm</option>
-                            </select>
-                          </div>
+						</div>
                         <div class="form-group validate-input" data-validate="Vui lòng nhập Slogan doanh nghiệp!!">
 							<label for="diachi" class="form-label">Slogan</label>
 								<input type="text" name="slogan"
@@ -53,11 +47,27 @@
 									id="slogan"
 									placeholder="Nhập câu slogan đặc trưng"
                                     value=""/>
-                        </div>
-                        <div>
-                               <button type="submit" class="form-submit"> Xác nhận</button>
-                        </div>
+						</div>
+						<style>
+                            .loaders {
+                                border: 5px solid #f3f3f3; /* Light grey */
+                                border-top: 5px solid #3498db; /* Blue */
+                                border-radius: 50%;
+                                width: 30px;
+                                height: 30px;
+                                animation: spin 2s linear infinite;
+                                float: right;
+                                margin-left: 10px;
+                                }
 
+                                @keyframes spin {
+                                0% { transform: rotate(0deg); }
+                                100% { transform: rotate(360deg); }
+                                }
+                          </style>
+                           <div id="showLoader2">
+                           <button type="submit" class="form-submit">Xác nhận</button>
+                            </div>
 					</form>
 				</div>
 			</div>

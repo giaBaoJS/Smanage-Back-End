@@ -87,7 +87,7 @@
 							<input
 								type="text"
                 class="form-input validate-form-control"
-                maxlength="10" 
+                maxlength="10"
                 id="phone"
                 name="phone"
 								placeholder="0909123123"
@@ -101,7 +101,7 @@
                 <option value="2">Nữ</option>
                 <option value="0">Không công khai</option>
               </select>
-						</div>
+			</div>
 						<div class="form-group validate-input"  data-validate="Địa chỉ không được để trống" style="grid-column: span 2">
 							<label for="address" class="form-label">Địa chỉ (*)</label>
 							<input
@@ -112,7 +112,7 @@
 								placeholder="Địa chỉ"
 							/>
 						</div>
-					
+
 						<button type="submit" class="form-submit">Đăng ký</button>
 					</form>
 					<p class="signin-already">
