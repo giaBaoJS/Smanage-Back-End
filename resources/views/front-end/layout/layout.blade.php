@@ -45,7 +45,7 @@
                 <li class="logined">
                     <a href="{{ url('/') }}">
                     <img
-                        src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
+                         src="{{asset('BackEnd/assets/images/users')}}/{{session('account')->url_avatar}}"
                         width="30px"
                         alt="logo">
                     <span>{{session('account')->name}}</span>
@@ -91,21 +91,22 @@
                   </a>
                 </div>
                 <ul class="main-menu-nav">
-                <li class="login-mobile dropdown">
-                    <!-- <a href="#">Đăng nhập</a> -->
-                    <a href="#">
-                      <span>  <img
-                      src="{{asset('FrontEnd/assets/images/defaults')}}/phuoc.jpg"
-                      width="30px"
-                      alt="logo"> Gia Bảo</span>
-                    </a>
-                    <ul class="submenu">
-                      <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
-                      <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
-                      <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>
-                      <li><a href="#" class="logout">Đăng xuất</a></li>
-                    </ul>
-                  </li>
+                @if (session('account'))
+                    <li class="login-mobile dropdown">
+                      <a href="#">
+                        <span>  <img
+                        src="{{asset('BackEnd/assets/images/users')}}/{{session('account')->url_avatar}}"
+                        width="30px"
+                        alt="logo"> {{session('account')->name}}</span>
+                      </a>
+                      <ul class="submenu">
+                        <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
+                        <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
+                        <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>
+                        <li><a href="#" class="logout">Đăng xuất</a></li>
+                      </ul>
+                    </li>
+                    @endif
                   <li class="{{ request()->is('/') ? 'current-menu-item' : '' }}"><a href="{{ url('/') }}">Trang chủ</a></li>
                   <li class="{{ request()->is('gioi-thieu') ? 'current-menu-item' : '' }}"><a href="{{ url('/gioi-thieu') }}">Giới thiệu</a></li>
                   <li class="{{ request()->is('tours') ? 'current-menu-item' : '' }}">

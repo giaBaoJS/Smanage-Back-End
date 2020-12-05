@@ -45,26 +45,18 @@
 													</div>
 												</div>
 												<ul class="dropdown-place">
-													<li data-value="1"><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Cà mau</span></li>
-													<li><span>Quảng Ngãi</span></li>
-													<li><span>Quảng Bình</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
-													<li><span>Hạ Long</span></li>
-													<li><span>Hà Nội</span></li>
 													<li><span>Hạ Long</span></li>
 													<li><span>Hà Nội</span></li>
 													<li><span>Hồ Chí Minh</span></li>
 													<li><span>Thanh Hóa</span></li>
+													<li><span>Quảng Bình</span></li>
+													<li><span>Quảng Nam</span></li>
+													<li><span>Quảng Ngãi</span></li>
+													<li><span>Đà Nẵng</span></li>
+													<li><span>Tây Ninh</span></li>
+													<li><span>Long An</span></li>
+													<li><span>Cần Giờ</span></li>
+													<li><span>Vũng Tàu</span></li>
 												</ul>
 											</div>
 											<div class="wrapper-items-form">
@@ -294,7 +286,7 @@
 									<a href="#">Bỏ sắp xếp</a>
 								</div>
 								<div class="sort">
-				 					<div class="sl-form mr-3">
+				 					<div class="sl-form">
 										<select name="sources" id="sources" class="custom-selects sources" placeholder="Sắp xếp theo">
 										<option value="1">Giá tăng dần</option>
 										<option value="2">Giá giảm dần</option>

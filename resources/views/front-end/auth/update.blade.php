@@ -6,7 +6,7 @@
 				<div class="signin register">
 					<h1 class="signin-heading">Cập nhật thông tin tài khoản</h1>
 					<form
-						class="signin-form user-ajax"  action="cap-nhat-tai-khoan" method="post" novalidate="novalidate"
+						class="signin-form user-ajax-update"  enctype="multipart/form-data"  action="cap-nhat-tai-khoan" method="post" novalidate="novalidate"
 					>
 						<div class="form-group">
 							<label for="email" class="form-label">Email</label>
@@ -30,7 +30,7 @@
 								value="{{$user->phone}}"
 							/>
 						</div>
-						<div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
+						<div class="form-group  validate-input"  data-validate="Họ tên không đúng định dạng">
 							<label for="name" class="form-label">Tên đầy đủ</label>
 							<input
 								type="text"
@@ -41,24 +41,24 @@
                 value="{{$user->name}}"
 							/>
 						</div>
-
-						<div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
+						<div class="form-group  validate-input" style="margin-bottom: 25px" data-validate="Địa chỉ không đúng định dạng">
 							<label for="address" class="form-label">Địa chỉ</label>
 							<input
 								type="text"
                 name="address"
 								class="form-input validate-form-control"
 								id="address"
-								placeholder="Địa chỉ"
+								placeholder="Địa chỉ "
                 value="{{$user->address}}"
-              />
-            </div>
-            <div class="form-group  validate-input"  data-validate="Số điện thoại không đúng định dạng">
-							<label for="address" class="form-label">Địa chỉ</label>
+							/>
+						</div>
+
+            <div class="form-group" >
+							<label for="avatar" class="form-label">Hình đại diện</label>
 							<input
 								type="file"
                 name="avatar"
-								class="form-input validate-form-control"
+								class="form-input"
 								id="avatar"
               />
 						</div>

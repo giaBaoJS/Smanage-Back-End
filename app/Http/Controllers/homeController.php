@@ -176,6 +176,9 @@ class homeController extends Controller
     public function partnersResign() {
       return view('front-end/pages/partners/partners-resign',['showMien'=>$this->showMien]);
     }
+    public function partnersCheckout() {
+      return view('front-end/pages/partners/partners-checkout',['showMien'=>$this->showMien]);
+    }
     public function partnersDetail($id) {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
           ->join('mien','mien.id_mien','=','tours.id_mien')

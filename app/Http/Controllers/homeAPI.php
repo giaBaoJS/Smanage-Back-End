@@ -444,30 +444,42 @@ class homeAPI extends Controller
         'name' => 'required',
         'phone' => ['required','regex:/^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/','unique:user,phone,' . $account->id_user .',id_user'],
         'gender' => 'nullable',
-        'address' => 'required'
+        'address' => 'required',
       ],
       [
         'required' => ':attribute không được để trống',
         'phone.regex' => ':attribute không hợp lệ',
-        'unique' => ":attribute đã được sử dụng"
+        'unique' => ":attribute đã được sử dụng",
       ],
       [
         'name' => 'Họ và Tên',
         'phone' => 'Số điện thoại',
-        'address' => 'Địa chỉ'
-      ]
+        'address' => 'Địa chỉ',
+        ]
     );
+    
     $newPhone = $request->phone;
     $newGender = $request->gender;
     $newAddress = $request->address;
     $newName = $request->name;
     $email = $request->email;
+    $path = '';
+    $file = $request->avatar;
+
+    if ($file !== 'undefined') {
+      $path = $file->getClientOriginalName();
+      $file->move('BackEnd/assets/images/users/', $path);
+    } else {
+      $path=  $account->url_avatar ? $account->url_avatar : 'user.png';
+    }
     $user = userTable::where('email','=',  $email)->first();
     if($user) {
-      userTable::where('email','=',  $email)->update(['name'=>$newName,'phone'=>$newPhone,'gender'=>$newGender,'address'=>$newAddress]);
+      userTable::where('email','=',  $email)->update(['name'=>$newName,'phone'=>$newPhone,'gender'=>$newGender,'address'=>$newAddress,'url_avatar'=>$path]);
+      $newUser = userTable::where('email','=',  $email)->first();
+      session(['account' => $newUser]);
       echo json_encode(['success' => true, 'message' => 'Quý khách đã cập nhật thành công', 'redirect' => true, 'location' => '/cap-nhat-tai-khoan']);
     } else {
-      echo json_encode(['success' => false, 'message' => 'quý khách không đủ điều kiện thực hiện hành động này', 'redirect' => true, 'location' => '/']);
+      echo json_encode(['success' => false, 'message' => 'Quý khách không đủ điều kiện thực hiện hành động này', 'redirect' => true, 'location' => '/']);
     }
   }
   // LIÊN HỆ
