@@ -49,6 +49,7 @@ Route::post('/lien-he','homeAPI@contactPost');
 // PARTNERS
 Route::get('/doi-tac','homeController@partners');
 Route::get('/doi-tac-resign','homeController@partnersResign');
+Route::get('/doi-tac-checkout','homeController@partnersCheckout');
 Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 // PARTNERS - END
 // TOURS

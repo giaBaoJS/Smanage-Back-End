@@ -4,7 +4,6 @@ jQuery(document).ready(function ($) {
             url: "http://127.0.0.1:8000/api/admin/setpremium",
             type: "get",
         }).done(function (ketqua) {
-            console.log(ketqua, "ưewe");
         });
         kiemtraDoiTac();
     });
@@ -370,6 +369,17 @@ function kiemtraDoiTac() {
             },
         },
     });
+    var mySwiper6 = new Swiper(".swiper-container6", {
+        direction: "horizontal",
+        loop: true,
+        speed:1500,
+        slidesPerView: 1,
+        spaceBetween: 50,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+    });
 });
 
 //Checkbox click
@@ -383,7 +393,7 @@ $("#diemden").focus(function () {
 $(".dropdown-place li").click(function () {
     var data = $(this).attr("data-value");
     var texts = $(this).text();
-    $("#diemden").attr("placeholder", texts);
+    $("#diemden").val(texts);
 });
 $(document).on("click", function (e) {
     if ($(e.target).is("#diemden") === false) {
@@ -690,3 +700,18 @@ $('#checkPass').click(function () {
         }
         return x1 + x2;
     }
+
+
+
+//filter data list diem den
+    $("#diemden").on('keyup', function(){
+        var value = $(this).val().toLowerCase();
+        $(".dropdown-place li").each(function () {
+            if ($(this).text().toLowerCase().search(value) > -1) {
+                $(this).show();
+            }
+            else {
+             $(this).hide();
+            }
+        });
+    })

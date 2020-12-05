@@ -295,7 +295,7 @@ b {
 }
 .wrapper-items-form .dropdown-place {
     overflow: hidden scroll;
-    padding: 10px 0 20px 0;
+    padding: 10px 0 10px 0;
     border-radius: 3px;
     border: 2px solid #c6c6c6;
     max-height: 332px;
@@ -1841,7 +1841,7 @@ footer .copyright p {
 }
 .wrapper-home .about-us .opg {
     position: relative;
-    z-index: 10;
+    z-index: 8;
 }
 .wrapper-home .about-us .img1 {
     position: absolute;
@@ -2055,6 +2055,8 @@ footer .copyright p {
     .item
     input {
     display: block;
+    font-size: 14px;
+    color: #5191fa;
 }
 .wrapper-home
     .banner-home
@@ -2529,7 +2531,7 @@ footer .copyright p {
     font-size: 40px;
     font-weight: 900;
     position: absolute;
-    top: 10px;
+    top: 30px;
     left: 100%;
     display: block;
 }
@@ -2538,7 +2540,7 @@ footer .copyright p {
     font-weight: 900;
     line-height: 1;
     position: absolute;
-    bottom: 8px;
+    bottom: 25px;
     left: 100%;
     display: block;
     text-transform: uppercase;
@@ -2691,6 +2693,8 @@ footer .copyright p {
     }
     .wrapper-home .tours-sale .content .detail .detail-right {
         text-align: center;
+        margin-left: 0;
+
     }
     .wrapper-home .tours-sale .content .detail .detail-right p {
         margin-bottom: 40px;
@@ -3068,6 +3072,8 @@ footer .copyright p {
     flex-grow: 1;
     border: none;
     background: transparent;
+    font-size: 14px;
+    color: #5191fa;
 }
 .search-form .form .wrapper-items-form .item .content input:focus {
     outline: none;
@@ -3138,7 +3144,7 @@ footer .copyright p {
 .search-form .form .wrapper-items-form .dropdown-place {
     display: none;
     overflow: hidden scroll;
-    padding: 10px 0 20px 0;
+    padding: 10px 0 10px 0;
     border-radius: 3px;
     border: 2px solid #c6c6c6;
     max-height: 332px;
@@ -5067,6 +5073,21 @@ body::-webkit-scrollbar {
     padding: 40px 0;
     background-color: #f8f8f8;
 }
+.wrapper-checkout .btn-doitac{
+    display: flex;
+    justify-content: space-between;
+
+}
+.wrapper-checkout .btn-doitac .btn-doitac__items{
+    padding: 15px 20px;
+    background-color: #f1d354;
+    color: #fff;
+    outline: none;
+    appearance: none;
+    border: none;
+    display: block;
+    cursor: pointer;
+}
 .wrapper-checkout .checkout__detail .step-check {
     margin-bottom: 50px;
 }
@@ -5166,21 +5187,25 @@ body::-webkit-scrollbar {
     margin-bottom: 30px;
 }
 .wrapper-checkout .form__client form {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     margin: 0 -10px;
 }
+.wrapper-checkout .form__client form.--reset {
+    display: block;
+    margin: 0;
+}
+
 .wrapper-checkout .form__client form .form__items {
     margin-bottom: 20px;
     padding: 0 10px;
     width: 50%;
 }
+.wrapper-checkout .form__client form.--reset .form__items{
+    width: 100%;
+}
+
 .wrapper-checkout .form__client form .form__items-full {
     width: 100%;
 }
@@ -5996,4 +6021,17 @@ body::-webkit-scrollbar {
 .form-control:focus {
     border-color: #0ac9db;
     box-shadow: none;
+}
+.wrapper-home .wrap-dropdown-place{
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    background-color: white;
+    z-index: 11;
+}
+.wrapper-home .wrap-dropdown-place .dropdown-place{
+    display: none;  
+}
+.wrapper-home .wrap-dropdown-place .dropdown-place.active{
+    display: block;  
 }
