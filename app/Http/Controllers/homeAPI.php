@@ -437,24 +437,48 @@ class homeAPI extends Controller
   // CẬP NHẬT THÔNG TIN TÀI KHOẢN
   public function updateAccountPost(Request $request) {
     $account = Session::get('account');
-    $request->validate(
-      [
-        'name' => 'required',
-        'phone' => ['required','regex:/^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/','unique:user,phone,' . $account->id_user .',id_user'],
-        'gender' => 'nullable',
-        'address' => 'required',
-      ],
-      [
-        'required' => ':attribute không được để trống',
-        'phone.regex' => ':attribute không hợp lệ',
-        'unique' => ":attribute đã được sử dụng",
-      ],
-      [
-        'name' => 'Họ và Tên',
-        'phone' => 'Số điện thoại',
-        'address' => 'Địa chỉ',
-        ]
-    );
+    if($request->avatar !== 'undefined') {
+      $request->validate(
+        [
+          'name' => 'required',
+          'phone' => ['required','regex:/^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/','unique:user,phone,' . $account->id_user .',id_user'],
+          'gender' => 'nullable',
+          'address' => 'required',
+          'avatar' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000'
+        ],
+        [
+          'required' => ':attribute không được để trống',
+          'phone.regex' => ':attribute không hợp lệ',
+          'unique' => ":attribute đã được sử dụng",
+          'mimes' => ":attribute chỉ được sử dụng đuôi 'jpeg,jpg,png,gif'"
+        ],
+        [
+          'name' => 'Họ và Tên',
+          'phone' => 'Số điện thoại',
+          'address' => 'Địa chỉ',
+          'avatar'=>'Hình đại diện'
+          ]
+      );
+    } else {
+      $request->validate(
+        [
+          'name' => 'required',
+          'phone' => ['required','regex:/^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/','unique:user,phone,' . $account->id_user .',id_user'],
+          'gender' => 'nullable',
+          'address' => 'required',
+        ],
+        [
+          'required' => ':attribute không được để trống',
+          'phone.regex' => ':attribute không hợp lệ',
+          'unique' => ":attribute đã được sử dụng",
+        ],
+        [
+          'name' => 'Họ và Tên',
+          'phone' => 'Số điện thoại',
+          'address' => 'Địa chỉ',
+          ]
+      );
+    }
     
     $newPhone = $request->phone;
     $newGender = $request->gender;
@@ -486,7 +510,8 @@ class homeAPI extends Controller
       [
         'name' => 'required',
         'email' => 'required|email',
-        'content' => 'required'
+        'content' => 'required',
+        'phone' => 'required'
       ],
       [
         'required' => ':attribute không được để trống',
@@ -494,16 +519,19 @@ class homeAPI extends Controller
       [
         'name' => 'Họ và Tên',
         'email' => 'Email',
-        'content' => 'Lời nhắn'
+        'phone' => 'Số điện thoại',
+        'content' => 'Lời nhắn',
       ]
     );
     $data = [
       'name' => $request->name,
       'email' => $request->email,
       'content' => $request->content,
+      'phone' => $request->phone,
     ];
     $email= $request->email;
     $name = $request->name;
+    $phone = $request->phone;
     $mail = new mailer;
     $title = '[GOLDEN TOURS] Liên Hệ';
     $desc = '<div style="background-color:#f8f8f8;font-family:sans-serif;padding:15px">
@@ -518,9 +546,9 @@ class homeAPI extends Controller
                     <div style="padding:35px 15px">
                       <p style="margin:0;font-size:16px; color: #ff0000;"><b>Xin chào '.$name.'</b></p>
                       <br>
-                      <p style="margin:0;font-size:16px; margin-bottom: 15px;">Cảm ơn quý khách đã quan tâm đến dịch vụ của Golden Tours.</p>
-                      <p style="margin:0;font-size:16px;">Quý khách đã gửi mail liên hệ với chúng tôi. Chúng tôi sẽ trả lời lại trong thời gian sớm nhất.</p>
-                      <p style="margin:0;font-size:16px;">Nếu có bất kì thắc mắc nào xin vui lòng liên hệ tại <a href="#">đây</a> hoặc số điện thoại 0909123123</p>
+                      <p style="margin:0;font-size:16px; margin-bottom: 15px;">Cảm ơn quý khách đã quan tâm đến dịch vụ của <b>Golden Tours.</b></p>
+                      <p style="margin:0;font-size:16px;">Quý khách đã gửi mail liên hệ với chúng tôi. Chúng tôi sẽ liện hệ với quý khách qua số điện thoại mà quý khách đã cung cấp: <b>'.$phone.'</b> trong thời gian sớm nhất.</p>
+                      <p style="margin:0;font-size:16px;">Nếu có bất kì thắc mắc nào xin vui lòng liên hệ tại <a href="#">đây</a> hoặc số điện thoại <b>0909123123</b></p>
                       <br>
                     </div>
                   </div>
@@ -619,7 +647,22 @@ class homeAPI extends Controller
     $showComment=comment::join('user','user.id_user','=','comment.id_user')->get();
     return [$showNewsLimit, $showComment];
   }
-
+  // TÌM LỊCH SỬ KHÔNG ĐĂNG NHẬP BẰNG SỐ ĐIỆN THOẠI
+  public function findHistoryPost(Request $request) {
+    $user = userTable::where('phone','=',$request->phone)->first();
+    if($user) {
+      $bill = bill::where('id_user','=',$user->id_user)->get();
+      if(count($bill)) {
+        session(['find-history' => $request->phone]);
+        echo json_encode(['success' => true, 'message' => 'Đã tìm ra lịch sử đặt tour', 'redirect'=> true, 'location' => '/lich-su-2']);
+      } else {
+        echo json_encode(['success' => true, 'message' => 'Bạn chưa từng đặt tour tại Golden Tours. Hãy nhanh chóng đặt tour đi nào', 'redirect'=> false, 'location' => '/']);
+      }
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Số điện thoại không chính xác hoặc chưa sử dụng đặt tour', 'redirect'=> false, 'location' => '/']);
+    }
+    // return view('front-end/auth/history',['bill'=>$bill,'showMien'=>$this->showMien]);
+  }
   //COUPON
   public function checkCoupon(Request $request)
   {

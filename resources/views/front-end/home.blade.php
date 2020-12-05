@@ -184,7 +184,7 @@
             <a class="features" href="#">{{$m->name_mien}}</a>
               <hr />
               <div class="detail">
-                <a href="#">Khám phá</a>
+                <a href="/tours/mien/{{$m->id_mien}}">Khám phá {{$m->id_mien}}</a>
               </div>
             </div>
           </div>
@@ -236,416 +236,76 @@
         <h2 class="title">Tour Hot</h2>
         <h3 class="sub-title">Hãy Chọn Ngay</h3>
       </div>
-      <div class="swiper-container2">
+      <div class="swiper-container2" style="padding: 0 15px">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
+          @foreach($showToursLimit as $t)
+            <div class="swiper-slide">
+              <div class="wrapper-tour">
+                <div class="feature-image">
+                  <a href="/tours/dt/{{$t->id_tour}}">
+                    <img
+                      class="w-100 img-fluid"
+                      src="{{asset('BackEnd/assets/images/tours')}}/{{$t->url_img_tour}}"
+                      alt=""
+                  /></a>
+                  <div class="icons">
+                    <a href="#"><i class="fa fa-heart"></i></a>
                   </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
+                  <div class="feature-tour">Đặt nhiều</div>
+                  @if($t->discount > 0)
+                    <div class="sale">- {{$t->discount}}%</div>
+                  @endif
+                </div>
+                <div class="content --custom">
+                  <div class="content-top">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>{{$t->name_tinh}}, {{$t->name_mien}}</h3>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
+                  <a href="/tours/dt/{{$t->id_tour}}">{{$t->name_tour}}</a>
+                  <div class="content-mid">
+                    <ul class="d-flex list-star">
+                      <li><i class="fa fa-star"></i></li>
+                      <li><i class="fa fa-star"></i></li>
+                      <li><i class="fa fa-star"></i></li>
+                      <li><i class="fa fa-star"></i></li>
+                      <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    <span>{{ count(\App\comment_tour::where('id_tour', $t->id_tour)->get()) }} nhận xét</span>
                   </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
+                  <div class="content-bottom ">
+                    <div class="d-flex align-items-center mb-2">
+                      <i class="fas fa-clock"></i>
+                      <span
+                        style="
+                          color: #6f6f6f;
+                          font-size: 14px;
+                          margin-left: 5px;
+                        "
+                        >{{date("d-m-Y", strtotime($t->date_start))}}
+                      </span>
+                      </div>
+                      @if ($t->discount==0)
+                      <div class="d-flex flex-wrap">
+                          <p>
+                            <i class="fas fa-bolt"></i>
+                            <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
+                          </p>
+                                                  </div>
+                      @else
+                      <div class="d-flex flex-wrap">
+                          <p>
+                            <i class="fas fa-bolt"></i>
+                            <b>{{ number_format(($t->price - ($t->price * $t->discount / 100)), 0, '', '.')}} VNĐ</b>
+                          </p>
+                          <del style="padding-left: 5px; font-size: 12px; vertical-align: bottom">{{number_format($t->price, 0, '', '.')}} VNĐ</del>
+                                                  </div>
+                      @endif
+
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="wrapper-tour">
-              <div class="feature-image">
-                <a href="#">
-                  <img
-                    class="w-100 img-fluid"
-                    src="{{asset('FrontEnd/assets/images/defaults/background')}}/bg-duoicung.jpg"
-                    alt=""
-                /></a>
-                <div class="icons">
-                  <a href="#"><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="feature-tour">Đặt nhiều</div>
-                <div class="sale">- 20%</div>
-              </div>
-              <div class="content">
-                <div class="content-top">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <h3>Miền bắc</h3>
-                </div>
-                <a href="#">Hạ Long - Sapa</a>
-                <div class="content-mid">
-                  <ul class="d-flex list-star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>7 nhận xét</span>
-                </div>
-                <div class="content-bottom">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-clock"></i>
-                    <span
-                      style="
-                        color: #6f6f6f;
-                        font-size: 14px;
-                        margin-left: 5px;
-                      "
-                      >3 Ngày 2 Đêm</span
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <i class="fas fa-bolt"></i>
-                    <p>1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -740,32 +400,36 @@
             Chỉ xách balo và đi! Hãy để lại kế hoạch du lịch của bạn cho các
             chuyên gia du lịch!
           </p>
-          <form action="#">
-            <input
-              type="text"
-              class="form-control form-input reset-apperance"
-              placeholder="Họ tên"
-              required
-            />
-            <input
-              type="email"
-              class="form-control form-input reset-apperance"
-              placeholder="Email"
-              required
-            />
-            <input
-              type="text"
-              class="form-control form-input reset-apperance"
-              placeholder="Số điện thoại"
-              required
-            />
-            <textarea
-              name="content"
-              id="contentLH"
-              placeholder="Nội dung"
-              class="form-control form-input reset-apperance"
-              required
-            ></textarea>
+          <form class="user-ajax"  action="lien-he" method="post" novalidate="novalidate">
+            <div class="form-group  validate-input" data-validate="Tên không đúng định dạng">
+              <input
+                type="text"
+                class="form-control validate-form-control"
+                name="name"
+                placeholder="Họ và Tên (*)"
+              />
+            </div>
+            <div class="form-group  validate-input"  data-validate="Email không đúng định dạng">
+              <input
+                type="email"
+                class="form-control validate-form-control"
+                name="email"
+                placeholder="Email của bạn (*)"
+              />
+            </div>
+            <div class="form-group validate-input"  data-validate="Số điện thoại không đúng định dạng">
+                  <input
+                    type="text"
+                    class="form-control validate-form-control"
+                    maxlength="10" 
+                    id="phone"
+                    name="phone"
+                    placeholder="Số điện thoại (*)"
+                  />
+                </div>
+            <div class="form-group  validate-input"   data-validate="Lời nhắn không đúng định dạng">
+              <textarea class="form-control validate-form-control" name="content" id="" cols="30" rows="10" placeholder="Để lại lời nhắn... (*)"></textarea>
+            </div>
             <button
               id="sendLH"
               type="submit"

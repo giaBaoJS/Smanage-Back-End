@@ -36,9 +36,15 @@ class homeController extends Controller
     {
         $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
         $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(4)->get();
-        
+        $showToursLimit = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE()')
+          ->limit(12)
+          ->get();
 
-        return view('front-end/home',['showMien'=>$this->showMien,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
+        return view('front-end/home',['showMien'=>$this->showMien,'showToursLimit'=>$showToursLimit,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
     // PAGE 404 ---------------------------------->
     public function notfound()
@@ -93,9 +99,23 @@ class homeController extends Controller
       $user = userTable::where('email', '=', Session::get('account')->email)->first();
       return view('front-end/auth/update', ['user'=>$user,'showMien'=>$this->showMien]);
     }
+    // TÌM LỊCH SỬ ĐẶT TOUR KHI ĐÃ ĐĂNG NHẬP
     public function history() {
       $bill = bill::where('id_user','=',session('account')->id_user)->get();
       return view('front-end/auth/history',['bill'=>$bill,'showMien'=>$this->showMien]);
+    }
+    public function history2() {
+      $phone = session('find-history');
+      $user = userTable::where('phone','=',$phone)->first();
+      if($user) {
+        $bill = bill::where('id_user','=',$user->id_user)->get();
+        return view('front-end/auth/history',['bill'=>$bill,'showMien'=>$this->showMien]);
+      }
+      return redirect('/');
+    }
+    // FORM TÌM TOUR ĐÃ ĐẶT KHI KHÔNG ĐĂNG NHẬP
+    public function findHistory() {
+      return view('front-end/auth/history-form',['showMien'=>$this->showMien]);
     }
     // AUTH - END
     // CHECKOUT
@@ -201,6 +221,8 @@ class homeController extends Controller
       return view('front-end/pages/partners/partners-detail',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
     }
     public function tours() {
+      $showComment = comment_tour::all();
+      $showTinh = tinh::all();
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
           ->join('mien','mien.id_mien','=','tours.id_mien')
           ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
@@ -225,8 +247,38 @@ class homeController extends Controller
           ->limit(12)
           ->get();
       }
+      
+      return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
+    }
+    public function toursByMien($id) {
       $showComment = comment_tour::all();
-      return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
+      $showTinh = tinh::all();
+      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+        ->join('mien','mien.id_mien','=','tours.id_mien')
+        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+        ->select('mien.name_mien','tinh.name_tinh','tours.*')
+        ->orderby('date_start','asc')
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $id )
+        ->get();
+      $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+        ->join('mien','mien.id_mien','=','tours.id_mien')
+        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+        ->select('mien.name_mien','tinh.name_tinh','tours.*')
+        ->orderby('date_start','asc')
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien='. $id )
+        ->get();
+      if(isset($_GET['page'])) {
+        $gioihansp = ($_GET['page'] - 1) * 12;
+        $showToursLimit= tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien = ' . $id)
+          ->offset($gioihansp)
+          ->limit(12)
+          ->get();
+      }
+      return view('front-end/pages/tours/tours-by-mien',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showToursLimit]);
     }
     public function toursDetail($id) {
       $toursDetail = tour::join('mien','mien.id_mien','=','tours.id_mien')

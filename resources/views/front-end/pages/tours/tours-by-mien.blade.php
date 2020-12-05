@@ -4,14 +4,14 @@
 <div class="wrapper-tour">
 			<section class="hero-banner">
 				<div class="container">
-					<h2>Chọn tour du lịch</h2>
+					<h2>Chọn tour du lịch theo khu vực</h2>
 				</div>
       </section>
       <div class="sec-breadcrumb">
 					<div class="container">
             <ul class="breadcrumb">
 						<li><a href="{{url('/')}}">Trang chủ</a></li>
-						<li class='--active'><a href="{{url('/tours')}}">Tours</a></li>
+						<li class='--active'><a href="<?='/tours/mien/'.$showToursLimit[0]['id_mien']?>">Tours {{$showToursLimit[0]['name_mien']}}</a></li>
 					</ul>
 					</div>
 				</div>
@@ -604,9 +604,9 @@
               @if(ceil(count($showToursTotal) / 12) >= 2)
               <div class='pagination'>
                 <nav>
-                  <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
+                  <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/tours/mien/<?=1?>?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
                   <div><b class="page"><?=(!isset($_GET['page']) ? '1' : $_GET['page'])?> </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
-                  <div  class='<?=(isset($_GET['page']) && $_GET['page'] == ceil(count($showToursTotal) / 12)) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '2' : $_GET['page'] + 1)?>'>></a></div>
+                  <div  class='<?=(isset($_GET['page']) && $_GET['page'] == ceil(count($showToursTotal) / 12)) ? 'disable' : '' ?>'><a href='/tours/mien/<?=1?>?page=<?=(!isset($_GET['page']) ? '2' : $_GET['page'] + 1)?>'>></a></div>
                 </nav>
               </div>
               @endif

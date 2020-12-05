@@ -41,6 +41,17 @@
                   />
                   <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
+                <div class="form-group validate-input"  data-validate="Số điện thoại không đúng định dạng">
+                  <input
+                    type="text"
+                    class="form-control validate-form-control"
+                    maxlength="10" 
+                    id="phone"
+                    name="phone"
+                    placeholder="Số điện thoại (*)"
+                  />
+                </div>
+                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 <div class="form-group  validate-input"   data-validate="Lời nhắn không đúng định dạng">
                   <textarea class="form-control validate-form-control" name="content" id="" cols="30" rows="10" placeholder="Để lại lời nhắn... (*)"></textarea>
                 </div>

@@ -33,6 +33,9 @@ Route::get('/cap-nhat-tai-khoan','homeController@updateAccount')->middleware('au
 Route::post('/cap-nhat-tai-khoan','homeApi@updateAccountPost')->middleware('auth');
 Route::get('/doi-mat-khau','homeController@changePsw')->middleware('auth');
 Route::post('/doi-mat-khau','homeApi@changePswPost')->middleware('auth');
+Route::get('/tim-lich-su','homeController@findHistory');
+Route::post('/tim-lich-su','homeApi@findHistoryPost');
+Route::get('/lich-su-2','homeController@history2');
 Route::get('/lich-su','homeController@history')->middleware('auth');
 Route::post('/lich-su','homeApi@historyPost')->middleware('auth');
 Route::post('/dang-xuat','homeApi@logoutPost')->middleware('auth');
@@ -53,6 +56,7 @@ Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
+Route::get('/tours/mien/{id}','homeController@toursByMien');
 Route::get('/tours/dt/{id}','homeController@toursDetail');
 // TOURS - END
 // NEWS

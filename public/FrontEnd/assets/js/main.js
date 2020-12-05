@@ -24,16 +24,16 @@ jQuery(document).ready(function ($) {
             });
     });
     //KIỂM TRA ĐỐI TÁC
-function kiemtraDoiTac() {
-    doitac = $("#chucnang").val();
-    if (doitac == 1) {
-        $("#doitac").css('display','block');
-    } else {
-        $("#doitac").css('display','none');
+    function kiemtraDoiTac() {
+        doitac = $("#chucnang").val();
+        if (doitac == 1) {
+            $("#doitac").css("display", "block");
+        } else {
+            $("#doitac").css("display", "none");
+        }
     }
-}
 
-//KIỂM TRA ĐỐI TÁC
+    //KIỂM TRA ĐỐI TÁC
     /** SHOW PASSWORD */
     // $(document).on("click", ".eyes-psw", function () {
     //     $(this).find("i").toggleClass("fa-eye fa-eye-slash");
@@ -299,7 +299,7 @@ function kiemtraDoiTac() {
         loop: false,
         slidesPerView: 1,
         spaceBetween: 20,
-        speed:1000,
+        speed: 1000,
         autoplay: {
             delay: 2000,
             disableOnInteraction: false,
@@ -324,7 +324,7 @@ function kiemtraDoiTac() {
     var mySwiper3 = new Swiper(".swiper-container3", {
         direction: "horizontal",
         loop: false,
-        speed:1000,
+        speed: 1000,
         slidesPerView: 1,
         pagination: {
             el: ".swiper-pagination3",
@@ -336,7 +336,7 @@ function kiemtraDoiTac() {
     var mySwiper4 = new Swiper(".swiper-container4", {
         direction: "horizontal",
         loop: true,
-        speed:1000,
+        speed: 1000,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 5,
@@ -355,7 +355,7 @@ function kiemtraDoiTac() {
     var mySwiper5 = new Swiper(".swiper-container5", {
         direction: "horizontal",
         loop: true,
-        speed:1000,
+        speed: 1000,
         slidesPerView: 2,
         spaceBetween: 10,
         allowTouchMove: false,
@@ -445,248 +445,329 @@ $(".main-menu-nav  .dropdown").each(function () {
     });
 });
 
-
 //select in page tours
-$(".custom-selects").each(function() {
+$(".custom-selects").each(function () {
     var classes = $(this).attr("class"),
-        id      = $(this).attr("id"),
-        name    = $(this).attr("name");
-    var template =  '<div class="' + classes + '">';
-        template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
-        template += '<div class="custom-options">';
-        $(this).find("option").each(function() {
-          template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
+        id = $(this).attr("id"),
+        name = $(this).attr("name");
+    var template = '<div class="' + classes + '">';
+    template +=
+        '<span class="custom-select-trigger">' +
+        $(this).attr("placeholder") +
+        "</span>";
+    template += '<div class="custom-options">';
+    $(this)
+        .find("option")
+        .each(function () {
+            template +=
+                '<span class="custom-option ' +
+                $(this).attr("class") +
+                '" data-value="' +
+                $(this).attr("value") +
+                '">' +
+                $(this).html() +
+                "</span>";
         });
-    template += '</div></div>';
+    template += "</div></div>";
 
     $(this).wrap('<div class="custom-select-wrapper"></div>');
     $(this).hide();
     $(this).after(template);
-  });
-  $(".custom-option:first-of-type").hover(function() {
-    $(this).parents(".custom-options").addClass("option-hover");
-  }, function() {
-    $(this).parents(".custom-options").removeClass("option-hover");
-  });
-  $(".custom-select-trigger").on("click", function() {
-    $('html').one('click',function() {
-      $(".custom-selects").removeClass("opened");
+});
+$(".custom-option:first-of-type").hover(
+    function () {
+        $(this).parents(".custom-options").addClass("option-hover");
+    },
+    function () {
+        $(this).parents(".custom-options").removeClass("option-hover");
+    }
+);
+$(".custom-select-trigger").on("click", function () {
+    $("html").one("click", function () {
+        $(".custom-selects").removeClass("opened");
     });
     $(this).parents(".custom-selects").toggleClass("opened");
     event.stopPropagation();
-  });
-  $(".custom-option").on("click", function() {
-    $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
-    $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
+});
+$(".custom-option").on("click", function () {
+    $(this)
+        .parents(".custom-select-wrapper")
+        .find("select")
+        .val($(this).data("value"));
+    $(this)
+        .parents(".custom-options")
+        .find(".custom-option")
+        .removeClass("selection");
     $(this).addClass("selection");
     $(this).parents(".custom-selects").removeClass("opened");
-    $(this).parents(".custom-selects").find(".custom-select-trigger").text($(this).text());
-  });
+    $(this)
+        .parents(".custom-selects")
+        .find(".custom-select-trigger")
+        .text($(this).text());
+});
 
-  $('#checkvalidate').click(function () {
-    var adult_number=$('#adult_number').val();
-    var child_number=$('#child_number').val();
-    if (child_number!=0 && adult_number==0) {
-        $('#showError').html('<p style="color: red;text-align:center;font-size:14px;padding:5px">Vui lòng chọn số lượng người lớn</p>');
+$("#checkvalidate").click(function () {
+    var adult_number = $("#adult_number").val();
+    var child_number = $("#child_number").val();
+    if (child_number != 0 && adult_number == 0) {
+        $("#showError").html(
+            '<p style="color: red;text-align:center;font-size:14px;padding:5px">Vui lòng chọn số lượng người lớn</p>'
+        );
         return false;
     } else {
-        $('#showError').html('');
+        $("#showError").html("");
     }
-   if (adult_number==0) {
-       $('#showError').html('<p style="color: red;text-align:center;font-size:14px;padding:5px">Chọn số lượng người đi</p>');
+    if (adult_number == 0) {
+        $("#showError").html(
+            '<p style="color: red;text-align:center;font-size:14px;padding:5px">Chọn số lượng người đi</p>'
+        );
         return false;
-   }else{
-    $('#showError').html('');
-   }
-})
-$('.checkaccount').click(function () {
+    } else {
+        $("#showError").html("");
+    }
+});
+$(".checkaccount").click(function () {
     Swal.fire({
-        title: '<strong>Vui lòng đăng nhập để đặt tour</strong>',
-        icon: 'info',
+        title: "<strong>Vui lòng đăng nhập để đặt tour</strong>",
+        icon: "info",
         html:
-          'Nhấp vào đây để vào trang đăng nhập ' +
-          '<a href="/dang-nhap"> ĐĂNG NHẬP</a>',
+            "Nhấp vào đây để vào trang đăng nhập " +
+            '<a href="/dang-nhap"> ĐĂNG NHẬP</a>',
         showCloseButton: false,
         showCancelButton: false,
         focusConfirm: false,
-      })
+    });
     return false;
-})
-$('#checkcoupon').click(function () {
-    var name_code=$('#code_coupon').val();
+});
+$("#checkcoupon").click(function () {
+    var name_code = $("#code_coupon").val();
 
-    if (name_code=="") {
-        $('#show_erro_cp').html('<span style="color: red;">Mã coupon trống</span>');
+    if (name_code == "") {
+        $("#show_erro_cp").html(
+            '<span style="color: red;">Mã coupon trống</span>'
+        );
     } else {
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/checkcp",
-            data:{name_code:name_code},
+            data: { name_code: name_code },
             success: function (params) {
-                if (params==1) {
-                    $('#show_erro_cp').html('<span style="color: red;">Mã coupon đã hết hạn hoặc số lượng sử dụng đạt tối đa</span>');
-                }else if(params==0){
-                    $('#show_erro_cp').html('<span style="color: red;">Mã coupon không đúng</span>');
-                    $('#show_coupon').html('');
-                }
-                else{
-                    $('#show_erro_cp').html('<span style="color: green;">Mã coupon hợp lệ <i class="fas fa-check-circle"></i></span>');
-                    $('#show_coupon').html('<input type="hidden" name="id_coupon" value="'+params.id_coupon+'">');
+                if (params == 1) {
+                    $("#show_erro_cp").html(
+                        '<span style="color: red;">Mã coupon đã hết hạn hoặc số lượng sử dụng đạt tối đa</span>'
+                    );
+                } else if (params == 0) {
+                    $("#show_erro_cp").html(
+                        '<span style="color: red;">Mã coupon không đúng</span>'
+                    );
+                    $("#show_coupon").html("");
+                } else {
+                    $("#show_erro_cp").html(
+                        '<span style="color: green;">Mã coupon hợp lệ <i class="fas fa-check-circle"></i></span>'
+                    );
+                    $("#show_coupon").html(
+                        '<input type="hidden" name="id_coupon" value="' +
+                            params.id_coupon +
+                            '">'
+                    );
                 }
             },
         });
     }
     return false;
-})
-$('#checkPass').click(function () {
-    var mang=[];
-        var quantity=$('#quantity').val();
-        for (let index = 0; index < quantity; index++) {
-            var name_passenger=$('#name_passenger'+index).val();
-            var address_passenger=$('#address_passenger'+index).val();
-            var phone_passenger=$('#phone_passenger'+index).val();
-            var gender_passenger=$('#gender_passenger'+index).val();
-            var country_passenger=$('#country_passenger'+index).val();
-            var passport_passenger=$('#passport_passenger'+index).val();
-            if (name_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            if (address_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            if (phone_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            if (gender_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            if (country_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            if (passport_passenger=="") {
-                $('#errorValidate'+index).html('<span>Thông tin không được để trống</span>');
-                return false;
-            } else {
-                $('#errorValidate'+index).html('');
-            }
-            var mangNew={
-                'name_passenger': name_passenger,
-                'address_passenger': address_passenger,
-                'phone_passenger': phone_passenger,
-                'gender_passenger': gender_passenger,
-                'country_passenger': country_passenger,
-                'passport_passenger': passport_passenger,
-            }
-            mang.push(mangNew);
-        }
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/admin/addpassenger",
-            type:'get',
-            data:{mang},
-            success: function (params) {
-                if (params==1) {
-                    window.location.href = "/thanh-toan-3";
-                }else{
-                    Swal.fire({
-                        title: 'Thông bào?',
-                        text: "Bạn chưa hoàn tất thủ tục đặt tour!",
-                        icon: 'warning',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'Tiếp tục',
-                        confirmButtonText: 'Trở về trang tour'
-                      }).then((result) => {
-                        window.location.href = "/thanh-toan-3";
-                      })
-
-                }
-            },
-        });
-})
-
-    $('.phuongthuctt__items').each(function() {
-        var pttt = $(this).children("input").val();
-        $(this).click(function () {
-        $('#showPayment').html('<input type="hidden" name="id_payment" id="id_payment" value="'+pttt+'">');
-        return false;
-        })
-    })
-    $('#addPayment').click(function () {
-        var id_payment = $('#id_payment').val();
-        var id_bill = $('#id_bill').val();
-        if (id_payment==undefined) {
-            Swal.fire({
-                title: "Vui lòng chọn phương thức thanh toán",
-                icon: "warning",
-                timer: 2000,
-                showConfirmButton: false,
-                allowOutsideClick: false,
-            });
+});
+$("#checkPass").click(function () {
+    var mang = [];
+    var quantity = $("#quantity").val();
+    for (let index = 0; index < quantity; index++) {
+        var name_passenger = $("#name_passenger" + index).val();
+        var address_passenger = $("#address_passenger" + index).val();
+        var phone_passenger = $("#phone_passenger" + index).val();
+        var gender_passenger = $("#gender_passenger" + index).val();
+        var country_passenger = $("#country_passenger" + index).val();
+        var passport_passenger = $("#passport_passenger" + index).val();
+        if (name_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
             return false;
+        } else {
+            $("#errorValidate" + index).html("");
         }
-        $('#showLoader').html('<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>');
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/admin/addpayment",
-            type:'get',
-            data:{id_payment:id_payment,id_bill:id_bill},
-            success: function (params) {
-                window.location.href = "/thanh-toan-4";
-            },
+        if (address_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
+            return false;
+        } else {
+            $("#errorValidate" + index).html("");
+        }
+        if (phone_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
+            return false;
+        } else {
+            $("#errorValidate" + index).html("");
+        }
+        if (gender_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
+            return false;
+        } else {
+            $("#errorValidate" + index).html("");
+        }
+        if (country_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
+            return false;
+        } else {
+            $("#errorValidate" + index).html("");
+        }
+        if (passport_passenger == "") {
+            $("#errorValidate" + index).html(
+                "<span>Thông tin không được để trống</span>"
+            );
+            return false;
+        } else {
+            $("#errorValidate" + index).html("");
+        }
+        var mangNew = {
+            name_passenger: name_passenger,
+            address_passenger: address_passenger,
+            phone_passenger: phone_passenger,
+            gender_passenger: gender_passenger,
+            country_passenger: country_passenger,
+            passport_passenger: passport_passenger,
+        };
+        mang.push(mangNew);
+    }
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/addpassenger",
+        type: "get",
+        data: { mang },
+        success: function (params) {
+            if (params == 1) {
+                window.location.href = "/thanh-toan-3";
+            } else {
+                Swal.fire({
+                    title: "Thông bào?",
+                    text: "Bạn chưa hoàn tất thủ tục đặt tour!",
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Tiếp tục",
+                    confirmButtonText: "Trở về trang tour",
+                }).then((result) => {
+                    window.location.href = "/thanh-toan-3";
+                });
+            }
+        },
+    });
+});
+
+$(".phuongthuctt__items").each(function () {
+    var pttt = $(this).children("input").val();
+    $(this).click(function () {
+        $("#showPayment").html(
+            '<input type="hidden" name="id_payment" id="id_payment" value="' +
+                pttt +
+                '">'
+        );
+        return false;
+    });
+});
+$("#addPayment").click(function () {
+    var id_payment = $("#id_payment").val();
+    var id_bill = $("#id_bill").val();
+    if (id_payment == undefined) {
+        Swal.fire({
+            title: "Vui lòng chọn phương thức thanh toán",
+            icon: "warning",
+            timer: 2000,
+            showConfirmButton: false,
+            allowOutsideClick: false,
         });
         return false;
-    })
-    //BILL DETAILS
-    function showBill(id) {
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/admin/billdetail/"+id,
-            type:'get',
-            success: function (b) {
-                div='<div><p>Tên tour: <span>'+b.name_tour+'</span></p><p>Thời gian: <span>'+b.date_start+'</span></p><p>Số lượng: <span>'+b.quantity_adults+'</span> người lớn / <span>'+b.quantity_children+'</span> trẻ em</p></div><table id="table-bill" class="table table-bordered"></table>';
-                $('.modal-body').html(div);
-                $.ajax({
-                    url: "http://127.0.0.1:8000/api/admin/passdetail/"+b.id_bill,
-                    type:'get',
-                    success: function (s) {
-                        div2='<thead><tr><td>Tên thành viên</td><td>Giới tính</td><td>Số điện thoại</td><td>Địa chỉ</td><td>Thành phố</td><td>Passport</td></tr></thead><tbody>';
-                        s.forEach(p => {
-                            if (p.gender_passenger==1) {
-                                gender="Nam";
-                            } else {
-                                gender="Nữ";
-                            }
-                        div2+='<tr><td>'+p.name_passenger+'</td><td>'+gender+'</td><td>'+p.phone_passenger+'</td><td>'+p.address_passenger+'</td><td>'+p.country_passenger+'</td><td>'+p.passport_passenger+'</td></tr>';
-                        });
-                        div2+='</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>'+formatNumber(b.total_price,'.',',')+' VNĐ</span></td></tr></tfoot>';
-                        $('#table-bill').html(div2);
-                    },
-                });
-            },
-        });
     }
+    $("#showLoader").html(
+        '<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>'
+    );
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/addpayment",
+        type: "get",
+        data: { id_payment: id_payment, id_bill: id_bill },
+        success: function (params) {
+            window.location.href = "/thanh-toan-4";
+        },
+    });
+    return false;
+});
+//BILL DETAILS
+function showBill(id) {
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/billdetail/" + id,
+        type: "get",
+        success: function (b) {
+            div =
+                "<div><p>Tên tour: <span>" +
+                b.name_tour +
+                "</span></p><p>Thời gian: <span>" +
+                b.date_start +
+                "</span></p><p>Số lượng: <span>" +
+                b.quantity_adults +
+                "</span> người lớn / <span>" +
+                b.quantity_children +
+                '</span> trẻ em</p></div><table id="table-bill" class="table table-bordered"></table>';
+            $(".modal-body").html(div);
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/admin/passdetail/" + b.id_bill,
+                type: "get",
+                success: function (s) {
+                    div2 =
+                        "<thead><tr><td>Tên thành viên</td><td>Giới tính</td><td>Số điện thoại</td><td>Địa chỉ</td><td>Thành phố</td><td>Passport</td></tr></thead><tbody>";
+                    s.forEach((p) => {
+                        if (p.gender_passenger == 1) {
+                            gender = "Nam";
+                        } else {
+                            gender = "Nữ";
+                        }
+                        div2 +=
+                            "<tr><td>" +
+                            p.name_passenger +
+                            "</td><td>" +
+                            gender +
+                            "</td><td>" +
+                            p.phone_passenger +
+                            "</td><td>" +
+                            p.address_passenger +
+                            "</td><td>" +
+                            p.country_passenger +
+                            "</td><td>" +
+                            p.passport_passenger +
+                            "</td></tr>";
+                    });
+                    div2 +=
+                        '</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>' +
+                        formatNumber(b.total_price, ".", ",") +
+                        " VNĐ</span></td></tr></tfoot>";
+                    $("#table-bill").html(div2);
+                },
+            });
+        },
+    });
+}
 
-    function formatNumber(nStr, decSeperate, groupSeperate) {
-        nStr += '';
-        x = nStr.split(decSeperate);
-        x1 = x[0];
-        x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\d+)(\d{3})/;
-        while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
-        }
-        return x1 + x2;
+function formatNumber(nStr, decSeperate, groupSeperate) {
+    nStr += "";
+    x = nStr.split(decSeperate);
+    x1 = x[0];
+    x2 = x.length > 1 ? "." + x[1] : "";
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, "$1" + groupSeperate + "$2");
     }
+    return x1 + x2;
+}

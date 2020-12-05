@@ -185,6 +185,7 @@ jQuery(function () {
                     if (request.status === 422) {
                         $(".loading").removeClass("--active");
                         const res = request.responseJSON.errors;
+                        console.log(res);
                         // console.log(res);
                         for (let key in res) {
                             //thông báo lỗi chung chung
@@ -193,6 +194,8 @@ jQuery(function () {
                             }
                             if (key === "error_field") {
                                 $(".error_field").html(res[key]);
+                            }
+                            if (key === "avatar") {
                             }
                             $(`input[name="${key}"]`)
                                 .parent()
@@ -217,13 +220,16 @@ jQuery(function () {
         return false;
     });
 
+    // FIND BILL  WITHOUT LOGIN
     $(".find-bill").on("submit", function (e) {
         e.preventDefault();
-        var form = $(this);
-        var inputArr = form
+        const $form = $(this);
+        const action = $form.attr("action");
+        const method = $form.attr("method");
+        const inputArr = $form
             .children()
             .children(".validate-input .validate-form-control");
-        var sdt = form.serializeArray()[0]["value"];
+        const phone = $form.serializeArray()[0]["value"];
         var checkValid = true;
 
         for (let i = 0; i < inputArr.length; i++) {
@@ -232,36 +238,65 @@ jQuery(function () {
                 checkValid = false;
             }
         }
-
         if (checkValid) {
-            $(":submit", form).attr("disabled", true);
+            $(":submit", $form).attr("disabled", true);
+            $(".loading").addClass("--active");
             $.ajax({
-                url: "../view/account/handleUser.php",
-                type: "post",
-                dataType: false,
-                data: { sdt: sdt, type: "check-bill-no-lg" },
+                url: action,
+                type: method,
+                dataType: "json",
+                data: { phone },
                 success: function (res) {
-                    // console.log(res);
+                    console.log(res);
+                    $(".loading").removeClass("--active");
+                    if (res.success) {
+                        Swal.fire({
+                            title: "Xin chúc mừng",
+                            text: res.message,
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                        });
+                        if (res.redirect) {
+                            setTimeout(function () {
+                                window.location.replace(res.location);
+                            }, 3000);
+                        }
+                    } else {
+                        Swal.fire({
+                            title: "Đã có lỗi",
+                            text: res.message,
+                            icon: "warning",
+                            timer: 1500,
+                        });
+                        // if (res.redirect) {
+                        //     setTimeout(function () {
+                        //         window.location.replace(res.location);
+                        //     }, 1500);
+                        // }
+                    }
                     //res is object
-                    if (res["error_phone"]) {
-                        $('input[name="phone"]')
-                            .parent()
-                            .attr("data-validate", res["error_phone"]); //gắn thông báo validate lên parent's input
-                        $('input[name="phone"]')
-                            .parent()
-                            .addClass("alert-validate"); //add class to parent's input to show validate
-                    }
+                    // if (res["error_phone"]) {
+                    //     $('input[name="phone"]')
+                    //         .parent()
+                    //         .attr("data-validate", res["error_phone"]); //gắn thông báo validate lên parent's input
+                    //     $('input[name="phone"]')
+                    //         .parent()
+                    //         .addClass("alert-validate"); //add class to parent's input to show validate
+                    // }
 
-                    if (!res["error_phone"]) {
-                        window.location.href = ".?act=acc-bill&phone=" + sdt;
-                    }
+                    // if (!res["error_phone"]) {
+                    //     window.location.href = ".?act=acc-bill&phone=" + sdt;
+                    // }
 
-                    $(":submit", form).removeAttr("disabled");
+                    $(":submit", $form).removeAttr("disabled");
                 },
                 error: function (request, status, error) {
-                    // console.log(request.responseText);
-                    // console.log(error);
-                    // console.log(status);
+                    console.log(request.responseText);
+                    console.log(error);
+                    console.log(status);
+                    $(".loading").removeClass("--active");
                 },
             });
         }

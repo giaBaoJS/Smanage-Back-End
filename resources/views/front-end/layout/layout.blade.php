@@ -59,6 +59,7 @@
                     </div>
                 </li>
               @else
+                <li><a href="{{ url('/tim-lich-su') }}">Lịch sử đặt tour</a></li>
                 <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
                 <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li>
                 <!-- <li>VIE</li> -->

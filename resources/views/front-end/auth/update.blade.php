@@ -53,7 +53,7 @@
 							/>
 						</div>
 
-            <div class="form-group" >
+            <div class="form-group validate-input" >
 							<label for="avatar" class="form-label">Hình đại diện</label>
 							<input
 								type="file"
