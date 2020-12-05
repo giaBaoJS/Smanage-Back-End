@@ -27,6 +27,33 @@
                     <input type="text" class="form-control" name="short_content" value="{{$showTour->short_content}}" placeholder="Nhập mô tả" required>
                 </div>
                 <div class="form-group col-md-6">
+                    <label for="name">Miền</label>
+                    <select class="form-control" id="checkMien" name="id_mien" value='' required>
+                        @foreach ($showMien as $m)
+                            @if ($m->id_mien==$showTour->id_mien)
+                                {{$stt="selected"}}
+                            @else
+                                {{$stt=""}}
+                            @endif
+                    <option value="{{$m->id_mien}}" {{$stt}}>{{$m->name_mien}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name">Tỉnh</label>
+                    <select class="form-control" id="checkTinh" name="id_tinh" value='' required>
+                        @foreach ($showTinh as $t)
+                        @if ($t->id_tinh==$showTour->id_tinh)
+                        {{$stt2="selected"}}
+                    @else
+                        {{$stt2=""}}
+                    @endif
+                        <option value="{{$t->id_tinh}}" {{$stt2}}>{{$t->name_tinh}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
                     <label for="name">Giờ đi</label>
                     <input type="text" class="form-control" name="time" value="{{$showTour->time}}" placeholder="Giờ đi" required>
                 </div>

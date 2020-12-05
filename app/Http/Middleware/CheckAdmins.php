@@ -23,9 +23,7 @@ class CheckAdmins
             if (session('account')->role==0) {
                 return redirect('/');
             }else{
-                if (session('account')->active==2) {
-                    return $next($request);
-                }else if (session('account')->active==1 && $dayDiff<7) {
+                if (session('account')->active>=1) {
                     return $next($request);
                 }else{
                     return redirect('/admin/loiactive');

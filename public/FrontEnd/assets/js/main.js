@@ -3,9 +3,7 @@ jQuery(document).ready(function ($) {
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/setpremium",
             type: "get",
-        }).done(function (ketqua) {
-            console.log(ketqua, "ưewe");
-        });
+        }).done(function (ketqua) {});
         kiemtraDoiTac();
     });
     $(".tour-dt__program .item, .tour-dt__faq .item").each(function () {
@@ -370,6 +368,17 @@ jQuery(document).ready(function ($) {
             },
         },
     });
+    var mySwiper6 = new Swiper(".swiper-container6", {
+        direction: "horizontal",
+        loop: true,
+        speed: 1500,
+        slidesPerView: 1,
+        spaceBetween: 50,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+    });
 });
 
 //Checkbox click
@@ -383,7 +392,7 @@ $("#diemden").focus(function () {
 $(".dropdown-place li").click(function () {
     var data = $(this).attr("data-value");
     var texts = $(this).text();
-    $("#diemden").attr("placeholder", texts);
+    $("#diemden").val(texts);
 });
 $(document).on("click", function (e) {
     if ($(e.target).is("#diemden") === false) {
@@ -541,7 +550,7 @@ $(".checkaccount").click(function () {
 });
 $("#checkcoupon").click(function () {
     var name_code = $("#code_coupon").val();
-
+    var id_doitac = $("#id_doitac").val();
     if (name_code == "") {
         $("#show_erro_cp").html(
             '<span style="color: red;">Mã coupon trống</span>'
@@ -549,7 +558,7 @@ $("#checkcoupon").click(function () {
     } else {
         $.ajax({
             url: "http://127.0.0.1:8000/api/admin/checkcp",
-            data: { name_code: name_code },
+            data: { name_code: name_code, id_doitac: id_doitac },
             success: function (params) {
                 if (params == 1) {
                     $("#show_erro_cp").html(
@@ -769,5 +778,50 @@ function formatNumber(nStr, decSeperate, groupSeperate) {
     while (rgx.test(x1)) {
         x1 = x1.replace(rgx, "$1" + groupSeperate + "$2");
     }
-    return x1 + x2;
+    $("#checkout-part").click(function () {
+        var id_payment = $("#id_payment").val();
+        if (id_payment == undefined) {
+            Swal.fire({
+                title: "Vui lòng chọn phương thức thanh toán",
+                icon: "warning",
+                timer: 2000,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+            return false;
+        }
+        $("#showLoader").html(
+            '<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>'
+        );
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/paymentpart",
+            type: "get",
+            data: { id_payment: id_payment },
+            success: function (t) {
+                if (t == 1) {
+                    Swal.fire({
+                        title: "Đăng ký đối tác thành công",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                    });
+                    window.location.href = "/";
+                }
+            },
+        });
+        return false;
+    });
+
+    //filter data list diem den
+    $("#diemden").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".dropdown-place li").each(function () {
+            if ($(this).text().toLowerCase().search(value) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 }

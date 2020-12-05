@@ -528,3 +528,69 @@ $("body").on("click", "#checkpartners", function () {
     });
     return false;
 });
+$(".doitac-ajax").on("submit", function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var action = form.attr("action");
+    var data = form.serialize();
+    var inputArr = form.find(".validate-form-control");
+    var checkValid = true;
+
+    for (let i = 0; i < inputArr.length; i++) {
+        if (validate(inputArr[i]) == false) {
+            showValidate(inputArr[i]);
+            checkValid = false;
+
+        }else{
+    $('#showLoader2').html('<span class="loaders"></span><button type="submit" class="form-submit" style="background:gray">Xác nhận </button>');
+        }
+    }
+    if (checkValid) {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/"+action,
+            type: 'get',
+            data: data,
+            success: function (res) {
+                if (res==1) {
+                    Swal.fire({
+                        title: "Bạn đã trở thành đối tác",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                    });
+                    window.location.href = "/";
+                }
+            },
+        });
+    }
+    return false;
+});
+$(".doitac-ajax-demo").on("submit", function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var action = form.attr("action");
+    var data = form.serialize();
+    var inputArr = form.find(".validate-form-control");
+    var checkValid = true;
+
+    for (let i = 0; i < inputArr.length; i++) {
+        if (validate(inputArr[i]) == false) {
+            showValidate(inputArr[i]);
+            checkValid = false;
+        }
+    }
+    if (checkValid) {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/"+action,
+            type: 'get',
+            data: data,
+            success: function (res) {
+                if (res==1) {
+                    window.location.href = "/check-out-part";
+                }
+            },
+        });
+    }
+    return false;
+});

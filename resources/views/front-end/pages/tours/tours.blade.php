@@ -277,7 +277,7 @@
 									<a href="#">Bỏ sắp xếp</a>
 								</div>
 								<div class="sort">
-				 					<div class="sl-form mr-3">
+				 					<div class="sl-form">
 										<select name="sources" id="sources" class="custom-selects sources" placeholder="Sắp xếp theo">
 										<option value="1">Giá tăng dần</option>
 										<option value="2">Giá giảm dần</option>

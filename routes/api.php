@@ -47,6 +47,8 @@ Route::GET('admin/delnews/{id}','apiDashboard@delNews');
 Route::GET('admin/editnews/{id}','apiDashboard@editNews');
 // -----------------news---------------
 Route::GET('admin/chart','apiDashboard@chart');
+Route::GET('admin/showtinh/{id}','apiDashboard@showTinh');
+
 
 
 //END admin
@@ -67,3 +69,7 @@ Route::GET('admin/addpayment','homeAPI@addPayment');
 //BILL
 Route::GET('admin/billdetail/{id}','homeAPI@billDetail');
 Route::GET('admin/passdetail/{id}','homeAPI@passDetail');
+//PARTERT
+Route::GET('/create-part-demo','homeAPI@createPartnerDemo');
+Route::GET('/create-part','homeAPI@createPartner');
+Route::GET('/paymentpart','homeAPI@paymentPart');

@@ -177,17 +177,27 @@ class homeController extends Controller
 
     }
     // CHECKOUT - END
+
     public function about() {
       return view('front-end/pages/about',['showMien'=>$this->showMien]);
     }
     public function contact() {
       return view('front-end/pages/contact',['showMien'=>$this->showMien]);
     }
+
+        //START PARTNERS
     public function partners() {
       return view('front-end/pages/partners/partners',['showMien'=>$this->showMien]);
     }
+    public function partnersResignDemo()
+    {
+        return view('front-end/pages/partners/partners-resign-demo',['showMien'=>$this->showMien]);
+    }
     public function partnersResign() {
       return view('front-end/pages/partners/partners-resign',['showMien'=>$this->showMien]);
+    }
+    public function partnersCheckout() {
+      return view('front-end/pages/partners/partners-checkout',['showMien'=>$this->showMien]);
     }
     public function partnersDetail($id) {
       $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
@@ -220,6 +230,12 @@ class homeController extends Controller
       }
       return view('front-end/pages/partners/partners-detail',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'infoPartner'=>$infoPartner,'showToursTotal'=>$showToursTotal,'showToursLimit'=>$showToursLimit]);
     }
+    public function checkOutPart()
+    {
+        $showPayment=payment::all();
+        return view('front-end/pages/partners/partners-checkout',['showMien'=>$this->showMien,'showMien'=>$this->showMien,'showPayment'=>$showPayment]);
+    }
+    //END Part
     public function tours() {
       $showComment = comment_tour::all();
       $showTinh = tinh::all();

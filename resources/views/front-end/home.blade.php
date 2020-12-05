@@ -43,31 +43,25 @@
                     <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                     <div class="content">
                       <label for="diemden">Điểm đến</label>
-                      <input type="text" placeholder="Nơi mà bạn muốn đến?" />
+                      <input type="text" id="diemden" placeholder="Nơi mà bạn muốn đến?" />
                     </div>
                   </div>
-                  <ul class="dropdown-place d-none">
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hạ Long</span></li>
-                    <li><span>Hà Nội</span></li>
-                    <li><span>Hồ Chí Minh</span></li>
-                    <li><span>Thanh Hóa</span></li>
-                  </ul>
+                  <div class="wrap-dropdown-place">
+                    <ul class="dropdown-place">
+                      <li><span>Hạ Long</span></li>
+                      <li><span>Hà Nội</span></li>
+                      <li><span>Hồ Chí Minh</span></li>
+                      <li><span>Thanh Hóa</span></li>
+                      <li><span>Quảng Bình</span></li>
+                      <li><span>Quảng Nam</span></li>
+                      <li><span>Quảng Ngãi</span></li>
+                      <li><span>Đà Nẵng</span></li>
+                      <li><span>Tây Ninh</span></li>
+                      <li><span>Long An</span></li>
+                      <li><span>Cần Giờ</span></li>
+                      <li><span>Vũng Tàu</span></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-3 line">
@@ -367,24 +361,53 @@
       <div class="row no-gutters align-items-center">
         <div class="col-md-12">
           <div class="content">
-            <div class="detail">
-              <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
-                <div class="sale-box">
-                  <h2>20</h2>
-                  <span class="sup-1">%</span>
-                  <span>off</span>
+            <div class="swiper-container6">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="detail">
+                    <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
+                      <div class="sale-box">
+                        <h2>20</h2>
+                        <span class="sup-1">%</span>
+                        <span>off</span>
+                      </div>
+                      <h3>SALE</h3>
+                    </div>
+                    <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
+                      <h2>Hà Nội - Hạ Long</h2>
+                      <p>
+                        Du lịch Hà Nội - Hạ Long 3 ngày 4 đêm (Khởi hành từ Hồ Chí
+                        Minh)
+                      </p>
+                      <div class="group-btn">
+                        <a href="#">Đặt Ngay</a>
+                        <a href="#">Xem Thêm</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3>SALE</h3>
-              </div>
-              <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
-                <h2>Hà Nội - Hạ Long</h2>
-                <p>
-                  Du lịch Hà Nội - Hạ Long 3 ngày 4 đêm (Khởi hành từ Hồ Chí
-                  Minh)
-                </p>
-                <div class="group-btn">
-                  <a href="#">Đặt Ngay</a>
-                  <a href="#">Xem Thêm</a>
+                <div class="swiper-slide">
+                  <div class="detail">
+                    <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
+                      <div class="sale-box">
+                        <h2>50</h2>
+                        <span class="sup-1">%</span>
+                        <span>off</span>
+                      </div>
+                      <h3>SALE</h3>
+                    </div>
+                    <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
+                      <h2>Gia Bảo - Kim Bảo</h2>
+                      <p>
+                        Du lịch Hà Tiên - Ông ngoại 3 ngày 4 đêm (Khởi hành từ Hồ Chí
+                        Minh)
+                      </p>
+                      <div class="group-btn">
+                        <a href="#">Đặt Ngay</a>
+                        <a href="#">Xem Thêm</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
