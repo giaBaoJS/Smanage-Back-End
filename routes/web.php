@@ -49,11 +49,8 @@ Route::post('/lien-he','homeAPI@contactPost');
 // PARTNERS
 Route::get('/doi-tac','homeController@partners');
 Route::get('/doi-tac-resign','homeController@partnersResign');
-<<<<<<< HEAD
 Route::get('/doi-tac-resign-demo','homeController@partnersResignDemo');
-=======
 Route::get('/doi-tac-checkout','homeController@partnersCheckout');
->>>>>>> 276580e3078d6ebaafce6c38904eb975ba4f9ab0
 Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
 Route::get('/check-out-part','homeController@checkOutPart');
 // PARTNERS - END
