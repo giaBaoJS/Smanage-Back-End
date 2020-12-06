@@ -34,6 +34,7 @@ class homeController extends Controller
     // HOME
     public function index()
     {
+        $showTinh = tinh::all();
         $showSlider=slider::orderby('id_slider','desc')->limit(2)->get();
         $showOneNews=tintucTable::join('user','news.id_user','=','user.id_user')->orderby('id_news','desc')->limit(4)->get();
         $showToursLimit = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
@@ -43,8 +44,15 @@ class homeController extends Controller
           ->whereRaw('Date(date_start) >= CURDATE()')
           ->limit(12)
           ->get();
+        $showToursSale = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->orderby('date_start','asc')
+          ->whereRaw('Date(date_start) >= CURDATE() and tours.discount > 0')
+          ->limit(4)
+          ->get();
 
-        return view('front-end/home',['showMien'=>$this->showMien,'showToursLimit'=>$showToursLimit,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
+        return view('front-end/home',['showTinh'=>$showTinh,'showMien'=>$this->showMien,'showToursLimit'=>$showToursLimit,'showToursSale'=>$showToursSale,'showOneNews'=>$showOneNews,'showSlider'=>$showSlider]);
     }
     // PAGE 404 ---------------------------------->
     public function notfound()

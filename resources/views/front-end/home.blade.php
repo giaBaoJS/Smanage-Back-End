@@ -48,18 +48,9 @@
                   </div>
                   <div class="wrap-dropdown-place">
                     <ul class="dropdown-place">
-                      <li><span>Hạ Long</span></li>
-                      <li><span>Hà Nội</span></li>
-                      <li><span>Hồ Chí Minh</span></li>
-                      <li><span>Thanh Hóa</span></li>
-                      <li><span>Quảng Bình</span></li>
-                      <li><span>Quảng Nam</span></li>
-                      <li><span>Quảng Ngãi</span></li>
-                      <li><span>Đà Nẵng</span></li>
-                      <li><span>Tây Ninh</span></li>
-                      <li><span>Long An</span></li>
-                      <li><span>Cần Giờ</span></li>
-                      <li><span>Vũng Tàu</span></li>
+                      @foreach ($showTinh as $t)
+                        <li data-value="{{$t->id_tinh}}"><span>{{$t->name_tinh}}</span></li>
+                      @endforeach
                     </ul>
                   </div>
                 </div>
@@ -167,7 +158,7 @@
         @foreach ($showMien as $m)
         <div class="col-md-4 ">
             <div class="wrapper-image">
-              <a href="#"
+              <a href="/tours/mien/{{$m->id_mien}}"
                 ><img
                   class="img-fluid w-100"
             src="{{asset('BackEnd/assets/images')}}/{{$m->url_img_mien}}"
@@ -186,7 +177,7 @@
 
         </div>
         <div class="more text-center">
-          <a href="#">XEM THÊM</a>
+          <a href="/tours">XEM THÊM</a>
         </div>
       </div>
     </section>
@@ -363,52 +354,30 @@
           <div class="content">
             <div class="swiper-container6">
               <div class="swiper-wrapper">
+              @foreach($showToursSale as $s)
                 <div class="swiper-slide">
                   <div class="detail">
                     <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
                       <div class="sale-box">
-                        <h2>20</h2>
+                        <h2>{{$s->discount}}</h2>
                         <span class="sup-1">%</span>
                         <span>off</span>
                       </div>
-                      <h3>SALE</h3>
+                      <h3>GIẢM GIÁ</h3>
                     </div>
                     <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
-                      <h2>Hà Nội - Hạ Long</h2>
+                      <h2>{{$s->name_tour}}</h2>
                       <p>
-                        Du lịch Hà Nội - Hạ Long 3 ngày 4 đêm (Khởi hành từ Hồ Chí
-                        Minh)
+                        {{$s->short_content}}
                       </p>
                       <div class="group-btn">
-                        <a href="#">Đặt Ngay</a>
-                        <a href="#">Xem Thêm</a>
+                        <a href="/tours/dt/{{$s->id_tour}}">Đặt Ngay</a>
+                        <a href="/tours/dt/{{$s->id_tour}}">Xem Thêm</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="swiper-slide">
-                  <div class="detail">
-                    <div class="detail-left wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.2s">
-                      <div class="sale-box">
-                        <h2>50</h2>
-                        <span class="sup-1">%</span>
-                        <span>off</span>
-                      </div>
-                      <h3>SALE</h3>
-                    </div>
-                    <div class="detail-right wow fadeInRight"  data-wow-duration="1s" data-wow-delay="0.2s">
-                      <h2>Gia Bảo - Kim Bảo</h2>
-                      <p>
-                        Du lịch Hà Tiên - Ông ngoại 3 ngày 4 đêm (Khởi hành từ Hồ Chí
-                        Minh)
-                      </p>
-                      <div class="group-btn">
-                        <a href="#">Đặt Ngay</a>
-                        <a href="#">Xem Thêm</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              @endforeach
               </div>
             </div>
           </div>
