@@ -20,6 +20,7 @@ use App\doitacTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+
 class dashboardController extends Controller
 {
     public function login()
@@ -97,22 +98,39 @@ class dashboardController extends Controller
     }
     public function index()
     {
-        $showBill=bill::where('id_doitac','=',session('account')->id_doitac)->get();
-        $showBillUser=bill::join('user','bill.id_user','=','user.id_user')->where('bill.id_doitac','=',session('account')->id_doitac)->get();
-        $totalBill=count($showBill);
-        $totalPrice=0;
-        $totalDay=0;
-        $dayEnd = strtotime(date('d/m/Y',strtotime(Carbon::now())));
-        $chart=[];
+        $showTour = tour::all();
+        $showTourDT = tour::where('id_doitac', '=', session('account')->id_doitac)->get();
+        $doitac = doitacTable::all();
+        $billall = bill::all();
+        $billalluser = bill::join('user', 'bill.id_user', '=', 'user.id_user')->get();
+        $countdoitac = count($doitac);
+        $showBill = bill::where('id_doitac', '=', session('account')->id_doitac)->get();
+        $showBillUser = bill::join('user', 'bill.id_user', '=', 'user.id_user')->where('bill.id_doitac', '=', session('account')->id_doitac)->get();
+        $totalBill = count($showBill);
+        $totalPrice = 0;
+        $totalDay = 0;
+        $dayEnd = strtotime(date('d/m/Y', strtotime(Carbon::now())));
+        $chart = [];
         foreach ($showBill as $t) {
-            $dayStart =strtotime(date('d/m/Y',strtotime($t->created_at)));
-            if ($dayEnd==$dayStart) {
-                $totalDay=$totalDay+$t->total_price;
+            $dayStart = strtotime(date('d/m/Y', strtotime($t->created_at)));
+            if ($dayEnd == $dayStart) {
+                $totalDay = $totalDay + $t->total_price;
             }
-            array_push($chart,$t->total_price);
-            $totalPrice=$totalPrice+$t->total_price;
+            array_push($chart, $t->total_price);
+            $totalPrice = $totalPrice + $t->total_price;
         }
-        return view('admin/page/home',['totalBill'=>$totalBill,'totalPrice'=>$totalPrice,'totalDay'=>$totalDay,'showBill'=>$showBillUser]);
+        $totalbill = 0;
+        $totalbilladmin = 0;
+        foreach ($billall as $b) {
+
+            $dayStart = strtotime(date('d/m/Y', strtotime($b->created_at)));
+            if ($dayEnd == $dayStart) {
+                $totalbill = $totalbill + $b->total_price;
+            }
+
+            $totalbilladmin = $totalbilladmin + $b->total_price;
+        }
+        return view('admin/page/home', ['billalluser' => $billalluser, 'billall' => $billall, 'showTour' => $showTour, 'showTourDT' => $showTourDT, 'totalbilladmin' => $totalbilladmin, 'countdoitac' => $countdoitac, 'totalBill' => $totalBill, 'totalPrice' => $totalPrice, 'totalDay' => $totalDay, 'showBill' => $showBillUser, 'totalbill' => $totalbill]);
     }
 
     // Page404 ---------------------------------->
@@ -214,7 +232,7 @@ class dashboardController extends Controller
     }
     public function addUser()
     {
-        $showGender=array(
+        $showGender = array(
             array(
                 'id' => 1,
                 'name' => 'Nam'
@@ -228,7 +246,7 @@ class dashboardController extends Controller
                 'name' => 'Khác'
             )
         );
-        $showVaitro=array(
+        $showVaitro = array(
             array(
                 'id' => 0,
                 'name' => 'Người dùng'
@@ -242,7 +260,7 @@ class dashboardController extends Controller
                 'name' => 'Admin'
             )
         );
-        $showActive=array(
+        $showActive = array(
             array(
                 'id' => 0,
                 'name' => 'Chưa kích hoạt'
@@ -256,13 +274,13 @@ class dashboardController extends Controller
                 'name' => 'Kích hoạt'
             )
         );
-        $showDoitac=doitacTable::all();
-        return view('admin/page/user/user-add',['showGender'=>$showGender,'showVaitro'=>$showVaitro,'showActive'=>$showActive,'showDoitac'=>$showDoitac]);
+        $showDoitac = doitacTable::all();
+        return view('admin/page/user/user-add', ['showGender' => $showGender, 'showVaitro' => $showVaitro, 'showActive' => $showActive, 'showDoitac' => $showDoitac]);
     }
     public function formEditUser($id)
     {
-        $showOneUser=userTable::find($id);
-        $showGender=array(
+        $showOneUser = userTable::find($id);
+        $showGender = array(
             array(
                 'id' => 1,
                 'name' => 'Nam'
@@ -276,7 +294,7 @@ class dashboardController extends Controller
                 'name' => 'Khác'
             )
         );
-        $showVaitro=array(
+        $showVaitro = array(
             array(
                 'id' => 0,
                 'name' => 'Người dùng'
@@ -290,7 +308,7 @@ class dashboardController extends Controller
                 'name' => 'Admin'
             )
         );
-        $showActive=array(
+        $showActive = array(
             array(
                 'id' => 0,
                 'name' => 'Chưa kích hoạt'
@@ -304,8 +322,8 @@ class dashboardController extends Controller
                 'name' => 'Kích hoạt'
             )
         );
-        $showDoitac=doitacTable::all();
-        return view('admin/page/user/user-update',['showDoitac'=>$showDoitac,'showOneUser'=>$showOneUser,'showGender'=>$showGender,'showVaitro'=>$showVaitro,'showActive'=>$showActive]);
+        $showDoitac = doitacTable::all();
+        return view('admin/page/user/user-update', ['showDoitac' => $showDoitac, 'showOneUser' => $showOneUser, 'showGender' => $showGender, 'showVaitro' => $showVaitro, 'showActive' => $showActive]);
     }
     // user table ---------------------------------->
 
@@ -393,7 +411,7 @@ class dashboardController extends Controller
         }
         $data = array(
             'name_mien' => $request->tenmien,
-            'url_img_mien'=>$path
+            'url_img_mien' => $path
         );
         mien::create($data);
 
@@ -482,17 +500,17 @@ class dashboardController extends Controller
 
     public function toursTable()
     {
-        $showTour=tour::all();
-        $showTourDT=tour::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-table',['showTour'=>$showTour,'showTourDT'=>$showTourDT]);
+        $showTour = tour::all();
+        $showTourDT = tour::where('id_doitac', '=', session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-table', ['showTour' => $showTour, 'showTourDT' => $showTourDT]);
     }
 
     public function toursAdd()
     {
-        $showMien=mien::all();
-        $showTinh=tinh::where('id_mien','=',1)->get();
-        $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-add',['showCoupon'=>$showCoupon,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+        $showMien = mien::all();
+        $showTinh = tinh::where('id_mien', '=', 1)->get();
+        $showCoupon = couponTable::where('id_doitac', '=', session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-add', ['showCoupon' => $showCoupon, 'showMien' => $showMien, 'showTinh' => $showTinh]);
     }
     public function addTour(Request $request)
     {
@@ -503,15 +521,15 @@ class dashboardController extends Controller
             $file->move('BackEnd/assets/images/tours', $path);
         }
         if ($request->hasFile('url_gallery_tours')) {
-            $data1='';
+            $data1 = '';
             $image = $request->file('url_gallery_tours');
             foreach ($image as $files) {
                 $destinationPath = 'BackEnd/assets/images/tours';
                 $file_name = $files->getClientOriginalName();
                 $files->move($destinationPath, $file_name);
-                $data1=$data1.','.$file_name;
+                $data1 = $data1 . ',' . $file_name;
             }
-            $data1=ltrim($data1,",");
+            $data1 = ltrim($data1, ",");
         }
         $data = array(
             'id_doitac' => session('account')->id_doitac,
@@ -531,13 +549,13 @@ class dashboardController extends Controller
             'url_gallery_tours' => json_encode($data1)
         );
         tour::create($data);
-        $tourOne=tour::orderby('id_tour','desc')->first();
-        return view('admin/page/tours/tours-schedule',['id_tour'=>$tourOne->id_tour]);
+        $tourOne = tour::orderby('id_tour', 'desc')->first();
+        return view('admin/page/tours/tours-schedule', ['id_tour' => $tourOne->id_tour]);
     }
     public function delTour($id)
     {
 
-        $schedule = schedule::where('id_tour','=',$id);
+        $schedule = schedule::where('id_tour', '=', $id);
         $schedule->delete();
         $tour = tour::find($id);
         $tour->delete();
@@ -554,44 +572,44 @@ class dashboardController extends Controller
     }
     public function editTour($id)
     {
-        $showTour=tour::find($id);
-        $showMien=mien::all();
-        $showTinh=tinh::where('id_mien','=',1)->get();
-        $showCoupon=couponTable::where('id_doitac','=',session('account')->id_doitac)->get();
-        return view('admin/page/tours/tours-edit',['showCoupon'=>$showCoupon,'showTour'=>$showTour,'showMien'=>$showMien,'showTinh'=>$showTinh]);
+        $showTour = tour::find($id);
+        $showMien = mien::all();
+        $showTinh = tinh::where('id_mien', '=', 1)->get();
+        $showCoupon = couponTable::where('id_doitac', '=', session('account')->id_doitac)->get();
+        return view('admin/page/tours/tours-edit', ['showCoupon' => $showCoupon, 'showTour' => $showTour, 'showMien' => $showMien, 'showTinh' => $showTinh]);
     }
     public function updateTour(Request $request)
     {
-        $showTour=tour::find($request->id_tour);
-        $showTour->name_tour=$request->name_tour;
-        $showTour->id_doitac=session('account')->id_doitac;
-        $showTour->time=$request->time;
-        $showTour->price=$request->price;
-        $showTour->price_children=$request->price_children;
-        $showTour->discount=$request->discount;
-        $showTour->quantity_limit=$request->quantity_limit;
-        $showTour->date_start=$request->date_start;
-        $showTour->date_end=$request->date_end;
-        $showTour->vehicle=$request->vehicle;
-        $showTour->short_content=$request->short_content;
+        $showTour = tour::find($request->id_tour);
+        $showTour->name_tour = $request->name_tour;
+        $showTour->id_doitac = session('account')->id_doitac;
+        $showTour->time = $request->time;
+        $showTour->price = $request->price;
+        $showTour->price_children = $request->price_children;
+        $showTour->discount = $request->discount;
+        $showTour->quantity_limit = $request->quantity_limit;
+        $showTour->date_start = $request->date_start;
+        $showTour->date_end = $request->date_end;
+        $showTour->vehicle = $request->vehicle;
+        $showTour->short_content = $request->short_content;
         $path = '';
         $file = $request->url_img_tour;
         if ($file) {
             $path = $file->getClientOriginalName();
             $file->move('BackEnd/assets/images/tours', $path);
-            $showTour->url_img_tour= $path;
+            $showTour->url_img_tour = $path;
         }
         if ($request->hasFile('url_gallery_tours')) {
-            $data1='';
+            $data1 = '';
             $image = $request->file('url_gallery_tours');
             foreach ($image as $files) {
                 $destinationPath = 'BackEnd/assets/images/tours';
                 $file_name = $files->getClientOriginalName();
                 $files->move($destinationPath, $file_name);
-                $data1=$data1.','.$file_name;
+                $data1 = $data1 . ',' . $file_name;
             }
-            $data1=ltrim($data1,",");
-            $showTour->url_gallery_tours=$data1;
+            $data1 = ltrim($data1, ",");
+            $showTour->url_gallery_tours = $data1;
         }
         $showTour->save();
         return redirect('admin/tours');
@@ -611,8 +629,8 @@ class dashboardController extends Controller
 
     public function newsTable()
     {
-        $showNew=tintucTable::join('user','news.id_user','=','user.id_user')->get();
-        return view('admin/page/news/news-table',['showNew'=>$showNew]);
+        $showNew = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')->get();
+        return view('admin/page/news/news-table', ['showNew' => $showNew]);
     }
 
     public function newsAdd()
@@ -627,42 +645,42 @@ class dashboardController extends Controller
             $path = $file->getClientOriginalName();
             $file->move('BackEnd/assets/images/news', $path);
         }
-        $data=array(
+        $data = array(
             'title' => $request->title,
             'short_content' => $request->short_content,
             'content' => $request->content,
-            'url_img_news'=>$path,
-            'id_user'=>$request->id_user
+            'url_img_news' => $path,
+            'id_user' => $request->id_user
         );
         tintucTable::create($data);
         return redirect('/admin/news');
     }
-    public function formEditNew(Request $request,$id)
+    public function formEditNew(Request $request, $id)
     {
-        $showNewOne=tintucTable::find($id);
-        return view('admin/page/news/news-update',['showOneNews'=>$showNewOne]);
+        $showNewOne = tintucTable::find($id);
+        return view('admin/page/news/news-update', ['showOneNews' => $showNewOne]);
     }
     public function editNews(Request $request)
     {
-        $showNews=tintucTable::find($request->id_news);
-        $showNews->title=$request->title;
-        $showNews->short_content=$request->short_content;
-        $showNews->content=$request->content;
-        $showNews->id_user=$request->id_user;
+        $showNews = tintucTable::find($request->id_news);
+        $showNews->title = $request->title;
+        $showNews->short_content = $request->short_content;
+        $showNews->content = $request->content;
+        $showNews->id_user = $request->id_user;
         $path = '';
         $file = $request->url_img_news;
         if ($file) {
             $path = $file->getClientOriginalName();
             $file->move('BackEnd/assets/images/news', $path);
-            $showNews->url_img_news=$path;
+            $showNews->url_img_news = $path;
         }
         $showNews->save();
         return redirect('/admin/news');
     }
     public function viewsNews($id)
     {
-        $showNewOne=tintucTable::find($id);
-        return view('admin/page/news/news-details',['showOneNews'=>$showNewOne]);
+        $showNewOne = tintucTable::find($id);
+        return view('admin/page/news/news-details', ['showOneNews' => $showNewOne]);
     }
 
 
@@ -677,7 +695,7 @@ class dashboardController extends Controller
     public function galleryTable()
     {
         $showMien = mien::all();
-        $showGallery = gallerytable::join('mien', 'gallery.id_mien', '=', 'mien.id_mien')->orderby('id_gallery','desc')->get();
+        $showGallery = gallerytable::join('mien', 'gallery.id_mien', '=', 'mien.id_mien')->orderby('id_gallery', 'desc')->get();
         return view('admin/page/gallery/gallery-table', ['showmien' => $showMien, 'showGallery' => $showGallery]);
     }
     public function addGallery(Request $request)
@@ -691,7 +709,7 @@ class dashboardController extends Controller
         $data = array(
             'title' => $request->title,
             'id_mien' => $request->id_mien,
-            'url_img_gallery'=>$path,
+            'url_img_gallery' => $path,
         );
         gallerytable::create($data);
         return redirect('/admin/gallery');
