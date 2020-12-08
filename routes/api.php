@@ -73,3 +73,4 @@ Route::GET('admin/passdetail/{id}','homeAPI@passDetail');
 Route::GET('/create-part-demo','homeAPI@createPartnerDemo');
 Route::GET('/create-part','homeAPI@createPartner');
 Route::GET('/paymentpart','homeAPI@paymentPart');
+// Route::GET('/searchtour','homeAPI@searchTour');

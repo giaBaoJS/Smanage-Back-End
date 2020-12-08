@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -5769,7 +5769,7 @@ body::-webkit-scrollbar {
     top: -2px;
     right: 22px;
     /*background-color: #fff;
-} 
+}
 .validate_field.none {
     position: static;
     background-color: transparent;
@@ -6030,8 +6030,15 @@ body::-webkit-scrollbar {
     z-index: 11;
 }
 .wrapper-home .wrap-dropdown-place .dropdown-place{
-    display: none;  
+    display: none;
 }
 .wrapper-home .wrap-dropdown-place .dropdown-place.active{
-    display: block;  
+    display: block;
+}
+.page-item{
+    padding: 0 5px !important;
+}
+.page-link{
+    width: 40px !important;
+    height: 40px !important;
 }

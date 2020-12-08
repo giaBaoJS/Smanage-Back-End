@@ -114,8 +114,8 @@
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star"></i></span>
 													<input
-														type="checkbox"
-														name="review_score"
+														type="radio"
+														name="review_score" class="radio-rate"
 														value="5"
 														data-type="star-rate"
 													/>
@@ -128,9 +128,9 @@
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
+														type="radio"
+														name="review_score" class="radio-rate"
+														value="4"
 														data-type="star-rate"
 													/>
 													<span class="fcheckbox"></span>
@@ -142,9 +142,9 @@
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
+														type="radio"
+														name="review_score" class="radio-rate"
+														value="3"
 														data-type="star-rate"
 													/>
 													<span class="fcheckbox"></span>
@@ -156,9 +156,9 @@
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
+														type="radio"
+														name="review_score" class="radio-rate"
+														value="2"
 														data-type="star-rate"
 													/>
 													<span class="fcheckbox"></span>
@@ -170,9 +170,9 @@
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
+														type="radio"
+														name="review_score" class="radio-rate"
+														value="1"
 														data-type="star-rate"
 													/>
 													<span class="fcheckbox"></span>
@@ -193,43 +193,6 @@
 														data-type="star-rate"
 													/>
 													<span class="checkmark fcheckbox"></span>
-												</li>
-												<li>
-													<label>Miền trung</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
-												</li>
-												<li>
-													<label>Miền nam</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="item">
-										<h4>Miền</h4>
-										<div class="two-ele">
-											<ul>
-												<li>
-													<label>Miền bắc</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
 												</li>
 												<li>
 													<label>Miền trung</label>
@@ -279,11 +242,11 @@
 								<div class="sort">
 				 					<div class="sl-form">
 										<select name="sources" id="sources" class="custom-selects sources" placeholder="Sắp xếp theo">
-										<option value="1">Giá tăng dần</option>
-										<option value="2">Giá giảm dần</option>
-										<option value="3">Lượt xem tăng dần</option>
-										<option value="4">Lượt xem giảm dần</option>
-										<option value="5">Tour mới nhất</option>
+                                            <option value="1">Giá tăng dần</option>
+                                            <option value="2">Giá giảm dần</option>
+                                            {{-- <option value="3">Lượt xem tăng dần</option>
+                                            <option value="4">Lượt xem giảm dần</option> --}}
+                                            <option value="3">Tour mới nhất</option>
 										</select>
 									</div>
 									<!-- <div class="layout tablist">
@@ -303,7 +266,7 @@
 
 							<!-- Tour dạng list  -->
 							<div class="list-tours tabs tab1 active">
-								<div class="row">
+								<div class="row" id="show-tour-search">
                   @foreach($showToursLimit as $t)
                   <div class="col-lg-4 col-md-6 spc">
 										<div class="wrapper-tour">
@@ -372,6 +335,9 @@
 										</div>
 									</div>
                   @endforeach
+                  <div id="showpaginate" style="width:100%">
+                    {!! $showToursLimit->links() !!}
+                  </div>
 								</div>
 							</div>
 
@@ -601,15 +567,6 @@
 									</div>
 								</div>
               </div> -->
-              @if(ceil(count($showToursTotal) / 12) >= 2)
-              <div class='pagination'>
-                <nav>
-                  <div class='<?=(!isset($_GET['page']) || $_GET['page'] <= 1) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '1' : $_GET['page'] - 1)?>'><</a></div>
-                  <div><b class="page"><?=(!isset($_GET['page']) ? '1' : $_GET['page'])?> </b> &nbsp;/&nbsp; <span class="total-page">{{ceil(count($showToursTotal) / 12)}}</span></div>
-                  <div  class='<?=(isset($_GET['page']) && $_GET['page'] == ceil(count($showToursTotal) / 12)) ? 'disable' : '' ?>'><a href='/tours?page=<?=(!isset($_GET['page']) ? '2' : $_GET['page'] + 1)?>'>></a></div>
-                </nav>
-              </div>
-              @endif
 						</div>
 					</div>
 				</div>

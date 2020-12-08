@@ -481,7 +481,7 @@ class homeAPI extends Controller
           ]
       );
     }
-    
+
     $newPhone = $request->phone;
     $newGender = $request->gender;
     $newAddress = $request->address;
@@ -1209,4 +1209,24 @@ class homeAPI extends Controller
       echo json_encode(['success' => false, 'message' => 'Đã có lỗi trong khi gửi mail', 'redirect'=> true, 'location' => '/lien-he']);
     }
     }
+    //SEARCH TOUR
+    // public function searchTour(Request $request)
+    // {
+    //     if ($request->id_search==1) {
+    //         $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+    //         ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->get();
+    //         return $showTour;
+    //     }
+    //     if ($request->id_search==2) {
+    //         $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+    //         ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->get();
+    //         return $showTour;
+    //     }
+    //     if ($request->id_search==3) {
+    //         $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+    //         ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->get();
+    //         return $showTour;
+    //     }
+
+    // }
 }
