@@ -296,7 +296,33 @@ class homeController extends Controller
 
     return view('front-end/pages/tours/tours', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
-
+  public function toursSearch($id)
+    {
+        if ($id==1) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        if ($id==2) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        if ($id==3) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        $showComment = comment_tour::all();
+        $showTinh = tinh::all();
+        $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+        ->join('mien','mien.id_mien','=','tours.id_mien')
+        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+        ->orderby('date_start','asc')
+        ->whereRaw('Date(date_start) >= CURDATE()')
+        ->get();
+        return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
+    }
   public function toursByMien($id)
   {
     $showComment = comment_tour::all();
