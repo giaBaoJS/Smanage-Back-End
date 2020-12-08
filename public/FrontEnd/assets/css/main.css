@@ -3202,45 +3202,39 @@ footer .copyright p {
 .filter-items .item .two-ele ul li {
     position: relative;
     margin-bottom: 20px;
-    padding-left: 26px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.filter-items .item .two-ele ul li span:nth-child(n+3){
+    margin-left: 5px;
 }
 .filter-items .item .two-ele ul li i {
     font-size: 13px;
     color: #ffdc00;
 }
-.filter-items .item .two-ele ul li .checkmark::after {
-    content: "";
-    position: absolute;
-    background-color: transparent;
-    border-radius: 0;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 8px;
-    border: solid #5191fa;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-.filter-items .item .two-ele ul li .fcheckbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 16px;
-    width: 16px;
-    background-color: #fff;
-    border-radius: 2px;
-    border: 1px solid #a0a9b2;
-}
 .filter-items .item .two-ele ul li .fake-star {
     color: #c4c7ca;
 }
 .filter-items .item input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #b7b7b7;
+    position: relative;
+    margin-right: 5px;
+}
+.filter-items .item input:checked::before  {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 3px;
+        width: 4px;
+        height: 7px;
+        border: solid #0575E6;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
 }
 .filter-items .search-title h2 {
     padding: 20px 0;

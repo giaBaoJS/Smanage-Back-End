@@ -108,74 +108,75 @@
 										<div class="two-ele">
 											<ul>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<input
-														type="radio"
+												<input
+													 class="my-checkbox"
+														type="checkbox"
 														name="review_score" class="radio-rate"
 														value="5"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+					
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="radio"
+													 class="my-checkbox"
+														type="checkbox"
 														name="review_score" class="radio-rate"
 														value="4"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="radio"
+													 	class="my-checkbox"
+														type="checkbox"
 														name="review_score" class="radio-rate"
 														value="3"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
-														type="radio"
+													 	class="my-checkbox"
+														type="checkbox"
 														name="review_score" class="radio-rate"
 														value="2"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
+													<input
+													 	class="my-checkbox"
+														type="checkbox"
+														name="review_score" class="radio-rate"
+														value="1"
+														data-type="star-rate"
+													/>
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
-													<input
-														type="radio"
-														name="review_score" class="radio-rate"
-														value="1"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
 												</li>
 											</ul>
 										</div>
@@ -185,35 +186,32 @@
 										<div class="two-ele">
 											<ul>
 												<li>
-													<label>Miền bắc</label>
 													<input
+														id="mienbac"
+														class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" class="radio-rate"
+														value="mienbac"
 													/>
-													<span class="checkmark fcheckbox"></span>
-												</li>
+													<label for ="mienbac">Miền bắc</label>
 												<li>
-													<label>Miền trung</label>
 													<input
+														id="mientrung"
+													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" class="radio-rate"
+														value="mientrung"
 													/>
-													<span class="fcheckbox"></span>
-												</li>
+													<label for ="mientrung">Miền trung</label>
 												<li>
-													<label>Miền nam</label>
 													<input
+														id="miennam"
+													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" class="radio-rate"
+														value="miennam"
 													/>
-													<span class="fcheckbox"></span>
-												</li>
+													<label for ="miennam">Miền nam</label>
 											</ul>
 										</div>
 									</div>
@@ -335,7 +333,7 @@
 										</div>
 									</div>
                   @endforeach
-                  <div id="showpaginate" style="width:100%">
+				  <div id="showpaginate" style="width:100%">
                     {!! $showToursLimit->links() !!}
                   </div>
 								</div>
