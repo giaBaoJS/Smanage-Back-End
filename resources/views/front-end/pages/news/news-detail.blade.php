@@ -32,7 +32,7 @@
                     <span>{{date('d/m/Y',strtotime($showOneNew->created_at))}}</span>
                     <a><span class="cmt-count">{{count($showComment)}}</span> Nhận xét</a>
                     <span><i class="fas fa-eye"></i> {{$showOneNew->views}}</span>
-                    <span><i class="fas fa-thumbs-up"></i> {{$showOneNew->likes}}</span>
+                    <span><i class="fas fa-thumbs-up"></i> <small class="count-like"> {{count($like)}}</small></span>
                   </div>
                   {!!$showOneNew->content!!}
                   <div class="shared">
@@ -45,11 +45,21 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="shared__icon">
-                          <a href="#"><i class="fas fa-thumbs-up"></i> Thích</a>
+                      @if (session('account'))
+                        <!-- data-like: 0 là chưa thích, 1 là đã thích -->
+                        <div class="shared__icon" 
+                            data-id-tn="{{$showOneNew->id_news}}" 
+                            data-id-user="{{session('account')->id_user}}" 
+                            data-type="0" 
+                            data-is-liked="<?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news],['id_user','=',session('account')->id_user],['type','=','0']])->get()) ? '1' : '0'?>">
+                          <a href="#">
+                            <i class="fas fa-thumbs-up"></i> 
+                            <span class="share__text"><?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news],['id_user','=',session('account')->id_user],['type','=','0']])->get()) ? 'Bỏ thích' : 'Thích'?> </span>
+                          </a>
                           <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
                           <a href="#"><i class="fab fa-instagram"></i></a> -->
                         </div>
+                        @endif
                       </div>
                     </div>
                   </div>
