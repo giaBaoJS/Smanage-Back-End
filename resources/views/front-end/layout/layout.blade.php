@@ -96,6 +96,7 @@
                     <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
                     <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
                     <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>
+                    <li><a href="{{url('/admin')}}">admin</a></li>
                     <li><a href="#" class="logout">Đăng xuất</a></li>
                   </ul>
                 </li>
