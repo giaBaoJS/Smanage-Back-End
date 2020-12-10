@@ -89,10 +89,13 @@
                   <h3>Tags</h3>
                   <div class="list-tag">
                       @foreach ($showMien as $m)
-                        <a href="#">{{$m->name_mien}}</a>
+                        <a href="">{{$m->name_mien}}</a>
                       @endforeach
                       @foreach ($showTinh as $t)
-                      <a href="#">{{$t->name_tinh}}</a>
+                      <a href="">{{$t->name_tinh}}</a>
+                      @endforeach
+                      @foreach ($tagTour as $t)
+                      <a href="{{ URL::to('/searchByTag/'.$t->tag) }}">{{$t->tag}}</a>
                       @endforeach
                   </div>
                 </div>

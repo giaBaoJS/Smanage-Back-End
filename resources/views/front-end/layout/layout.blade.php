@@ -123,7 +123,7 @@
           <div class="col-md-3">
             <h3>{{$m->name_mien}}</h3>
             <?php
-            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get()->random(3);
+            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get();
             ?>
             <ul class="list-mien">
               <?php

@@ -848,4 +848,10 @@ $("#checkout-part").click(function () {
 $('.fcheckbox').click(function () {
     var rate=$(this).prev('input').val();
 console.log(rate,'sdadsa');
-})
+});
+
+$('#toursearch input').blur(function() {
+    if(!$.trim(this.value).length) { // zero-length string AFTER a trim
+           $(this).parents('p').addClass('warning');
+    }
+});
