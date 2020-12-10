@@ -12,6 +12,7 @@ use App\slider;
 use App\comment;
 use App\bill;
 use App\tour;
+use App\like_table;
 use App\passenger;
 use App\comment_tour;
 use App\billdoitac;
@@ -1229,4 +1230,20 @@ class homeAPI extends Controller
     //     }
 
     // }
+  // LIKE
+  public function like(Request $request) {
+    $data = [
+      'id_user'=>$request->id_user,
+      'id_tn'=>$request->id_tn,
+      'type'=>$request->type
+    ];
+    $isLiked = $request->is_liked;
+    if($isLiked) {
+      like_table::where($data)->delete();
+      return ['is_liked'=>0,'status'=>'Thích'];
+    } else {
+      like_table::create($data);
+      return ['is_liked'=>1,'status'=>'Bỏ thích'];
+    }
+  }
 }

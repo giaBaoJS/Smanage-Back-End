@@ -73,8 +73,14 @@ Route::post('/thanh-toan-2', 'homeController@checkoutTwo');
 Route::get('/thanh-toan-3', 'homeController@checkoutThree');
 Route::get('/thanh-toan-4', 'homeController@checkoutFour');
 // CHECKOUT - END
+<<<<<<< HEAD
 Route::get('/timkiem', 'homeController@timkiem');
 Route::get('/searchByTag/{key}', 'homeController@searchByTag');
+=======
+// LIKE 
+Route::get('/like','homeAPI@like');
+// LIKE - END
+>>>>>>> 628ff76b7945f8f08d862292452d5f635e479d4d
 
 
 

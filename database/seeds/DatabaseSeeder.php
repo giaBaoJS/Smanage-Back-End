@@ -37,6 +37,18 @@ class DatabaseSeeder extends Seeder
         //         'created_at' => new DateTime(), // ngày giờ hiện tại.
         //         'updated_at' => new DateTime()
         //     ]);
+        // DB::table('tours')->insert([
+        //     [
+        //         'doitac'=> 1,
+        //         'idmien'=> 1,
+        //         'idtinh'=> 1,
+        //         'name_tour'=> 'DU LỊCH HÀ NỘI - NINH BÌNH - CHÙA BÁI ĐÍNH',
+        //         'rate'=> 0,
+        //         'time'=> '4h30',
+        //         'price'=> 8029000,
+
+        //     ],
+        // ]);
 
         DB::table('tinh')->insert([
             [

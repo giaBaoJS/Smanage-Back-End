@@ -4092,11 +4092,11 @@ footer .copyright p {
 .wrapper-detail-news .detail-news .news-list .items .title:hover {
     color: unset;
 }
-.wrapper-detail-news .detail-news .news-list .items .shared__icon {
+.shared__icon {
     text-align: right;
 }
 
-.wrapper-detail-news .detail-news .news-list .items .shared__icon a {
+.shared__icon a {
     display: inline-block;
     color: #ffffff;
     font-size: 18px;
@@ -4105,7 +4105,7 @@ footer .copyright p {
     border-radius: 4px;
     transition: 0.3s all;
 }
-.wrapper-detail-news .detail-news .news-list .items .shared__icon a:hover {
+.shared__icon a:hover {
     transform: scale(1.1);
 }
 .wrapper-detail-news .detail-news .news-list .items .poster {
