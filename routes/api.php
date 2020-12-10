@@ -71,6 +71,7 @@ Route::GET('admin/addpayment', 'homeAPI@addPayment');
 Route::GET('admin/billdetail/{id}', 'homeAPI@billDetail');
 Route::GET('admin/passdetail/{id}', 'homeAPI@passDetail');
 //PARTERT
-Route::GET('/create-part-demo', 'homeAPI@createPartnerDemo');
-Route::GET('/create-part', 'homeAPI@createPartner');
-Route::GET('/paymentpart', 'homeAPI@paymentPart');
+Route::GET('/create-part-demo','homeAPI@createPartnerDemo');
+Route::GET('/create-part','homeAPI@createPartner');
+Route::GET('/paymentpart','homeAPI@paymentPart');
+// Route::GET('/searchtour','homeAPI@searchTour');

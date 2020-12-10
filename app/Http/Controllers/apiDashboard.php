@@ -151,18 +151,23 @@ class apiDashboard extends Controller
                 $user->save();
                 $show .= $showUser[$i]['id_user'] . " + " . $dayDiff . "-------------";
             }
+
         };
-        return  $show;
-        $showCoupon = couponTable::all();
-        for ($y = 0; $y < count($showCoupon); $y++) {
-            if ($showCoupon[$y]['quantity'] == 0) {
-                $showCouponDt = couponTable::find($showCoupon[$y]['id_coupon']);
-                $showCouponDt->status = 0;
-                $showCouponDt->save();
+        $showCoupon=couponTable::all();
+        for ($y=0; $y < count($showCoupon); $y++) {
+            if ($showCoupon[$y]['quantity']==0) {
+                $showCouponDt=couponTable::find($showCoupon[$y]['id_coupon']);
+                  $showCouponDt->status=0;
+                  $showCouponDt->save();
             }
             $date_start = explode("-", $showCoupon[$y]['date_start']);
-            $dayEnd = strtotime(date('m/d/Y', strtotime(Carbon::now())));
-            $dayStart = strtotime(date('d/m/Y', strtotime($date_start[1])));
+            $dayEnd = strtotime(date('m/d/Y',strtotime(Carbon::now())));
+            $dayStart =date('Y-m-d',strtotime($date_start[0]));
+            if ($dayStart>=now()->toDateString()) {
+                $showCouponDt=couponTable::find($showCoupon[$y]['id_coupon']);
+                  $showCouponDt->status=0;
+                  $showCouponDt->save();
+            }
         }
     }
     // coupon -----------------

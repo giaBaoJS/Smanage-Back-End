@@ -47,6 +47,9 @@
                 <span class="arrows"><i class="fas fa-angle-down"></i></span>
               </a>
               <div class="info-user">
+                @if(session('account')->role)
+                  <a href="{{url('/admin')}}">Trang quản lý</a>
+                @endif
                 <a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a>
                 <a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a>
                 <a href="{{url('/lich-su')}}">Đơn hàng</a>
@@ -87,6 +90,9 @@
                     <span> <img src="{{asset('BackEnd/assets/images/users')}}/{{session('account')->url_avatar}}" width="30px" alt="logo"> {{session('account')->name}}</span>
                   </a>
                   <ul class="submenu">
+                    @if(session('account')->role)
+                     <li><a href="{{url('/admin')}}">Trang quản lý</a></li> 
+                    @endif
                     <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
                     <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
                     <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>

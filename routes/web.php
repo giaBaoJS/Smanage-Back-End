@@ -61,6 +61,7 @@ Route::get('/check-out-part','homeController@checkOutPart');
 Route::get('/tours','homeController@tours');
 Route::get('/tours/mien/{id}','homeController@toursByMien');
 Route::get('/tours/dt/{id}','homeController@toursDetail');
+Route::get('tours-search/{id}','homeController@toursSearch');
 // TOURS - END
 // NEWS
 Route::get('/tim-tin-tuc','homeController@searchNews');
@@ -73,6 +74,9 @@ Route::post('/thanh-toan-2','homeController@checkoutTwo');
 Route::get('/thanh-toan-3','homeController@checkoutThree');
 Route::get('/thanh-toan-4','homeController@checkoutFour');
 // CHECKOUT - END
+// LIKE 
+Route::get('/like','homeAPI@like');
+// LIKE - END
 
 
 

@@ -15,6 +15,7 @@ use App\tinh;
 use App\tintucTable;
 use App\passenger;
 use App\tour;
+use App\like_table;
 use App\bill;
 use App\schedule;
 use App\comment;
@@ -296,6 +297,33 @@ class homeController extends Controller
 
     return view('front-end/pages/tours/tours', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
+  public function toursSearch($id)
+    {
+        if ($id==1) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        if ($id==2) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        if ($id==3) {
+            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(6);
+        }
+        $showComment = comment_tour::all();
+        $showTinh = tinh::all();
+        $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+        ->join('mien','mien.id_mien','=','tours.id_mien')
+        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+        ->orderby('date_start','asc')
+        ->whereRaw('Date(date_start) >= CURDATE()')
+        ->get();
+        return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
+    }
   public function toursByMien($id)
   {
     $showComment = comment_tour::all();
@@ -328,7 +356,8 @@ class homeController extends Controller
     return view('front-end/pages/tours/tours-by-mien', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
   public function toursDetail($id)
-  {
+  { 
+    $like = like_table::where([['id_tn','=',$id],['type','=','1']])->get();
     $toursDetail = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
       ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
       ->where('id_tour', '=', $id)
@@ -349,7 +378,7 @@ class homeController extends Controller
       ->orderby('id_comment_tour', 'desc')
       ->limit(4)
       ->get();
-    return view('front-end/pages/tours/tours-detail', ['showMien' => $this->showMien, 't' => $toursDetail, 'schedule' => $schedule, 'infoPartner' => $infoPartner, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
+    return view('front-end/pages/tours/tours-detail', ['like'=>$like,'showMien' => $this->showMien, 't' => $toursDetail, 'schedule' => $schedule, 'infoPartner' => $infoPartner, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
   }
   public function searchNews()
   {
@@ -383,6 +412,7 @@ class homeController extends Controller
   }
   public function newsDetail($id)
   {
+    $like = like_table::where([['id_tn','=',$id],['type','=','0']])->get();
     $showMien = mien::all();
     $showTinh = tinh::all();
     $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
@@ -403,7 +433,7 @@ class homeController extends Controller
       ->orderby('id_comment', 'desc')
       ->limit(4)
       ->get();
-    return view('front-end/pages/news/news-detail', ['showMien' => $this->showMien, 'showOneNew' => $showOneNew, 'showMien' => $showMien, 'showTinh' => $showTinh, 'showNewsHighlights' => $showNewsHighlights, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
+    return view('front-end/pages/news/news-detail', ['like'=>$like,'showMien' => $this->showMien, 'showOneNew' => $showOneNew, 'showMien' => $showMien, 'showTinh' => $showTinh, 'showNewsHighlights' => $showNewsHighlights, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
   }
   public function gallery()
   {

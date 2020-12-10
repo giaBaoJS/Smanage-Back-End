@@ -493,7 +493,31 @@ $(".custom-option:first-of-type").hover(
 );
 $(".custom-select-trigger").on("click", function () {
     $("html").one("click", function () {
-        $(".custom-selects").removeClass("opened");
+       $(".custom-selects").removeClass("opened");
+       var id_search=$('#sources').val();
+       window.location.href = "/tours-search/"+id_search;
+    //    $.ajax({
+    //     url: "http://127.0.0.1:8000/api/searchtour",
+    //     type: "get",
+    //     data: { id_search:id_search },
+    //     success: function (p) {
+    //     var tour="";
+    //     var i =1;
+    //     p.forEach(t => {
+    //         if (t.discount>0) {
+    //             var dis='<div class="sale">- '+t.discount+'%</div>';
+    //         }
+    //         if (t.discount==0) {
+    //             var discount='<div class="d-flex flex-wrap"><p><i class="fas fa-bolt"></i><b>'+formatDollar((t.price-(t.price*t.discount/100)))+' VNĐ</b></p></div>';
+    //         } else {
+    //             discount='<div class="d-flex flex-wrap"><p><i class="fas fa-bolt"></i><b>'+formatDollar((t.price-(t.price*t.discount/100)))+' VNĐ</b></p><del style="padding-left: 5px; font-size: 12px; vertical-align: bottom">'+formatDollar(t.price)+' VNĐ</del></div>';
+    //         }
+    //         tour+=' <div class="col-lg-4 col-md-6 spc" id="page'+(i++)+'"><div class="wrapper-tour"><div class="feature-image"><a href="/tours/dt/'+t.id_tour+'"><img class="w-100 img-fluid" src="BackEnd/assets/images/tours/'+t.url_img_tour+'" alt=""/></a><div class="icons"><a href="#"><i class="fa fa-heart"></i></a></div><div class="feature-tour">Đặt nhiều</div>'+dis+'</div><div class="content --custom"><div class="content-top"><i class="fas fa-map-marker-alt"></i><h3>'+t.name_tinh+', '+t.name_mien+'</h3></div><a href="/tours/dt/'+t.id_tour+'">'+t.name_tour+'</a><div class="content-mid"><ul class="d-flex list-star"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li></ul><span>0 nhận xét</span></div><div class="content-bottom "><div class="d-flex align-items-center mb-2"><i class="fas fa-clock"></i><span style="color: #6f6f6f;font-size: 14px; margin-left: 5px;">'+t.date_start+'</span></div>'+discount+'</div></div></div></div>';
+    //     });
+    //     $('#show-tour-search').html(tour);
+    //       console.log(p,'dsadsa');
+    //     },
+    // });
     });
     $(this).parents(".custom-selects").toggleClass("opened");
     event.stopPropagation();
@@ -760,7 +784,7 @@ function showBill(id) {
                     });
                     div2 +=
                         '</tbody><tfoot><tr><td colspan="4" style="text-align: right">Tổng Giá vé</td><td colspan="2"><span>' +
-                        formatNumber(b.total_price, ".", ",") +
+                        formatDollar(b.total_price) +
                         " VNĐ</span></td></tr></tfoot>";
                     $("#table-bill").html(div2);
                 },
@@ -768,60 +792,60 @@ function showBill(id) {
         },
     });
 }
+function formatDollar(num) {
+    var p = num.toFixed(0).split(".");
+    return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return  num=="-" ? acc : num + (i && !(i % 3) ? "." : "") + acc ;
+    }, "");
+}
 
-function formatNumber(nStr, decSeperate, groupSeperate) {
-    nStr += "";
-    x = nStr.split(decSeperate);
-    x1 = x[0];
-    x2 = x.length > 1 ? "." + x[1] : "";
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, "$1" + groupSeperate + "$2");
-    }
-    $("#checkout-part").click(function () {
-        var id_payment = $("#id_payment").val();
-        if (id_payment == undefined) {
-            Swal.fire({
-                title: "Vui lòng chọn phương thức thanh toán",
-                icon: "warning",
-                timer: 2000,
-                showConfirmButton: false,
-                allowOutsideClick: false,
-            });
-            return false;
-        }
-        $("#showLoader").html(
-            '<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>'
-        );
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/paymentpart",
-            type: "get",
-            data: { id_payment: id_payment },
-            success: function (t) {
-                if (t == 1) {
-                    Swal.fire({
-                        title: "Đăng ký đối tác thành công",
-                        icon: "success",
-                        timer: 2000,
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                    });
-                    window.location.href = "/";
-                }
-            },
+$("#checkout-part").click(function () {
+    var id_payment = $("#id_payment").val();
+    if (id_payment == undefined) {
+        Swal.fire({
+            title: "Vui lòng chọn phương thức thanh toán",
+            icon: "warning",
+            timer: 2000,
+            showConfirmButton: false,
+            allowOutsideClick: false,
         });
         return false;
-    });
-
-    //filter data list diem den
-    $("#diemden").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $(".dropdown-place li").each(function () {
-            if ($(this).text().toLowerCase().search(value) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
+    }
+    $("#showLoader").html(
+        '<span class="loader"></span><a class="goback --next" href="#" style="background:gray;color:white" disabled>Xác nhận</a>'
+    );
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/paymentpart",
+        type: "get",
+        data: { id_payment: id_payment },
+        success: function (t) {
+            if (t == 1) {
+                Swal.fire({
+                    title: "Đăng ký đối tác thành công",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                });
+                window.location.href = "/";
             }
-        });
+        },
     });
-}
+    return false;
+});
+
+  //filter data list diem den
+  $("#diemden").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $(".dropdown-place li").each(function () {
+        if ($(this).text().toLowerCase().search(value) > -1) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+$('.fcheckbox').click(function () {
+    var rate=$(this).prev('input').val();
+console.log(rate,'sdadsa');
+})
