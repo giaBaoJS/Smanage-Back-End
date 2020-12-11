@@ -102,7 +102,7 @@ class dashboardController extends Controller
         $showTourDT = tour::where('id_doitac', '=', session('account')->id_doitac)->get();
         $doitac = doitacTable::all();
         $billall = bill::all();
-        $billalluser = bill::join('user', 'bill.id_user', '=', 'user.id_user')->get();
+        $billalluser = bill::join('user', 'bill.id_user', '=', 'user.id_user')->join('tours', 'bill.id_tour', '=', 'tours.id_tour')->get();
         $countdoitac = count($doitac);
         $showBill = bill::where('id_doitac', '=', session('account')->id_doitac)->get();
         $showBillUser = bill::join('user', 'bill.id_user', '=', 'user.id_user')->where('bill.id_doitac', '=', session('account')->id_doitac)->get();

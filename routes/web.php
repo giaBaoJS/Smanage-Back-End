@@ -17,45 +17,44 @@ use Illuminate\Support\Facades\Route;
 /** TRANG CHỦ */
 
 // HOME
-Route::get('/','homeController@index');
+Route::get('/', 'homeController@index');
 // HOME - END
-
 // AUTH
 Route::get('/dang-nhap', 'homeController@login')->name('dang-nhap');
-Route::post('/dang-nhap','homeApi@loginPost');
-Route::get('/dang-ky','homeController@register');
-Route::post('/dang-ky','homeApi@registerPost');
-Route::get('/quen-mat-khau','homeController@forgotPsw');
-Route::post('/quen-mat-khau','homeApi@forgotPswPost');
-Route::get('/doi-quen-mat-khau','homeController@changeForgotPsw');
-Route::post('/doi-quen-mat-khau','homeApi@changeForgotPswPost');
-Route::get('/cap-nhat-tai-khoan','homeController@updateAccount')->middleware('auth');
-Route::post('/cap-nhat-tai-khoan','homeApi@updateAccountPost')->middleware('auth');
-Route::get('/doi-mat-khau','homeController@changePsw')->middleware('auth');
-Route::post('/doi-mat-khau','homeApi@changePswPost')->middleware('auth');
-Route::get('/tim-lich-su','homeController@findHistory');
-Route::post('/tim-lich-su','homeApi@findHistoryPost');
-Route::get('/lich-su-2','homeController@history2');
-Route::get('/lich-su','homeController@history')->middleware('auth');
-Route::post('/lich-su','homeApi@historyPost')->middleware('auth');
-Route::post('/dang-xuat','homeApi@logoutPost')->middleware('auth');
+Route::post('/dang-nhap', 'homeApi@loginPost');
+Route::get('/dang-ky', 'homeController@register');
+Route::post('/dang-ky', 'homeApi@registerPost');
+Route::get('/quen-mat-khau', 'homeController@forgotPsw');
+Route::post('/quen-mat-khau', 'homeApi@forgotPswPost');
+Route::get('/doi-quen-mat-khau', 'homeController@changeForgotPsw');
+Route::post('/doi-quen-mat-khau', 'homeApi@changeForgotPswPost');
+Route::get('/cap-nhat-tai-khoan', 'homeController@updateAccount')->middleware('auth');
+Route::post('/cap-nhat-tai-khoan', 'homeApi@updateAccountPost')->middleware('auth');
+Route::get('/doi-mat-khau', 'homeController@changePsw')->middleware('auth');
+Route::post('/doi-mat-khau', 'homeApi@changePswPost')->middleware('auth');
+Route::get('/tim-lich-su', 'homeController@findHistory');
+Route::post('/tim-lich-su', 'homeApi@findHistoryPost');
+Route::get('/lich-su-2', 'homeController@history2');
+Route::get('/lich-su', 'homeController@history')->middleware('auth');
+Route::post('/lich-su', 'homeApi@historyPost')->middleware('auth');
+Route::post('/dang-xuat', 'homeApi@logoutPost')->middleware('auth');
 // AUTH
 
 // COMMON
-Route::get('/gioi-thieu','homeController@about');
-Route::get('/thu-vien','homeController@gallery');
+Route::get('/gioi-thieu', 'homeController@about');
+Route::get('/thu-vien', 'homeController@gallery');
 // COMMON - END
 // CONTACT
-Route::get('/lien-he','homeController@contact');
-Route::post('/lien-he','homeAPI@contactPost');
+Route::get('/lien-he', 'homeController@contact');
+Route::post('/lien-he', 'homeAPI@contactPost');
 
 // PARTNERS
-Route::get('/doi-tac','homeController@partners');
-Route::get('/doi-tac-resign','homeController@partnersResign');
-Route::get('/doi-tac-resign-demo','homeController@partnersResignDemo');
-Route::get('/doi-tac-checkout','homeController@partnersCheckout');
-Route::get('/doi-tac/dt/{id}','homeController@partnersDetail');
-Route::get('/check-out-part','homeController@checkOutPart');
+Route::get('/doi-tac', 'homeController@partners');
+Route::get('/doi-tac-resign', 'homeController@partnersResign');
+Route::get('/doi-tac-resign-demo', 'homeController@partnersResignDemo');
+Route::get('/doi-tac-checkout', 'homeController@partnersCheckout');
+Route::get('/doi-tac/dt/{id}', 'homeController@partnersDetail');
+Route::get('/check-out-part', 'homeController@checkOutPart');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
@@ -63,16 +62,18 @@ Route::get('/tours/dt/{id}','homeController@toursDetail');
 Route::get('tours-search/{id}','homeController@toursSearch');
 // TOURS - END
 // NEWS
-Route::get('/tim-tin-tuc','homeController@searchNews');
-Route::get('/tin-tuc','homeController@news');
-Route::get('/tin-tuc/dt/{id}','homeController@newsDetail');
+Route::get('/tim-tin-tuc', 'homeController@searchNews');
+Route::get('/tin-tuc', 'homeController@news');
+Route::get('/tin-tuc/dt/{id}', 'homeController@newsDetail');
 // NEWS - END
 // CHECKOUT
-Route::post('/thanh-toan-1','homeController@checkoutOne');
-Route::post('/thanh-toan-2','homeController@checkoutTwo');
-Route::get('/thanh-toan-3','homeController@checkoutThree');
-Route::get('/thanh-toan-4','homeController@checkoutFour');
+Route::post('/thanh-toan-1', 'homeController@checkoutOne');
+Route::post('/thanh-toan-2', 'homeController@checkoutTwo');
+Route::get('/thanh-toan-3', 'homeController@checkoutThree');
+Route::get('/thanh-toan-4', 'homeController@checkoutFour');
 // CHECKOUT - END
+Route::get('/timkiem', 'homeController@timkiem');
+Route::get('/searchByTag/{key}', 'homeController@searchByTag');
 // LIKE 
 Route::get('/like','homeAPI@like');
 // LIKE - END
@@ -166,7 +167,7 @@ Route::post('admin/editnews', 'dashboardController@editNews')->middleware('Check
 // Trang news -------------------- END
 
 // Trang gallery--------------------------------------
-Route::post('admin/addgallery','dashboardController@addGallery');
+Route::post('admin/addgallery', 'dashboardController@addGallery');
 Route::get('admin/gallery', 'dashboardController@galleryTable');
 // Trang gallery-------------------------------------- END
 

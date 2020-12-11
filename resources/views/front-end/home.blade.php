@@ -35,7 +35,8 @@
       </div>
       <div class="search-form">
         <div class="container">
-          <form class="wrap-form" action="#">
+          <form class="wrap-form" action="{{ URL::to('/timkiem') }}">
+            @csrf
             <div class="row no-gutters">
               <div class="col-lg-3 line">
                 <div class="wrapper-items-form">
@@ -43,7 +44,10 @@
                     <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                     <div class="content">
                       <label for="diemden">Điểm đến</label>
-                      <input type="text" id="diemden" placeholder="Nơi mà bạn muốn đến?" />
+                      <input type="text" id="diemden" placeholder="Nơi mà bạn muốn đến?" name="diemden" />
+                        @error('diemden')
+                            <p style="color:red; font-size:12px">{{$message}}</p>
+                        @enderror
                     </div>
                   </div>
                   <div class="wrap-dropdown-place">
@@ -60,14 +64,17 @@
                   <div class="item">
                     <i class="far fa-calendar"></i>
                     <div class="content">
-                      <label for="from-date">Ngày đi</label>
+                      <label for="from_date">Ngày đi</label>
                       <input
                         class="flatpickr-input"
                         type="text"
                         placeholder="dd/mm/yyyy"
-                        name="from-date"
-                        id="from-date"
+                        name="from_date"
+                        id="from_date"
                       />
+                        @error('from_date')
+                            <p style="color:red; font-size:12px">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="arrow-date">
                       <i class="fas fa-angle-down"></i>
@@ -80,14 +87,17 @@
                   <div class="item">
                     <i class="far fa-calendar"></i>
                     <div class="content">
-                      <label for="checkin">Ngày về</label>
+                      <label for="to_date">Ngày về</label>
                       <input
                         class="flatpickr-input"
                         type="text"
-                        name="to-date"
-                        id="to-date"
+                        name="to_date"
+                        id="to_date"
                         placeholder="dd/mm/yyyy"
                       />
+                        @error('to_date')
+                            <p style="color:red; font-size:12px">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="arrow-date">
                       <i class="fas fa-angle-down"></i>
@@ -198,7 +208,7 @@
                 look.
               </p>
             </div>
-              
+
               <div class="img-video wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.4s">
                 <img
                   class="img-fluid w-100"
@@ -413,7 +423,7 @@
                   <input
                     type="text"
                     class="form-control validate-form-control"
-                    maxlength="10" 
+                    maxlength="10"
                     id="phone"
                     name="phone"
                     placeholder="Số điện thoại (*)"

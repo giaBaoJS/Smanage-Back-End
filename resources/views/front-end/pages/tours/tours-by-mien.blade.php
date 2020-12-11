@@ -28,7 +28,8 @@
 										</div>
 									</div>
 									<div class="filter-form">
-										<form class="form" action="#">
+                                        <form class="form" action="{{ URL::to('/timkiem') }}" method="GET" id="toursearch">
+                                            @csrf
 											<div class="wrapper-items-form">
 												<div class="item">
 													<i
@@ -39,9 +40,13 @@
 														<label for="diemden">Điểm đến</label>
 														<input
 															id="diemden"
-															type="text"
+                                                            type="text"
+                                                            name="diemden"
 															placeholder="Nơi mà bạn muốn đến?"
-														/>
+                                                        />
+                                                        @error('diemden')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 												</div>
 												<ul class="dropdown-place">
@@ -61,7 +66,10 @@
 															placeholder="dd/mm/yyyy"
 															name="from-date"
 															id="from-date"
-														/>
+                                                        />
+                                                        @error('from-date')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 													<div class="arrow-date">
 														<i class="fa fa-angle-down"></i>
@@ -79,7 +87,10 @@
 															name="to-date"
 															id="to-date"
 															placeholder="dd/mm/yyyy"
-														/>
+                                                        />
+                                                        @error('to-date')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 													<div class="arrow-date">
 														<i class="fa fa-angle-down"></i>
@@ -273,7 +284,11 @@
 						<div class="col-lg-9 col-md-12">
 							<div class="filter-tour">
 								<div class="found-search">
-									<h3>{{count($showToursTotal)}} tours phù hợp</h3>
+                                    @if(isset($error))
+                                        <h3>{{$error}} tours phù hợp</h3>
+                                    @else
+                                        <h3>{{count($showToursTotal)}} tours phù hợp</h3>
+                                    @endif
 									<a href="#">Bỏ sắp xếp</a>
 								</div>
 								<div class="sort">

@@ -319,8 +319,13 @@
                                         <th scope="row">
                                             <a href="#">#{{$a->id_bill}}</a>
                                         </th>
-                                        <td>{{$a->name}}</td>
                                         <td>{{$a->name_tour}}</td>
+                                        <td>
+                                            <?php
+                                            $nameDT = DB::table('doitac')->where('id_doitac', '=', $a->id_doitac)->first();
+                                            echo $nameDT->name;
+                                            ?>
+                                        </td>
                                         <td> {{$a->name}}</td>
                                         <td>
                                             <!-- @if ($a->status==0)

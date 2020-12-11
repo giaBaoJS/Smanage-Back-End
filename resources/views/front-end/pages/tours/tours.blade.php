@@ -54,13 +54,13 @@
 												<div class="item">
 													<i class="far fa-calendar"></i>
 													<div class="content">
-														<label for="checkin">Ngày khởi hành</label>
+														<label for="from_date">Ngày khởi hành</label>
 														<input
 															class="flatpickr-input"
 															type="text"
 															placeholder="dd/mm/yyyy"
-															name="from-date"
-															id="from-date"
+															name="from_date"
+															id="from_date"
 														/>
 													</div>
 													<div class="arrow-date">
@@ -72,12 +72,12 @@
 												<div class="item">
 													<i class="far fa-calendar"></i>
 													<div class="content">
-														<label for="checkout">Ngày về</label>
+														<label for="to_date">Ngày về</label>
 														<input
 															class="flatpickr-input"
 															type="text"
-															name="to-date"
-															id="to-date"
+															name="to_date"
+															id="to_date"
 															placeholder="dd/mm/yyyy"
 														/>
 													</div>

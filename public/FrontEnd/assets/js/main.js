@@ -181,14 +181,17 @@ jQuery(document).ready(function ($) {
 
     /** FLATPICKER */
     if ($(".flatpickr-input").length) {
-        const toDate = flatpickr("#to-date", {
+        const toDate = flatpickr("#to_date", {
             disableMobile: "true",
-            dateFormat: "d/m/Y ",
+            dateFormat: "d/m/Y",
             // enableTime: true,
             time_24hr: true,
             locale: "vn",
+            onChange: function (selectedDates, dateStr, instance) {
+                console.log(selectedDates);
+            },
         });
-        const fromDate = flatpickr("#from-date", {
+        const fromDate = flatpickr("#from_date", {
             disableMobile: "true",
             dateFormat: "d/m/Y ",
             // enableTime: true,
@@ -199,6 +202,7 @@ jQuery(document).ready(function ($) {
             },
             onChange: function (selectedDates, dateStr, instance) {
                 toDate.set("minDate", dateStr);
+                console.log(selectedDates);
             },
         });
     }
@@ -819,4 +823,11 @@ $("#diemden").on("keyup", function () {
 $(".fcheckbox").click(function () {
     var rate = $(this).prev("input").val();
     console.log(rate, "sdadsa");
+});
+
+$("#toursearch input").blur(function () {
+    if (!$.trim(this.value).length) {
+        // zero-length string AFTER a trim
+        $(this).parents("p").addClass("warning");
+    }
 });
