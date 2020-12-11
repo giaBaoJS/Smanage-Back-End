@@ -281,18 +281,21 @@ class homeController extends Controller
       ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
       ->orderby('date_start', 'asc')
       ->whereRaw('Date(date_start) >= CURDATE()')
-      ->limit(12)
-      ->get();
-    if (isset($_GET['page'])) {
-      $gioihansp = ($_GET['page'] - 1) * 12;
+      ->paginate(12);
+    if (isset($_GET['mien'])) {
+      $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+        ->orderby('date_start', 'asc')
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
+        ->get();
       $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
         ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
         ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
         ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE()')
-        ->offset($gioihansp)
-        ->limit(12)
-        ->get();
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
+        ->paginate(12)
+        ->appends(request()->except('page'));
     }
 
     return view('front-end/pages/tours/tours', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
@@ -302,17 +305,17 @@ class homeController extends Controller
         if ($id==1) {
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->whereRaw('Date(date_start) >= CURDATE()')
-            ->paginate(6);
+            ->paginate(12);
         }
         if ($id==2) {
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->whereRaw('Date(date_start) >= CURDATE()')
-            ->paginate(6);
+            ->paginate(12);
         }
         if ($id==3) {
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->whereRaw('Date(date_start) >= CURDATE()')
-            ->paginate(6);
+            ->paginate(12);
         }
         $showComment = comment_tour::all();
         $showTinh = tinh::all();
@@ -324,37 +327,6 @@ class homeController extends Controller
         ->get();
         return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
     }
-  public function toursByMien($id)
-  {
-    $showComment = comment_tour::all();
-    $showTinh = tinh::all();
-    $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->select('mien.name_mien', 'tinh.name_tinh', 'tours.*')
-      ->orderby('date_start', 'asc')
-      ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $id)
-      ->get();
-    $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->select('mien.name_mien', 'tinh.name_tinh', 'tours.*')
-      ->orderby('date_start', 'asc')
-      ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $id)
-      ->get();
-    if (isset($_GET['page'])) {
-      $gioihansp = ($_GET['page'] - 1) * 12;
-      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien = ' . $id)
-        ->offset($gioihansp)
-        ->limit(12)
-        ->get();
-    }
-    return view('front-end/pages/tours/tours-by-mien', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
-  }
   public function toursDetail($id)
   { 
     $like = like_table::where([['id_tn','=',$id],['type','=','1']])->get();
@@ -396,7 +368,7 @@ class homeController extends Controller
   public function news()
   {
     $showMien = mien::all();
-    $showTinh = tinh::all();
+    $showTinh = tinh::all()->random(6);
     $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
       ->select('news.*', 'user.name', 'user.url_avatar')
       ->get();
@@ -414,7 +386,7 @@ class homeController extends Controller
   {
     $like = like_table::where([['id_tn','=',$id],['type','=','0']])->get();
     $showMien = mien::all();
-    $showTinh = tinh::all();
+    $showTinh = tinh::all()->random(6);
     $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
       ->limit(3)
       ->get();

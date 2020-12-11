@@ -158,7 +158,7 @@
         @foreach ($showMien as $m)
         <div class="col-md-4 ">
             <div class="wrapper-image">
-              <a href="/tours/mien/{{$m->id_mien}}"
+              <a href="/tours?mien={{$m->id_mien}}"
                 ><img
                   class="img-fluid w-100"
             src="{{asset('BackEnd/assets/images')}}/{{$m->url_img_mien}}"
@@ -169,7 +169,7 @@
             <a class="features" href="#">{{$m->name_mien}}</a>
               <hr />
               <div class="detail">
-                <a href="/tours/mien/{{$m->id_mien}}">Khám phá {{$m->id_mien}}</a>
+                <a href="/tours?mien={{$m->id_mien}}">Khám phá {{$m->id_mien}}</a>
               </div>
             </div>
           </div>

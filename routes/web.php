@@ -59,7 +59,6 @@ Route::get('/check-out-part','homeController@checkOutPart');
 // PARTNERS - END
 // TOURS
 Route::get('/tours','homeController@tours');
-Route::get('/tours/mien/{id}','homeController@toursByMien');
 Route::get('/tours/dt/{id}','homeController@toursDetail');
 Route::get('tours-search/{id}','homeController@toursSearch');
 // TOURS - END

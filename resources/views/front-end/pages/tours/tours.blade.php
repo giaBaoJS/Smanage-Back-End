@@ -333,8 +333,8 @@
 										</div>
 									</div>
                   @endforeach
-				  <div id="showpaginate" style="width:100%">
-                    {!! $showToursLimit->links() !!}
+                  <div id="showpaginate" style="width:100%">
+                    {{ $showToursLimit->links('vendor/pagination/custom',['result'=>$showToursLimit]) }}
                   </div>
 								</div>
 							</div>
