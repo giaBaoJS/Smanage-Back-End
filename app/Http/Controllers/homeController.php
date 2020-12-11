@@ -241,23 +241,11 @@ class homeController extends Controller
       ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
       ->orderby('date_start', 'asc')
       ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
-      ->limit(12)
-      ->get();
+      ->paginate(12);
     $infoPartner = doitacTable::join('user', 'user.id_doitac', '=', 'doitac.id_doitac')
       ->select('doitac.*', 'user.url_avatar', 'user.role')
       ->where('doitac.id_doitac', '=', $id)
       ->first();
-    if (isset($_GET['page'])) {
-      $gioihansp = ($_GET['page'] - 1) * 12;
-      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
-        ->offset($gioihansp)
-        ->limit(12)
-        ->get();
-    }
     return view('front-end/pages/partners/partners-detail', ['showMien' => $this->showMien, 'showMien' => $this->showMien, 'infoPartner' => $infoPartner, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
   public function checkOutPart()
