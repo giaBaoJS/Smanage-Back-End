@@ -57,7 +57,7 @@
               </div>
             </li>
             @else
-            <li><a href="{{ url('/tim-lich-su') }}">Lịch sử đặt tour</a></li>
+            <li class="dattourpc"><a href="{{ url('/tim-lich-su') }}">Lịch sử đặt tour</a></li>
             <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
             <li><a href="{{ url('/dang-ky') }}">Đăng ký</a></li>
             <!-- <li>VIE</li> -->
@@ -109,6 +109,7 @@
                 <li class="{{ request()->is('doi-tac') ? 'current-menu-item' : '' }}"><a href="{{ url('/doi-tac') }}">Đối tác</a></li>
                 <li class="{{ request()->is('tin-tuc') ? 'current-menu-item' : '' }}"><a href="{{ url('/tin-tuc') }}">Tin tức</a></li>
                 <li class="{{ request()->is('lien-he') ? 'current-menu-item' : '' }}"><a href="{{ url('/lien-he') }}">Liên hệ</a></li>
+                <li class="{{ request()->is('lien-he') ? 'current-menu-item' : '' }} findorder"><a href="{{ url('/tim-lich-su') }}">Lịch sử đặt tour</a></li>
               </ul>
               <div class="main-menu-overlay"></div>
             </div>
