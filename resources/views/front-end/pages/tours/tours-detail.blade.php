@@ -413,7 +413,34 @@
 								</div>
 							</div>
 							<!-- TOUR REVIEW -->
-							<h2 class="tour-dt__heading">Đánh giá</h2>
+							<div class="row">
+                <div class="col-md-6">
+                  <h2 class="tour-dt__heading" style="margin-bottom:0">Đánh giá</h2>
+                </div>
+                <div class="col-md-6">
+                      <div style="margin-top:30px">
+                @if (session('account'))
+                  <!-- 
+                    data-like: 0 là chưa thích, 1 là đã thích
+                    data-type: 0 là tin tức, 1 là tour
+                  -->
+                  <div class="shared__icon" 
+                      data-id-tn="{{$t->id_tour}}" 
+                      data-id-user="{{session('account')->id_user}}" 
+                      data-type="1" 
+                      data-is-liked="<?= count(\App\like_table::where([['id_tn', '=', $t->id_tour],['id_user','=',session('account')->id_user],['type','=','1']])->get()) ? '1' : '0'?>">
+                    <a href="#">
+                      <i class="fas fa-thumbs-up"></i> 
+                      <span class="share__text"><?= count(\App\like_table::where([['id_tn', '=', $t->id_tour],['id_user','=',session('account')->id_user],['type','=','1']])->get()) ? 'Bỏ thích' : 'Thích'?> </span>
+                    </a>
+                    <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a> -->
+                  </div>
+                  @endif
+                  <p style="text-align:right; margin-top: 10px; color:#0bcadb;"><i class="fas fa-thumbs-up"></i><span style="margin-left: 5px" class="count-like">{{count($like)}}</span> lượt thích</p>
+                  </div>
+                </div>
+              </div>
 							<div class="tour-dt__reviews">
 								<div class="review-box">
 									<div class="row">

@@ -351,6 +351,42 @@ jQuery(function () {
             },
         });
     });
+
+    // LIKE
+    $(".shared__icon").on("click", function (e) {
+        e.preventDefault();
+        const id_tn = $(this).data("id-tn");
+        const id_user = $(this).data("id-user");
+        const type = $(this).data("type");
+        const is_liked = $(this).attr("data-is-liked");
+
+        $.ajax({
+            url: "/like",
+            type: "get",
+            data: {
+                id_tn,
+                id_user,
+                type,
+                is_liked,
+            },
+            success: function (res) {
+                let newVl;
+                if (res.is_liked) {
+                    newVl = parseInt($(".count-like").text()) + 1;
+                } else {
+                    newVl = parseInt($(".count-like").text()) - 1;
+                }
+                $(".count-like").html(newVl);
+                $(".shared__icon").attr("data-is-liked", res.is_liked);
+                $(".share__text").html(res.status);
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+                console.log(error);
+                console.log(status);
+            },
+        });
+    });
 });
 function formatDate(timeStr) {
     const time = new Date(timeStr);
@@ -540,18 +576,19 @@ $(".doitac-ajax").on("submit", function (e) {
         if (validate(inputArr[i]) == false) {
             showValidate(inputArr[i]);
             checkValid = false;
-
-        }else{
-    $('#showLoader2').html('<span class="loaders"></span><button type="submit" class="form-submit" style="background:gray">Xác nhận </button>');
+        } else {
+            $("#showLoader2").html(
+                '<span class="loaders"></span><button type="submit" class="form-submit" style="background:gray">Xác nhận </button>'
+            );
         }
     }
     if (checkValid) {
         $.ajax({
-            url: "http://127.0.0.1:8000/api/"+action,
-            type: 'get',
+            url: "http://127.0.0.1:8000/api/" + action,
+            type: "get",
             data: data,
             success: function (res) {
-                if (res==1) {
+                if (res == 1) {
                     Swal.fire({
                         title: "Bạn đã trở thành đối tác",
                         icon: "success",
@@ -582,11 +619,11 @@ $(".doitac-ajax-demo").on("submit", function (e) {
     }
     if (checkValid) {
         $.ajax({
-            url: "http://127.0.0.1:8000/api/"+action,
-            type: 'get',
+            url: "http://127.0.0.1:8000/api/" + action,
+            type: "get",
             data: data,
             success: function (res) {
-                if (res==1) {
+                if (res == 1) {
                     window.location.href = "/check-out-part";
                 }
             },
@@ -594,6 +631,3 @@ $(".doitac-ajax-demo").on("submit", function (e) {
     }
     return false;
 });
-$('.sources').click(function () {
-    alert('123');
-})

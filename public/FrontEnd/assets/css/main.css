@@ -810,6 +810,9 @@ b {
         display: block;
     }
 }
+#toursearch .warning {
+    border: 1px solid red;
+}
 .header__menu .main-header .isner .right .main-menu .logo-mobile {
     display: none;
     text-align: center;
@@ -2694,7 +2697,6 @@ footer .copyright p {
     .wrapper-home .tours-sale .content .detail .detail-right {
         text-align: center;
         margin-left: 0;
-
     }
     .wrapper-home .tours-sale .content .detail .detail-right p {
         margin-bottom: 40px;
@@ -3202,45 +3204,39 @@ footer .copyright p {
 .filter-items .item .two-ele ul li {
     position: relative;
     margin-bottom: 20px;
-    padding-left: 26px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.filter-items .item .two-ele ul li span:nth-child(n + 3) {
+    margin-left: 5px;
 }
 .filter-items .item .two-ele ul li i {
     font-size: 13px;
     color: #ffdc00;
 }
-.filter-items .item .two-ele ul li .checkmark::after {
-    content: "";
-    position: absolute;
-    background-color: transparent;
-    border-radius: 0;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 8px;
-    border: solid #5191fa;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-.filter-items .item .two-ele ul li .fcheckbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 16px;
-    width: 16px;
-    background-color: #fff;
-    border-radius: 2px;
-    border: 1px solid #a0a9b2;
-}
 .filter-items .item .two-ele ul li .fake-star {
     color: #c4c7ca;
 }
 .filter-items .item input {
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #b7b7b7;
+    position: relative;
+    margin-right: 5px;
+}
+.filter-items .item input:checked::before {
+    content: "";
     position: absolute;
-    opacity: 0;
-    cursor: pointer;
+    left: 5px;
+    top: 3px;
+    width: 4px;
+    height: 7px;
+    border: solid #0575e6;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 .filter-items .search-title h2 {
     padding: 20px 0;
@@ -4096,11 +4092,11 @@ footer .copyright p {
 .wrapper-detail-news .detail-news .news-list .items .title:hover {
     color: unset;
 }
-.wrapper-detail-news .detail-news .news-list .items .shared__icon {
+.shared__icon {
     text-align: right;
 }
 
-.wrapper-detail-news .detail-news .news-list .items .shared__icon a {
+.shared__icon a {
     display: inline-block;
     color: #ffffff;
     font-size: 18px;
@@ -4109,7 +4105,7 @@ footer .copyright p {
     border-radius: 4px;
     transition: 0.3s all;
 }
-.wrapper-detail-news .detail-news .news-list .items .shared__icon a:hover {
+.shared__icon a:hover {
     transform: scale(1.1);
 }
 .wrapper-detail-news .detail-news .news-list .items .poster {
@@ -5073,12 +5069,11 @@ body::-webkit-scrollbar {
     padding: 40px 0;
     background-color: #f8f8f8;
 }
-.wrapper-checkout .btn-doitac{
+.wrapper-checkout .btn-doitac {
     display: flex;
     justify-content: space-between;
-
 }
-.wrapper-checkout .btn-doitac .btn-doitac__items{
+.wrapper-checkout .btn-doitac .btn-doitac__items {
     padding: 15px 20px;
     background-color: #f1d354;
     color: #fff;
@@ -5202,7 +5197,7 @@ body::-webkit-scrollbar {
     padding: 0 10px;
     width: 50%;
 }
-.wrapper-checkout .form__client form.--reset .form__items{
+.wrapper-checkout .form__client form.--reset .form__items {
     width: 100%;
 }
 
@@ -6022,23 +6017,23 @@ body::-webkit-scrollbar {
     border-color: #0ac9db;
     box-shadow: none;
 }
-.wrapper-home .wrap-dropdown-place{
+.wrapper-home .wrap-dropdown-place {
     position: absolute;
     width: 100%;
     top: 100%;
     background-color: white;
     z-index: 11;
 }
-.wrapper-home .wrap-dropdown-place .dropdown-place{
+.wrapper-home .wrap-dropdown-place .dropdown-place {
     display: none;
 }
-.wrapper-home .wrap-dropdown-place .dropdown-place.active{
+.wrapper-home .wrap-dropdown-place .dropdown-place.active {
     display: block;
 }
-.page-item{
+.page-item {
     padding: 0 5px !important;
 }
-.page-link{
+.page-link {
     width: 40px !important;
     height: 40px !important;
 }

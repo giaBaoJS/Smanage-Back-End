@@ -54,13 +54,13 @@
 												<div class="item">
 													<i class="far fa-calendar"></i>
 													<div class="content">
-														<label for="checkin">Ngày khởi hành</label>
+														<label for="from_date">Ngày khởi hành</label>
 														<input
 															class="flatpickr-input"
 															type="text"
 															placeholder="dd/mm/yyyy"
-															name="from-date"
-															id="from-date"
+															name="from_date"
+															id="from_date"
 														/>
 													</div>
 													<div class="arrow-date">
@@ -72,12 +72,12 @@
 												<div class="item">
 													<i class="far fa-calendar"></i>
 													<div class="content">
-														<label for="checkout">Ngày về</label>
+														<label for="to_date">Ngày về</label>
 														<input
 															class="flatpickr-input"
 															type="text"
-															name="to-date"
-															id="to-date"
+															name="to_date"
+															id="to_date"
 															placeholder="dd/mm/yyyy"
 														/>
 													</div>
@@ -108,74 +108,75 @@
 										<div class="two-ele">
 											<ul>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<input
+												<input
+													 class="my-checkbox"
 														type="radio"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="5"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
+													 class="my-checkbox"
 														type="radio"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="4"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
+													 	class="my-checkbox"
 														type="radio"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="3"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
-													<span><i class="fa fa-star fake-star"></i></span>
 													<input
+													 	class="my-checkbox"
 														type="radio"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="2"
 														data-type="star-rate"
 													/>
-													<span class="fcheckbox"></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
+													<span><i class="fa fa-star fake-star"></i></span>
 												</li>
 												<li>
+													<input
+													 	class="my-checkbox"
+														type="radio"
+														name="review_score" id="radio-rate"
+														value="1"
+														data-type="star-rate"
+													/>
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
 													<span><i class="fa fa-star fake-star"></i></span>
-													<input
-														type="radio"
-														name="review_score" class="radio-rate"
-														value="1"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
 												</li>
 											</ul>
 										</div>
@@ -185,35 +186,32 @@
 										<div class="two-ele">
 											<ul>
 												<li>
-													<label>Miền bắc</label>
 													<input
+														id="mienbac"
+														class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" id="radio-rate"
+														value="mienbac"
 													/>
-													<span class="checkmark fcheckbox"></span>
-												</li>
+													<label for ="mienbac">Miền bắc</label>
 												<li>
-													<label>Miền trung</label>
 													<input
+														id="mientrung"
+													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" id="radio-rate"
+														value="mientrung"
 													/>
-													<span class="fcheckbox"></span>
-												</li>
+													<label for ="mientrung">Miền trung</label>
 												<li>
-													<label>Miền nam</label>
 													<input
+														id="miennam"
+													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
+														name="review_score" id="radio-rate"
+														value="miennam"
 													/>
-													<span class="fcheckbox"></span>
-												</li>
+													<label for ="miennam">Miền nam</label>
 											</ul>
 										</div>
 									</div>
@@ -237,7 +235,7 @@
 							<div class="filter-tour">
 								<div class="found-search">
 									<h3>{{count($showToursTotal)}} tours phù hợp</h3>
-									<a href="#">Bỏ sắp xếp</a>
+									<a href="/tours">Bỏ sắp xếp</a>
 								</div>
 								<div class="sort">
 				 					<div class="sl-form">
@@ -336,7 +334,7 @@
 									</div>
                   @endforeach
                   <div id="showpaginate" style="width:100%">
-                    {!! $showToursLimit->links() !!}
+                    {{ $showToursLimit->links('vendor/pagination/custom',['result'=>$showToursLimit]) }}
                   </div>
 								</div>
 							</div>

@@ -47,6 +47,9 @@
                 <span class="arrows"><i class="fas fa-angle-down"></i></span>
               </a>
               <div class="info-user">
+                @if(session('account')->role)
+                  <a href="{{url('/admin')}}">Trang quản lý</a>
+                @endif
                 <a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a>
                 <a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a>
                 <a href="{{url('/lich-su')}}">Đơn hàng</a>
@@ -87,9 +90,13 @@
                     <span> <img src="{{asset('BackEnd/assets/images/users')}}/{{session('account')->url_avatar}}" width="30px" alt="logo"> {{session('account')->name}}</span>
                   </a>
                   <ul class="submenu">
+                    @if(session('account')->role)
+                     <li><a href="{{url('/admin')}}">Trang quản lý</a></li> 
+                    @endif
                     <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
                     <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
                     <li><a href="{{url('/lich-su')}}">Đơn hàng</a></li>
+                    <li><a href="{{url('/admin')}}">admin</a></li>
                     <li><a href="#" class="logout">Đăng xuất</a></li>
                   </ul>
                 </li>
@@ -117,13 +124,13 @@
   <footer>
     <div class="footer-main">
       <div class="container">
-        <a href="#"><img class="img-fluid" src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png" alt="" /></a>
+        <a href="{{url('/')}}"><img class="img-fluid" src="{{asset('FrontEnd/assets/images/defaults')}}/logo-1.png" alt="" /></a>
         <div class="row">
           @foreach ($showMien as $m)
           <div class="col-md-3">
             <h3>{{$m->name_mien}}</h3>
             <?php
-            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get()->random(3);
+            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get()->random(6);
             ?>
             <ul class="list-mien">
               <?php
@@ -138,22 +145,22 @@
             <h3>Mạng xã hội</h3>
             <ul class="list-icon-social">
               <li>
-                <a href="#" class="link facebook">
+                <a href="#/" class="link facebook">
                   <i class="fab fa-facebook"></i>
                 </a>
               </li>
               <li>
-                <a href="#" class="link twitter">
+                <a href="#/" class="link twitter">
                   <i class="fab fa-twitter"></i>
                 </a>
               </li>
               <li>
-                <a href="#" class="link pinterest">
+                <a href="#/" class="link pinterest">
                   <i class="fab fa-pinterest-p"></i>
                 </a>
               </li>
               <li>
-                <a href="#" class="link google">
+                <a href="#/" class="link google">
                   <i class="fab fa-google"></i>
                 </a>
               </li>
