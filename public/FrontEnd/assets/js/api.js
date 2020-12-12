@@ -631,6 +631,3 @@ $(".doitac-ajax-demo").on("submit", function (e) {
     }
     return false;
 });
-$(".sources").click(function () {
-    alert("123");
-});

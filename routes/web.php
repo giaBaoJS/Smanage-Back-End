@@ -60,6 +60,7 @@ Route::get('/check-out-part', 'homeController@checkOutPart');
 Route::get('/tours','homeController@tours');
 Route::get('/tours/dt/{id}','homeController@toursDetail');
 Route::get('tours-search/{id}','homeController@toursSearch');
+Route::get('star-search/{id}','homeController@starSearch');
 // TOURS - END
 // NEWS
 Route::get('/tim-tin-tuc', 'homeController@searchNews');
@@ -74,7 +75,7 @@ Route::get('/thanh-toan-4', 'homeController@checkoutFour');
 // CHECKOUT - END
 Route::get('/timkiem', 'homeController@timkiem');
 Route::get('/searchByTag/{key}', 'homeController@searchByTag');
-// LIKE 
+// LIKE
 Route::get('/like','homeAPI@like');
 // LIKE - END
 

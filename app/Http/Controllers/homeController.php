@@ -324,7 +324,7 @@ class homeController extends Controller
         return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
     }
   public function toursDetail($id)
-  { 
+  {
     $like = like_table::where([['id_tn','=',$id],['type','=','1']])->get();
     $toursDetail = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
       ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
@@ -404,7 +404,7 @@ class homeController extends Controller
   public function gallery() {
     return view('front-end/pages/gallery', ['showMien' => $this->showMien]);
   }
-        
+
   public function timkiem(Request $request) {
       $validate = $request->validate([
           'diemden' => 'required|string',
@@ -422,7 +422,7 @@ class homeController extends Controller
       $nametour = $request->diemden;
       $datestart = $request->from_date;
       $dateend = $request->to_date;
-      
+
       $keyword = trim(htmlspecialchars(addslashes($nametour)));
       $start = date('Y-m-d', strtotime($datestart));
       $end = date('Y-m-d', strtotime($dateend));
@@ -480,5 +480,20 @@ class homeController extends Controller
               'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit
           ]);
       }
+  }
+  public function starSearch($id)
+  {
+    $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
+        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->where('rate','=',$id)->whereRaw('Date(date_start) >= CURDATE()')
+        ->paginate(12);
+    $showComment = comment_tour::all();
+    $showTinh = tinh::all();
+    $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+    ->join('mien','mien.id_mien','=','tours.id_mien')
+    ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+    ->orderby('date_start','asc')
+    ->whereRaw('Date(date_start) >= CURDATE()')
+    ->get();
+    return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
   }
 }

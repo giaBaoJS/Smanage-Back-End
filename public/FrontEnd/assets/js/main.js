@@ -831,3 +831,8 @@ $("#toursearch input").blur(function () {
         $(this).parents("p").addClass("warning");
     }
 });
+$(".my-checkbox").click(function () {
+        var star=$(this).val();
+        window.location.href = "/star-search/" + star;
+});
+

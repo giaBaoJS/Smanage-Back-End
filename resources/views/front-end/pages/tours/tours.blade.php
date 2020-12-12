@@ -110,8 +110,8 @@
 												<li>
 												<input
 													 class="my-checkbox"
-														type="checkbox"
-														name="review_score" class="radio-rate"
+														type="radio"
+														name="review_score" id="radio-rate"
 														value="5"
 														data-type="star-rate"
 													/>
@@ -120,13 +120,13 @@
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star"></i></span>
 													<span><i class="fa fa-star"></i></span>
-					
+
 												</li>
 												<li>
 													<input
 													 class="my-checkbox"
-														type="checkbox"
-														name="review_score" class="radio-rate"
+														type="radio"
+														name="review_score" id="radio-rate"
 														value="4"
 														data-type="star-rate"
 													/>
@@ -139,8 +139,8 @@
 												<li>
 													<input
 													 	class="my-checkbox"
-														type="checkbox"
-														name="review_score" class="radio-rate"
+														type="radio"
+														name="review_score" id="radio-rate"
 														value="3"
 														data-type="star-rate"
 													/>
@@ -153,8 +153,8 @@
 												<li>
 													<input
 													 	class="my-checkbox"
-														type="checkbox"
-														name="review_score" class="radio-rate"
+														type="radio"
+														name="review_score" id="radio-rate"
 														value="2"
 														data-type="star-rate"
 													/>
@@ -167,8 +167,8 @@
 												<li>
 													<input
 													 	class="my-checkbox"
-														type="checkbox"
-														name="review_score" class="radio-rate"
+														type="radio"
+														name="review_score" id="radio-rate"
 														value="1"
 														data-type="star-rate"
 													/>
@@ -190,7 +190,7 @@
 														id="mienbac"
 														class="my-checkbox"
 														type="checkbox"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="mienbac"
 													/>
 													<label for ="mienbac">Miền bắc</label>
@@ -199,7 +199,7 @@
 														id="mientrung"
 													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="mientrung"
 													/>
 													<label for ="mientrung">Miền trung</label>
@@ -208,7 +208,7 @@
 														id="miennam"
 													 	class="my-checkbox"
 														type="checkbox"
-														name="review_score" class="radio-rate"
+														name="review_score" id="radio-rate"
 														value="miennam"
 													/>
 													<label for ="miennam">Miền nam</label>
@@ -235,7 +235,7 @@
 							<div class="filter-tour">
 								<div class="found-search">
 									<h3>{{count($showToursTotal)}} tours phù hợp</h3>
-									<a href="#">Bỏ sắp xếp</a>
+									<a href="/tours">Bỏ sắp xếp</a>
 								</div>
 								<div class="sort">
 				 					<div class="sl-form">
