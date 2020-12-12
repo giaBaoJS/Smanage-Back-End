@@ -4,7 +4,7 @@
 <div class="wrapper-tour">
 			<section class="hero-banner">
 				<div class="container">
-					<h2>Chọn tour du lịch</h2>
+					<h2>{{$title}}</h2>
 				</div>
       </section>
       <div class="sec-breadcrumb">
@@ -188,28 +188,28 @@
 												<li>
 													<input
 														id="mienbac"
-														class="my-checkbox"
+														class="my-checkbox by-mien"
 														type="checkbox"
 														name="review_score" id="radio-rate"
-														value="mienbac"
+														value="1"
 													/>
 													<label for ="mienbac">Miền bắc</label>
 												<li>
 													<input
 														id="mientrung"
-													 	class="my-checkbox"
+													 	class="my-checkbox by-mien"
 														type="checkbox"
 														name="review_score" id="radio-rate"
-														value="mientrung"
+														value="2"
 													/>
 													<label for ="mientrung">Miền trung</label>
 												<li>
 													<input
 														id="miennam"
-													 	class="my-checkbox"
+													 	class="my-checkbox by-mien"
 														type="checkbox"
 														name="review_score" id="radio-rate"
-														value="miennam"
+														value="3"
 													/>
 													<label for ="miennam">Miền nam</label>
 											</ul>

@@ -250,6 +250,7 @@ class homeController extends Controller
   }
   //END Part
   public function tours() {
+    $title="Tour Du Lịch";
     $showComment = comment_tour::all();
     $showTinh = tinh::all();
     $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
@@ -278,22 +279,26 @@ class homeController extends Controller
         ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
         ->paginate(12)
         ->appends(request()->except('page'));
+        $title="Tour theo miền";
       }
-    return view('front-end/pages/tours/tours', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
+    return view('front-end/pages/tours/tours', ['title'=>$title,'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
   public function toursSearch($id)
     {
         if ($id==1) {
+            $title="Sắp sếp theo: Giá Tăng Dần";
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->whereRaw('Date(date_start) >= CURDATE()')
             ->paginate(12);
         }
         if ($id==2) {
+            $title="Sắp sếp theo: Giá Giảm Dần";
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->whereRaw('Date(date_start) >= CURDATE()')
             ->paginate(12);
         }
         if ($id==3) {
+            $title="Sắp sếp theo: Tour mới nhất";
             $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
             ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->whereRaw('Date(date_start) >= CURDATE()')
             ->paginate(12);
@@ -306,7 +311,7 @@ class homeController extends Controller
         ->orderby('date_start','asc')
         ->whereRaw('Date(date_start) >= CURDATE()')
         ->get();
-        return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
+        return view('front-end/pages/tours/tours',['title'=>$title,'showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
     }
   public function toursDetail($id)
   {
@@ -407,7 +412,7 @@ class homeController extends Controller
       $nametour = $request->diemden;
       $datestart = $request->from_date;
       $dateend = $request->to_date;
-
+      $title="Kết quả tìm kiếm: ".$nametour;
       $keyword = trim(htmlspecialchars(addslashes($nametour)));
       $start = date('Y-m-d', strtotime($datestart));
       $end = date('Y-m-d', strtotime($dateend));
@@ -432,12 +437,14 @@ class homeController extends Controller
       $error = "Không tìm thấy tour bạn cần tìm";
       if ($count === 0) {
         // return redirect('/');
-          return view('front-end/pages/tours/tour-tim-kiem', [
+          return view('front-end/pages/tours/tours', [
+              'title'=>$error,
               'showMien' => $showMien, 'showTinh' => $showTinh,
               'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search, 'error' => $error
           ]);
       } else {
-          return view('front-end/pages/tours/tour-tim-kiem', [
+          return view('front-end/pages/tours/tours', [
+            'title'=>$title,
               'showMien' => $showMien, 'showTinh' => $showTinh,
               'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search
           ]);
@@ -468,6 +475,7 @@ class homeController extends Controller
   }
   public function starSearch($id)
   {
+    $title="Tìm kiếm theo Đánh Giá";
     $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
         ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->where('rate','=',$id)->whereRaw('Date(date_start) >= CURDATE()')
         ->paginate(12);
@@ -479,6 +487,6 @@ class homeController extends Controller
     ->orderby('date_start','asc')
     ->whereRaw('Date(date_start) >= CURDATE()')
     ->get();
-    return view('front-end/pages/tours/tours',['showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
+    return view('front-end/pages/tours/tours',['title'=>$title,'showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
   }
 }

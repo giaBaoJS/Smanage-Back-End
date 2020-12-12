@@ -835,4 +835,8 @@ $(".my-checkbox").click(function () {
         var star=$(this).val();
         window.location.href = "/star-search/" + star;
 });
+$(".by-mien").click(function () {
+        var star=$(this).val();
+        window.location.href = "/tours?mien=" + star;
+});
 
