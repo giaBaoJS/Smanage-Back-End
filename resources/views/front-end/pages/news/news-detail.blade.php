@@ -31,45 +31,33 @@
                 <span><i class="fas fa-eye"></i> {{$showOneNew->views}}</span>
                 <span><i class="fas fa-thumbs-up"></i> {{$showOneNew->likes}}</span>
               </div>
-            </div>
-            <div class="col-lg-9 col-md-12">
-              <div class="news-list">
-                <div class="items">
-                  <img src="{{asset('BackEnd/assets/images/news')}}/{{$showOneNew->url_img_news}}" alt="news" />
-                  <h3 class="title">{{ucwords($showOneNew->title)}}</h3>
-                  <div class="list-info">
-                    <span>{{date('d/m/Y',strtotime($showOneNew->created_at))}}</span>
-                    <a><span class="cmt-count">{{count($showComment)}}</span> Nhận xét</a>
-                    <span><i class="fas fa-eye"></i> {{$showOneNew->views}}</span>
-                    <span><i class="fas fa-thumbs-up"></i> <small class="count-like"> {{count($like)}}</small></span>
-                  </div>
-                  {!!$showOneNew->content!!}
-                  <div class="shared">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="list-tag">
-                          <a href="#">Miền Bắc</a>
-                          <a href="#">Núi rừng</a>
-                          <a href="#">Cao bằng</a>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        @if (session('account'))
-                        <!-- data-like: 0 là chưa thích, 1 là đã thích -->
-                        <div class="shared__icon" data-id-tn="{{$showOneNew->id_news}}" data-id-user="{{session('account')->id_user}}" data-type="0" data-is-liked="<?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news], ['id_user', '=', session('account')->id_user], ['type', '=', '0']])->get()) ? '1' : '0' ?>">
-                          <a href="#">
-                            <i class="fas fa-thumbs-up"></i>
-                            <span class="share__text"><?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news], ['id_user', '=', session('account')->id_user], ['type', '=', '0']])->get()) ? 'Bỏ thích' : 'Thích' ?> </span>
-                          </a>
-                          <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-                          <a href="#"><i class="fab fa-instagram"></i></a> -->
-                        </div>
-                        @endif
-                      </div>
+              {!!$showOneNew->content!!}
+              <div class="shared">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="list-tag">
+                      <a href="#">Miền Bắc</a>
+                      <a href="#">Núi rừng</a>
+                      <a href="#">Cao bằng</a>
                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    @if (session('account'))
+                    <!-- data-like: 0 là chưa thích, 1 là đã thích -->
+                    <div class="shared__icon" data-id-tn="{{$showOneNew->id_news}}" data-id-user="{{session('account')->id_user}}" data-type="0" data-is-liked="<?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news], ['id_user', '=', session('account')->id_user], ['type', '=', '0']])->get()) ? '1' : '0' ?>">
+                      <a href="#">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="share__text"><?= count(\App\like_table::where([['id_tn', '=', $showOneNew->id_news], ['id_user', '=', session('account')->id_user], ['type', '=', '0']])->get()) ? 'Bỏ thích' : 'Thích' ?> </span>
+                      </a>
+                      <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#"><i class="fab fa-instagram"></i></a> -->
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
               {{-- <div class="poster">
                     <div class="info">
                       <img
@@ -212,11 +200,11 @@
           <h3>Tags</h3>
           <div class="list-tag">
             @foreach ($showMien as $m)
-            <a href="#">{{$m->name_mien}}</a>
+              <a href="/tours?mien={{$m->id_mien}}">{{$m->name_mien}}</a>
             @endforeach
-            <!-- @foreach ($showTinh as $t)
-                      <a href="#">{{$t->name_tinh}}</a>
-                      @endforeach -->
+            @foreach ($showTinh as $t)
+              <a href="/tours?tinh={{$t->id_tinh}}">{{$t->name_tinh}}</a>
+            @endforeach
           </div>
         </div>
       </div>

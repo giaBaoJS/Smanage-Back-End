@@ -281,6 +281,21 @@ class homeController extends Controller
         ->appends(request()->except('page'));
         $title="Tour theo miền";
       }
+    if (isset($_GET['tinh'])) {
+      $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+        ->orderby('date_start', 'asc')
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
+        ->get();
+      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+        ->orderby('date_start', 'asc')
+        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
+        ->paginate(12)
+        ->appends(request()->except('page'));
+      }
     return view('front-end/pages/tours/tours', ['title'=>$title,'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
   public function toursSearch($id)

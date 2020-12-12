@@ -87,6 +87,20 @@
                 @endforeach
               </div>
             </div>
+<<<<<<< HEAD
+=======
+            <div class="tag-news">
+              <h3>Tags</h3>
+              <div class="list-tag">
+                @foreach ($showMien as $m)
+                <a href="/tours?mien={{$m->id_mien}}">{{$m->name_mien}}</a>
+                @endforeach
+                @foreach ($showTinh as $t)
+                  <a href="/tours?tinh={{$t->id_tinh}}">{{$t->name_tinh}}</a>
+                @endforeach
+              </div>
+            </div>
+>>>>>>> 8a2ddcb85a321d4db3d5b9b8c6bd0d70b23f8f88
           </div>
         </div>
       </div>
