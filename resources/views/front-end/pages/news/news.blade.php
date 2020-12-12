@@ -66,25 +66,10 @@
                     <img src="{{asset('BackEnd/assets/images/news')}}/{{$hl->url_img_news}}" alt="news" />
                   </a>
                 </div>
-<<<<<<< HEAD
-                <div class="tag-news">
-                  <h3>Tags</h3>
-                  <div class="list-tag">
-                      @foreach ($showMien as $m)
-                        <a href="">{{$m->name_mien}}</a>
-                      @endforeach
-                      @foreach ($showTinh as $t)
-                      <a href="">{{$t->name_tinh}}</a>
-                      @endforeach
-                      @foreach ($tagTour as $t)
-                      <a href="{{ URL::to('/searchByTag/'.$t->tag) }}">{{$t->tag}}</a>
-                      @endforeach
-=======
                 <div class="col-md-8 mb-3">
                   <div class="content">
                     <h3><a href="/tin-tuc/dt/{{$hl->id_news}}">{{$hl->title}}</a></h3>
                     <span>{{date('d',strtotime($hl->created_at))}} Tháng {{date('m',strtotime($hl->created_at))}} Năm {{date('Y',strtotime($hl->created_at))}}</span>
->>>>>>> 628ff76b7945f8f08d862292452d5f635e479d4d
                   </div>
                 </div>
                 @endforeach
@@ -94,11 +79,11 @@
               <h3>Tags</h3>
               <div class="list-tag">
                 @foreach ($showMien as $m)
-                <a href="#">{{$m->name_mien}}</a>
+                <a href="/tours?mien={{$m->id_mien}}">{{$m->name_mien}}</a>
                 @endforeach
-                <!-- @foreach ($showTinh as $t)
-                <a href="#">{{$t->name_tinh}}</a>
-                @endforeach -->
+                @foreach ($showTinh as $t)
+                  <a href="/tours?tinh={{$t->id_tinh}}">{{$t->name_tinh}}</a>
+                @endforeach
               </div>
             </div>
           </div>
