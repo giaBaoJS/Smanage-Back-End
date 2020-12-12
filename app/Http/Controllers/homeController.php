@@ -412,13 +412,19 @@ class homeController extends Controller
       $start = date('Y-m-d', strtotime($datestart));
       $end = date('Y-m-d', strtotime($dateend));
       // date('d/m/Y: H:i:s',strtotime($c->created_at));
-      return date('Y-m-d',$datestart);
+      // return date('Y-m-d',$datestart);
 
-      $showToursTotal = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
-          ->whereDate('tours.date_start', '>=', '2-12-2021')
+      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->where('tours.name_tour', 'like', '%' . $keyword . '%')
+          // ->whereDate('tours.date_start', '>=', '2-12-2021')
           ->get();
-      $showToursLimit = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
-          ->whereDate('tours.date_start', '>=', '2-12-2021')
+      $showToursLimit = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
+          ->join('mien','mien.id_mien','=','tours.id_mien')
+          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
+          ->where('tours.name_tour', 'like', '%' . $keyword . '%')
+          // ->whereDate('tours.date_start', '>=', '2-12-2021')
           // ->whereDate('tours.date_end', '<=', '30-12-2021')
           ->orderby('date_start', 'asc')
           ->paginate(12);
