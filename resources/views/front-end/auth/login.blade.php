@@ -29,8 +29,9 @@
 					<h1 class="signin-heading">Đăng nhập</h1>
 					<a href="#" class="signin-google">
 						<i class="fab fa-google signin-google-icon"></i>
-						<span class="signin-google-text">Đăng nhập với Google</span>
-					</a>
+						{{-- <span class="signin-google-text">Đăng nhập với Google</span> --}}
+                    </a>
+                    <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary"><i class="fa fa-google"></i> Google</a>
 					<div class="signin-or">
 						<span class="signin-or-text">Hoặc</span>
 					</div>

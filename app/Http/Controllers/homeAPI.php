@@ -578,11 +578,9 @@ class homeAPI extends Controller
   }
   // ĐĂNG XUẤT
   public function logoutPost() {
-    if(Auth::check()) {
-      Auth::logout();
-      Session::forget('account');
-      echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. quý khách sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
-    }
+    Auth::logout();
+    Session::forget('account');
+    echo json_encode(['success' => true, 'message' => 'Đăng xuất thành công. quý khách sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
     // else {
     //   echo json_encode(['success' => false, 'message' => 'Đăng xuất không thành công. quý khách sẽ được đưa về trang chủ', 'redirect'=> true, 'location' => '/']);
     // }

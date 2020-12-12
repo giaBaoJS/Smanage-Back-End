@@ -37,7 +37,7 @@ Route::post('/tim-lich-su', 'homeApi@findHistoryPost');
 Route::get('/lich-su-2', 'homeController@history2');
 Route::get('/lich-su', 'homeController@history')->middleware('auth');
 Route::post('/lich-su', 'homeApi@historyPost')->middleware('auth');
-Route::post('/dang-xuat', 'homeApi@logoutPost')->middleware('auth');
+Route::post('/dang-xuat', 'homeApi@logoutPost');
 // AUTH
 
 // COMMON
@@ -79,7 +79,8 @@ Route::get('/searchByTag/{key}', 'homeController@searchByTag');
 Route::get('/like','homeAPI@like');
 // LIKE - END
 
-
+Route::get('/auth/redirect/{provider}', 'homeController@redirect');
+Route::get('/callback/{provider}', 'homeController@callback');
 
 
 

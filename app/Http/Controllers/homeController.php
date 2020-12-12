@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Laravel\Socialite\Facades\Socialite;
 
 class homeController extends Controller
 {
@@ -34,6 +34,55 @@ class homeController extends Controller
     function __construct()
     {
         $this->showMien = mien::all();
+    }
+
+    public function redirect($provider)
+{
+    return Socialite::driver($provider)->redirect();
+}
+
+    public function callback($provider)
+    {
+
+        $getInfo = Socialite::driver($provider)->user();
+
+        $user = $this->createUser($getInfo,$provider);
+
+        // auth()->login($user);
+        // return $user;
+        $countLogin=userTable::where('email','=',$user->email)->where('provider_id','=',$user->provider_id)->get();
+        if (count($countLogin)>=1) {
+            session(['account' => $user]);
+            return redirect()->to('/');
+        }else{
+            return redirect()->to('/dang-nhap');
+        }
+        // $data = [
+        //     'email' => $user->email,
+        //     'provider_id' => $user->provider_id,
+        // ];
+        // if (Auth::attempt($data)) {
+        //     if (Auth::check()) {
+        //         if (Auth::check()) {
+        //             session(['account' => Auth::user()]);
+        //             return redirect()->to('/');
+        //         }
+        //     }
+        // }
+    }
+    function createUser($getInfo,$provider){
+
+    $user = userTable::where('provider_id', $getInfo->id)->first();
+
+    if (!$user) {
+        $user = userTable::create([
+            'name'     => $getInfo->name,
+            'email'    => $getInfo->email,
+            'provider' => $provider,
+            'provider_id' => $getInfo->id,
+        ]);
+    }
+    return $user;
     }
     // HOME
     public function index()
