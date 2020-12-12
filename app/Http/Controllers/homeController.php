@@ -280,20 +280,7 @@ class homeController extends Controller
       ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
       ->orderby('date_start', 'asc')
       ->whereRaw('Date(date_start) >= CURDATE()')
-      ->limit(12)
-      ->get();
-    if (isset($_GET['page'])) {
-      $gioihansp = ($_GET['page'] - 1) * 12;
-      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE()')
-        ->offset($gioihansp)
-        ->limit(12)
-        ->get();
-    }
-
+      ->paginate(6);
     return view('front-end/pages/tours/tours', ['showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
   }
   public function toursSearch($id)
@@ -393,8 +380,7 @@ class homeController extends Controller
   }
   public function news()
   {
-    $showMien = mien::all();
-    $showTinh = tinh::all();
+    $showTinh = tinh::get()->random(8);
     $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
       ->select('news.*', 'user.name', 'user.url_avatar')
       ->get();
@@ -406,12 +392,12 @@ class homeController extends Controller
       ->limit(3)
       ->get();
     $showComment = comment::all();
-    return view('front-end/pages/news/news', ['showMien' => $this->showMien, 'showComment' => $showComment, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showMien' => $showMien, 'showTinh' => $showTinh]);
+    return view('front-end/pages/news/news', ['showMien' => $this->showMien, 'showComment' => $showComment, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showTinh' => $showTinh]);
   }
   public function newsDetail($id)
   {
     $showMien = mien::all();
-    $showTinh = tinh::all();
+    $showTinh = tinh::get()->random(8);
     $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
       ->limit(3)
       ->get();

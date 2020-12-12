@@ -88,9 +88,6 @@
                 <div class="tag-news">
                   <h3>Tags</h3>
                   <div class="list-tag">
-                      @foreach ($showMien as $m)
-                        <a href="#">{{$m->name_mien}}</a>
-                      @endforeach
                       @foreach ($showTinh as $t)
                       <a href="#">{{$t->name_tinh}}</a>
                       @endforeach
