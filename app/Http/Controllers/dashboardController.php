@@ -620,7 +620,11 @@ class dashboardController extends Controller
 
     public function billTable()
     {
-        return view('admin/page/bill/bill-table');
+        $showBillDT=bill::join('user','bill.id_user','=','user.id_user')
+        ->join('payment','bill.id_payment','=','payment.id_payment')
+        ->where('bill.id_doitac','=',session('account')->id_doitac)
+        ->get();
+        return view('admin/page/bill/bill-table',['showBillDT'=>$showBillDT]);
     }
 
     // bill table ---------------------------------->

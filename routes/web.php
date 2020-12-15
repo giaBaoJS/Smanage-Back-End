@@ -156,7 +156,7 @@ Route::post('admin/updatetour', 'dashboardController@updateTour')->middleware('C
 // Trang tours -------------------- END
 
 // Trang bill --------------------
-Route::get('admin/bill', 'dashboardController@billTable')->middleware('CheckRole');
+Route::get('admin/bill', 'dashboardController@billTable')->middleware('CheckAdmins');
 // Trang bill -------------------- END
 
 // Trang news --------------------

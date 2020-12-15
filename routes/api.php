@@ -50,7 +50,9 @@ Route::GET('admin/chart', 'apiDashboard@chart');
 Route::GET('admin/chart-admin', 'apiDashboard@chartadmin');
 Route::GET('admin/showtinh/{id}', 'apiDashboard@showTinh');
 
-
+//BILL
+Route::GET('admin/billdetails/{id}', 'apiDashboard@billDetails');
+Route::GET('admin/delbill/{id}', 'apiDashboard@delBill');
 
 //END admin
 

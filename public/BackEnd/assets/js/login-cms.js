@@ -122,7 +122,59 @@ function oneCoupon(id) {
         },
     });
 }
-
+function showBillDetails(id) {
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/admin/billdetails/" + id,
+        success: function (params) {
+            if (params.gender_passenger==1) {
+                button="Nam";
+            } else {
+                button="Nữ";
+            }
+            var div="";
+            params.forEach(s => {
+                div+="<div style='display:flex;'><div style='margin-left:10px'><p><span>ID: </span># " +
+                s.id_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Tên: </span> " +
+                s.name_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Địa chỉ: </span> " +
+                s.address_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Số điện thoại: </span> " +
+                s.phone_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Quốc gia: </span> " +
+                s.country_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Passport: </span> " +
+                s.passport_passenger +
+                "</p></div><div style='margin-left:10px'><p><span>Giới tính: </span>" +
+                button +
+                "</p></div></div>";
+            });
+            $(".modal-body").html(div);
+        },
+    });
+}
+function delBill(id) {
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa nó?",
+        text: "Nhấp OK để xóa!",
+        icon: "warning",
+        showCancelButton: !0,
+        confirmButtonColor: "#3ddc97",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "OK !",
+    }).then(function (t) {
+        t.value &&
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/admin/delbill/" + id,
+                success: function (params) {
+                    if (params == 1) {
+                        alertify.success("Xóa đơn hàng thành công !");
+                        window.location.href = "/admin/bill";
+                    }
+                },
+            });
+    });
+}
 // delete Coupon-------------------
 function deleteCoupon(id, role) {
     if (role != 2) {

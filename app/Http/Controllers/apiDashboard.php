@@ -9,6 +9,8 @@ use App\doitacTable;
 use App\tintucTable;
 use App\gallerytable;
 use App\bill;
+use App\passenger;
+use App\schedule;
 use App\tinh;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -169,6 +171,19 @@ class apiDashboard extends Controller
                   $showCouponDt->save();
             }
         }
+    }
+
+    //BILL DETAILS
+    public function billDetails($id)
+    {
+        $showBillDetails=passenger::where('id_bill','=',$id)->get();
+        return $showBillDetails;
+    }
+    public function delBill($id)
+    {
+        passenger::where('id_bill','=',$id)->delete();
+        bill::find($id)->delete();
+        return 1;
     }
     // coupon -----------------
 
