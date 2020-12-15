@@ -183,7 +183,7 @@ jQuery(document).ready(function ($) {
     if ($(".flatpickr-input").length) {
         const toDate = flatpickr("#to_date", {
             disableMobile: "true",
-            dateFormat: "d/m/Y",
+            dateFormat: "d-m-Y",
             // enableTime: true,
             time_24hr: true,
             locale: "vn",
@@ -193,7 +193,7 @@ jQuery(document).ready(function ($) {
         });
         const fromDate = flatpickr("#from_date", {
             disableMobile: "true",
-            dateFormat: "d/m/Y ",
+            dateFormat: "d-m-Y ",
             // enableTime: true,
             time_24hr: true,
             locale: "vn",

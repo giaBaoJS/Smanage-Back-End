@@ -28,7 +28,7 @@
 										</div>
 									</div>
 									<div class="filter-form">
-										<form class="form" action="#">
+										<form class="form" action="{{ URL::to('/timkiem') }}" method="GET">
 											<div class="wrapper-items-form">
 												<div class="item">
 													<i
@@ -39,9 +39,13 @@
 														<label for="diemden">Điểm đến</label>
 														<input
 															id="diemden"
-															type="text"
+                                                            type="text"
+                                                            name="diemden"
 															placeholder="Nơi mà bạn muốn đến?"
-														/>
+                                                        />
+                                                        @error('diemden')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 												</div>
 												<ul class="dropdown-place">
@@ -61,7 +65,10 @@
 															placeholder="dd/mm/yyyy"
 															name="from_date"
 															id="from_date"
-														/>
+                                                        />
+                                                        @error('from-date')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 													<div class="arrow-date">
 														<i class="fa fa-angle-down"></i>
@@ -79,7 +86,10 @@
 															name="to_date"
 															id="to_date"
 															placeholder="dd/mm/yyyy"
-														/>
+                                                        />
+                                                        @error('to-date')
+                                                        <p style="color:red">{{$message}}</p>
+                                                        @enderror
 													</div>
 													<div class="arrow-date">
 														<i class="fa fa-angle-down"></i>
@@ -214,7 +224,7 @@
 													<label for ="miennam">Miền nam</label>
 											</ul>
 										</div>
-									</div>
+                                    </div>
 								</div>
 							</div>
 

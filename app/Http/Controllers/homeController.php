@@ -37,24 +37,24 @@ class homeController extends Controller
     }
 
     public function redirect($provider)
-{
-    return Socialite::driver($provider)->redirect();
-}
+    {
+        return Socialite::driver($provider)->redirect();
+    }
 
     public function callback($provider)
     {
 
         $getInfo = Socialite::driver($provider)->user();
 
-        $user = $this->createUser($getInfo,$provider);
+        $user = $this->createUser($getInfo, $provider);
 
         // auth()->login($user);
         // return $user;
-        $countLogin=userTable::where('email','=',$user->email)->where('provider_id','=',$user->provider_id)->get();
-        if (count($countLogin)>=1) {
+        $countLogin = userTable::where('email', '=', $user->email)->where('provider_id', '=', $user->provider_id)->get();
+        if (count($countLogin) >= 1) {
             session(['account' => $user]);
             return redirect()->to('/');
-        }else{
+        } else {
             return redirect()->to('/dang-nhap');
         }
         // $data = [
@@ -70,19 +70,20 @@ class homeController extends Controller
         //     }
         // }
     }
-    function createUser($getInfo,$provider){
+    function createUser($getInfo, $provider)
+    {
 
-    $user = userTable::where('provider_id', $getInfo->id)->first();
+        $user = userTable::where('provider_id', $getInfo->id)->first();
 
-    if (!$user) {
-        $user = userTable::create([
-            'name'     => $getInfo->name,
-            'email'    => $getInfo->email,
-            'provider' => $provider,
-            'provider_id' => $getInfo->id,
-        ]);
-    }
-    return $user;
+        if (!$user) {
+            $user = userTable::create([
+                'name'     => $getInfo->name,
+                'email'    => $getInfo->email,
+                'provider' => $provider,
+                'provider_id' => $getInfo->id,
+            ]);
+        }
+        return $user;
     }
     // HOME
     public function index()
@@ -260,297 +261,313 @@ class homeController extends Controller
         return view('front-end/pages/contact', ['showMien' => $this->showMien]);
     }
 
-  //START PARTNERS
-  public function partners() {
-    return view('front-end/pages/partners/partners', ['showMien' => $this->showMien]);
-  }
-  public function partnersResignDemo() {
-    return view('front-end/pages/partners/partners-resign-demo', ['showMien' => $this->showMien]);
-  }
-  public function partnersResign() {
-    return view('front-end/pages/partners/partners-resign', ['showMien' => $this->showMien]);
-  }
-  public function partnersCheckout() {
-    return view('front-end/pages/partners/partners-checkout', ['showMien' => $this->showMien]);
-  }
-  public function partnersDetail($id)
-  {
-    $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->orderby('date_start', 'asc')
-      ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
-      ->get();
-    $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->orderby('date_start', 'asc')
-      ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
-      ->paginate(12);
-    $infoPartner = doitacTable::join('user', 'user.id_doitac', '=', 'doitac.id_doitac')
-      ->select('doitac.*', 'user.url_avatar', 'user.role')
-      ->where('doitac.id_doitac', '=', $id)
-      ->first();
-    return view('front-end/pages/partners/partners-detail', ['showMien' => $this->showMien, 'showMien' => $this->showMien, 'infoPartner' => $infoPartner, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
-  }
-  public function checkOutPart() {
-    $showPayment = payment::all();
-    return view('front-end/pages/partners/partners-checkout', ['showMien' => $this->showMien, 'showMien' => $this->showMien, 'showPayment' => $showPayment]);
-  }
-  //END Part
-  public function tours() {
-    $title="Tour Du Lịch";
-    $showComment = comment_tour::all();
-    $showTinh = tinh::all();
-    $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->orderby('date_start', 'asc')
-      ->whereRaw('Date(date_start) >= CURDATE()')
-      ->get();
-    $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-      ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->orderby('date_start', 'asc')
-      ->whereRaw('Date(date_start) >= CURDATE()')
-      ->paginate(12);
-    if (isset($_GET['mien'])) {
-      $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
-        ->get();
-      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
-        ->paginate(12)
-        ->appends(request()->except('page'));
-        $title="Tour theo miền";
-      }
-    if (isset($_GET['tinh'])) {
-      $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
-        ->get();
-      $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
-        ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-        ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-        ->orderby('date_start', 'asc')
-        ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
-        ->paginate(12)
-        ->appends(request()->except('page'));
-      }
-    return view('front-end/pages/tours/tours', ['title'=>$title,'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
-  }
-  public function toursSearch($id)
+    //START PARTNERS
+    public function partners()
     {
-        if ($id==1) {
-            $title="Sắp sếp theo: Giá Tăng Dần";
-            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
-            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','asc')->whereRaw('Date(date_start) >= CURDATE()')
+        return view('front-end/pages/partners/partners', ['showMien' => $this->showMien]);
+    }
+    public function partnersResignDemo()
+    {
+        return view('front-end/pages/partners/partners-resign-demo', ['showMien' => $this->showMien]);
+    }
+    public function partnersResign()
+    {
+        return view('front-end/pages/partners/partners-resign', ['showMien' => $this->showMien]);
+    }
+    public function partnersCheckout()
+    {
+        return view('front-end/pages/partners/partners-checkout', ['showMien' => $this->showMien]);
+    }
+    public function partnersDetail($id)
+    {
+        $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
+            ->get();
+        $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw("Date(date_start) >= CURDATE() and tours.id_doitac = $id")
             ->paginate(12);
+        $infoPartner = doitacTable::join('user', 'user.id_doitac', '=', 'doitac.id_doitac')
+            ->select('doitac.*', 'user.url_avatar', 'user.role')
+            ->where('doitac.id_doitac', '=', $id)
+            ->first();
+        return view('front-end/pages/partners/partners-detail', ['showMien' => $this->showMien, 'showMien' => $this->showMien, 'infoPartner' => $infoPartner, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
+    }
+    public function checkOutPart()
+    {
+        $showPayment = payment::all();
+        return view('front-end/pages/partners/partners-checkout', ['showMien' => $this->showMien, 'showMien' => $this->showMien, 'showPayment' => $showPayment]);
+    }
+    //END Part
+    public function tours()
+    {
+        $title = "Tour Du Lịch";
+        $showComment = comment_tour::all();
+        $showTinh = tinh::all();
+        $tagTours = tour::select('tours.tag')->where('tours.tag', '!=', '')->orderby('tours.date_start', 'asc')->get();
+        $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw('Date(date_start) >= CURDATE()')
+            ->get();
+        $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(12);
+        if (isset($_GET['mien'])) {
+            $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+                ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+                ->orderby('date_start', 'asc')
+                ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
+                ->get();
+            $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+                ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+                ->orderby('date_start', 'asc')
+                ->whereRaw('Date(date_start) >= CURDATE() and tours.id_mien=' . $_GET['mien'])
+                ->paginate(12)
+                ->appends(request()->except('page'));
+            $title = "Tour theo miền";
         }
-        if ($id==2) {
-            $title="Sắp sếp theo: Giá Giảm Dần";
-            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
-            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('price','desc')->whereRaw('Date(date_start) >= CURDATE()')
-            ->paginate(12);
+        if (isset($_GET['tinh'])) {
+            $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+                ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+                ->orderby('date_start', 'asc')
+                ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
+                ->get();
+            $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+                ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+                ->orderby('date_start', 'asc')
+                ->whereRaw('Date(date_start) >= CURDATE() and tours.id_tinh=' . $_GET['tinh'])
+                ->paginate(12)
+                ->appends(request()->except('page'));
         }
-        if ($id==3) {
-            $title="Sắp sếp theo: Tour mới nhất";
-            $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
-            ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->orderby('id_tour','desc')->whereRaw('Date(date_start) >= CURDATE()')
-            ->paginate(12);
+        return view('front-end/pages/tours/tours', ['title' => $title, 'tagTours' => $tagTours, 'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit]);
+    }
+    public function toursSearch($id)
+    {
+        if ($id == 1) {
+            $title = "Sắp sếp theo: Giá Tăng Dần";
+            $showTour = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')->orderby('price', 'asc')->whereRaw('Date(date_start) >= CURDATE()')
+                ->paginate(12);
+        }
+        if ($id == 2) {
+            $title = "Sắp sếp theo: Giá Giảm Dần";
+            $showTour = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')->orderby('price', 'desc')->whereRaw('Date(date_start) >= CURDATE()')
+                ->paginate(12);
+        }
+        if ($id == 3) {
+            $title = "Sắp sếp theo: Tour mới nhất";
+            $showTour = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+                ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')->orderby('id_tour', 'desc')->whereRaw('Date(date_start) >= CURDATE()')
+                ->paginate(12);
         }
         $showComment = comment_tour::all();
         $showTinh = tinh::all();
-        $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
-        ->join('mien','mien.id_mien','=','tours.id_mien')
-        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
-        ->orderby('date_start','asc')
-        ->whereRaw('Date(date_start) >= CURDATE()')
-        ->get();
-        return view('front-end/pages/tours/tours',['title'=>$title,'showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
+        $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw('Date(date_start) >= CURDATE()')
+            ->get();
+        return view('front-end/pages/tours/tours', ['title' => $title, 'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showTour]);
     }
-  public function toursDetail($id)
-  {
-    $like = like_table::where([['id_tn','=',$id],['type','=','1']])->get();
-    $toursDetail = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
-      ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
-      ->where('id_tour', '=', $id)
-      ->first();
-    $schedule = schedule::where('id_tour', '=', $id)->first();
-    $infoPartner = doitacTable::join('user', 'doitac.id_doitac', '=', 'user.id_doitac')
-      ->select('doitac.name', 'user.url_avatar')
-      ->where('doitac.id_doitac', '=', $toursDetail->id_doitac)
-      ->first();
-    $showComment = comment_tour::join('user', 'user.id_user', '=', 'comment_tour.id_user')
-      ->select('user.url_avatar', 'user.name', 'comment_tour.created_at', 'comment_tour.content', 'comment_tour.rating')
-      ->where('comment_tour.id_tour', '=', $id)
-      ->orderby('id_comment_tour', 'desc')
-      ->get();
-    $showCommentLimit = comment_tour::join('user', 'user.id_user', '=', 'comment_tour.id_user')
-      ->select('user.url_avatar', 'user.name', 'comment_tour.created_at', 'comment_tour.content', 'comment_tour.rating')
-      ->where('comment_tour.id_tour', '=', $id)
-      ->orderby('id_comment_tour', 'desc')
-      ->limit(4)
-      ->get();
-    return view('front-end/pages/tours/tours-detail', ['like'=>$like,'showMien' => $this->showMien, 't' => $toursDetail, 'schedule' => $schedule, 'infoPartner' => $infoPartner, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
-  }
-  public function searchNews() {
-    if ($_GET && $_GET['keyword']) {
-      $keyword = trim(htmlspecialchars(addslashes($_GET['keyword'])));
-      $showMien = mien::all();
-      $showTinh = tinh::all();
-      $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')->select('news.*', 'user.name', 'user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->get();
-      $showNewsLimit = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')->select('news.*', 'user.name', 'user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->limit(6)->get();
-      $showNewsHighlights = tintucTable::orderby('id_news', 'desc')->limit(3)->get();
-      return view('front-end/pages/news/news', ['showMien' => $this->showMien, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showMien' => $showMien, 'showTinh' => $showTinh]);
+    public function toursDetail($id)
+    {
+        $like = like_table::where([['id_tn', '=', $id], ['type', '=', '1']])->get();
+        $toursDetail = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->where('id_tour', '=', $id)
+            ->first();
+        $schedule = schedule::where('id_tour', '=', $id)->first();
+        $infoPartner = doitacTable::join('user', 'doitac.id_doitac', '=', 'user.id_doitac')
+            ->select('doitac.name', 'user.url_avatar')
+            ->where('doitac.id_doitac', '=', $toursDetail->id_doitac)
+            ->first();
+        $showComment = comment_tour::join('user', 'user.id_user', '=', 'comment_tour.id_user')
+            ->select('user.url_avatar', 'user.name', 'comment_tour.created_at', 'comment_tour.content', 'comment_tour.rating')
+            ->where('comment_tour.id_tour', '=', $id)
+            ->orderby('id_comment_tour', 'desc')
+            ->get();
+        $showCommentLimit = comment_tour::join('user', 'user.id_user', '=', 'comment_tour.id_user')
+            ->select('user.url_avatar', 'user.name', 'comment_tour.created_at', 'comment_tour.content', 'comment_tour.rating')
+            ->where('comment_tour.id_tour', '=', $id)
+            ->orderby('id_comment_tour', 'desc')
+            ->limit(4)
+            ->get();
+        return view('front-end/pages/tours/tours-detail', ['like' => $like, 'showMien' => $this->showMien, 't' => $toursDetail, 'schedule' => $schedule, 'infoPartner' => $infoPartner, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
     }
-    return redirect('tin-tuc');
-  }
-  public function news() {
-    $showMien = mien::all();
-    $showTinh = tinh::all()->random(6);
-    $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
-      ->select('news.*', 'user.name', 'user.url_avatar')
-      ->get();
-    $showNewsLimit = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
-      ->select('news.*', 'user.name', 'user.url_avatar')
-      ->limit(6)
-      ->get();
-    $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
-      ->limit(3)
-      ->get();
-    $showComment = comment::all();
-    return view('front-end/pages/news/news', ['showMien' => $this->showMien, 'showComment' => $showComment, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showMien' => $showMien, 'showTinh' => $showTinh]);
-  }
-  public function newsDetail($id)
-  {
-    $like = like_table::where([['id_tn','=',$id],['type','=','0']])->get();
-    $showMien = mien::all();
-    $showTinh = tinh::all()->random(6);
-    $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
-      ->limit(3)
-      ->get();
-    $showOneNew = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
-      ->select('news.*', 'user.name', 'user.url_avatar')
-      ->find($id);
-    tintucTable::where('id_news', '=', $id)->update(['views' => tintucTable::raw('views+1')]);
-    $showComment = comment::join('user', 'comment.id_user', '=', 'user.id_user')
-      ->select('user.url_avatar', 'user.name', 'comment.created_at', 'comment.content', 'comment.rating')
-      ->where('comment.id_news', '=', $id)
-      ->orderby('id_comment', 'desc')
-      ->get();
-    $showCommentLimit = comment::leftJoin('user', 'comment.id_user', '=', 'user.id_user')
-      ->select('user.url_avatar', 'user.name', 'comment.created_at', 'comment.content', 'comment.rating')
-      ->where('comment.id_news', '=', $id)
-      ->orderby('id_comment', 'desc')
-      ->limit(4)
-      ->get();
-    return view('front-end/pages/news/news-detail', ['like'=>$like,'showMien' => $this->showMien, 'showOneNew' => $showOneNew, 'showMien' => $showMien, 'showTinh' => $showTinh, 'showNewsHighlights' => $showNewsHighlights, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
-  }
-  public function gallery() {
-    return view('front-end/pages/gallery', ['showMien' => $this->showMien]);
-  }
-
-  public function timkiem(Request $request) {
-      $validate = $request->validate([
-          'diemden' => 'required|string',
-          'from_date' => 'required|string',
-          'to_date' => 'required|string',
-      ], [
-          'diemden.required' => 'Không được để trống điểm đến',
-          'from_date.required' => 'Bạn cần chọn ngày khởi hành',
-          'to_date.required' => 'Bạn cần chọn ngày kết thúc'
-      ]);
-      $showMien = mien::all();
-      $showTinh = tinh::all();
-
-      $search = $request->value;
-      $nametour = $request->diemden;
-      $datestart = $request->from_date;
-      $dateend = $request->to_date;
-      $title="Kết quả tìm kiếm: ".$nametour;
-      $keyword = trim(htmlspecialchars(addslashes($nametour)));
-      $start = date('Y-m-d', strtotime($datestart));
-      $end = date('Y-m-d', strtotime($dateend));
-      // date('d/m/Y: H:i:s',strtotime($c->created_at));
-      // return date('Y-m-d',$datestart);
-
-      $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
-          ->join('mien','mien.id_mien','=','tours.id_mien')
-          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
-          ->where('tours.name_tour', 'like', '%' . $keyword . '%')
-          // ->whereDate('tours.date_start', '>=', '2-12-2021')
-          ->get();
-      $showToursLimit = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
-          ->join('mien','mien.id_mien','=','tours.id_mien')
-          ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
-          ->where('tours.name_tour', 'like', '%' . $keyword . '%')
-          // ->whereDate('tours.date_start', '>=', '2-12-2021')
-          // ->whereDate('tours.date_end', '<=', '30-12-2021')
-          ->orderby('date_start', 'asc')
-          ->paginate(12);
-      $count = count($showToursTotal);
-      $error = "Không tìm thấy tour bạn cần tìm";
-      if ($count === 0) {
-        // return redirect('/');
-          return view('front-end/pages/tours/tours', [
-              'title'=>$error,
-              'showMien' => $showMien, 'showTinh' => $showTinh,
-              'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search, 'error' => $error
-          ]);
-      } else {
-          return view('front-end/pages/tours/tours', [
-            'title'=>$title,
-              'showMien' => $showMien, 'showTinh' => $showTinh,
-              'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search
-          ]);
-      }
+    public function searchNews()
+    {
+        if ($_GET && $_GET['keyword']) {
+            $keyword = trim(htmlspecialchars(addslashes($_GET['keyword'])));
+            $showMien = mien::all();
+            $showTinh = tinh::all();
+            $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')->select('news.*', 'user.name', 'user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->get();
+            $showNewsLimit = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')->select('news.*', 'user.name', 'user.url_avatar')->where('news.title', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->orWhere('news.short_content', 'LIKE', '%' . mb_strtolower($keyword, 'UTF-8') . '%')->limit(6)->get();
+            $showNewsHighlights = tintucTable::orderby('id_news', 'desc')->limit(3)->get();
+            return view('front-end/pages/news/news', ['showMien' => $this->showMien, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showMien' => $showMien, 'showTinh' => $showTinh]);
+        }
+        return redirect('tin-tuc');
     }
-  public function searchByTag($keyword){
-      $showMien = mien::all();
-      $showTinh = tinh::all();
+    public function news()
+    {
+        $tagTours = tour::select('tours.tag')->where('tours.tag', '>', "")->orderby('tours.id_tour')->get();
+        $showMien = mien::all();
+        $showTinh = tinh::all()->random(6);
+        $showNewsTotal = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
+            ->select('news.*', 'user.name', 'user.url_avatar')
+            ->get();
+        $showNewsLimit = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
+            ->select('news.*', 'user.name', 'user.url_avatar')
+            ->limit(6)
+            ->get();
+        $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
+            ->limit(3)
+            ->get();
+        $showComment = comment::all();
+        return view('front-end/pages/news/news', ['tagTours' => $tagTours, 'showMien' => $this->showMien, 'showComment' => $showComment, 'showNewsTotal' => $showNewsTotal, 'showNewsLimit' => $showNewsLimit, 'showNewsHighlights' => $showNewsHighlights, 'showMien' => $showMien, 'showTinh' => $showTinh]);
+    }
+    public function newsDetail($id)
+    {
+        $like = like_table::where([['id_tn', '=', $id], ['type', '=', '0']])->get();
+        $showMien = mien::all();
+        $showTinh = tinh::all()->random(6);
+        $showNewsHighlights = tintucTable::orderby('id_news', 'desc')
+            ->limit(3)
+            ->get();
+        $showOneNew = tintucTable::join('user', 'news.id_user', '=', 'user.id_user')
+            ->select('news.*', 'user.name', 'user.url_avatar')
+            ->find($id);
+        tintucTable::where('id_news', '=', $id)->update(['views' => tintucTable::raw('views+1')]);
+        $showComment = comment::join('user', 'comment.id_user', '=', 'user.id_user')
+            ->select('user.url_avatar', 'user.name', 'comment.created_at', 'comment.content', 'comment.rating')
+            ->where('comment.id_news', '=', $id)
+            ->orderby('id_comment', 'desc')
+            ->get();
+        $showCommentLimit = comment::leftJoin('user', 'comment.id_user', '=', 'user.id_user')
+            ->select('user.url_avatar', 'user.name', 'comment.created_at', 'comment.content', 'comment.rating')
+            ->where('comment.id_news', '=', $id)
+            ->orderby('id_comment', 'desc')
+            ->limit(4)
+            ->get();
+        return view('front-end/pages/news/news-detail', ['like' => $like, 'showMien' => $this->showMien, 'showOneNew' => $showOneNew, 'showMien' => $showMien, 'showTinh' => $showTinh, 'showNewsHighlights' => $showNewsHighlights, 'showComment' => $showComment, 'showCommentLimit' => $showCommentLimit]);
+    }
+    public function gallery()
+    {
+        return view('front-end/pages/gallery', ['showMien' => $this->showMien]);
+    }
 
-      $showToursTotal = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
-          ->get();
-      $showToursLimit = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
-          // ->whereDate('tours.date_end', '<=', '30-12-2021')
-          ->orderby('date_start', 'asc')
-          ->get();
-      $count = count($showToursTotal);
-      if ($count === 0) {
-          return view('front-end/pages/tours/tour-tim-kiem', [
-              'showMien' => $showMien, 'showTinh' => $showTinh,
-              'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit
-          ]);
-      } else {
-          return view('front-end/pages/tours/tour-tim-kiem', [
-              'showMien' => $showMien, 'showTinh' => $showTinh,
-              'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit
-          ]);
-      }
-  }
-  public function starSearch($id)
-  {
-    $title="Tìm kiếm theo Đánh Giá";
-    $showTour=tour::join('mien','mien.id_mien','=','tours.id_mien')
-        ->join('tinh','tinh.id_tinh','=','tours.id_tinh')->where('rate','=',$id)->whereRaw('Date(date_start) >= CURDATE()')
-        ->paginate(12);
-    $showComment = comment_tour::all();
-    $showTinh = tinh::all();
-    $showToursTotal = tour::join('doitac','doitac.id_doitac','=','tours.id_doitac')
-    ->join('mien','mien.id_mien','=','tours.id_mien')
-    ->join('tinh','tinh.id_tinh','=','tours.id_tinh')
-    ->orderby('date_start','asc')
-    ->whereRaw('Date(date_start) >= CURDATE()')
-    ->get();
-    return view('front-end/pages/tours/tours',['title'=>$title,'showMien'=>$this->showMien,'showTinh'=>$showTinh,'showComment'=>$showComment, 'showToursTotal'=>$showToursTotal, 'showToursLimit'=>$showTour]);
-  }
+    public function timkiem(Request $request)
+    {
+        $validate = $request->validate([
+            'diemden' => 'required|string',
+            'from_date' => 'required|string',
+            'to_date' => 'required|string',
+        ], [
+            'diemden.required' => 'Không được để trống điểm đến',
+            'from_date.required' => 'Bạn cần chọn ngày khởi hành',
+            'to_date.required' => 'Bạn cần chọn ngày kết thúc'
+        ]);
+        $showMien = mien::all();
+        $showTinh = tinh::all();
+
+        $search = $request->value;
+        $nametour = $request->diemden;
+        $datestart = $request->from_date;
+        $dateend = $request->to_date;
+        $title = "Kết quả tìm kiếm: " . $nametour;
+        $keyword = trim(htmlspecialchars(addslashes($nametour)));
+        $start = date('Y-m-d', strtotime($datestart));
+        $end = date('Y-m-d', strtotime($dateend));
+        // date('d/m/Y: H:i:s',strtotime($c->created_at));
+        // return date('Y-m-d',$datestart);
+
+        $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->where('tours.name_tour', 'like', '%' . $keyword . '%')
+            ->where('tours.date_start', '>=', $start)->where('tours.date_end', '<=', $end)
+            ->get();
+        $showToursLimit = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->where('tours.name_tour', 'like', '%' . $keyword . '%')
+            ->where('tours.date_start', '>=', $start)->where('tours.date_end', '<=', $end)
+            ->orderby('date_start', 'asc')
+            ->paginate(12);
+        $count = count($showToursTotal);
+        $error = "Không tìm thấy tour bạn cần tìm";
+        if ($count === 0) {
+            // return redirect('/');
+            return view('front-end/pages/tours/tours', [
+                'title' => $error,
+                'showMien' => $showMien, 'showTinh' => $showTinh,
+                'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search, 'error' => $error
+            ]);
+        } else {
+            return view('front-end/pages/tours/tours', [
+                'title' => $title,
+                'showMien' => $showMien, 'showTinh' => $showTinh,
+                'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit, 'showTours' => $search
+            ]);
+        }
+    }
+    public function searchByTag($keyword)
+    {
+        $showMien = mien::all();
+        $showTinh = tinh::all();
+        $title = "Kết quả tìm kiếm: " . $keyword;
+        $tagTours = tour::select('tours.tag')->where('tours.tag', '!=', "")->orderby('tours.id_tour')->get();
+        $showToursTotal = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
+            ->get();
+        $showToursLimit = tour::where('tours.name_tour', 'like', '%' . $keyword . '%')
+            // ->whereDate('tours.date_end', '<=', '30-12-2021')
+            ->orderby('date_start', 'asc')
+            ->get();
+        $count = count($showToursTotal);
+        if ($count === 0) {
+            return view('front-end/pages/tours/tours-by-mien', [
+                'showMien' => $showMien, 'showTinh' => $showTinh,
+                'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit,
+                'title' => $title, 'tagTours' => $tagTours
+            ]);
+        } else {
+            return view('front-end/pages/tours/tours-by-mien', [
+                'showMien' => $showMien, 'showTinh' => $showTinh,
+                'showToursTotal' => $showToursTotal, 'showToursLimit' => $showToursLimit,
+                'title' => $title, 'tagTours' => $tagTours
+            ]);
+        }
+    }
+    public function starSearch($id)
+    {
+        $title = "Tìm kiếm theo Đánh Giá";
+        $showTour = tour::join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')->where('rate', '=', $id)->whereRaw('Date(date_start) >= CURDATE()')
+            ->paginate(12);
+        $showComment = comment_tour::all();
+        $showTinh = tinh::all();
+        $tagTours = tour::select('tours.tag')->where('tours.tag', '!=', "")->orderby('tours.id_tour')->get();
+        $showToursTotal = tour::join('doitac', 'doitac.id_doitac', '=', 'tours.id_doitac')
+            ->join('mien', 'mien.id_mien', '=', 'tours.id_mien')
+            ->join('tinh', 'tinh.id_tinh', '=', 'tours.id_tinh')
+            ->orderby('date_start', 'asc')
+            ->whereRaw('Date(date_start) >= CURDATE()')
+            ->get();
+        return view('front-end/pages/tours/tours', ['title' => $title, 'tagTours' => $tagTours, 'showMien' => $this->showMien, 'showTinh' => $showTinh, 'showComment' => $showComment, 'showToursTotal' => $showToursTotal, 'showToursLimit' => $showTour]);
+    }
 }

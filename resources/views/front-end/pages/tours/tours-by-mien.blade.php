@@ -229,42 +229,17 @@
 										</div>
 									</div>
 									<div class="item">
-										<h4>Miền</h4>
+										<h4>Thẻ</h4>
 										<div class="two-ele">
 											<ul>
-												<li>
-													<label>Miền bắc</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
+                                                @foreach($tagTours as $t)
+                                                <li>
+                                                   <a href="{{URL::to('/searchByTag/'.$t->tag)}}">{{$t->tag}}</a>
 												</li>
-												<li>
-													<label>Miền trung</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
-												</li>
-												<li>
-													<label>Miền nam</label>
-													<input
-														type="checkbox"
-														name="review_score"
-														value="5"
-														data-type="star-rate"
-													/>
-													<span class="fcheckbox"></span>
-												</li>
+                                                @endforeach
 											</ul>
 										</div>
-									</div>
+                                    </div>
 								</div>
 							</div>
 

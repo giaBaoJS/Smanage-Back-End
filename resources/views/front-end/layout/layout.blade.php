@@ -91,7 +91,7 @@
                   </a>
                   <ul class="submenu">
                     @if(session('account')->role)
-                     <li><a href="{{url('/admin')}}">Trang quản lý</a></li> 
+                     <li><a href="{{url('/admin')}}">Trang quản lý</a></li>
                     @endif
                     <li><a href="{{url('/cap-nhat-tai-khoan')}}">Thông tin cá nhân</a></li>
                     <li><a href="{{url('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
@@ -131,7 +131,7 @@
           <div class="col-md-3">
             <h3>{{$m->name_mien}}</h3>
             <?php
-            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get()->random(6);
+            $showTinh = DB::table('tinh')->where('id_mien', '=', $m->id_mien)->get()->random(4);
             ?>
             <ul class="list-mien">
               <?php
